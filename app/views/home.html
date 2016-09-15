@@ -1,0 +1,18 @@
+<div>
+	<div ui-view>
+	</div>
+	<div ng-if='Display_courses'>
+		Display the courses purchased
+	</div>
+	<div ng-if='Display_tests'>
+		Display the tests available. Currently all tests available
+		<div class='list-group'>
+			<button type='button' class='list-group-item btn-block' ng-repeat='test in Available_tests'>
+				<div class='btn btn-block' ng-click='loadPaper(test.id)'>
+					{{test.name}}
+				</div>
+			</button>
+		</ul>
+	</div>
+	
+</div>
