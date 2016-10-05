@@ -12,7 +12,7 @@ angular.module('testingFrontendApp')
   	function ($state,$rootScope,$scope) {
     $scope.init = function(){
     	$rootScope.baseURL = 'http://localhost:8000/';
-    	$scope.uirouterDebug();
+    	//$scope.uirouterDebug();
     	$state.go('home');
     };
     $scope.uirouterDebug = function(){

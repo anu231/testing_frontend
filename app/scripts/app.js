@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular
+var testing_app = angular
   .module('testingFrontendApp', [
     'ngAnimate',
     'ngAria',
@@ -18,9 +18,11 @@ angular
     'ngTouch',
     'ui.router',
     'ui.bootstrap',
-    'restangular'
-  ])
-  .config(function($stateProvider,$urlRouterProvider) {
+    'restangular',
+    'snap'
+  ]);
+
+testing_app.config(function($stateProvider,$urlRouterProvider) {
   	$stateProvider
     .state('home', {
       url: "/home",
@@ -31,9 +33,33 @@ angular
       url: "/paper",
       templateUrl: "views/paper.html",
       controller:"PaperCtrl",
+    })
+    .state('home.paper.attempt', {
+      url: "/attempt",
+      templateUrl: "views/attempt.html",
+      controller:"AttemptCtrl",
     });
 
   })
-  .config(function ($httpProvider) {
+
+var homeState = {
+  name :'home',
+  resolve:{
+    availbale_papers :['paper',function(paper){
+      return paper.getAvailablePapers();
+    }],
+    attemtped_papers :['paper',function(paper){
+      return paper.getAttemptedPapers();
+    }]
+  },
+  url: "/home",
+  templateUrl: "views/home.html",
+  controller:"HomeCtrl",
+}
+
+testing_app.config(function ($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
+	})
+testing_app.config(function(RestangularProvider) {
+    RestangularProvider.setBaseUrl('http://localhost:8000/');
 	});

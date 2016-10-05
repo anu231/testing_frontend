@@ -17,7 +17,7 @@ angular.module('testingFrontendApp')
     		//get the tests available
     		//TODO - only available tests
         $scope.Display_tests = true;
-        $scope.Display_paper =  true;
+        $scope.Display_paper =  false;
     		$http.get($rootScope.baseURL+'papers/')
     		.then(function(resp){
     			$scope.Available_tests = resp.data;
