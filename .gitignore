@@ -1,4 +1,7 @@
 /node_modules
+/sass
+/stylesheets
+Gruntfile.js
 /dist
 /.tmp
 /.sass-cache
