@@ -18,6 +18,7 @@ angular.module('testingFrontendApp')
           controller:['$uibModalInstance','paper','$scope','$state', function($uibModalInstance,paper,$scope,$state){
             $scope.paper = paper;
             $scope.startPaper = function(){
+              $uibModalInstance.close();
               $state.go('home.attempt',{'pid':paper.id});
             }
           }],
