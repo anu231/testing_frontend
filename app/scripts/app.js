@@ -52,7 +52,8 @@ var attemptState = {
 
 testing_app.config(function($stateProvider,$urlRouterProvider) {
   	$stateProvider
-    .state(homeState);
+    .state(homeState)
+    .state(attemptState);
   })
 
 
