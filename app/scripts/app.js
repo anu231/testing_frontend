@@ -42,6 +42,7 @@ var attemptState = {
   resolve:{
     questions : ['$stateParams',function($stateParams){
       //get all the questions and associated comprehension data
+
     }],
   },
   url:'/attempt/:pid',
@@ -60,5 +61,5 @@ testing_app.config(function ($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
 	})
 testing_app.config(function(RestangularProvider) {
-    RestangularProvider.setBaseUrl('http://localhost:8000/');
+    RestangularProvider.setBaseUrl('http://192.168.1.19:8000/');
 	});
