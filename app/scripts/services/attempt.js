@@ -14,12 +14,12 @@ angular.module('testingFrontendApp')
     this.attempt_url = '/attempts/';
     /* sets the specified attempt as the current attempt */
     this.setAttempt = function(attmpt){
-    	attempt = attmpt;
+    	this.attempt = attmpt;
     };
     /* Begins a new attempt on the specified paper */
     this.startAttempt = function(paper){
     	var attempt_data = {'paper':paper};
-    	return $http.post(attempt_url,data);
+    	return $http.post(this.attempt_url,data);
     };
     /* ends the currently going on attempt */
     this.finishAttempt = function(){
@@ -30,7 +30,7 @@ angular.module('testingFrontendApp')
     If none specified then the current attempt */
     this.getAttempt = function(attmpt){
     	if (attmpt!=undefined){
-    		attempt = attmpt;
+    		this.attempt = attmpt;
     	}
     };
     /* Saves the complete current attempt */
