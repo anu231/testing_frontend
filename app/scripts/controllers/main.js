@@ -11,7 +11,7 @@ angular.module('testingFrontendApp')
   .controller('MainCtrl',['$state','$rootScope','$scope', 
   	function ($state,$rootScope,$scope) {
     $scope.init = function(){
-    	$rootScope.baseURL = 'http://localhost:8000/';
+    	//$rootScope.baseURL = 'http://localhost:8000/';
     	//$scope.uirouterDebug();
     	$state.go('home');
     };

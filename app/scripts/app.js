@@ -22,33 +22,13 @@ var testing_app = angular
     'snap'
   ]);
 
-testing_app.config(function($stateProvider,$urlRouterProvider) {
-  	$stateProvider
-    .state('home', {
-      url: "/home",
-      templateUrl: "views/home.html",
-      controller:"HomeCtrl",
-    })
-    .state('home.paper', {
-      url: "/paper",
-      templateUrl: "views/paper.html",
-      controller:"PaperCtrl",
-    })
-    .state('home.paper.attempt', {
-      url: "/attempt",
-      templateUrl: "views/attempt.html",
-      controller:"AttemptCtrl",
-    });
-
-  })
-
 var homeState = {
   name :'home',
   resolve:{
-    availbale_papers :['paper',function(paper){
+    available_papers :['paper',function(paper){
       return paper.getAvailablePapers();
     }],
-    attemtped_papers :['paper',function(paper){
+    attempted_papers :['paper',function(paper){
       return paper.getAttemptedPapers();
     }]
   },
@@ -56,6 +36,25 @@ var homeState = {
   templateUrl: "views/home.html",
   controller:"HomeCtrl",
 }
+
+var attemptState = {
+  name:'home.attempt',
+  resolve:{
+    questions : ['$stateParams',function($stateParams){
+      //get all the questions and associated comprehension data
+    }],
+  },
+  url:'/attempt/:pid',
+  templateUrl:'views/attempt.html',
+  controller:'AttemptCtrl'
+}
+
+testing_app.config(function($stateProvider,$urlRouterProvider) {
+  	$stateProvider
+    .state(homeState);
+  })
+
+
 
 testing_app.config(function ($httpProvider) {
     $httpProvider.defaults.withCredentials = true;

@@ -8,34 +8,22 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-  .controller('HomeCtrl', ['$scope','$rootScope','$state','$http',
-  	function ($scope,$rootScope,$state,$http) {
-    	$scope.init = function(){
-    		//get the courses available
-    		//TODO
-        $scope.Display_courses = true;
-    		//get the tests available
-    		//TODO - only available tests
-        $scope.Display_tests = true;
-        $scope.Display_paper =  false;
-    		$http.get($rootScope.baseURL+'papers/')
-    		.then(function(resp){
-    			$scope.Available_tests = resp.data;
-    		},function(err){
-          console.log(err);
-    		});
-    	};
-      $scope.toggleHome = function(){
-        $scope.Display_tests = !$scope.Display_tests;
-        $scope.Display_courses = !$scope.Display_courses;
-        $scope.Display_paper = !$scope.Display_tests;
+  .controller('HomeCtrl', ['$scope','$state','available_papers','attempted_papers','$uibModal',
+  	function ($scope,$state,available_papers,attempted_papers,$uibModal) {
+    	$scope.available_papers = available_papers;
+      $scope.attempted_papers = attempted_papers;
+      $scope.attemptPaper = function(paper){
+        var paperInstance = $uibModal.open({
+          templateUrl:'views/paper-start.html',
+          controller:['$uibModalInstance','paper','$scope','$state', function($uibModalInstance,paper,$scope,$state){
+            $scope.paper = paper;
+            $scope.startPaper = function(){
+              $state.go('home.attempt',{'pid':paper.id});
+            }
+          }],
+          resolve:{
+            paper:paper
+          }
+        });
       };
-
-      $scope.loadPaper = function(id){
-        id = parseInt(id);
-        $scope.paper = _.find($scope.Available_tests,function(p){return p.id==id;});
-        $scope.toggleHome();
-        $state.go('home.paper');
-      };
-    	$scope.init();
   }]);

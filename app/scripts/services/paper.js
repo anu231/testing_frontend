@@ -10,13 +10,13 @@
 angular.module('testingFrontendApp')
   .service('paper', ['Restangular','$rootScope',function (Restangular,$rootScope) {
     // AngularJS will instantiate a singleton by calling "new" on this function
-	var remote_papers = Restangular.all($rootScope.baseURL+'/papers/');
+	var remote_papers = Restangular.all('papers/');
 	return {
 		getAvailablePapers : function(){
-			return; 
+			return remote_papers.getList(); 
 		},
 		getAttemptedPapers : function(){
-			return;
+			return remote_papers.getList();
 		}
 	}    
   }]);
