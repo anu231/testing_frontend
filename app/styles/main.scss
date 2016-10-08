@@ -94,26 +94,3 @@ body { padding-bottom: 70px;padding-top:70px; }
 
 /* Akshay's css starts here */
 /* View: Attempt */
-#paper {
-  background-color: black;
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  min-height: 100%;
-}
-
-
-#maincontent {
-  background-color: beige;
-  position: fixed;
-  top: 8%;
-  min-height: 100%;
-  width: 100%;
-}
-
-#left_pane {
-  background-color: #aaaaaa;
-  height: 85%;
-  width: 250px;
-  overflow-y: scroll;
-}
