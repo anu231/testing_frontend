@@ -7,3 +7,4 @@ gruntfile.js
 /.tmp
 /.sass-cache
 /bower_components
+*.swp
