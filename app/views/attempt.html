@@ -1,4 +1,4 @@
-<div style="background-color:black;position:absolute;
+<div ng-init="selectedQuestion = questions[0];" style="background-color:black;position:absolute;
                                         top:8%; right:0;
                                         bottom:0; left:0;">
 
@@ -15,12 +15,9 @@
         Type
       </div>
     </div>
-    <div class="col-xs-12 question question-{{question.state}}" ng-repeat="question in questions" ng-click="select($event, $index)">
+    <div class="col-xs-12 question question-{{question.state}}" ng-repeat="question in questions" ng-click="select(question)">
       <div class="col-xs-4 question-index">
           {{$index + 1}} 
-          <!--<div class="pull-right ">-->
-            <!--[><img class="separator" src="/images/next_black.png" alt="arrow"><]-->
-          <!--</div>-->
       </div>
       <div class="col-xs-4 question-subject">
         {{question.subj}}
@@ -46,18 +43,47 @@
         </div>
     </div> <!-- End info bar  -->
 
-    <div class="question-area">
-      <div id="question_body" class="col-xs-12">
-        <div ng-bind-html="selectedQuestion"> </div>
-      </div>
+    <!-- question-area  -->
+    <div class=" question-area">
+      
+      <!-- question-body  -->
+      <div id="question_body" class="col-xs-10 col-xs-offset-1">
+        <div ng-bind-html="selectedQuestion.question"> </div>
+      </div> <!-- /body  -->
 
-      <div id="options" class="col-xs-12">
-          <div ng-bind-html="option1"></div>
-          <div ng-bind-html="option2"></div>
-          <div ng-bind-html="option3"></div>
-          <div ng-bind-html="option4"></div>
-      </div>
-    </div>
+      <!-- options  -->
+      <div id="options" class="col-xs-10 col-xs-offset-1">
+
+          <div id="option" class="row" ng-click="">
+            <div class="col-xs-1">
+              <h4 class="text-center">a</h4>
+            </div>
+            <div class="col-xs-10">
+              <div ng-bind-html="selectedQuestion.ans1"></div>
+            </div>
+          </div>
+          <div id="option" class="row">
+            <div class="col-xs-1"><h4 class="text-center">b</h4></div>
+            <div  class="col-xs-10">
+              <div ng-bind-html="selectedQuestion.ans2"></div>
+            </div>
+          </div>
+
+          <div id="option" class="row">
+            <div class="col-xs-1"><h4 class="text-center">c</h4></div>
+            <div  class="col-xs-10">
+              <div ng-bind-html="selectedQuestion.ans3"></div>
+            </div>
+          </div>
+          <div id="option" class="row">
+            <div class="col-xs-1"><h4 class="text-center">d</h4></div>
+            <div class="col-xs-10">
+              <div ng-bind-html="selectedQuestion.ans4"></div>
+            </div>
+          </div>
+      </div> <!-- /options  -->
+
+    </div> <!-- /question-area  -->
 
   </div>
 
