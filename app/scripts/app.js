@@ -40,9 +40,14 @@ var homeState = {
 var attemptState = {
   name:'home.attempt',
   resolve:{
-    questions : ['$stateParams',function($stateParams){
+    questions : ['attempt',function(attempt){
       //get all the questions and associated comprehension data
-
+      //var paperid = $stateParams.pid;
+      return attempt.loadQuestions();
+    }],
+    status : ['attempt',function(attempt){
+      //get the status of all the questions in the paper
+      return attempt.loadQuestionStatus();
     }],
   },
   url:'/attempt/:pid',
@@ -55,7 +60,7 @@ testing_app.config(function($stateProvider,$urlRouterProvider) {
     .state(homeState)
     .state(attemptState);
   })
-
+testing_app.constant('server','http://192.168.1.19:8000');
 
 
 testing_app.config(function ($httpProvider) {

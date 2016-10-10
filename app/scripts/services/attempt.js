@@ -8,17 +8,17 @@
  * Service in the testingFrontendApp.
  */
 angular.module('testingFrontendApp')
-  .service('attempt', ['$http',function ($http) {
+  .service('attempt', ['$http','server',function ($http,server) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     this.attempt = null;
-    this.attempt_url = '/attempts/';
+    this.attempt_url = server+'/attempts/';
     /* sets the specified attempt as the current attempt */
     this.setAttempt = function(attmpt){
     	this.attempt = attmpt;
     };
     /* Begins a new attempt on the specified paper */
     this.startAttempt = function(paper){
-    	var attempt_data = {'paper':paper};
+    	var data = {'paper':paper,'user':1};
     	return $http.post(this.attempt_url,data);
     };
     /* ends the currently going on attempt */
@@ -43,6 +43,9 @@ angular.module('testingFrontendApp')
     }
     /* loads the questions for the current attempt */
     this.loadQuestions = function(){
-
+        return $http.get(this.attempt_url+this.attempt.id+'/load_paper/');
     };
+    this.loadQuestionStatus = function(){
+        return $http.get(this.attempt_url+this.attempt.id+'/get_question_states/');
+    }
   }]);

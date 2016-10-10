@@ -8,10 +8,10 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-  .controller('AttemptCtrl', ['$scope','$state','attempt',
-  function($scope,$state,attempt) {
+  .controller('AttemptCtrl', ['$scope','$state','attempt','questions','status',
+  function($scope,$state,attempt,questions,status) {
     console.log('attempt loaded');
-    this.setCurrent = function(e){
+    $scope.setCurrent = function(e){
       // Unset the previous selected question
       // Set the selected question as current  
       // load the full current question
@@ -20,7 +20,7 @@ angular.module('testingFrontendApp')
 
 
     
-    this.questions = [
+    /*this.questions = [
       {index:1, subject:'sm', type:'tmc', state:'qua'},
       {index:2, subject:'sp', type:'ts', state:'qa'},
       {index:3, subject:'sc', type:'tn', state:'qua'},
@@ -41,7 +41,8 @@ angular.module('testingFrontendApp')
       {index:18, subject:'sc', type:'tmc', state:'qc'},
       {index:19, subject:'sp', type:'tmc', state:'qa'},
       {index:20, subject:'sp', type:'tmc', state:'qua'}
-    ];
+    ];*/
+    $scope.questions = questions.data;
     
   }]);
 

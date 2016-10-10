@@ -1,4 +1,4 @@
-<div ng-controller="AttemptCtrl as act" style="background-color:black;position:absolute;
+<div style="background-color:black;position:absolute;
                                         top:8%; right:0;
                                         bottom:0; left:0;">
 
@@ -15,7 +15,7 @@
         Type
       </div>
     </div>
-    <div class="col-xs-12 question question-{{question.state}}" ng-repeat="question in act.questions" ng-click="act.setCurrent($event)">
+    <div class="col-xs-12 question question-{{question.state}}" ng-repeat="question in questions" ng-click="setCurrent($event)">
       <div class="col-xs-4 question-index">
         <!-- indexquestion no  --> 
           {{question.index}} 

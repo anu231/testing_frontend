@@ -15,11 +15,18 @@ angular.module('testingFrontendApp')
       $scope.attemptPaper = function(paper){
         var paperInstance = $uibModal.open({
           templateUrl:'views/paper-start.html',
-          controller:['$uibModalInstance','paper','$scope','$state', function($uibModalInstance,paper,$scope,$state){
+          controller:['$uibModalInstance','paper','$scope','$state','attempt', function($uibModalInstance,paper,$scope,$state,attempt){
             $scope.paper = paper;
             $scope.startPaper = function(){
               $uibModalInstance.close();
-              $state.go('home.attempt',{'pid':paper.id});
+              //create the attempt
+              attempt.startAttempt(paper.id)
+              .then(function(resp){
+                attempt.setAttempt(resp.data);
+                $state.go('home.attempt',{'pid':resp.data.id});  
+              },function(err){
+                //display error
+              });
             }
           }],
           resolve:{
