@@ -16,7 +16,7 @@
 .question{ 
   background-color:#fff;
   margin-bottom:2px;
-  padding:5px;
+  padding:0px;
   transition: 0.2s background-color;
   border-bottom: 1px groove black;
 }
@@ -67,10 +67,15 @@
 .question-index{
   display: inline-block;
 }
+.separator{
+  width: 20px; 
+  height: 20px; 
+  padding-left: 5px;
+}
+
 
 .question-subject{
   display: inline-block;
-
 }
 .question-type{
   display: inline-block;

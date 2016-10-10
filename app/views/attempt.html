@@ -18,11 +18,17 @@
     <div class="col-xs-12 question question-{{question.state}}" ng-repeat="question in act.questions" ng-click="act.setCurrent($event)">
       <div class="col-xs-4 question-index">
         <!-- indexquestion no  --> 
-        {{question.index}} 
+          {{question.index}} 
+          <div class="pull-right ">
+            <img class="separator" src="/images/next_black.png" alt="arrow">
+          </div>
       </div>
       <div class="col-xs-4 question-subject">
         <!-- subject badge  --> 
         {{question.subject}}
+          <div class="pull-right ">
+            <img class="separator" src="/images/next_black.png" alt="arrow">
+          </div>
       </div>
       <div class="col-xs-4 question-type">
         <!-- question type  --> 
