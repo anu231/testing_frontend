@@ -8,61 +8,63 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-  .controller('AttemptCtrl', ['$scope','$state','attempt','questions','status',
-  function($scope,$state,attempt,questions,status) {
-    console.log('attempt loaded');
-    $scope.setCurrent = function(e){
-      // Unset the previous selected question
-      // Set the selected question as current  
-      // load the full current question
-      console.log(e.target.childNodes);
+  .controller('AttemptCtrl', ['$scope','$state','$sce','attempt','questions','status',
+  function($scope,$state,$sce,attempt,questions,status) {
+
+    // Initilization
+    $scope.questions = questions.data;
+
+    //Select and display the clicked question
+    $scope.select = function(e, $index){
+      var question_no = $index + 1;
+      displayQuestion($index);
     }
 
-
+    // Used with select()
+    function displayQuestion(index){
+      console.log('displaying question:' + (index + 1));
+      var Q = $scope.questions[index];
+      var question_body = Q.question;
+      $scope.selectedQuestion = $sce.trustAsHtml(question_body);
+      $scope.option1 = $sce.trustAsHtml(Q.ans1);
+      $scope.option2 = $sce.trustAsHtml(Q.ans2);
+      $scope.option3 = $sce.trustAsHtml(Q.ans3);
+      $scope.option4 = $sce.trustAsHtml(Q.ans4);
+    }
     
-    /*this.questions = [
-      {index:1, subject:'sm', type:'tmc', state:'qua'},
-      {index:2, subject:'sp', type:'ts', state:'qa'},
-      {index:3, subject:'sc', type:'tn', state:'qua'},
-      {index:4, subject:'sm', type:'tmc', state:'qsel'},
-      {index:5, subject:'sp', type:'tn', state:'qc'},
-      {index:6, subject:'sc', type:'ts', state:'qa'},
-      {index:7, subject:'sm', type:'tmc', state:'qm'},
-      {index:8, subject:'sp', type:'tmc', state:'qc'},
-      {index:9, subject:'sc', type:'tmc', state:'qa'},
-      {index:10, subject:'sm', type:'tmc', state:'qm'},
-      {index:11, subject:'sp', type:'tmc', state:'qm'},
-      {index:12, subject:'sc', type:'ts', state:'qc'},
-      {index:13, subject:'sm', type:'tn', state:'qua'},
-      {index:14, subject:'sp', type:'tmc', state:'qua'},
-      {index:15, subject:'sc', type:'tn', state:'qc'},
-      {index:16, subject:'sm', type:'ts', state:'qa'},
-      {index:17, subject:'sp', type:'tmc', state:'qm'},
-      {index:18, subject:'sc', type:'tmc', state:'qc'},
-      {index:19, subject:'sp', type:'tmc', state:'qa'},
-      {index:20, subject:'sp', type:'tmc', state:'qua'}
-    ];*/
-    $scope.questions = questions.data;
     
   }]);
 
 
 /* Notes :
+Question = questions.data[#]
+body: Question.question
+layout: Question.layout
+type: Question.ques_type
+subject: Question.subj
+
+opt1: Question.ans1
+opt2: Question.ans2
+opt3: Question.ans3
+opt4: Question.ans4
+
 State: The state of the question - (q*)
   qua: UnAttempted
   qsel: Currently Selected
-  qa: Attempted                  (is this required?)
+  qa: Attempted              (Same as qm) 
   qc: Confirmed
-  qm: Marked (for later review)
+  qm: Marked (for later review)  (Depricated. Use qa instead)
 
 Type: Type of the question - (t*)
-  tmc: Multiple choice questions
-  ts: Single choice questions
-  tn: numerical questions
+  MC: Multiple choice questions
+  SC: Single choice 
+  MT: Matrix Type
+  CH: ???
+  AR: ???
+  SA: ???
 
 Subject: The subject the question belongs to - (s*)
-  sm: Math
-  sp: Physics
-  sc: Chemistry
+  math
+
 
 */

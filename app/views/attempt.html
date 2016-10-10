@@ -15,77 +15,28 @@
         Type
       </div>
     </div>
-    <div class="col-xs-12 question question-{{question.state}}" ng-repeat="question in questions" ng-click="setCurrent($event)">
+    <div class="col-xs-12 question question-{{question.state}}" ng-repeat="question in questions" ng-click="select($event, $index)">
       <div class="col-xs-4 question-index">
-        <!-- indexquestion no  --> 
-          {{question.index}} 
-          <div class="pull-right ">
-            <img class="separator" src="/images/next_black.png" alt="arrow">
-          </div>
+          {{$index + 1}} 
+          <!--<div class="pull-right ">-->
+            <!--[><img class="separator" src="/images/next_black.png" alt="arrow"><]-->
+          <!--</div>-->
       </div>
       <div class="col-xs-4 question-subject">
-        <!-- subject badge  --> 
-        {{question.subject}}
-          <div class="pull-right ">
-            <img class="separator" src="/images/next_black.png" alt="arrow">
-          </div>
+        {{question.subj}}
       </div>
       <div class="col-xs-4 question-type">
-        <!-- question type  --> 
-        {{question.type}}
+        {{question.ques_type}}
       </div>
     </div>
 
-    <!--  benchmark/control  -->
-    <div class="col-xs-12 question question-qc" >
-      <div style="display:inline-block;">
-        <!-- indexquestion no  --> 
-      </div>
-      <div style="display:inline-block;">
-        <!-- subject badge  --> 
-        Math
-      </div>
-      <div style="display:inline-block;">
-        <!-- question type  --> 
-        MCQ
-      </div>
-    </div>
-    <div class="col-xs-12 question question-qsel" >
-      <div style="display:inline-block;">
-        <!-- indexquestion no  --> 
-      1
-      </div>
-      <div style="display:inline-block;">
-        <!-- subject badge  --> 
-        Math
-      </div>
-      <div style="display:inline-block;">
-        <!-- question type  --> 
-        MCQ
-      </div>
-    </div>
-
-    <div class="question question-qua">
-      <div style="display:inline-block;">
-        <!-- indexquestion no  --> 
-        1
-      </div>
-      <div style="display:inline-block;">
-        <!-- subject badge  --> 
-        Math
-      </div>
-      <div style="display:inline-block;">
-        <!-- question type  --> 
-        MCQ
-      </div>
-    </div>
-  </div>  
+  </div> <!-- end side panel  -->  
 
   <!-- Question display area  -->  
-  <div snap-content id="maincontent" class="nav nav-header">
+  <div snap-content id="maincontent" class="">
 
     <!-- Top info bar  -->
-    <div id="info_bar" class="col-xs-12">
+    <div id="info_bar" class="nav nav-header">
         <button snap-toggle="left" class="col-xs-1 btn btn-default">Questions</button>
         <div id="counts" class="col-xs-6">
           <div class="count col-xs-3" >Attempted:50/100</div>
@@ -93,18 +44,21 @@
           <div class="count col-xs-3">Complete: 37</div>
           <div class="count col-xs-3">Marked: 37</div>
         </div>
+    </div> <!-- End info bar  -->
+
+    <div class="question-area">
+      <div id="question_body" class="col-xs-12">
+        <div ng-bind-html="selectedQuestion"> </div>
+      </div>
+
+      <div id="options" class="col-xs-12">
+          <div ng-bind-html="option1"></div>
+          <div ng-bind-html="option2"></div>
+          <div ng-bind-html="option3"></div>
+          <div ng-bind-html="option4"></div>
+      </div>
     </div>
-    <div class="question-area col-xs-4">
-      <p>Lorem laudantium cupiditate asperiores voluptate quasi corrupti nam rem? Suscipit ad molestias fuga eum eveniet amet? Dolor accusantium assumenda corrupti autem tenetur aliquid culpa? Magni nemo eligendi voluptates quod neque..lorem</p>
-      <p>Sit fugit dolorem pariatur molestias praesentium reiciendis tempora? Tenetur maxime quae reiciendis cumque quis reiciendis repellat! Aut quaerat sunt ab fugit accusamus repellat enim. Maxime labore quidem sapiente animi expedita.</p>
-      <p>Lorem iste dolor dignissimos ex cupiditate ab voluptatem eaque nostrum eligendi? Quidem voluptatum amet esse eveniet ducimus officia ad tenetur. Velit voluptatum ut cum modi ex ea illum corporis quasi</p>
-      <p>Lorem laudantium cupiditate asperiores voluptate quasi corrupti nam rem? Suscipit ad molestias fuga eum eveniet amet? Dolor accusantium assumenda corrupti autem tenetur aliquid culpa? Magni nemo eligendi voluptates quod neque..lorem</p>
-      <p>Lorem laudantium cupiditate asperiores voluptate quasi corrupti nam rem? Suscipit ad molestias fuga eum eveniet amet? Dolor accusantium assumenda corrupti autem tenetur aliquid culpa? Magni nemo eligendi voluptates quod neque..lorem</p>
-      <p>Sit fugit dolorem pariatur molestias praesentium reiciendis tempora? Tenetur maxime quae reiciendis cumque quis reiciendis repellat! Aut quaerat sunt ab fugit accusamus repellat enim. Maxime labore quidem sapiente animi expedita.</p>
-      <p>Lorem iste dolor dignissimos ex cupiditate ab voluptatem eaque nostrum eligendi? Quidem voluptatum amet esse eveniet ducimus officia ad tenetur. Velit voluptatum ut cum modi ex ea illum corporis quasi</p>
-      <p>Sit fugit dolorem pariatur molestias praesentium reiciendis tempora? Tenetur maxime quae reiciendis cumque quis reiciendis repellat! Aut quaerat sunt ab fugit accusamus repellat enim. Maxime labore quidem sapiente animi expedita.</p>
-      <p>Lorem iste dolor dignissimos ex cupiditate ab voluptatem eaque nostrum eligendi? Quidem voluptatum amet esse eveniet ducimus officia ad tenetur. Velit voluptatum ut cum modi ex ea illum corporis quasi</p>
-    </div>
+
   </div>
 
   LOADING

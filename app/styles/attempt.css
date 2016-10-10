@@ -66,7 +66,11 @@
             /*START Badges and info*/
 .question-index{
   display: inline-block;
+  background-image: url("/images/index_bg.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
+
 .separator{
   width: 20px; 
   height: 20px; 
@@ -118,6 +122,7 @@
  background-color: #616161; 
  color: white;
 }
+
 .count{
   display: inline-block;
   background-color: #212121;
@@ -127,6 +132,20 @@
   border-radius: 3px;
 }
 #maincontent > .question-area{
+  background-color: #999995;
+  padding: 10px;
   height: inherit;
-  overflow-y: scroll; 
+}
+
+#question_body {
+  min-height: 40%;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+#options {
+  background-color: aquamarine;
+  min-height: 30%;
+  border-radius: 5px;
+  padding: 5px;
 }
