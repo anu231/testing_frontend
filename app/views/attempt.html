@@ -1,6 +1,6 @@
 <div ng-init="selectedQuestion = questions[0];" style="background-color:black;position:absolute;
-                                        top:8%; right:0;
-                                        bottom:0; left:0;">
+                                                top:8%; right:0;
+                                                bottom:0; left:0;">
 
   <!-- List of question  -->
   <div snap-drawer id="left_pane">
@@ -16,76 +16,180 @@
       </div>
     </div>
     <div class="col-xs-12 question question-{{question.state}}" ng-repeat="question in questions" ng-click="selectQuestion(question)">
-      <div class="col-xs-4 question-index">
-          {{$index + 1}} 
+      <div ng-class="{'col-xs-4':true, 'question-index':true, 'question-qc':question.confirmed==true, 'question-qm':question.marked==true }">
+        {{$index + 1}} 
       </div>
       <div class="col-xs-4 question-subject">
-        {{question.subj}}
+        <span ng-class="{'badge':true, 'badge-physics':question.subj=='Physics', 'badge-math': question.subj=='Math', 'badge-chemistry':question.subj=='Chemistry'}">{{question.subj[0]}}</span>
       </div>
       <div class="col-xs-4 question-type">
-        {{question.ques_type}}
+        <span class="badge badge-questiontype"> {{question.ques_type}}</span>
       </div>
     </div>
 
   </div> <!-- end side panel  -->  
 
-  <!-- Question display area  -->  
+  <!--  Main content area  -->  
   <div snap-content id="maincontent" class="">
 
     <!-- Top info bar  -->
     <div id="info_bar" class="nav nav-header">
-        <button snap-toggle="left" class="col-xs-1 btn btn-default">Questions</button>
-        <div id="counts" class="col-xs-6">
-          <div class="count col-xs-3" >Attempted:50/100</div>
-          <div class="count col-xs-3" >Unattempted: 19</div>
-          <div class="count col-xs-3">Complete: 37</div>
-          <div class="count col-xs-3">Marked: 37</div>
-        </div>
+      <button snap-toggle="left" class="col-xs-1 btn btn-default">List</button>
+      <div id="counts" class="col-xs-6">
+
+        <div class="count col-xs-3" >{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
+        <div class="count col-xs-3" >Unattempted: 19</div>
+        <div class="count col-xs-3">Complete: 37</div>
+        <div class="count col-xs-3">Marked: 37</div>
+      </div>
     </div> <!-- End info bar  -->
 
     <!-- question-area  -->
     <div class=" question-area">
-      
+      <div>{{questions.indexOf(selectedQuestion) + 1}}</div>
       <!-- question-body  -->
       <div id="question_body" class="col-xs-10 col-xs-offset-1">
         <div ng-bind-html="selectedQuestion.question"> </div>
       </div> <!-- /body  -->
 
-      <!-- options  -->
-      <div id="options-area" class="col-xs-10 col-xs-offset-1">
+      <!-- options for SC -->
+      <div ng-if="selectedQuestion.ques_type=='SC'" id="options-area" class="col-xs-10 col-xs-offset-1">
+        <div class="form-group option">
+          <div class="radio">
+            <label class="chkdiv">
+                <input id="ans" type="radio" name="answer" value="a"/>
+                <div style="" ng-bind-html="selectedQuestion.ans1"></div>
+            </label>
+          </div>
+        </div>
 
-          <div class="row option option-selected" ng-click="selectOption()">
-            <div class="col-xs-1">
-              <h4 class="text-center">a</h4>
-            </div>
-            <div class="col-xs-10">
-              <div ng-bind-html="selectedQuestion.ans1"></div>
-            </div>
+        <div class="form-group option">
+          <div class="radio">
+            <label>
+            <input id="ans" type="radio" name="answer" value="b"/>
+                <div ng-bind-html="selectedQuestion.ans2"></div>
+            </label>
           </div>
-          <div id="option" class="row option">
-            <div class="col-xs-1"><h4 class="text-center">b</h4></div>
-            <div  class="col-xs-10">
-              <div ng-bind-html="selectedQuestion.ans2"></div>
-            </div>
+        </div>
+        <div class="form-group option">
+          <div class="radio">
+            <label>
+            <input id="ans" type="radio" name="answer" value="c"/>
+                <div ng-bind-html="selectedQuestion.ans3"></div>
+            </label>
           </div>
+        </div>
+        <div class="form-group option">
+          <div class="radio">
+            <label>
+            <input id="ans" type="radio" name="answer" value="d"/>
+                <div ng-bind-html="selectedQuestion.ans4"></div>
+            </label>
+          </div>
+        </div>
+      </div> <!-- /options SC  -->
 
-          <div id="option" class="row option">
-            <div class="col-xs-1"><h4 class="text-center">c</h4></div>
-            <div  class="col-xs-10">
-              <div ng-bind-html="selectedQuestion.ans3"></div>
-            </div>
+      <!--options for mc-->
+      <div ng-if="selectedQuestion.ques_type=='MC'" id="options-area" class="col-xs-10 col-xs-offset-1">
+      
+        <div class="form-group option">
+          <div class="checkbox">
+            <label>
+            <input id="ans" type="checkbox" name="answer" value="a"/>
+                <div ng-bind-html="selectedQuestion.ans1"></div>
+            </label>
           </div>
-          <div id="option" class="row option">
-            <div class="col-xs-1"><h4 class="text-center">d</h4></div>
-            <div class="col-xs-10">
-              <div ng-bind-html="selectedQuestion.ans4"></div>
-            </div>
+        </div>
+        <div class="form-group option">
+          <div class="checkbox">
+            <label>
+            <input id="ans" type="checkbox" name="answer" value="b"/>
+                <div ng-bind-html="selectedQuestion.ans2"></div>
+            </label>
           </div>
-      </div> <!-- /options  -->
+        </div>
+        <div class="form-group option">
+          <div class="checkbox">
+            <label>
+            <input id="ans" type="checkbox" name="answer" value="c"/>
+                <div ng-bind-html="selectedQuestion.ans3"></div>
+            </label>
+          </div>
+        </div>
+        <div class="form-group option">
+          <div class="checkbox">
+            <label>
+            <input id="ans" type="checkbox" name="answer" value="d"/>
+                <div ng-bind-html="selectedQuestion.ans4"></div>
+            </label>
+          </div>
+        </div>
+      
+      </div> <!-- /mc  -->
+
+      <!--options for IT-->
+      <div ng-if="selectedQuestion.ques_type=='IT'" id="options-area" class="col-xs-10 col-xs-offset-1">
+        <label for="numerical_ans"><h3>Answer:</h3></label>
+        <input id="ans" type="number" name="numerical_ans" step="1" >
+      </div> <!-- /IT  -->
+
+      <!-- TF  -->
+      <div ng-if="selectedQuestion.ques_type=='TF'" id="options-area" class="col-xs-10 col-xs-offset-1">
+
+        <div class="form-group option">
+          <div class="radio">
+            <label>
+            <input id="ans" type="radio" name="answer" value="true"/>
+            <h5>True</h5>
+            </label>
+          </div>
+        </div>
+        
+        <div class="form-group option">
+          <div class="radio">
+            <label>
+            <input id="ans" type="radio" name="answer" value="false"/>
+            <h5>False</h5>
+            </label>
+          </div>
+        </div>
+      </div> <!-- /TF -->
+
+      <!-- AR  -->
+      <div ng-if="selectedQuestion.ques_type=='AR'" id="options-area" class="col-xs-10 col-xs-offset-1">
+        Assertion reasoning
+      </div> <!-- /ar  -->
+
+      <!-- ch  -->
+      <div ng-if="selectedQuestion.ques_type=='CH'" id="options-area" class="col-xs-10 col-xs-offset-1">
+        comprehension
+      </div> <!-- /ch  -->
+
+      <!-- SA  --> 
+      <div ng-if="selectedQuestion.ques_type=='SA'" id="options-area" class="col-xs-10 col-xs-offset-1">
+        <label for="answer"><h3>Answer</h3></label>
+          <textarea class="form-control" id="answer" name="answer" cols="30" rows="7"></textarea>
+          <button class="btn-success">save</button>
+      </div> <!-- /SA  -->
+
+      <!-- MT  --> 
+      <div ng-if="selectedQuestion.ques_type=='MT'" id="options-area" class="col-xs-10 col-xs-offset-1">
+        Matrix Type
+      </div> <!-- /SA  -->
+
+
 
     </div> <!-- /question-area  -->
 
-  </div>
+    <!--Control buttons-->
+    <div id="control_buttons" class="col-xs-6 col-xs-offset-6">
+      <button class="btn btn-default" ng-click="previousQuestion()">previous</button>
+      <button class="btn btn-success" ng-click="selectedQuestion.confirmed=true;selectedQuestion.marked=false;">save</button>
+      <button class="btn btn-danger" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false;">mark</button>
+      <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="nextQuestion()">next</button>
+    </div>
+
+  </div> <!-- /Main content area  -->
 
   LOADING
 </div>
