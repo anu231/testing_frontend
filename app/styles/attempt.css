@@ -27,41 +27,6 @@
   color: white;
 }
 
-/*selected/current question*/
-.question-qsel{
-  color: white;
-  background-color: #03A9F4;
-  border: 1px solid green;
-  -webkit-box-shadow: 0px 1px 9px 2px rgb(0,0,0);
-  -moz-box-shadow: 0px 1px 9px 2px rgb(0,0,0);
-  box-shadow: 0px 1px 9px 2px rgb(0,0,0);
-}
-
-.question-qsel:hover{
-  background-color: #01579B;
-}
-
-/*question-confirmed*/
-.question-qc{
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-}
-.question-qc:hover{
-  background-color: #1B5E20;
-  color: white;
-}
-
-/*question-marked(for later review)*/
-.question-qm{
-  background-color: #F44336; 
-  color: white;
-}
-.question-qm:hover{
-  background-color: #D50000;
-  color: white;
-}
-            /*^^ END question state classes*/
 
 
             /*START Badges and info*/
@@ -72,11 +37,12 @@
   background-repeat: no-repeat;
 }
 
-.question-qc .question-index {
+/*marked confirmed*/
+.question-qc {
   background-image: url("/images/index_bg_green.png");
 }
-
-.question-qm .question-index {
+/*marked for later review*/
+.question-qm {
   background-image: url("/images/index_bg_red.png");
 }
 
@@ -86,6 +52,20 @@
 }
 .question-type{
   display: inline-block;
+}
+
+.badge-physics{
+  background-color: red;
+}
+.badge-math{
+  background-color: blue;
+}
+.badge-chemistry{
+  background-color: green;
+}
+
+.badge-questiontype{
+  background-color: #212121;
 }
 
               /*End Badges and Info*/
@@ -134,9 +114,13 @@
   padding-bottom: 5px;
   border-radius: 3px;
 }
+
 #maincontent > .question-area{
   padding: 10px;
+  /*background-color: red;*/
   height: inherit;
+  max-height: 60%;
+  overflow-y: scroll;
 }
 
 #question_body {
@@ -153,6 +137,10 @@
   padding: 5px;
 }
 
+label{
+  width: 100%;
+}
+
 .option {
   border: 1px solid black;
   border-radius: 3px;
@@ -164,4 +152,8 @@
   border: 2px solid red;
 }
 
+
+#control_buttons {
+  background-color: grey;
+}
 
