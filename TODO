@@ -5,6 +5,11 @@
   Collect more metadata
                   
 2016-10-12 13:56
-  Create templates for various question types.
+  --Create templates for various question types.
+  Add css to the above templates
+  Make side-panel contextual according to screen size
+  Front end form validation
+  Add test instruction modal
+  Discuss save/confirm/mark logic
   
                   
