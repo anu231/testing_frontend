@@ -8,18 +8,17 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-  .controller('AttemptCtrl', ['$scope','$state','$sce','attempt','questions','status',
-  function($scope,$state,$sce,attempt,questions,status) {
+  .controller('AttemptCtrl', ['$scope','$state','attempt','questions','status',
+  function($scope,$state,attempt,questions,status) {
     $scope.questions = questions.data;
 
     $scope.init = function(questions,status){
       questions.data.forEach((question) => {
-        status.data.push({id:question.id, answer: question.answer});
+        question.answer = 'none';
       })
     };
 
     $scope.init(questions, status);
-    console.log(status.data);
     
 
     // Set the selected question
@@ -27,9 +26,22 @@ angular.module('testingFrontendApp')
       $scope.selectedQuestion = question;
     }
 
-    // Update status with selected answer
-    $scope.selectOption = function(selectedQuestion){
-      //console.log("Selected option: for question" + $scope.selectedQuestion); 
+    $scope.nextQuestion = function(){
+      var currentIndex = $scope.questions.indexOf($scope.selectedQuestion); 
+      if(currentIndex < $scope.questions.length - 1){
+        $scope.selectedQuestion = $scope.questions[currentIndex + 1]
+      } else {
+        $scope.selectedQuestion.isLast = true; 
+      }
+    }
+
+    $scope.previousQuestion = function(){
+      var currentIndex = $scope.questions.indexOf($scope.selectedQuestion); 
+      if(currentIndex > 0){
+        $scope.selectedQuestion = $scope.questions[currentIndex - 1]
+      } else {
+        $scope.selectedQuestion.isFirst = true; 
+      }
     }
     
   }]);
