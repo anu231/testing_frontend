@@ -1,7 +1,10 @@
 2016-10-08 17:36
   Update css for the view: attempt
-  Add controller functions for 'attempt'
+  --Add controller functions for 'attempt'
   Implement restangular
   Collect more metadata
                   
+2016-10-12 13:56
+  Create templates for various question types.
+  
                   
