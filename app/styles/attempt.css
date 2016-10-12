@@ -1,5 +1,6 @@
                 /*START Question state classes*/
 
+/* Header row */
 .question-header{
   background-color: #212121 ;
   color: white;
@@ -12,8 +13,8 @@
   z-index: 5;
 }
 
-/*question-unattempted*/
-.question{ 
+/* Base class */
+.question { 
   background-color:#fff;
   margin-bottom:2px;
   padding:0px;
@@ -66,15 +67,17 @@
             /*START Badges and info*/
 .question-index{
   display: inline-block;
-  background-image: url("/images/index_bg.png");
+  background-image: url("/images/index_bg_default.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
-.separator{
-  width: 20px; 
-  height: 20px; 
-  padding-left: 5px;
+.question-qc .question-index {
+  background-image: url("/images/index_bg_green.png");
+}
+
+.question-qm .question-index {
+  background-image: url("/images/index_bg_red.png");
 }
 
 
@@ -132,20 +135,33 @@
   border-radius: 3px;
 }
 #maincontent > .question-area{
-  background-color: #999995;
   padding: 10px;
   height: inherit;
 }
 
 #question_body {
-  min-height: 40%;
+  min-height: 20%;
+  padding: 5px;
   border: 2px solid black;
   border-radius: 5px;
 }
 
-#options {
+#option-area {
   background-color: aquamarine;
   min-height: 30%;
   border-radius: 5px;
   padding: 5px;
 }
+
+.option {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 5px;
+}
+
+.option-selected {
+  border: 2px solid red;
+}
+
+

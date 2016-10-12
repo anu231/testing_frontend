@@ -19,11 +19,17 @@ angular.module('testingFrontendApp')
     };
 
     $scope.init(questions, status);
+    console.log(status.data);
     
 
     // Set the selected question
-    $scope.select = function(question){
+    $scope.selectQuestion = function(question){
       $scope.selectedQuestion = question;
+    }
+
+    // Update status with selected answer
+    $scope.selectOption = function(selectedQuestion){
+      //console.log("Selected option: for question" + $scope.selectedQuestion); 
     }
     
   }]);
