@@ -58,7 +58,7 @@
       <div ng-if="selectedQuestion.ques_type=='SC'" id="options-area" class="col-xs-10 col-xs-offset-1">
         <div ng-repeat="(key, val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}" ng-class="{'option':true, 'col-xs-12':true, 'option-selected':selectedQuestion.answer==key}">
           <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
-          <label for="{{key}}" class="col-xs-12">
+          <label for="{{key}}" class="col-xs-12 vcenter">
             <div class="custom-radio col-xs-1">
             </div>
             <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">
@@ -71,7 +71,7 @@
       <div ng-if="selectedQuestion.ques_type=='MC'" id="options-area" class="col-xs-10 col-xs-offset-1">
         <div ng-repeat="(key,val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}" ng-class="{'option':true, 'col-xs-12':true, 'option-selected':false}">
           <input id="{{key}}" type="checkbox" name="{{'option'+$index}}" ng-model="selectedQuestion['answer' + ($index + 1)]" ng-value="key">
-          <label for="{{key}}" class="col-xs-12">
+          <label for="{{key}}" class="col-xs-12 vcenter">
             <div class="custom-checkbox col-xs-1">
             </div>
             <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">
