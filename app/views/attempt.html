@@ -47,10 +47,7 @@
       <p>{{questions.indexOf(selectedQuestion) + 1}}</p>
       <div ng-if="selectedQuestion.ques_type=='SC'"> <h5>Ans:{{selectedQuestion.answer}}</h5></div>
       <div ng-if="selectedQuestion.ques_type=='MC'">
-        <p>{{selectedQuestion.answer1}}</p>
-        <p>{{selectedQuestion.answer2}}</p>
-        <p>{{selectedQuestion.answer3}}</p>
-        <p>{{selectedQuestion.answer4}}</p>
+        <p>{{selectedQuestion.answer1}} {selectedQuestion.answer2}} {{selectedQuestion.answer3}} {{selectedQuestion.answer4}}</p>
       </div>
       <!-- question-body  -->
       <div id="question_body" class="col-xs-10 col-xs-offset-1">
@@ -59,39 +56,12 @@
 
       <!-- options for SC -->
       <div ng-if="selectedQuestion.ques_type=='SC'" id="options-area" class="col-xs-10 col-xs-offset-1">
-        <div ng-class="{'option':true, 'col-xs-12':true, 'option-selected':selectedQuestion.answer=='a'}">
-          <input id="opt1" type="radio" name="option" ng-model="selectedQuestion.answer" value="a">
-          <label for="opt1" class="col-xs-12">
+        <div ng-repeat="(key, val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}" ng-class="{'option':true, 'col-xs-12':true, 'option-selected':selectedQuestion.answer==val}">
+          <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
+          <label for="{{key}}" class="col-xs-12">
             <div class="custom-radio col-xs-1">
             </div>
-            <div class="option-body col-xs-11" ng-bind-html="selectedQuestion.ans1">
-            </div>
-          </label>
-        </div>
-        <div ng-class="{'option':true, 'col-xs-12':true, 'option-selected':selectedQuestion.answer=='b'}">
-          <input id="opt2" type="radio" name="option" ng-model="selectedQuestion.answer" value="b">
-          <label for="opt2" class="col-xs-12">
-            <div class="custom-radio col-xs-1">
-            </div>
-            <div class="option-body col-xs-11" ng-bind-html="selectedQuestion.ans2">
-            </div>
-          </label>
-        </div>
-        <div ng-class="{'option':true, 'col-xs-12':true, 'option-selected':selectedQuestion.answer=='c'}">
-          <input id="opt3" type="radio" name="option" ng-model="selectedQuestion.answer" value="c">
-          <label for="opt3" class="col-xs-12">
-            <div class="custom-radio col-xs-1">
-            </div>
-            <div class="option-body col-xs-11" ng-bind-html="selectedQuestion.ans3">
-            </div>
-          </label>
-        </div>
-        <div ng-class="{'option':true, 'col-xs-12':true, 'option-selected':selectedQuestion.answer=='d'}">
-          <input id="opt4" type="radio" name="option" ng-model="selectedQuestion.answer" value="d">
-          <label for="opt4" class="col-xs-12">
-            <div class="custom-radio col-xs-1">
-            </div>
-            <div class="option-body col-xs-11" ng-bind-html="selectedQuestion.ans4">
+            <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">
             </div>
           </label>
         </div>
