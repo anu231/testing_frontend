@@ -150,7 +150,8 @@
 }
 
 .option-selected {
-  border: 3px solid red;
+  border: 3px solid #212121;
+  background-color: #aaaaaa;
 }
 
 .option-body{
@@ -159,7 +160,7 @@
 
             /*custom radio buttons and checkboxes*/
 /*hide default boxes*/
-input[type=radio]{
+input[type=radio], input[type=checkbox]{
   display: inline-block;
   opacity: 0;
   width: 0px;
@@ -167,17 +168,35 @@ input[type=radio]{
   margin: none;
   padding: none;
 }
-.custom-input{
+.custom-radio{
   padding: 5px;
-  height: 25px;
+  margin-top: 10px;
+  height: 30px;
   background-image: url("/images/radio_off.png");
   background-repeat: no-repeat;
   background-size: 25px 25px;
-  margin: auto;
+  transition: 0.2s;
 }
 
-input[type=radio]:checked + label > .custom-input{
+input[type=radio]:checked + label > .custom-radio{
   background-image: url("/images/radio_on.png");
+  transition: 0.5s;
+}
+
+ /*checkboxes*/
+.custom-checkbox{
+  padding: 5px;
+  margin-top: 10px;
+  height: 30px;
+  background-image: url("/images/checkbox_off.png");
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  /*background-position: top 5px;*/
+  background-color: aquamarine;
+  transition: 0.2s;
+}
+input[type=checkbox]:checked + label > .custom-checkbox{
+  background-image: url("/images/checkbox_on.png");
   transition: 0.5s;
 }
 
