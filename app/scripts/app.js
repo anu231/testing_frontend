@@ -60,12 +60,15 @@ testing_app.config(function($stateProvider,$urlRouterProvider) {
     .state(homeState)
     .state(attemptState);
   })
-testing_app.constant('server','http://192.168.1.19:8000');
+testing_app.constant('server','http://192.168.1.19:8001');
 
 
 testing_app.config(function ($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
 	})
 testing_app.config(function(RestangularProvider) {
-    RestangularProvider.setBaseUrl('http://192.168.1.19:8000/');
+    RestangularProvider.setBaseUrl('http://192.168.1.19:8001/');
+    RestangularProvider.setDefaultHttpFields({
+            'withCredentials': true              
+        });
 	});

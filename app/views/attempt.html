@@ -123,7 +123,7 @@
     <!--Control buttons-->
     <div id="control_buttons" class="col-xs-6 col-xs-offset-6">
       <button class="btn btn-default" ng-click="previousQuestion()">previous</button>
-      <button class="btn btn-success" ng-click="selectedQuestion.confirmed=true;selectedQuestion.marked=false; displayInfo()">save</button>
+      <button class="btn btn-success" ng-click="selectedQuestion.confirmed=true;selectedQuestion.marked=false; displayInfo();save(selectedQuestion)">save</button>
       <button class="btn btn-danger" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false;">mark</button>
       <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="nextQuestion()">next</button>
     </div>
