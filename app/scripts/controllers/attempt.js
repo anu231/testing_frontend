@@ -8,13 +8,13 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-  .controller('AttemptCtrl', ['$scope','$state','attempt','questions','status',
-  function($scope,$state,attempt,questions,status) {
+  .controller('AttemptCtrl', ['$scope','$state','attempt','questions','status','userans',
+  function($scope,$state,attempt,questions,status,userans) {
     $scope.questions = questions.data;
 
     $scope.init = function(questions,status){
       questions.data.forEach((question) => {
-        question.answer = 'none';
+        question.answer = '';
       })
     };
 
@@ -47,7 +47,28 @@ angular.module('testingFrontendApp')
     $scope.displayInfo = function(){
       console.log($scope.selectedQuestion.answer); 
     }
-    
+    $scope.validateAnswer = function(question){
+      if (question.ques_type=='SC'){
+
+      } else if (question.ques_type=='MC'){
+
+      }
+      return true;
+    }
+    $scope.formatAnswer = function(question){
+      //formats the answer according to the type of the question
+      if (question.ques_type=='MC'){
+
+      } else if (question.ques_type=='MT'){
+
+      }
+    }
+    $scope.save = function(question){
+      $scope.formatAnswer(question);
+      if ($scope.validateAnswer(question)){
+        userans.saveAnswer(question);
+      }
+    };
   }]);
 
 
