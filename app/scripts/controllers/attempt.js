@@ -43,6 +43,10 @@ angular.module('testingFrontendApp')
         $scope.selectedQuestion.isFirst = true; 
       }
     }
+
+    $scope.displayInfo = function(){
+      console.log($scope.selectedQuestion.answer); 
+    }
     
   }]);
 

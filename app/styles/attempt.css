@@ -30,6 +30,7 @@
 
 
             /*START Badges and info*/
+/*default question state*/
 .question-index{
   display: inline-block;
   background-image: url("/images/index_bg_default.png");
@@ -84,7 +85,7 @@
 #left_pane {
   background-color: white;
   height: 85%;
-  width: 250px;
+  width: 270px;
   overflow-y: scroll;
 }
 
@@ -100,12 +101,13 @@
   width: 100%;
 }
 
-/*The info bar*/
+/*The info bar (top bar in question pane)*/
 #info_bar {
  background-color: #616161; 
  color: white;
 }
 
+/*information counters in info_bar*/
 .count{
   display: inline-block;
   background-color: #212121;
@@ -130,6 +132,7 @@
   border-radius: 5px;
 }
 
+/*div displaying options*/
 #option-area {
   background-color: aquamarine;
   min-height: 30%;
@@ -137,22 +140,48 @@
   padding: 5px;
 }
 
-label{
-  width: 100%;
-}
-
+/*option base class*/
 .option {
   border: 1px solid black;
   border-radius: 3px;
   padding: 5px;
   margin: 5px;
+  transition: 0.2s;
 }
 
 .option-selected {
-  border: 2px solid red;
+  border: 3px solid red;
 }
 
+.option-body{
+  padding: 5px;
+}
 
+            /*custom radio buttons and checkboxes*/
+/*hide default boxes*/
+input[type=radio]{
+  display: inline-block;
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  margin: none;
+  padding: none;
+}
+.custom-input{
+  padding: 5px;
+  height: 25px;
+  background-image: url("/images/radio_off.png");
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  margin: auto;
+}
+
+input[type=radio]:checked + label > .custom-input{
+  background-image: url("/images/radio_on.png");
+  transition: 0.5s;
+}
+
+/*bottom control panel (bottom_bar)*/
 #control_buttons {
   background-color: grey;
 }
