@@ -51,7 +51,7 @@ angular.module('testingFrontendApp')
       }
 
       $scope.displayInfo = function(){
-        console.log($scope.selectedQuestion.useranswer); 
+        console.log($scope.selectedQuestion); 
       }
       $scope.validateAndFormatAnswer = function(question){
         if (question.ques_type=='SC'){

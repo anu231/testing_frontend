@@ -2,14 +2,25 @@
   Update css for the view: attempt
   --Add controller functions for 'attempt'
   Implement restangular
-  Collect more metadata
+  Collect more metadata- Location device-type
                   
 2016-10-12 13:56
   --Create templates for various question types.
   Add css to the above templates
-  Make side-panel contextual according to screen size
-  Front end form validation
-  Add test instruction modal
+  Make side-panel contextual according to screen size **
+  Front end form validation **
+  Add test instruction modal **
   Discuss save/confirm/mark logic
   
-                  
+2016-10-14 16:41                  
+  time taken for answering each question
+  system timer global
+  information bar
+  google-analytics
+  implement clear option button
+  sync notif
+  window close alert in attempt.js
+  different toolbars
+intro.js
+underscore.js
+angularcharts

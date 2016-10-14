@@ -18,23 +18,23 @@
         Sync
       </div>
     </div>
-    <ul class="list-group">
-    <li ng-repeat="question in questions"  class="list-group-item">
-      <div class="row option" ng-click="selectQuestion(question)">
-        <div class="col-xs-3">
-          {{$index + 1}} 
+    <ul class="list-group question-list">
+      <li ng-repeat="question in questions"  class="list-group-item question-list-item">
+        <div class="row question" ng-click="selectQuestion(question)">
+          <div class="col-xs-3 question-index" ng-class="{'question-marked':question.marked==true, 'question-saved':question.confirmed==true}">
+            {{$index + 1}} 
+          </div>
+          <div class="col-xs-3">
+            <span class="badge" ng-class="{'badge-math':question.subj=='Math', 'badge-chemistry':question.subj=='Chemistry','badge-physics':question.subj=='Physics'}">{{question.subj[0]}}</span>
+          </div>
+          <div class="col-xs-3">
+            <span class="badge" ng-class="{'badge-questiontype':true}"> {{question.ques_type}}</span>
+          </div>
+          <div class="col-xs-3">
+            <span class="badge badge-questiontype">S</span>
+          </div>
         </div>
-        <div class="col-xs-3">
-          <span ng-class="{'badge':true}">{{question.subj[0]}}</span>
-        </div>
-        <div class="col-xs-3">
-          <span ng-class="{'badge':true, 'badge-questiontype':true "> {{question.ques_type}}</span>
-        </div>
-        <div class="col-xs-3">
-          <span class="badge badge-questiontype">S</span>
-        </div>
-      </div>
-    </li>
+      </li>
     </ul>
 
   </div> <!-- end side panel  -->  
@@ -43,11 +43,11 @@
   <div snap-content id="maincontent" class="">
 
     <!-- Top info bar  -->
-    <div id="info_bar" class="nav nav-header">
-      <button id="indexButton" snap-toggle="left" class="col-xs-2 btn btn-primary"><span class="glyphicon glyphicon-list"></span></button>
-      <div id="counts" class="col-xs-10">
-        <div class="count col-xs-2 text-center" ><span class="text-success">{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
-      </div>
+    <div id="info_bar">
+      <button id="indexButton" snap-toggle="left" class=" btn btn-primary">
+        <span class="glyphicon glyphicon-list"></span>
+      </button>
+      <button class="btn btn-info">{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</button>
     </div> <!-- End info bar  -->
 
     <!-- question-area  -->
@@ -65,22 +65,22 @@
       <!-- options for SC -->
       <div ng-if="selectedQuestion.ques_type=='SC'" id="options-area" class="col-xs-10 col-xs-offset-1">
         <ul class="list-group">
-        <li ng-repeat="(key, val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
+          <li ng-repeat="(key, val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
             <label for="{{key}}" class="col-xs-12 vcenter">
               <div class="custom-radio col-xs-1">
               </div>
-              <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">
+              <div class="option-body col-xs-10" ng-bind-html="selectedQuestion[val]">
               </div>
             </label>
-        </li>
+          </li>
         </ul>
       </div> <!-- /options SC  -->
 
       <!--options for MC-->
       <div ng-if="selectedQuestion.ques_type=='MC'" id="options-area" class="col-xs-10 col-xs-offset-1">
         <ul class="list-group">
-        <li  ng-repeat="(key,val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
+          <li  ng-repeat="(key,val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="checkbox" name="{{'option'+$index}}" ng-model="selectedQuestion['answer' + ($index + 1)]" ng-value="key">
             <label for="{{key}}" class="col-xs-12 vcenter">
               <div class="custom-checkbox col-xs-1">
@@ -88,7 +88,7 @@
               <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">
               </div>
             </label>
-        </li>
+          </li>
         </ul>
       </div> <!-- /mc  -->
 

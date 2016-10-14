@@ -12,14 +12,19 @@
   position: relative;
   z-index: 5;
 }
+/*Rest of the list*/
+.question-list{
+  margin-top: 13%;
+}
+.question-list-item{
+  padding: 5px;
+}
 
 /* Base class */
 .question { 
   background-color:#fff;
-  margin-bottom:2px;
-  padding:0px;
+  padding: 0px;
   transition: 0.2s background-color;
-  border-bottom: 1px groove black;
 }
 
 .question:hover{
@@ -39,11 +44,11 @@
 }
 
 /*marked confirmed*/
-.question-qc {
+.question-saved {
   background-image: url("/images/index_bg_green.png");
 }
 /*marked for later review*/
-.question-qm {
+.question-marked {
   background-image: url("/images/index_bg_red.png");
 }
 
@@ -105,18 +110,20 @@
   width: 6em;
   float: left;
 }
+
 #info_bar {
  background-color: #616161; 
+ width: 100%;
  color: white;
+ position: fixed;
+ display: block;
+ z-index: 15;
 }
 
 /*information counters in info_bar*/
-.count{
+.progress{
   display: inline-block;
-  color: black;
-  padding-top: 6px;
-  padding-bottom: 5px;
-  text-size: 40px;
+  width: 6em;
 }
 
 #maincontent > .question-area{
@@ -138,7 +145,7 @@
   background-color: aquamarine;
   min-height: 30%;
   border-radius: 5px;
-  padding: 5px;
+  /*padding: 5px;*/
 }
 
 /*option base class*/
@@ -175,11 +182,11 @@ input[type=radio], input[type=checkbox]{
 }
 
 .custom-radio{
-  min-height: 30px;
+  min-height: 2em;
   /*background-color: aquamarine;*/
   background-image: url("/images/radio_off.png");
   background-repeat: no-repeat;
-  background-size: 20px 20px;
+  background-size: 2em 2em;
   background-position: center;
   transition: 0.2s;
 }
