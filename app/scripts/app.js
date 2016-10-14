@@ -40,14 +40,37 @@ var homeState = {
 var attemptState = {
   name:'home.attempt',
   resolve:{
-    questions : ['attempt',function(attempt){
+    questions : ['attempt','$stateParams',function(attempt,$stateParams){
       //get all the questions and associated comprehension data
       //var paperid = $stateParams.pid;
-      return attempt.loadQuestions();
+      if (attempt.getAttempt()==null){
+        attempt.fetchAttempt($stateParams.pid)
+        .then(function(resp){
+          attempt.setAttempt(resp.data);
+          //return attempt.loadQuestions();
+        },function(err){
+          console.log(err);
+        });
+        return null;
+      } else {
+        return attempt.loadQuestions();  
+      }
     }],
-    status : ['attempt',function(attempt){
+    status : ['attempt','$stateParams',function(attempt,$stateParams){
       //get the status of all the questions in the paper
-      return attempt.loadQuestionStatus();
+      if (attempt.getAttempt()==null){
+        attempt.fetchAttempt($stateParams.pid)
+        .then(function(resp){
+          attempt.setAttempt(resp.data);
+          //return attempt.loadQuestions();
+        },function(err){
+          console.log(err);
+        });
+        return null;
+      } else {
+        return attempt.loadQuestionStatus();
+      }
+      
     }],
   },
   url:'/attempt/:pid',

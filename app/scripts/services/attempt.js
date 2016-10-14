@@ -26,12 +26,16 @@ angular.module('testingFrontendApp')
     	attempt.finished = true;
     	return $http.post(attempt_url+'finish/');
     };
+    /*
+    fetches the specified attempt from the server
+    */
+    this.fetchAttempt = function(att_id){
+        return $http.get(this.attempt_url+att_id+'/');
+    }
     /* Gets the info, status, score on the specified attempt. 
     If none specified then the current attempt */
     this.getAttempt = function(attmpt){
-    	if (attmpt!=undefined){
-    		this.attempt = attmpt;
-    	}
+    	return this.attempt;
     };
     /* Saves the complete current attempt */
     this.saveAttempt = function(){

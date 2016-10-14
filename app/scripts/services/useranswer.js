@@ -12,13 +12,8 @@ angular.module('testingFrontendApp')
     // AngularJS will instantiate a singleton by calling "new" on this function
     var remote_userans = Restangular.all('/userans/');
     return {
-    	saveAnswer : function(question){
-    		return remote_userans.post({
-    			'attempt':attempt.attempt.id,
-    			'question':question.id,
-    			'answer':question.answer,
-    			'timetaken':question.time
-    		});
+    	saveAnswer : function(userans){
+    		return remote_userans.post(userans);
     	}
     };
   }]);

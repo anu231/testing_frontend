@@ -10,23 +10,31 @@
 angular.module('testingFrontendApp')
   .controller('AttemptCtrl', ['$scope','$state','attempt','questions','status','useranswer',
   function($scope,$state,attempt,questions,status,useranswer) {
-    $scope.questions = questions.data;
-
     $scope.init = function(questions,status){
-      questions.data.forEach((question) => {
-        question.answer = '';
+      if (questions!=null){
+        $scope.questions = questions.data;
+        $scope.setUpQuestions();
+      } else {
+        attempt.loadQuestions()
+        .then(function(resp){
+          $scope.questions = resp.data;
+          $scope.setUpQuestions();
+        })  
+      }
+    };
+    $scope.setUpQuestions = function(){
+      $scope.questions.forEach((question) => {
+        question.answer = undefined;
         question.useranswer = {
-          'attempt':attempt.attempt.id;
-          'question':question.id;
+          'attempt':attempt.attempt.id,
+          'question':question.id,
           'answer':'',
           'timetaken':null
         };
-      })
-    };
-
+      });
+      $scope.selectedQuestion = $scope.questions[0];
+    }
     $scope.init(questions, status);
-    
-
     // Set the selected question
     $scope.selectQuestion = function(question){
       $scope.selectedQuestion = question;
@@ -53,26 +61,37 @@ angular.module('testingFrontendApp')
     $scope.displayInfo = function(){
       console.log($scope.selectedQuestion.answer); 
     }
-    $scope.validateAnswer = function(question){
+    $scope.validateAndFormatAnswer = function(question){
       if (question.ques_type=='SC'){
-
+        if (question.answer==undefined){
+          return 'Please select atleast one option';
+        } else {
+          question.useranswer.answer = question.answer;
+        }
       } else if (question.ques_type=='MC'){
-
-      }
-      return true;
-    }
-    $scope.formatAnswer = function(question){
-      //formats the answer according to the type of the question
-      if (question.ques_type=='MC'){
 
       } else if (question.ques_type=='MT'){
 
+      } else if (question.ques_type=='IT'){
+        
+      } else if (question.ques_type=='TF'){
+        
+      } else if (question.ques_type=='SA'){
+        
       }
+      return true;
     }
     $scope.save = function(question){
-      $scope.formatAnswer(question);
-      if ($scope.validateAnswer(question)){
-        userans.saveAnswer(question);
+      var ques_valid = $scope.validateAndFormatAnswer(question);
+      if (ques_valid==true){
+        useranswer.saveAnswer(question.useranswer)
+        .then(function(resp){
+          question.useranswer = resp.data;
+        },function(err){
+
+        });
+      } else {
+        console.log(ques_valid);
       }
     };
   }]);
