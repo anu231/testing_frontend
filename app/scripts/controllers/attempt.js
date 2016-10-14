@@ -15,6 +15,12 @@ angular.module('testingFrontendApp')
     $scope.init = function(questions,status){
       questions.data.forEach((question) => {
         question.answer = '';
+        question.useranswer = {
+          'attempt':attempt.attempt.id;
+          'question':question.id;
+          'answer':'',
+          'timetaken':null
+        };
       })
     };
 
