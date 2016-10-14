@@ -118,7 +118,7 @@
 #maincontent > .question-area{
   padding: 10px;
   /*height: inherit;*/
-  max-height: 72%;
+  max-height: 86%;
   overflow-y: scroll;
 }
 
@@ -143,7 +143,7 @@
   border-radius: 3px;
   transition: 0.2s;
   padding: 3px;
-  margin: 8px;
+  margin: 4px;
 }
 
 .option-selected {
@@ -157,7 +157,7 @@
             /*custom radio buttons and checkboxes*/
 /*hide default boxes*/
 input[type=radio], input[type=checkbox]{
-  display: inline-block;
+  display: none;
   opacity: 0;
   width: 0px;
   height: 0px;
@@ -170,11 +170,11 @@ input[type=radio], input[type=checkbox]{
   display: inline-block;
   vertical-align: middle;
   float: none;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 
 .custom-radio{
-  min-height: 50px;
+  min-height: 30px;
   /*background-color: aquamarine;*/
   background-image: url("/images/radio_off.png");
   background-repeat: no-repeat;
@@ -206,10 +206,13 @@ input[type=checkbox]:checked + label > .custom-checkbox{
 
 /*bottom control panel (bottom_bar)*/
 #control_buttons {
+  position: fixed;
+  bottom: 0%;
   background-color: grey;
+
 }
 
+/*Reduce size of all the snap drawers*/
 .snap-drawers{
-  background-color: red;
   bottom: 10%;
 }
