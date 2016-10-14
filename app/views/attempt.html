@@ -20,7 +20,7 @@
     </div>
     <ul class="list-group">
     <li ng-repeat="question in questions"  class="list-group-item">
-      <div class="option" ng-click="selectQuestion(question)">
+      <div class="row option" ng-click="selectQuestion(question)">
         <div class="col-xs-3">
           {{$index + 1}} 
         </div>
@@ -28,7 +28,7 @@
           <span ng-class="{'badge':true}">{{question.subj[0]}}</span>
         </div>
         <div class="col-xs-3">
-          <span class="badge badge-questiontype"> {{question.ques_type}}</span>
+          <span ng-class="{'badge':true, 'badge-questiontype':true "> {{question.ques_type}}</span>
         </div>
         <div class="col-xs-3">
           <span class="badge badge-questiontype">S</span>
@@ -139,6 +139,7 @@
       <button class="btn btn-danger" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false;">mark</button>
       <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="nextQuestion()">next</button>
       <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="displayInfo()">INFO</button>
+      <button class="btn btn-danger" ng-click="displayInfo()">Clear Selection</button>
     </div>
 
   </div> <!-- /Main content area  -->
