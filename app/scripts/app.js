@@ -19,7 +19,7 @@ var testing_app = angular
     'ui.router',
     'ui.bootstrap',
     'restangular',
-    'snap'
+    'snap',
   ]);
 
 var homeState = {

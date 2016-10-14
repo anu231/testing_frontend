@@ -8,8 +8,8 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-  .controller('AttemptCtrl', ['$scope','$state','attempt','questions','status','userans',
-  function($scope,$state,attempt,questions,status,userans) {
+  .controller('AttemptCtrl', ['$scope','$state','attempt','questions','status','useranswer',
+  function($scope,$state,attempt,questions,status,useranswer) {
     $scope.questions = questions.data;
 
     $scope.init = function(questions,status){
