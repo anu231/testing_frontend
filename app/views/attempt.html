@@ -4,28 +4,38 @@
 
   <!-- List of question  -->
   <div snap-drawer id="left_pane">
-    <div class="col-xs-6 col-xs-offset-6 question-header">
-      <div class="col-xs-2">
+    <div class="col-xs-12 question-header">
+      <div class="col-xs-3">
         No.
       </div>
-      <div class="col-xs-1">
+      <div class="col-xs-3">
         Sub
       </div>
-      <div class="col-xs-1">
+      <div class="col-xs-3">
         Type
       </div>
-    </div>
-    <div class="col-xs-6 col-xs-offset-6 question question-{{question.state}}" ng-repeat="question in questions" ng-click="selectQuestion(question)">
-      <div ng-class="{'col-xs-2':true, 'question-index':true, 'question-qc':question.confirmed==true, 'question-qm':question.marked==true }">
-        {{$index + 1}} 
-      </div>
-      <div class="col-xs-1 question-subject">
-        <span ng-class="{'badge':true, 'badge-physics':question.subj=='Physics', 'badge-math': question.subj=='Math', 'badge-chemistry':question.subj=='Chemistry'}">{{question.subj[0]}}</span>
-      </div>
-      <div class="col-xs-1 question-type">
-        <span class="badge badge-questiontype"> {{question.ques_type}}</span>
+      <div class="col-xs-3">
+        Sync
       </div>
     </div>
+    <ul class="list-group">
+    <li ng-repeat="question in questions"  class="list-group-item">
+      <div class="option" ng-click="selectQuestion(question)">
+        <div class="col-xs-3">
+          {{$index + 1}} 
+        </div>
+        <div class="col-xs-3">
+          <span ng-class="{'badge':true}">{{question.subj[0]}}</span>
+        </div>
+        <div class="col-xs-3">
+          <span class="badge badge-questiontype"> {{question.ques_type}}</span>
+        </div>
+        <div class="col-xs-3">
+          <span class="badge badge-questiontype">S</span>
+        </div>
+      </div>
+    </li>
+    </ul>
 
   </div> <!-- end side panel  -->  
 
@@ -34,11 +44,9 @@
 
     <!-- Top info bar  -->
     <div id="info_bar" class="nav nav-header">
-      <button snap-toggle="left" class="col-xs-1 btn btn-default">List</button>
-      <div id="counts" class="col-xs-6">
-
-        <div class="count col-xs-3" >{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
-        <div class="count col-xs-3" >{{confirmed}}</div>
+      <button id="indexButton" snap-toggle="left" class="col-xs-2 btn btn-primary"><span class="glyphicon glyphicon-list"></span></button>
+      <div id="counts" class="col-xs-10">
+        <div class="count col-xs-2 text-center" ><span class="text-success">{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
       </div>
     </div> <!-- End info bar  -->
 
@@ -56,28 +64,32 @@
 
       <!-- options for SC -->
       <div ng-if="selectedQuestion.ques_type=='SC'" id="options-area" class="col-xs-10 col-xs-offset-1">
-        <div ng-repeat="(key, val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}" ng-class="{'option':true, 'col-xs-12':true, 'option-selected':selectedQuestion.answer==key}">
-          <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
-          <label for="{{key}}" class="col-xs-12 vcenter">
-            <div class="custom-radio col-xs-1">
-            </div>
-            <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">
-            </div>
-          </label>
-        </div>
+        <ul class="list-group">
+        <li ng-repeat="(key, val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
+            <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
+            <label for="{{key}}" class="col-xs-12 vcenter">
+              <div class="custom-radio col-xs-1">
+              </div>
+              <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">
+              </div>
+            </label>
+        </li>
+        </ul>
       </div> <!-- /options SC  -->
 
       <!--options for MC-->
       <div ng-if="selectedQuestion.ques_type=='MC'" id="options-area" class="col-xs-10 col-xs-offset-1">
-        <div ng-repeat="(key,val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}" ng-class="{'option':true, 'col-xs-12':true, 'option-selected':false}">
-          <input id="{{key}}" type="checkbox" name="{{'option'+$index}}" ng-model="selectedQuestion['answer' + ($index + 1)]" ng-value="key">
-          <label for="{{key}}" class="col-xs-12 vcenter">
-            <div class="custom-checkbox col-xs-1">
-            </div>
-            <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">
-            </div>
-          </label>
-        </div>
+        <ul class="list-group">
+        <li  ng-repeat="(key,val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
+            <input id="{{key}}" type="checkbox" name="{{'option'+$index}}" ng-model="selectedQuestion['answer' + ($index + 1)]" ng-value="key">
+            <label for="{{key}}" class="col-xs-12 vcenter">
+              <div class="custom-checkbox col-xs-1">
+              </div>
+              <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">
+              </div>
+            </label>
+        </li>
+        </ul>
       </div> <!-- /mc  -->
 
       <!--options for IT-->
@@ -121,11 +133,12 @@
     </div> <!-- /question-area  -->
 
     <!--Control buttons-->
-    <div id="control_buttons" class="col-xs-6 col-xs-offset-6">
+    <div id="control_buttons" class="col-xs-12 ">
       <button class="btn btn-default" ng-click="previousQuestion()">previous</button>
-      <button class="btn btn-success" ng-click="selectedQuestion.confirmed=true;selectedQuestion.marked=false; displayInfo();save(selectedQuestion)">save</button>
+      <button class="btn btn-success" ng-click="selectedQuestion.confirmed=true;selectedQuestion.marked=false; save(selectedQuestion)">save</button>
       <button class="btn btn-danger" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false;">mark</button>
       <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="nextQuestion()">next</button>
+      <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="displayInfo()">INFO</button>
     </div>
 
   </div> <!-- /Main content area  -->

@@ -84,7 +84,6 @@
 /*The left question index drawer*/
 #left_pane {
   background-color: white;
-  height: 85%;
   width: 270px;
   overflow-y: scroll;
 }
@@ -96,12 +95,16 @@
   background-color: #FAFAFA;
   position: fixed;
   top: 8%;
-  min-height: 100%;
-  height: 550px;
+  bottom: 9%;
   width: 100%;
 }
 
 /*The info bar (top bar in question pane)*/
+#indexButton{
+  display: inline-block;
+  width: 6em;
+  float: left;
+}
 #info_bar {
  background-color: #616161; 
  color: white;
@@ -110,18 +113,16 @@
 /*information counters in info_bar*/
 .count{
   display: inline-block;
-  background-color: #212121;
-  color: white;
+  color: black;
   padding-top: 6px;
   padding-bottom: 5px;
-  border-radius: 3px;
+  text-size: 40px;
 }
 
 #maincontent > .question-area{
   padding: 10px;
-  /*background-color: red;*/
-  height: inherit;
-  max-height: 60%;
+  /*height: inherit;*/
+  max-height: 86%;
   overflow-y: scroll;
 }
 
@@ -142,11 +143,12 @@
 
 /*option base class*/
 .option {
-  border: 1px solid black;
-  border-radius: 3px;
+  /*border: 1px solid black;*/
+  /*height: 30px;*/
+  /*border-radius: 3px;*/
   transition: 0.2s;
   padding: 3px;
-  margin: 8px;
+  margin-bottom: 10px;
 }
 
 .option-selected {
@@ -160,7 +162,7 @@
             /*custom radio buttons and checkboxes*/
 /*hide default boxes*/
 input[type=radio], input[type=checkbox]{
-  display: inline-block;
+  display: none;
   opacity: 0;
   width: 0px;
   height: 0px;
@@ -173,11 +175,11 @@ input[type=radio], input[type=checkbox]{
   display: inline-block;
   vertical-align: middle;
   float: none;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 
 .custom-radio{
-  min-height: 50px;
+  min-height: 30px;
   /*background-color: aquamarine;*/
   background-image: url("/images/radio_off.png");
   background-repeat: no-repeat;
@@ -209,6 +211,13 @@ input[type=checkbox]:checked + label > .custom-checkbox{
 
 /*bottom control panel (bottom_bar)*/
 #control_buttons {
+  position: fixed;
+  bottom: 0%;
   background-color: grey;
+
 }
 
+/*Reduce size of all the snap drawers*/
+.snap-drawers{
+  bottom: 10%;
+}
