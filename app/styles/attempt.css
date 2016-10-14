@@ -119,9 +119,8 @@
 
 #maincontent > .question-area{
   padding: 10px;
-  /*background-color: red;*/
-  height: inherit;
-  max-height: 60%;
+  /*height: inherit;*/
+  max-height: 72%;
   overflow-y: scroll;
 }
 
