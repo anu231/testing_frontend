@@ -56,22 +56,6 @@ var attemptState = {
         return attempt.loadQuestions();  
       }
     }],
-    status : ['attempt','$stateParams',function(attempt,$stateParams){
-      //get the status of all the questions in the paper
-      if (attempt.getAttempt()==null){
-        attempt.fetchAttempt($stateParams.pid)
-        .then(function(resp){
-          attempt.setAttempt(resp.data);
-          //return attempt.loadQuestions();
-        },function(err){
-          console.log(err);
-        });
-        return null;
-      } else {
-        return attempt.loadQuestionStatus();
-      }
-      
-    }],
   },
   url:'/attempt/:pid',
   templateUrl:'views/attempt.html',

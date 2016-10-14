@@ -8,8 +8,8 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-  .controller('AttemptCtrl', ['$scope','$state','attempt','questions','status','useranswer',
-  function($scope,$state,attempt,questions,status,useranswer) {
+  .controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer',
+  function($scope,$state,attempt,questions,useranswer) {
     $scope.init = function(questions,status){
       if (questions!=null){
         $scope.questions = questions.data;
@@ -23,15 +23,6 @@ angular.module('testingFrontendApp')
       }
     };
     $scope.setUpQuestions = function(){
-      $scope.questions.forEach((question) => {
-        question.answer = undefined;
-        question.useranswer = {
-          'attempt':attempt.attempt.id,
-          'question':question.id,
-          'answer':'',
-          'timetaken':null
-        };
-      });
       $scope.selectedQuestion = $scope.questions[0];
     }
     $scope.init(questions, status);
