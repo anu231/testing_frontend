@@ -100,6 +100,11 @@
 }
 
 /*The info bar (top bar in question pane)*/
+#indexButton{
+  display: inline-block;
+  width: 6em;
+  float: left;
+}
 #info_bar {
  background-color: #616161; 
  color: white;
@@ -108,11 +113,10 @@
 /*information counters in info_bar*/
 .count{
   display: inline-block;
-  background-color: #212121;
-  color: white;
+  color: black;
   padding-top: 6px;
   padding-bottom: 5px;
-  border-radius: 3px;
+  text-size: 40px;
 }
 
 #maincontent > .question-area{

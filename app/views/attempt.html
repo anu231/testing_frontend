@@ -40,11 +40,9 @@
 
     <!-- Top info bar  -->
     <div id="info_bar" class="nav nav-header">
-      <button snap-toggle="left" class="col-xs-1 btn btn-default">List</button>
-      <div id="counts" class="col-xs-6">
-
-        <div class="count col-xs-3" >{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
-        <div class="count col-xs-3" >{{confirmed}}</div>
+      <button id="indexButton" snap-toggle="left" class="col-xs-2 btn btn-primary"><span class="glyphicon glyphicon-list"></span></button>
+      <div id="counts" class="col-xs-10">
+        <div class="count col-xs-2 text-center" ><span class="text-success">{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
       </div>
     </div> <!-- End info bar  -->
 
