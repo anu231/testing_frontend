@@ -134,10 +134,9 @@
 }
 
 #question_body {
-  min-height: 20%;
+  min-height: 4em;
   padding: 5px;
-  border: 2px solid black;
-  border-radius: 5px;
+  border: 2px solid #706a6a;
 }
 
 /*div displaying options*/
