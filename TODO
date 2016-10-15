@@ -1,16 +1,16 @@
 2016-10-08 17:36
   Update css for the view: attempt
   --Add controller functions for 'attempt'
-  Implement restangular
+  --Implement restangular
   Collect more metadata- Location device-type
                   
 2016-10-12 13:56
-  --Create templates for various question types.
-  Add css to the above templates
+  Create templates for various question types.
+  --Add css to the above templates
   Make side-panel contextual according to screen size **
   Front end form validation **
   Add test instruction modal **
-  Discuss save/confirm/mark logic
+  --Discuss save/confirm/mark logic
   
 2016-10-14 16:41                  
   time taken for answering each question

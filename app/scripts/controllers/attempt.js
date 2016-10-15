@@ -29,7 +29,13 @@ angular.module('testingFrontendApp')
       $scope.init(questions, status);
       // Set the selected question
       $scope.selectQuestion = function(question){
+        // Special case for CH type
+        if(true){
+          console.log(question.ques_type); 
+          // Set the next n questions as assertion type
+        } else {
         $scope.selectedQuestion = question;
+        }
       }
 
       $scope.nextQuestion = function(){
@@ -53,22 +59,45 @@ angular.module('testingFrontendApp')
       $scope.displayInfo = function(){
         console.log($scope.selectedQuestion); 
       }
-      $scope.validateAndFormatAnswer = function(question){
+      $scope.validateAndFormatAnswer = function(question){ //Saves answer if valid, else returns error sting
         if (question.ques_type=='SC'){
-          if (question.answer==undefined){
-            return 'Please select atleast one option';
+          var validAnswers = ["a","b","c","d"];
+          
+          if (question.answer==undefined || !validAnswers.includes(question.answer)){
+            return 'Please select atleast one valid option';
           } else {
             question.useranswer.answer = question.answer;
           }
+
         } else if (question.ques_type=='MC'){
+          var ansList = [];
+          var ansStr = "";
+          var validAnswers = ["answerA", "answerB", "answerC", "answerD"];
+          if(question.answerA != undefined || question.answerB != undefined 
+              || question.answerC != undefined || question.answerD != undefined)
+          {
+            validAnswers.forEach((va) => {
+              if(question[va] == true) ansList.push(va[6].toLowerCase()); //Push the last character A/B/C/D
+                ansStr = ansList.toString();  // CSV String 
+                question.useranswer.answer = ansStr;
+            });
+          } else {
+            return 'Please select atleast one valid option'; 
+          }
+          
 
         } else if (question.ques_type=='MT'){
 
         } else if (question.ques_type=='IT'){
+          if(question.answer == undefined) return 'Please enter an Integer';
+          else question.useranswer.answer = question.answer;
 
         } else if (question.ques_type=='TF'){
 
         } else if (question.ques_type=='SA'){
+          if(question.answer == undefined) return 'Please write SOMETHING! Jeeze...';
+          else question.useranswer.answer = question.answer;
+
 
         }
         return true;
@@ -85,7 +114,7 @@ angular.module('testingFrontendApp')
           console.log('created ans: ');
           console.log( question.useranswer);
         }
-        var ques_valid = $scope.validateAndFormatAnswer(question);
+        var ques_valid = $scope.validateAndFormatAnswer(question); // Returns true or error string... ?!
 
         if (ques_valid==true){
           useranswer.saveAnswer(question.useranswer)
@@ -96,6 +125,7 @@ angular.module('testingFrontendApp')
             });
         } else {
           console.log(ques_valid);
+          alert(ques_valid);
         }
       };
     }]);
