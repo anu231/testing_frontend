@@ -1,5 +1,15 @@
-                /*START Question state classes*/
+/*View base classes *DO NOT TOUCH**/
+/*rao colors: #da251a*/
+.view-parent {
+  position: absolute;
+  top: 8%;
+  bottom: 9%;
+  right: 0;
+  left: 0;
+  background-color: black;
+}
 
+                /*START Question state classes*/
 /* Header row */
 .question-header{
   background-color: #212121 ;
@@ -88,6 +98,8 @@
 
 /*The left question index drawer*/
 #left_pane {
+  position: relative;
+  height: 100%;
   background-color: white;
   width: 270px;
   overflow-y: scroll;
@@ -98,26 +110,27 @@
 /*The question display pane*/
 #maincontent {
   background-color: #FAFAFA;
-  position: fixed;
-  top: 8%;
-  bottom: 9%;
+  position: relative;
+  height: 100%;
   width: 100%;
 }
 
 /*The info bar (top bar in question pane)*/
+
+#info_bar {
+ position: fixed;
+ width: 100%;
+ height: 7%;
+ display: block;
+ z-index: 15;
+ background-color: #616161; 
+ color: white;
+}
+
 #indexButton{
   display: inline-block;
   width: 6em;
   float: left;
-}
-
-#info_bar {
- background-color: #616161; 
- width: 100%;
- color: white;
- position: fixed;
- display: block;
- z-index: 15;
 }
 
 /*information counters in info_bar*/
@@ -127,9 +140,10 @@
 }
 
 #maincontent > .question-area{
-  padding: 10px;
-  /*height: inherit;*/
+  position: relative;
+  top: 8%;
   max-height: 86%;
+  padding: 10px;
   overflow-y: scroll;
 }
 
@@ -219,7 +233,3 @@ input[type=checkbox]:checked + label > .custom-checkbox{
 
 }
 
-/*Reduce size of all the snap drawers*/
-.snap-drawers{
-  bottom: 10%;
-}
