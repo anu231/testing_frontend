@@ -51,19 +51,23 @@
     </div> <!-- End info bar  -->
 
     <!-- question-area  -->
-    <div class=" question-area">
-      <p>{{questions.indexOf(selectedQuestion) + 1}}</p>
-      <div ng-if="selectedQuestion.ques_type=='SC'"> <h5>Ans:{{selectedQuestion.answer}}</h5></div>
-      <div ng-if="selectedQuestion.ques_type=='MC'">
-        <p>a:{{selectedQuestion.answer1}} b: {{selectedQuestion.answer2}} c: {{selectedQuestion.answer3}} d: {{selectedQuestion.answer4}}</p>
+    <div class="question-area">
+
+      <!--only for debugging-->
+      <div ng-if="false">
+        <p>{{questions.indexOf(selectedQuestion) + 1}}</p>
+        <div ng-if="selectedQuestion.ques_type=='SC'"> <h5>Ans:{{selectedQuestion.answer}}</h5></div>
+        <div ng-if="selectedQuestion.ques_type=='MC'">
+          <p>a:{{selectedQuestion.answer1}} b: {{selectedQuestion.answer2}} c: {{selectedQuestion.answer3}} d: {{selectedQuestion.answer4}}</p>
+        </div>
       </div>
       <!-- question-body  -->
       <!--<div id="question_body" class="col-xs-10 col-xs-offset-1">-->
-        <!--<div ng-bind-html="selectedQuestion.question"> </div>-->
+      <!--<div ng-bind-html="selectedQuestion.question"> </div>-->
       <!--</div> [> /body  <]-->
 
       <!-- options for SC -->
-      <div ng-if="selectedQuestion.ques_type=='SC'" id="options-area" class="col-xs-10 col-xs-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='SC'" id="options-area" class="col-xs-12 col-md-10 col-md-offset-1">
         <ul class="list-group">
           <a  class="list-group-item">
             <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
@@ -81,7 +85,7 @@
       </div> <!-- /options SC  -->
 
       <!--options for MC-->
-      <div ng-if="selectedQuestion.ques_type=='MC'" id="options-area" class="col-xs-10 col-xs-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='MC'" id="options-area" class="col-xs-12 col-md-10 col-md-offset-1">
         <ul class="list-group">
           <a  class="list-group-item">
             <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
@@ -99,10 +103,10 @@
       </div> <!-- /mc  -->
 
       <!--options for IT-->
-      <div ng-if="selectedQuestion.ques_type=='IT'" id="options-area" class="col-xs-10 col-xs-offset-1">
-          <a class="list-group-item">
-            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
-          </a>
+      <div ng-if="selectedQuestion.ques_type=='IT'" id="options-area" class="col-xs-12 col-md-10 col-md-offset-1">
+        <a class="list-group-item">
+          <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+        </a>
         <label for="numerical_ans"><h3>Answer:</h3></label>
         <input id="ans" type="number" name="answer" step="1" ng-model="selectedQuestion.answer">
         <div role="alert">
@@ -111,29 +115,29 @@
       </div> <!-- /IT  -->
 
       <!-- TF  -->
-      <div ng-if="selectedQuestion.ques_type=='TF'" id="options-area" class="col-xs-10 col-xs-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='TF'" id="options-area" class="col-xs-12 col-md-10 col-md-offset-1">
 
       </div> <!-- /TF -->
 
       <!-- AR  -->
-      <div ng-if="selectedQuestion.ques_type=='AR'" id="options-area" class="col-xs-10 col-xs-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='AR'" id="options-area" class="col-xs-12 col-md-10 col-md-offset-1">
         Assertion reasoning
       </div> <!-- /ar  -->
 
       <!-- ch  -->
-      <div ng-if="selectedQuestion.ques_type=='CH'" id="options-area" class="col-xs-10 col-xs-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='CH'" id="options-area" class="col-xs-12 col-md-10 col-md-offset-1">
         comprehension
       </div> <!-- /ch  -->
 
       <!-- SA  --> 
-      <div ng-if="selectedQuestion.ques_type=='SA'" id="options-area" class="col-xs-10 col-xs-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='SA'" id="options-area" class="col-xs-12 col-md-10 col-md-offset-1">
         <label for="answer"><h3>Answer</h3></label>
         <textarea class="form-control" id="answer" name="answer" cols="30" rows="7"></textarea>
         <button class="btn-success">save</button>
       </div> <!-- /SA  -->
 
       <!-- MT  --> 
-      <div ng-if="selectedQuestion.ques_type=='MT'" id="options-area" class="col-xs-10 col-xs-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='MT'" id="options-area" class="col-xs-12 col-md-10 col-md-offset-1">
         Matrix Type
       </div> <!-- /SA  -->
 
