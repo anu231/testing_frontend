@@ -93,4 +93,26 @@ body {
 body { padding-bottom: 70px;padding-top:70px; }
 
 /* Akshay's css starts here */
-/* View: Attempt */
+//$brandColorRed: #da251a;
+$brandColorRed: #F44336;
+$brandColorRedText : #ffffff;
+
+$brandColorGrey: #757575;
+$brandColorGreyText: #ffffff;
+
+$brandColorBlue: #213571;
+$brandColorBlueText: #ffffff;
+
+.navbar-default{
+  background-color: $brandColorRed; 
+  border-color: $brandColorRed; 
+  color: $brandColorRedText;
+}
+.navbar-default .navbar-brand{
+  color: $brandColorRedText;
+}
+
+.footer {
+  background-color: $brandColorBlue;
+  color: $brandColorGreyText;
+}

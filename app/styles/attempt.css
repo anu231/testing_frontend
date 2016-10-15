@@ -109,10 +109,10 @@
 
 /*The question display pane*/
 #maincontent {
-  background-color: #FAFAFA;
   position: relative;
   height: 100%;
   width: 100%;
+  background-color: #c3c3c3;
 }
 
 /*The info bar (top bar in question pane)*/
@@ -123,7 +123,7 @@
  height: 7%;
  display: block;
  z-index: 15;
- background-color: #616161; 
+ background-color: #333333;
  color: white;
 }
 
@@ -153,6 +153,11 @@
   border: 2px solid #706a6a;
 }
 
+#question_box {
+  -webkit-box-shadow: 0px 0px 12px 5px rgba(140,140,140,1);
+  -moz-box-shadow: 0px 0px 12px 5px rgba(140,140,140,1);
+  box-shadow: 0px 0px 12px 5px rgba(140,140,140,1);
+}
 /*div displaying options*/
 #option-area {
   background-color: aquamarine;
@@ -229,7 +234,7 @@ input[type=checkbox]:checked + label > .custom-checkbox{
 #control_buttons {
   position: fixed;
   bottom: 0%;
-  background-color: grey;
+  background-color: #333333;
 
 }
 
