@@ -5,10 +5,10 @@
   Collect more metadata- Location device-type
                   
 2016-10-12 13:56
-  Create templates for various question types.
+  -Create templates for various question types. Comprehension remaining
   --Add css to the above templates
   Make side-panel contextual according to screen size **
-  Front end form validation **
+  -Front end form validation **  Almost done
   Add test instruction modal **
   --Discuss save/confirm/mark logic
   
@@ -17,9 +17,9 @@
   system timer global
   information bar
   google-analytics
-  implement clear option button
+  -- implement clear option button
   sync notif
-  window close alert in attempt.js
+  -- window close alert in attempt.js
   different toolbars
 intro.js
 underscore.js

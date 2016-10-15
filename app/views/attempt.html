@@ -213,10 +213,20 @@
       <button class="btn btn-danger" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false;">mark</button>
       <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="nextQuestion()">next</button>
       <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="displayInfo()">INFO</button>
-      <button class="btn btn-danger" ng-click="displayInfo()">Clear Selection</button>
+      <button class="btn btn-danger" ng-click="clearAnswer()">Clear</button>
     </div>
 
   </div> <!-- /Main content area  -->
 
   LOADING
+
+  <!-- TODO Window close alert box-->
+  <!--<script type="text/javascript">-->
+<!--window.addEventListener("beforeunload", function (e) {-->
+  <!--// Custom message not working!-->
+   <!--var confirmationMessage = "Future IITians don't give up!";-->
+    <!--e.returnValue = confirmationMessage;     -->
+     <!--return confirmationMessage;            -->
+<!--}); -->
+  <!--</script>-->
 </div>
