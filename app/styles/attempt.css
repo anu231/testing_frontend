@@ -1,5 +1,6 @@
 /*View base classes *DO NOT TOUCH**/
 /*rao colors: #da251a*/
+
 .view-parent {
   position: absolute;
   top: 8%;
@@ -124,7 +125,21 @@
  z-index: 15;
  background-color: #333333;
  color: white;
+}
 
+#global_timer {
+  position: relative;
+  display: inline-block;
+  border: 2px solid white;
+  height: 100%;
+  width: 7em;
+  left: 5%;
+  text-align: center;
+  padding: 5px;
+  font-size: 1.3em;
+}
+#global_timer .red{
+  color: red;
 }
 
 #current_question_no{
@@ -142,6 +157,12 @@
   border: 1px solid white;
   border-top: 6px solid white;
   border-bottom: 6px solid white;
+}
+
+#test_series_slug{
+  position: relative;
+  display: inline-block;
+  color: white;
 }
 
 #user_info {

@@ -8,8 +8,8 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$animate',
-    function($scope,$state,attempt,questions,useranswer,$timeout,$animate) {
+.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval',
+    function($scope,$state,attempt,questions,useranswer,$timeout, $interval) {
       $scope.init = function(questions,status){
         if (questions!=null){
           $scope.questions = questions.data;
@@ -22,6 +22,38 @@ angular.module('testingFrontendApp')
             })  
         }
       };
+
+      // Let the timer begin
+      function timer_start(duration){
+        duration = 610;
+        var time = duration;
+        var hrs = ""; 
+        var mins = "";
+        var secs = "";
+        var time_str = "";
+        var time_disp = $('#timeo');
+        function format_time(xx){
+          if(xx < 10) return "0" + xx;
+          else return xx; 
+        }
+        var timer = $interval(function(){
+          time -= 1;
+          hrs = format_time(Math.floor(time / 3600));
+          mins = format_time(Math.floor(time % 3600 / 60));
+          secs = format_time(time % 60);
+          time_str = hrs + ":" + mins + ":" + secs;  // Avoiding seconds here
+          if(time <= 10 * 60){    // Last 10 mins. Turn text to red
+            time_disp.addClass('red'); 
+          }
+          if(time <= 1){
+            time_disp.html("00:00");
+            $interval.cancel(timer);
+            $scope.alert_notification("TIME UP!");
+          }
+          time_disp.html(time_str); 
+        },1000);
+      }
+      timer_start(1);
 
       // Set the first question as selected one
       // TODO instead of setting this as default, Let the first screen
@@ -196,4 +228,4 @@ angular.module('testingFrontendApp')
    CH: Comprehension {TextArea}
    AR: Assertion Reason {???}
    SA: Subjective Answers {TextArea}
-*/
+   */
