@@ -126,10 +126,20 @@
  background-color: #333333;
  color: white;
 }
+#current_position{
+  position: absolute;
+  display: inline-block;
+  font-size: 2em;
+  left: 45%;
+  height: 100%;
+  background-color: white;
+  color: black;
+}
 
 #indexButton{
-  display: inline-block;
+  display: absolute;
   width: 6em;
+  height: 100%;
   float: left;
 }
 
@@ -145,6 +155,10 @@
   max-height: 86%;
   padding: 10px;
   overflow-y: scroll;
+}
+/*Hide scrollbars*/
+#maincontent > .question-area::-webkit-scrollbar{
+  display:none;
 }
 
 #question_body {
@@ -200,11 +214,11 @@ input[type=radio], input[type=checkbox]{
 }
 
 .custom-radio{
-  min-height: 2em;
+  min-height: 1.5em;
   /*background-color: aquamarine;*/
   background-image: url("/images/radio_off.png");
   background-repeat: no-repeat;
-  background-size: 2em 2em;
+  background-size: 1.5em 1.5em;
   background-position: center;
   transition: 0.2s;
 }
@@ -217,11 +231,10 @@ input[type=radio]:checked + label > .custom-radio{
  /*checkboxes*/
 .custom-checkbox{
   padding: 5px;
-  height: 30px;
+  height: 1.5em;
   background-image: url("/images/checkbox_off.png");
   background-repeat: no-repeat;
-  background-size: 20px 20px;
-  /*background-color: aquamarine;*/
+  background-size: 1.5em 1.5em;
   background-position: center;
   transition: 0.2s;
 }
