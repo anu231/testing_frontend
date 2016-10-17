@@ -21,6 +21,24 @@
   sync notif
   -- window close alert in attempt.js
   different toolbars
+  make error notification dismissable
 intro.js
 underscore.js
 angularcharts
+
+
+2016-10-17 14:28
+  Swipe navigation on mobile devices
+  Click to expand images on mobile devices
+  Responsive images on mobile
+
+
+
+
+Data collection Ideas
+- Location
+- Device type
+- Timestamps
+- Time-taken per question
+- Time-spent per question
+- Subject priority according to first attempted

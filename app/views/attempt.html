@@ -40,15 +40,18 @@
   <div snap-content id="maincontent" class="">
 
     <!-- Top info bar  -->
-    <div id="info_bar">
-      <button id="indexButton" snap-toggle="left" class=" btn btn-primary">
+    <div id="top_bar">
+      <button id="indexButton" snap-toggle="left" class=" btn">
         <span class="glyphicon glyphicon-list"></span>
       </button>
-      <button class="btn btn-info">{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</button>
+      <div id="current_question_no" >{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
+      <div id="user_info">
+        <div id="user_name" >John Doe</div>
+      </div>
     </div> <!-- End info bar  -->
 
     <!-- question-area  -->
-    <div class="question-area">
+    <div id="question-area">
 
       <!--only for debugging-->
       <div ng-if="false">
@@ -63,7 +66,7 @@
       <!--<div ng-bind-html="selectedQuestion.question"> </div>-->
       <!--</div> [> /body  <]-->
 
-      <!-- options for SC -->
+      <!--  SC -->
       <div ng-if="selectedQuestion.ques_type=='SC'" id="options-area" class="col-xs-12 col-md-8 col-md-offset-2">
         <ul id="question_box" class="list-group">
           <a href="#" class="list-group-item">
@@ -88,7 +91,7 @@
             <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
           </a>
           <li  ng-repeat="(key,val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
-            <input id="{{key}}" type="checkbox" name="{{'option'+$index}}" ng-model="selectedQuestion['answer' + key]" >
+            <input id="{{key}}" type="checkbox" name="{{'option'+$index}}" ng-model="selectedQuestion['answer' + key]" ng-false-value="undefined">
             <label for="{{key}}" class="col-xs-12 vcenter">
               <div class="custom-checkbox col-xs-1">
               </div>
@@ -207,14 +210,18 @@
     </div> <!-- /question-area  -->
 
     <!--Control buttons-->
-    <div id="control_buttons" class="col-xs-12 ">
-      <button class="btn btn-default" ng-click="previousQuestion()">previous</button>
-      <button class="btn btn-success" ng-click="selectedQuestion.confirmed=true;selectedQuestion.marked=false; save(selectedQuestion)">save</button>
-      <button class="btn btn-danger" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false;">mark</button>
-      <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="nextQuestion()">next</button>
-      <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="displayInfo()">INFO</button>
-      <button class="btn btn-danger" ng-click="clearAnswer()">Clear</button>
+    <div id="bottom_bar" class="col-xs-12">
+          <div id="control_buttons">
+            <button class="btn btn-default" ng-click="previousQuestion()"><span class="glyphicon glyphicon-arrow-left"></span></button>
+            <button class="btn btn-success" ng-click="selectedQuestion.confirmed=true;selectedQuestion.marked=false; save(selectedQuestion)"><span class="glyphicon glyphicon-ok"></span> Save</button>
+            <button class="btn btn-warning" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false;"><span class="glyphicon glyphicon-exclamation-sign"></span> Mark</button>
+            <button class="btn btn-danger" ng-click="clearAnswer()"><span class="glyphicon glyphicon-remove"></span>Clear</button>
+            <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="nextQuestion()"><span class="glyphicon glyphicon-arrow-right"></span></button>
+          </div>
+        <button ng-class="{'btn': true,'btn-warning':true, 'pull-right':true}" }} ng-click="displayInfo()"><span class="glyphicon glyphicon-info-sign"></span></button>
     </div>
+
+  <!-- Alert popup box  -->
   <div id="abox" ng-model="alert_message" ng-if="notification_show==true" ng-class="{'alert_box':true}">
     <div class="alert_message" >
       <span >
@@ -227,7 +234,7 @@
   </div>
 
   </div> <!-- /Main content area  -->
-  LOADING
+  Loading...
 
   <!-- TODO Window close alert box-->
   <!--<script type="text/javascript">-->
