@@ -104,6 +104,9 @@
   width: 270px;
   overflow-y: scroll;
 }
+#left_pane::-webkit-scrollbar{
+  display: none;
+}
 
               /*The primary content*/
 

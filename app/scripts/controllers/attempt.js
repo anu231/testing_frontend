@@ -195,7 +195,10 @@ angular.module('testingFrontendApp')
           $scope.notification_show = false;
         }, 4000);
       }
-
+      // Tooltips and other secondary stuff
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
 
 
 
