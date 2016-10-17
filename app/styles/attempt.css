@@ -133,7 +133,7 @@
   border: 2px solid white;
   height: 100%;
   width: 7em;
-  left: 5%;
+  /*left: 5%; [>Messes up mobile view<]*/
   text-align: center;
   padding: 5px;
   font-size: 1.3em;
@@ -149,7 +149,7 @@
   vertical-align: bottom;
   display: inline-block;
   text-align: center;
-  left: 45%;
+  /*left: 45%; [> Messes up mobile view <]*/
   height: 100%;
   /*line-height: 1.7;   [> TODO: HACK VERTICAL ALIGNMENT <]*/
   padding: 2px;
@@ -166,6 +166,7 @@
 }
 
 #user_info {
+  height: 100%;
   float: right;
   background-color: black;
 }
