@@ -8,8 +8,8 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer',
-    function($scope,$state,attempt,questions,useranswer) {
+.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$animate',
+    function($scope,$state,attempt,questions,useranswer,$timeout,$animate) {
       $scope.init = function(questions,status){
         if (questions!=null){
           $scope.questions = questions.data;
@@ -148,9 +148,25 @@ angular.module('testingFrontendApp')
             });
         } else {
           console.log(ques_valid);
-          alert(ques_valid);
+          //alert(ques_valid);
+          $scope.alert_notification(ques_valid);
         }
       };
+
+      //Alerts and notifications
+      $scope.notification_show = false;
+      $scope.alert_notification = function (msg){
+        $scope.alert_message = msg;
+        $scope.notification_show = true;
+        $timeout(function(){
+          $scope.alert_message = "";
+          $scope.notification_show = false;
+        }, 4000);
+      }
+
+
+
+
     }]);
 
 

@@ -225,6 +225,7 @@ input[type=radio]:checked + label > .custom-radio{
   background-position: center;
   transition: 0.2s;
 }
+
 input[type=checkbox]:checked + label > .custom-checkbox{
   background-image: url("/images/checkbox_on.png");
   transition: 0.5s;
@@ -234,7 +235,53 @@ input[type=checkbox]:checked + label > .custom-checkbox{
 #control_buttons {
   position: fixed;
   bottom: 0%;
+  z-index: 10;
   background-color: #333333;
 
 }
 
+.alert_box {
+  position: absolute;
+  display: inline-block;
+  width: 50%;
+  bottom: 10%;
+  margin-left: 25%;
+  margin-right: 25%;
+  z-index: 11;
+  color: #212121;
+  padding: 6px;
+  background-color: #ffffff;
+  border-radius: 0px;
+  box-shadow: 0px 3px 18px 5px #212121;
+  transition: 0.5s ease all;
+}
+
+.alert_box.ng-enter{
+  color: white;
+  transition: 0.4s ease all;
+  border-radius: 20px;
+  bottom: -10%;
+  background-color: black;
+  z-index: 11;
+}
+
+.alert_box.ng-enter-active {
+  bottom: 14%;
+  background-color: black;
+}
+
+.alert_box.ng-leave{
+  transition: 0.05s ease all;
+  z-index: 9;
+}
+
+.alert_box.ng-leave-active {
+  transition: 0.5s ease all;
+  background-color: #212121;
+  bottom: -10%;
+  z-index: 9;
+}
+
+.alert_message {
+  display: inline-block;
+}

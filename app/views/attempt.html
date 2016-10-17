@@ -215,9 +215,18 @@
       <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="displayInfo()">INFO</button>
       <button class="btn btn-danger" ng-click="clearAnswer()">Clear</button>
     </div>
+  <div id="abox" ng-model="alert_message" ng-if="notification_show==true" ng-class="{'alert_box':true}">
+    <div class="alert_message" >
+      <span >
+        {{alert_message}}
+      </span>
+    </div>
+    <div class="pull-right" ng-click="">
+      <span class="glyphicon glyphicon-remove"></span>
+    </div>
+  </div>
 
   </div> <!-- /Main content area  -->
-
   LOADING
 
   <!-- TODO Window close alert box-->
