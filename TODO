@@ -33,6 +33,8 @@ angularcharts
   Responsive images on mobile
   list groups in index look ugly... fix or revert back to divs
 
+2016-10-18 17:55
+  Created another branch to implement introjs named introjs. Merge that into this when ready.
 
 
 
