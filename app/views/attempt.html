@@ -1,7 +1,7 @@
-<div ng-init="selectedQuestion = questions[0];" class="view-parent"> 
+<div ng-init="selectedQuestion = questions[0];" class="view-attempt"> 
   <!-- List of question  -->
-  <div snap-drawer id="left_pane">
-    <div class="col-xs-12 question-header">
+  <div snap-drawer id="left_drawer">
+    <div id="index_header" class="col-xs-12">
       <div class="col-xs-3">
         No.
       </div>
@@ -15,17 +15,17 @@
         Sync
       </div>
     </div>
-    <ul class="list-group question-list">
-      <li ng-repeat="question in questions"  class="list-group-item question-list-item">
-        <div class="row question" ng-click="selectQuestion(question)">
-          <div class="col-xs-3 question-index" ng-class="{'question-marked':question.marked==true, 'question-saved':question.confirmed==true}">
+    <ul id="index_list" class="list-group">
+      <li ng-repeat="question in questions"  class="list-group-item index-list-item" ng-click="selectQuestion(question)">
+        <div class="row index-question" >
+          <div class="col-xs-3 index-question-no" ng-class="{'index-question-marked':question.marked==true, 'index-question-saved':question.confirmed==true}">
             {{$index + 1}} 
           </div>
           <div class="col-xs-3">
-            <span class="badge" ng-class="{'badge-math':question.subj=='Math', 'badge-chemistry':question.subj=='Chemistry','badge-physics':question.subj=='Physics'}">{{question.subj[0]}}</span>
+            <span class="badge" ng-class="{'index-badge-math':question.subj=='Math', 'index-badge-chemistry':question.subj=='Chemistry','index-badge-physics':question.subj=='Physics'}">{{question.subj[0]}}</span>
           </div>
           <div class="col-xs-3">
-            <span class="badge" ng-class="{'badge-questiontype':true}"> {{question.ques_type}}</span>
+            <span class="badge" ng-class="{'index-badge-questiontype':true}"> {{question.ques_type}}</span>
           </div>
           <div class="col-xs-3">
             <span class="badge badge-questiontype">S</span>
@@ -37,11 +37,11 @@
   </div> <!-- end side panel  -->  
 
   <!--  Main content area  -->  
-  <div snap-content id="maincontent" class="">
+  <div snap-content id="main_content" class="">
 
     <!-- Top info bar  -->
     <div id="top_bar">
-      <button id="indexButton" snap-toggle="left" class=" btn" title="Show the list of questions">
+      <button id="left_drawer_button" snap-toggle="left" class=" btn" title="Show the list of questions">
         <span class="glyphicon glyphicon-list"></span>
       </button>
       <div id="global_timer"><span class="glyphicon glyphicon-time"></span> <span id="timeo">00:00</span></div>
@@ -53,7 +53,7 @@
     </div> <!-- End info bar  -->
 
     <!-- question-area  -->
-    <div id="question-area">
+    <div id="question_area">
 
       <!--only for debugging-->
       <div ng-if="false">
@@ -69,8 +69,8 @@
       <!--</div> [> /body  <]-->
 
       <!--  SC -->
-      <div ng-if="selectedQuestion.ques_type=='SC'" id="options-area" class="col-xs-12 col-md-8 col-md-offset-2">
-        <ul id="question_box" class="list-group">
+      <div ng-if="selectedQuestion.ques_type=='SC'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+        <ul id="question_body_box" class="list-group">
           <a href="#" class="list-group-item">
             <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
           </a>
@@ -87,8 +87,8 @@
       </div> <!-- /options SC  -->
 
       <!--options for MC-->
-      <div ng-if="selectedQuestion.ques_type=='MC'" id="options-area" class="col-xs-12 col-md-8 col-md-offset-2">
-        <ul id="question_box" class="list-group">
+      <div ng-if="selectedQuestion.ques_type=='MC'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+        <ul id="question_body_box" class="list-group">
           <a  class="list-group-item">
             <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
           </a>
@@ -105,8 +105,8 @@
       </div> <!-- /mc  -->
 
       <!--options for IT-->
-      <div ng-if="selectedQuestion.ques_type=='IT'" id="options-area" class="col-xs-12 col-md-8 col-md-offset-2">
-        <ul id="question_box" class="list-group">
+      <div ng-if="selectedQuestion.ques_type=='IT'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+        <ul id="question_body_box" class="list-group">
           <a class="list-group-item">
             <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
           </a>
@@ -121,8 +121,8 @@
       </div> <!-- /IT  -->
 
       <!-- TF  -->
-      <div ng-if="selectedQuestion.ques_type=='TF'" id="options-area" class="col-xs-12 col-md-8 col-md-offset-2">
-        <ul id="question_box" class="list-group">
+      <div ng-if="selectedQuestion.ques_type=='TF'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+        <ul id="question_body_box" class="list-group">
           <a href="#" class="list-group-item">
             <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
           </a>
@@ -140,9 +140,9 @@
       </div> <!-- /TF -->
 
       <!-- AR  -->
-      <div ng-if="selectedQuestion.ques_type=='AR'" id="options-area" class="col-xs-12 col-md-10 col-md-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='AR'" id="" class="col-xs-12 col-md-10 col-md-offset-1">
         Assertion reasoning
-        <ul id="question_box" class="list-group">
+        <ul id="question_body_box" class="list-group">
           <a href="#" class="list-group-item">
             <div id="question_body">
               <div>Assertion:</div>
@@ -165,9 +165,9 @@
       </div> <!-- /ar  -->
 
       <!-- ch  -->
-      <div ng-if="selectedQuestion.ques_type=='CH'" id="options-area" class="col-xs-12 col-md-10 col-md-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='CH'" id="" class="col-xs-12 col-md-10 col-md-offset-1">
         comprehension
-        <ul id="question_box" class="list-group">
+        <ul id="question_body_box" class="list-group">
           <a  class="list-group-item">
             <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
           </a>
@@ -184,8 +184,8 @@
       </div> <!-- /ch  -->
 
       <!-- SA  --> 
-      <div ng-if="selectedQuestion.ques_type=='SA'" id="options-area" class="col-xs-12 col-md-8 col-md-offset-2">
-        <ul id="question_box" class="list-group">
+      <div ng-if="selectedQuestion.ques_type=='SA'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+        <ul id="question_body_box" class="list-group">
           <a href="#" class="list-group-item">
             <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
           </a>
@@ -198,8 +198,8 @@
       </div> <!-- /SA  -->
 
       <!-- MT  --> 
-      <div ng-if="selectedQuestion.ques_type=='MT'" id="options-area" class="col-xs-12 col-md-10 col-md-offset-1">
-        <ul id="question_box" class="list-group">
+      <div ng-if="selectedQuestion.ques_type=='MT'" id="" class="col-xs-12 col-md-10 col-md-offset-1">
+        <ul id="question_body_box" class="list-group">
           <a  class="list-group-item">
             <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
           </a>
@@ -224,8 +224,8 @@
     </div>
 
   <!-- Alert popup box  -->
-  <div id="abox" ng-model="alert_message" ng-if="notification_show==true" ng-class="{'alert_box':true}">
-    <div class="alert_message" >
+  <div id="abox" ng-model="alert_message" ng-if="notification_show==true" class='alert-box'>
+    <div id="alert_message">
       <span >
         {{alert_message}}
       </span>

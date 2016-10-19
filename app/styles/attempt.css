@@ -1,10 +1,12 @@
-/*View base classes *DO NOT TOUCH**/
 /*rao colors: #da251a*/
+/*Ids use underscore*/
+/*Classes use hyphen*/
 
-.view-parent {
+/*View base classes *DO NOT TOUCH**/
+.view-attempt {
   position: absolute;
   top: 8%;
-  bottom: 9%;
+  bottom: 0%;
   right: 0;
   left: 0;
   background-color: black;
@@ -12,7 +14,7 @@
 
                 /*START Question state classes*/
 /* Header row */
-.question-header{
+#index_header{
   background-color: #212121 ;
   color: white;
   margin-bottom:2px;
@@ -24,21 +26,22 @@
   z-index: 5;
 }
 /*Rest of the list*/
-.question-list{
+#index_list{
   margin-top: 13%;
 }
-.question-list-item{
+
+.index-list-item{
   padding: 5px;
 }
 
 /* Base class */
-.question { 
+.index-question { 
   background-color:#fff;
   padding: 0px;
   transition: 0.2s background-color;
 }
 
-.question:hover{
+.index-question:hover{
   background-color: #212121 ;
   color: white;
 }
@@ -47,7 +50,7 @@
 
             /*START Badges and info*/
 /*default question state*/
-.question-index{
+.index-question-no{
   display: inline-block;
   background-image: url("/images/index_bg_default.png");
   background-size: contain;
@@ -55,63 +58,49 @@
 }
 
 /*marked confirmed*/
-.question-saved {
+.index-question-saved {
   background-image: url("/images/index_bg_green.png");
 }
 /*marked for later review*/
-.question-marked {
+.index-question-marked {
   background-image: url("/images/index_bg_red.png");
 }
 
-
-.question-subject{
-  display: inline-block;
-}
-.question-type{
-  display: inline-block;
-}
-
-.badge-physics{
+.index-badge-physics{
   background-color: red;
 }
-.badge-math{
+.index-badge-math{
   background-color: blue;
 }
-.badge-chemistry{
+.index-badge-chemistry{
   background-color: green;
 }
 
-.badge-questiontype{
+.index-badge-questiontype{
   background-color: #212121;
 }
 
               /*End Badges and Info*/
+/* END INDEX */
 
 /*OVERALL THEME*/
-#paper {
-  background-color: white;
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  min-height: 100%;
-}
 
 /*The left question index drawer*/
-#left_pane {
+#left_drawer {
   position: relative;
   height: 100%;
   background-color: white;
   width: 270px;
   overflow-y: scroll;
 }
-#left_pane::-webkit-scrollbar{
+#left_drawer::-webkit-scrollbar{
   display: none;
 }
 
               /*The primary content*/
 
 /*The question display pane*/
-#maincontent {
+#main_content {
   position: relative;
   height: 100%;
   width: 100%;
@@ -152,9 +141,7 @@
   vertical-align: bottom;
   display: inline-block;
   text-align: center;
-  /*left: 45%; [> Messes up mobile view <]*/
   height: 100%;
-  /*line-height: 1.7;   [> TODO: HACK VERTICAL ALIGNMENT <]*/
   padding: 2px;
   color: white;
   border: 1px solid white;
@@ -186,28 +173,24 @@
   float: right;
 }
 
-#indexButton{
+#left_drawer_button{
   display: absolute;
   width: 6em;
   height: 100%;
   float: left;
 }
 
-/*information counters in info_bar*/
-.progress{
-  display: inline-block;
-  width: 6em;
-}
 
-#question-area{
+#question_area{
   position: relative;
   top: 8%;
   max-height: 86%;
   padding: 10px;
   overflow-y: scroll;
 }
+
 /*Hide scrollbars*/
-#question-area::-webkit-scrollbar{
+#question_area::-webkit-scrollbar{
   display:none;
 }
 
@@ -217,30 +200,14 @@
   border: 2px solid #706a6a;
 }
 
-#question_box {
+#question_body_box {
   -webkit-box-shadow: 0px 0px 12px 5px rgba(140,140,140,1);
   -moz-box-shadow: 0px 0px 12px 5px rgba(140,140,140,1);
   box-shadow: 0px 0px 12px 5px rgba(140,140,140,1);
 }
-/*div displaying options*/
-#option-area {
-  background-color: aquamarine;
-  min-height: 30%;
-  border-radius: 5px;
-  /*padding: 5px;*/
-}
 
-/*option base class*/
-.option {
-  transition: 0.2s;
-  padding: 2px;
-}
 
-.option-selected {
-  border: 3px solid #212121;
-  background-color: #aaaaaa;
-}
-
+/* Kept for future use */
 .option-body{
 }
 
@@ -260,12 +227,10 @@ input[type=radio], input[type=checkbox]{
   display: inline-block;
   vertical-align: middle;
   float: none;
-  /*margin-bottom: 20px;*/
 }
 
 .custom-radio{
   min-height: 1.5em;
-  /*background-color: aquamarine;*/
   background-image: url("/images/radio_off.png");
   background-repeat: no-repeat;
   background-size: 1.5em 1.5em;
@@ -308,7 +273,8 @@ input[type=checkbox]:checked + label > .custom-checkbox{
   background-color: #333333;
 }
 
-.alert_box {
+/* Notifications and popups */
+.alert-box {
   position: absolute;
   display: inline-block;
   width: 50%;
@@ -324,7 +290,7 @@ input[type=checkbox]:checked + label > .custom-checkbox{
   transition: 0.5s ease all;
 }
 
-.alert_box.ng-enter{
+.alert-box.ng-enter{
   color: white;
   transition: 0.4s ease all;
   border-radius: 20px;
@@ -333,23 +299,23 @@ input[type=checkbox]:checked + label > .custom-checkbox{
   z-index: 11;
 }
 
-.alert_box.ng-enter-active {
+.alert-box.ng-enter-active {
   bottom: 14%;
   background-color: black;
 }
 
-.alert_box.ng-leave{
+.alert-box.ng-leave{
   transition: 0.05s ease all;
   z-index: 9;
 }
 
-.alert_box.ng-leave-active {
+.alert-box.ng-leave-active {
   transition: 0.5s ease all;
   background-color: #212121;
   bottom: -10%;
   z-index: 9;
 }
 
-.alert_message {
+#alert_message {
   display: inline-block;
 }
