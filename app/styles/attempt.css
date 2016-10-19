@@ -223,6 +223,11 @@
 
 
 /* Kept for future use */
+#matrix_headers{
+}
+.matrix_header{
+ display: inline-block;
+}
 .option-body{
 }
 
@@ -273,6 +278,11 @@ input[type=checkbox]:checked + label > .custom-checkbox{
   background-image: url("/images/checkbox_on.png");
   transition: 0.5s;
 }
+/* For matrix types */
+.custom-matrix-checkbox{
+  padding: 12px;
+}
+
 
 /*bottom control panel (bottom_bar)*/
 #bottom_bar {

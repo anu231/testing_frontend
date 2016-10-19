@@ -135,7 +135,7 @@
       </div> <!-- /TF -->
 
       <!-- AR  -->
-      <div ng-if="selectedQuestion.ques_type=='AR'" id="" class="col-xs-12 col-md-10 col-md-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='AR'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
         Assertion reasoning
         <ul id="question_body_box" class="list-group">
           <a href="#" class="list-group-item">
@@ -160,7 +160,7 @@
       </div> <!-- /ar  -->
 
       <!-- ch  -->
-      <div ng-if="selectedQuestion.ques_type=='CH'" id="" class="col-xs-12 col-md-10 col-md-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='CH'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
         comprehension
         <ul id="question_body_box" class="list-group">
           <a  class="list-group-item">
@@ -193,11 +193,54 @@
       </div> <!-- /SA  -->
 
       <!-- MT  --> 
-      <div ng-if="selectedQuestion.ques_type=='MT'" id="" class="col-xs-12 col-md-10 col-md-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='MT'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
         <ul id="question_body_box" class="list-group">
           <a  class="list-group-item">
-            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+            <!--<div id="question_body" ng-bind-html="selectedQuestion.question"> </div>-->
+            <div><p>akdsflsdflksjd dsfkljasfk ls Lorem voluptates cumque iure eligendi quae quisquam voluptatum odit facilis! Tempore tempore error fugiat cum sed. Iste nulla at dolorum optio non. Veritatis ipsum temporibus explicabo praesentium necessitatibus atque impedit?5</p></div>
           </a>
+          <li class="list-group-item">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <td>#</td>
+                  <td>P</td>
+                  <td>Q</td>
+                  <td>R</td>
+                  <td>S</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="opt in ['A','B','C','D']">
+                  <td>{{opt}}</td>
+                  <td>
+                    <input id="{{opt}}p" ng-model="selectedQuestion['answer'+opt]['p']" type="checkbox" name="" ng-false-value="undefined">
+                    <label for="{{opt}}p">
+                      <div class="custom-checkbox custom-matrix-checkbox col-xs-1"></div>
+                    </label>
+                  </td>
+                  <td>
+                    <input id="{{opt}}q" ng-model="selectedQuestion['answer'+opt]['q']" type="checkbox" name="" ng-false-value="undefined">
+                    <label for="{{opt}}q">
+                      <div class="custom-checkbox custom-matrix-checkbox"></div>
+                    </label>
+                  </td>
+                  <td>
+                    <input id="{{opt}}r" ng-model="selectedQuestion['answer'+opt]['r']" type="checkbox" name="" ng-false-value="undefined">
+                    <label for="{{opt}}r">
+                      <div class="custom-checkbox custom-matrix-checkbox"></div>
+                    </label>
+                  </td>
+                  <td>
+                    <input id="{{opt}}s" ng-model="selectedQuestion['answer'+opt]['s']" type="checkbox" name="" ng-false-value="undefined">
+                    <label for="{{opt}}s">
+                      <div class="custom-checkbox custom-matrix-checkbox"></div>
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
         </ul>
         Matrix Type
       </div> <!-- /SA  -->
@@ -215,7 +258,7 @@
             <button class="btn btn-danger" ng-click="clearAnswer()" data-toggle="tooltip" data-placement="top" title="Clear the selected choices"><span class="glyphicon glyphicon-remove"></span>Clear</button>
             <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="nextQuestion()"><span class="glyphicon glyphicon-arrow-right"></span></button>
           </div>
-          <button ng-if="debug==true" ng-class="{'btn': true,'btn-warning':true, 'pull-right':true}" }} ng-click="displayInfo()"><span class="glyphicon glyphicon-info-sign"></span></button>
+          <button ng-if="true" ng-class="{'btn': true,'btn-warning':true, 'pull-right':true}" }} ng-click="displayInfo()"><span class="glyphicon glyphicon-info-sign"></span></button>
     </div>
 
   <!-- Alert popup box  -->
