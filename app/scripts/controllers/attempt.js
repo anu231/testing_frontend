@@ -126,29 +126,50 @@ angular.module('testingFrontendApp')
           var ansStr = "";
           var validAnswers = ["answerA", "answerB", "answerC", "answerD"];
           if(question.answerA != undefined || question.answerB != undefined 
-              || question.answerC != undefined || question.answerD != undefined)
-          {
+              || question.answerC != undefined || question.answerD != undefined){
             validAnswers.forEach((va) => {
               if(question[va] == true) ansList.push(va[6].toLowerCase()); //Push the last character A/B/C/D
               ansStr = ansList.toString();  // CSV String 
               question.useranswer.answer = ansStr;
             });
           } else {
-            return {msg:'Please select atleast one valid option', theme: 'green'};
+            return {msg:'Please select atleast one valid option', theme: 'red'};
           }
 
         } else if (question.ques_type=='MT'){
-          // TODO
+          var validAnswers = ["answerA", "answerB", "answerC", "answerD"];
+          var validOptions = ["p", "q", "r", "s"];
+          var matrix_answer = {
+            "A" : [], 
+            "B" : [], 
+            "C" : [], 
+            "D" : [] 
+          }
+          if(question.answerA != undefined || question.answerB != undefined 
+              ||question.answerC != undefined ||question.answerD != undefined){
+            validAnswers.forEach((va) => {
+              validOptions.forEach((vo) => {
+                if(question[va][vo] == true){
+                  matrix_answer[va.slice(-1)].push(vo)}
+              });
+            });
+            console.log(matrix_answer);
+            question.useranswer.answer = matrix_answer;
+          
+          } else {
+            return {msg:'Please select at least one valid answer', theme: 'red'}
+          }
 
         } else if (question.ques_type=='IT'){
-          if(question.answer == undefined) return 'Please enter an Integer';
+          if(question.answer == undefined) return {msg:'Please enter an Integer', theme:'red'};
           else question.useranswer.answer = question.answer;
 
         } else if (question.ques_type=='TF'){
           // TODO
 
         } else if (question.ques_type=='SA'){
-          if(question.answer == undefined) return 'Please write SOMETHING! Jeeze...';
+          if(question.answer == undefined) return {msg:'Please write SOMETHING! Jeeze...', theme:'red'};
+          if(question.answer == "") return {msg:'Please write SOMETHING! Jeeze...', theme:'red'};
           else question.useranswer.answer = question.answer;
         }
         return true;
@@ -166,7 +187,6 @@ angular.module('testingFrontendApp')
             timetaken: 1 
           } 
           console.log('created ans: ');
-          console.log( question.useranswer);
         }
         var ques_valid = $scope.validateAndFormatAnswer(question); 
 
