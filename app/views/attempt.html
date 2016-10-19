@@ -41,15 +41,12 @@
 
     <!-- Top info bar  -->
     <div id="top_bar">
-      <button id="left_drawer_button" snap-toggle="left" class=" btn" title="Show the list of questions">
+      <button id="left_drawer_button" snap-toggle="left" class="" title="Show the list of questions">
         <span class="glyphicon glyphicon-list"></span>
       </button>
-      <div id="global_timer"><span class="glyphicon glyphicon-time"></span> <span id="timeo">00:00</span></div>
       <div id="current_question_no" >{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
+      <div id="global_timer"><span class="glyphicon glyphicon-time"></span> <span id="timeo">00:00</span></div>
 
-      <div id="user_info">
-        <div id="user_name" >John Doe</div>
-      </div>
     </div> <!-- End info bar  -->
 
     <!-- question-area  -->
