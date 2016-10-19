@@ -284,10 +284,24 @@ input[type=checkbox]:checked + label > .custom-checkbox{
   z-index: 11;
   color: #212121;
   padding: 6px;
-  background-color: #ffffff;
+  opacity: 1;
+  background-color: white;
   border-radius: 0px;
   box-shadow: 0px 3px 18px 5px #212121;
   transition: 0.5s ease all;
+  font-size: 1.3em;
+}
+.alert-box-red{
+  background-color: #F44336;
+  color: white;
+}
+.alert-box-yellow{
+  background-color: #fff47c;
+  color: black;
+}
+.alert-box-green{
+  background-color: #4CAF50;
+  color: white;
 }
 
 .alert-box.ng-enter{
@@ -295,13 +309,14 @@ input[type=checkbox]:checked + label > .custom-checkbox{
   transition: 0.4s ease all;
   border-radius: 20px;
   bottom: -10%;
-  background-color: black;
-  z-index: 11;
+  z-index: 9;
+  opacity: 0;
 }
 
 .alert-box.ng-enter-active {
   bottom: 14%;
-  background-color: black;
+  opacity: 0.5;
+  background-color: white;
 }
 
 .alert-box.ng-leave{

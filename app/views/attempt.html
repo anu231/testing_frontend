@@ -56,7 +56,7 @@
     <div id="question_area">
 
       <!--only for debugging-->
-      <div ng-if="false">
+      <div ng-if="debug==true">
         <p>{{questions.indexOf(selectedQuestion) + 1}}</p>
         <div ng-if="selectedQuestion.ques_type=='SC'"> <h5>Ans:{{selectedQuestion.answer}}</h5></div>
         <div ng-if="selectedQuestion.ques_type=='MC'">
@@ -115,9 +115,6 @@
             <input id="ans" class="form-control" type="number" name="answer" step="1" ng-model="selectedQuestion.answer">
           </li>
         </ul>
-        <div role="alert">
-          <!-- TODO Alert if user inputs fractions  -->
-        </div>
       </div> <!-- /IT  -->
 
       <!-- TF  -->
@@ -213,18 +210,18 @@
 
     <!--Control buttons-->
     <div id="bottom_bar" class="col-xs-12">
-          <div id="control_buttons">
+          <div id="control_buttons" class="col-xs-12 col-lg-6 col-lg-offset-3">
             <button class="btn btn-default" ng-click="previousQuestion()"><span class="glyphicon glyphicon-arrow-left"></span></button>
             <button class="btn btn-success" ng-click="selectedQuestion.confirmed=true;selectedQuestion.marked=false; save(selectedQuestion)" data-toggle="tooltip" data-placement="top" title="Save your progress. Saved questions can be changed later."  ><span class="glyphicon glyphicon-ok"></span> Save</button>
-            <button class="btn btn-warning" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false;" data-toggle="tooltip" data-placement="top" title="Mark this question for later review"><span class="glyphicon glyphicon-exclamation-sign"></span> Mark</button>
+            <button class="btn btn-warning" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false; alert_notification({'msg': 'Question Marked','theme':'yellow','time':1900}); " data-toggle="tooltip" data-placement="top" title="Mark this question for later review"><span class="glyphicon glyphicon-exclamation-sign"></span> Mark</button>
             <button class="btn btn-danger" ng-click="clearAnswer()" data-toggle="tooltip" data-placement="top" title="Clear the selected choices"><span class="glyphicon glyphicon-remove"></span>Clear</button>
             <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="nextQuestion()"><span class="glyphicon glyphicon-arrow-right"></span></button>
           </div>
-        <button ng-class="{'btn': true,'btn-warning':true, 'pull-right':true}" }} ng-click="displayInfo()"><span class="glyphicon glyphicon-info-sign"></span></button>
+          <button ng-if="debug==true" ng-class="{'btn': true,'btn-warning':true, 'pull-right':true}" }} ng-click="displayInfo()"><span class="glyphicon glyphicon-info-sign"></span></button>
     </div>
 
   <!-- Alert popup box  -->
-  <div id="abox" ng-model="alert_message" ng-if="notification_show==true" class='alert-box'>
+  <div id="abox" ng-model="alert_message" ng-if="notification_show==true" ng-class="{'alert-box':true, 'alert-box-red':alert_message_theme=='red' , 'alert-box-green':alert_message_theme=='green','alert-box-yellow':alert_message_theme=='yellow'}">
     <div id="alert_message">
       <span >
         {{alert_message}}
@@ -236,7 +233,6 @@
   </div>
 
   </div> <!-- /Main content area  -->
-  Loading...
 
   <!-- TODO Window close alert box-->
   <!--<script type="text/javascript">-->

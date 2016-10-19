@@ -48,7 +48,7 @@ angular.module('testingFrontendApp')
           if(time <= 1){
             time_disp.html("00:00");
             $interval.cancel(timer);
-            $scope.alert_notification("TIME UP!");
+            $scope.alert_notification("TIME UP!", "red");
           }
           time_disp.html(time_str); 
         },1000);
@@ -117,7 +117,7 @@ angular.module('testingFrontendApp')
         if (question.ques_type=='SC'){
           var validAnswers = ["a","b","c","d"];
           if (question.answer==undefined || !validAnswers.includes(question.answer)){
-            return 'Please select atleast one valid option';
+            return {msg:'Please select atleast one valid option', theme: 'red'};
           } else {
             question.useranswer.answer = question.answer;
           }
@@ -134,7 +134,7 @@ angular.module('testingFrontendApp')
               question.useranswer.answer = ansStr;
             });
           } else {
-            return 'Please select atleast one valid option'; 
+            return {msg:'Please select atleast one valid option', theme: 'green'};
           }
 
         } else if (question.ques_type=='MT'){
@@ -187,13 +187,16 @@ angular.module('testingFrontendApp')
 
       //Alerts and notifications
       $scope.notification_show = false;
-      $scope.alert_notification = function (msg){
-        $scope.alert_message = msg;
+      $scope.alert_notification = function (message){
+        $scope.alert_message = message.msg;
         $scope.notification_show = true;
+        $scope.alert_message_theme = message.theme;
+        var timeout = message.time || 3000;
         $timeout(function(){
+          $scope.alert_message_theme = "";
           $scope.alert_message = "";
           $scope.notification_show = false;
-        }, 4000);
+        }, timeout);
       }
       // Tooltips and other secondary stuff
       $(function () {
