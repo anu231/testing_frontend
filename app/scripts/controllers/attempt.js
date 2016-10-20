@@ -48,50 +48,64 @@ angular.module('testingFrontendApp')
           if(time <= 1){
             time_disp.html("00:00");
             $interval.cancel(timer);
-            $scope.alert_notification("TIME UP!", "red");
+            $scope.alert_notification({msg:"TIME UP!", theme:"red", time: 10000});
           }
           time_disp.html(time_str); 
         },1000);
       }
       timer_start(1);
 
-      // Set the first question as selected one
-      // TODO instead of setting this as default, Let the first screen
-      // be a mock for INTRO.js
+      // Question process pipeline; Also sets up the first question
+      // Used by the init?
+      // TODO instead of setting this as default, Let the first screen be a mock for INTRO.js
       $scope.setUpQuestions = function(){
+        $scope.questions.forEach((question) => {
+          console.log($scope.questions.indexOf(question));
+          if(question.ques_type == 'CH'){
+            // Mark the next n questions as 'isChRelated = True'
+            var lengthLinkedQuestions = question.comprehension_list.length;
+            var currentIndex = $scope.questions.indexOf(question);
+            console.log('CH detected at ' + (currentIndex + 1) + '! Next ' + question.comprehension_list.length + ' questions will be linked.'); 
+            for(let i=0; i<lengthLinkedQuestions; i++){
+              console.log('Question index: ' + (currentIndex + i + 1 + 1) + ' will be marked!');
+              $scope.questions[currentIndex + i + 1].isChRelated = true;
+              $scope.questions[currentIndex + i + 1].chQuestion = question.question;
+            }
+          }
+        });
+        // Set up the first question
         $scope.selectedQuestion = $scope.questions[0];
       }
 
       $scope.init(questions, status);
 
-      // Set the selected question. Used by the left_panel index
+      // Question selection pipeline
+      // Used by the index, nextQuestion and previousQuestion buttons
       $scope.selectQuestion = function(question){
-        if(true){
-          // Special case for CH type
-          console.log(question.ques_type); 
-          // Set the next n questions as assertion type
-        }
         $scope.selectedQuestion = question;
       }
 
-      // Go to next question. Used by "Next" button.
+      // Select the next question. 
+      // Used by "Next" button.
       $scope.nextQuestion = function(){
         var currentIndex = $scope.questions.indexOf($scope.selectedQuestion); 
         if(currentIndex < $scope.questions.length - 1){
-          $scope.selectedQuestion = $scope.questions[currentIndex + 1]
+          $scope.selectQuestion($scope.questions[currentIndex + 1]);
         } else {
           $scope.selectedQuestion.isLast = true; 
+          // TODO Disable the next button!
         }
       }
 
-      // Go to previous question. 
+      // Select the previous question. 
       // Used by "Previous" control button.
       $scope.previousQuestion = function(){
         var currentIndex = $scope.questions.indexOf($scope.selectedQuestion); 
         if(currentIndex > 0){
-          $scope.selectedQuestion = $scope.questions[currentIndex - 1]
+          $scope.selectQuestion($scope.questions[currentIndex - 1]);
         } else {
           $scope.selectedQuestion.isFirst = true; 
+          // TODO Disable the previous button!
         }
       }
 
