@@ -25,7 +25,7 @@ angular.module('testingFrontendApp')
 
       // Let the timer begin
       function timer_start(duration){
-        duration = 610;
+        duration = 610; //TODO get the time from paper service
         var time = duration;
         var hrs = ""; 
         var mins = "";
@@ -60,14 +60,13 @@ angular.module('testingFrontendApp')
       // TODO instead of setting this as default, Let the first screen be a mock for INTRO.js
       $scope.setUpQuestions = function(){
         $scope.questions.forEach((question) => {
-          console.log($scope.questions.indexOf(question));
           if(question.ques_type == 'CH'){
             // Mark the next n questions as 'isChRelated = True'
             var lengthLinkedQuestions = question.comprehension_list.length;
             var currentIndex = $scope.questions.indexOf(question);
-            console.log('CH detected at ' + (currentIndex + 1) + '! Next ' + question.comprehension_list.length + ' questions will be linked.'); 
+            //console.log('CH detected at ' + (currentIndex + 1) + '! Next ' + question.comprehension_list.length + ' questions will be linked.'); 
             for(let i=0; i<lengthLinkedQuestions; i++){
-              console.log('Question index: ' + (currentIndex + i + 1 + 1) + ' will be marked!');
+              //console.log('Question index: ' + (currentIndex + i + 1 + 1) + ' will be marked!');
               $scope.questions[currentIndex + i + 1].isChRelated = true;
               $scope.questions[currentIndex + i + 1].chQuestion = question.question;
             }
@@ -153,18 +152,16 @@ angular.module('testingFrontendApp')
         } else if (question.ques_type=='MT'){
           var validAnswers = ["answerA", "answerB", "answerC", "answerD"];
           var validOptions = ["p", "q", "r", "s"];
-          var matrix_answer = {
-            "A" : [], 
-            "B" : [], 
-            "C" : [], 
-            "D" : [] 
-          }
+          var matrix_answer = { "A" : [], "B" : [], "C" : [], "D" : [] };
           if(question.answerA != undefined || question.answerB != undefined 
               ||question.answerC != undefined ||question.answerD != undefined){
             validAnswers.forEach((va) => {
               validOptions.forEach((vo) => {
-                if(question[va][vo] == true){
-                  matrix_answer[va.slice(-1)].push(vo)}
+                if(question[va] != undefined){
+                  if(question[va][vo] == true){
+                    matrix_answer[va.slice(-1)].push(vo)
+                  }
+                }
               });
             });
             console.log(matrix_answer);
@@ -200,17 +197,18 @@ angular.module('testingFrontendApp')
             answer: question.answer,
             timetaken: 1 
           } 
-          console.log('created ans: ');
         }
         var ques_valid = $scope.validateAndFormatAnswer(question); 
 
         if (ques_valid==true){
           useranswer.saveAnswer(question.useranswer)
             .then(function(resp){
-              question.useranswer = resp;
+              // TODO Save the standard useranswer dict, not the whole restangular object 
+              //question.useranswer = resp; //NOT NEEDED
+              question.useranswer.answer = resp.answer;
+              question.useranswer.isSubmitted = true;
             },function(err){
-              // TODO
-              console.log("Couldn't save your answer! Please check your internet connection.");
+              $scope.alert_notification({msg:"Couldn't save your answer: Please check your internet connection!", theme:"red"});
             });
         } else {
           console.log(ques_valid);
