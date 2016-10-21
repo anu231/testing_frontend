@@ -15,24 +15,26 @@
         Sync
       </div>
     </div>
-    <ul id="index_list" class="list-group">
-      <li ng-repeat="question in questions"  class="list-group-item index-list-item" ng-click="selectQuestion(question)">
-        <div ng-class="{'row':true, 'index-question':true, 'index-question-active': selectedQuestion==question}">
-          <div class="col-xs-3 index-question-no" ng-class="{'index-question-marked':question.marked==true, 'index-question-saved':question.confirmed==true}">
-            <span class="text-center">{{$index + 1}}</span> 
+    <div id="index_list">
+      <ul id="" class="list-group">
+        <li ng-repeat="question in questions"  class="list-group-item index-list-item" ng-click="selectQuestion(question)">
+          <div ng-class="{'row':true, 'index-question':true, 'index-question-active': selectedQuestion==question}">
+            <div class="col-xs-3 index-question-no" ng-class="{'index-question-marked':question.marked==true, 'index-question-saved':question.confirmed==true}">
+              <span class="text-center">{{$index + 1}}</span> 
+            </div>
+            <div class="col-xs-3">
+              <span class="badge" ng-class="{'index-badge-math':question.subj=='Math', 'index-badge-chemistry':question.subj=='Chemistry','index-badge-physics':question.subj=='Physics','center-block':true}">{{question.subj[0]}}</span>
+            </div>
+            <div class="col-xs-3">
+              <span class="" ng-class="{'index-badge-questiontype':false}"> {{question.ques_type}}</span>
+            </div>
+            <div class="col-xs-1">
+              <div ng-if="question.useranswer.isSubmitted" class="sync-status-badge"><span class="glyphicon glyphicon-ok-sign"></span></div>
+            </div>
           </div>
-          <div class="col-xs-3">
-            <span class="badge" ng-class="{'index-badge-math':question.subj=='Math', 'index-badge-chemistry':question.subj=='Chemistry','index-badge-physics':question.subj=='Physics','center-block':true}">{{question.subj[0]}}</span>
-          </div>
-          <div class="col-xs-3">
-            <span class="" ng-class="{'index-badge-questiontype':false}"> {{question.ques_type}}</span>
-          </div>
-          <div class="col-xs-1">
-            <div ng-if="question.useranswer.isSubmitted" class="sync-status-badge"><span class="glyphicon glyphicon-ok-sign"></span></div>
-          </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
 
   </div> <!-- end side panel  -->  
 
