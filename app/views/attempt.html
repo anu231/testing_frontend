@@ -173,15 +173,15 @@
         <h3>Comprehension Type</h3>
         <ul id="question_body_box" class="list-group">
           <a ng-if="true" class="list-group-item comprehension">
-            <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
             <h4>Paragraph:</h4>
             <!--<div id="question_body" ng-bind-html="selectedQuestion.chQuestion"> </div>-->
             <div id="comprehension_paragraph"> The comprehension paragraph will appear here! </div>
           </a>
-          <a ng-if="selectedQuestion.isChRelated == true" class="list-group-item comprehension">
-            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
-          </a>
+          <!--<a ng-if="selectedQuestion.isChRelated == true" class="list-group-item comprehension">-->
+            <!--<div id="question_body" ng-bind-html="selectedQuestion.question"> </div>-->
+          <!--</a>-->
           <a  class="list-group-item">
+            <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
             <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
           </a>
           <li  ng-repeat="(key,val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
