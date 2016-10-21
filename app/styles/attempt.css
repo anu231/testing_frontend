@@ -517,3 +517,6 @@ input[type=checkbox]:checked + label > .custom-checkbox{
     display: inline-block;
   }
 }
+
+#global_timer:hover { animation: shiver 0.03s 10, blow 0.1s 2; animation-direction: alternate; }
+@keyframes shiver { 0% { color: blue; } 50% { color: cyan; } 100% { transform: translate(-3px, 0px); color: red; } }
