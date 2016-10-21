@@ -39,7 +39,13 @@
 .index-question { 
   background-color:#fff;
   padding: 0px;
-  transition: 0.2s background-color;
+  transition: 0.2s all;
+}
+.index-question-active {
+  background-color: #212121;
+  box-shadow: 0px 0px 3px 3px #000000;
+  transition: 0.2s all;
+  color: white;
 }
 
 .index-question:hover{
@@ -68,17 +74,31 @@
 }
 
 .index-badge-physics{
-  background-color: red;
+  background-color: #3F51B5;
 }
 .index-badge-math{
-  background-color: blue;
+  background-color: #FF5722;
 }
 .index-badge-chemistry{
-  background-color: green;
+  background-color:#009688;
 }
 
 .index-badge-questiontype{
   background-color: #212121;
+}
+
+.sync-status {
+  display: inline-block;
+  z-index: 5;
+  float: right;
+  width: 1.2em;
+  height: 1.2em;
+}
+.sync-status-badge{
+  z-index: 5;
+  width: 1.5em;
+  height: 1.5em;
+  transition: 0.2s all;
 }
 
 /*End Badges and Info*/
