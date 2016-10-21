@@ -73,16 +73,33 @@ angular.module('testingFrontendApp')
           }
         });
         // Set up the first question
-        $scope.selectedQuestion = $scope.questions[0];
+        $scope.selectQuestion($scope.questions[0]);
       }
 
-      $scope.init(questions, status);
+      //$scope.init(questions, status);
+
+      // Manage timer for each question
+      // Used by selectQuestion pipeline
+      $scope.questionTimerManager = function(question){
+        // Stop selectedQuestions timer.
+        if($scope.selectedQuestion != undefined){
+          //special case for first question
+          clearInterval($scope.selectedQuestion.timerhandle);
+        }
+        // Start questions timer.
+        if(question.timetaken == undefined){
+          question.timetaken = 1; 
+        }
+        question.timerhandle = setInterval(function(){
+              question.timetaken += 1;
+            }, 1000);
+      }
 
       // Question selection pipeline
       // Used by the index, nextQuestion and previousQuestion buttons
-      // ! Manages timer for each question
+      // ! Manages timer for each question via questionTimerManager
       $scope.selectQuestion = function(question){
-        //TODO stop selectedQuestions timer and start new questions timer
+        $scope.questionTimerManager(question); 
         $scope.selectedQuestion = question;
       }
 
@@ -239,6 +256,7 @@ angular.module('testingFrontendApp')
 
 
 
+      $scope.init(questions, status);
     }]);
 
 

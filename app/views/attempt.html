@@ -48,6 +48,7 @@
       </button>
       <div id="current_question_no" >{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
       <div id="global_timer"><span class="glyphicon glyphicon-time"></span> <span id="timeo">00:00</span></div>
+      <div ng-if="true" id="question_timer"><span class="glyphicon glyphicon-time"></span> <span id="qtimeo">{{selectedQuestion.timetaken}}</span></div>
       <div id="user_info" class="hidden-sm hidden-xs">Ezio Auditore de Firenze</div>
 
     </div> <!-- End info bar  -->
