@@ -80,7 +80,9 @@ angular.module('testingFrontendApp')
 
       // Question selection pipeline
       // Used by the index, nextQuestion and previousQuestion buttons
+      // ! Manages timer for each question
       $scope.selectQuestion = function(question){
+        //TODO stop selectedQuestions timer and start new questions timer
         $scope.selectedQuestion = question;
       }
 
