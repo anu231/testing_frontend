@@ -177,6 +177,16 @@
     position: relative;
     top: 8%;
   }
+  #question_timer {
+    position: relative;
+    display: inline-block;
+    border: 2px solid orange;
+    height: 100%;
+    width: 7em;
+    text-align: center;
+    padding: 5px;
+    font-size: 1.3em;
+  }
 
 }
 /*The info bar (top bar in question pane)*/
@@ -216,15 +226,17 @@
   padding: 5px;
   font-size: 1.3em;
 }
+
+/*Hide on small screens*/
 #question_timer {
-  position: relative;
-  display: inline-block;
-  border: 2px solid orange;
-  height: 100%;
-  width: 7em;
-  text-align: center;
-  padding: 5px;
-  font-size: 1.3em;
+  /*position: relative;*/
+  /*display: inline-block;*/
+  /*border: 2px solid orange;*/
+  /*height: 100%;*/
+  /*width: 7em;*/
+  /*text-align: center;*/
+  /*padding: 5px;*/
+  /*font-size: 1.3em;*/
 }
 
 #global_timer .red{
