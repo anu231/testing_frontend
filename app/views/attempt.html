@@ -79,6 +79,7 @@
           <li ng-repeat="(key, val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
             <label for="{{key}}" class="col-xs-12 vcenter">
+              <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-radio col-xs-1">
               </div>
               <div class="option-body col-xs-10" ng-bind-html="selectedQuestion[val]">
@@ -102,6 +103,7 @@
           <li  ng-repeat="(key,val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="checkbox" name="{{'option'+$index}}" ng-model="selectedQuestion['answer' + key]" ng-false-value="undefined">
             <label for="{{key}}" class="col-xs-12 vcenter">
+              <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-checkbox col-xs-1">
               </div>
               <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">
@@ -135,6 +137,7 @@
           <li ng-repeat="(key, val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
             <label for="{{key}}" class="col-xs-12 vcenter">
+              <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-radio col-xs-1">
               </div>
               <div class="option-body col-xs-10" ng-bind-html="selectedQuestion[val]">
@@ -161,6 +164,7 @@
           <li ng-repeat="(key, val) in {'a':'Assertion is correct, Reason is also correct and gives the correct justification for Assertion', 'b':'Assertion is correct and Reason is also correct but it does not justify Assertion', 'c':'Assertion is correct and Reason is wrong', 'd':'Assertion is wrong and Reason is correct'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
             <label for="{{key}}" class="col-xs-12 vcenter">
+              <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-radio col-xs-1">
               </div>
               <div class="option-body col-xs-10">
@@ -190,6 +194,7 @@
           <li  ng-repeat="(key,val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="key">
             <label for="{{key}}" class="col-xs-12 vcenter">
+              <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-radio col-xs-1">
               </div>
               <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">

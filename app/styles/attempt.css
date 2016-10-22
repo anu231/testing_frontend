@@ -320,6 +320,11 @@
   height: 1.5em;
   margin-left: 40%;
 }
+.option-label {
+  float:left;
+  vertical-align:top;
+  font-size: 1.3em;
+}
 .option-body{
 }
 
