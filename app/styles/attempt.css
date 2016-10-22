@@ -229,14 +229,7 @@
 
 /*Hide on small screens*/
 #question_timer {
-  /*position: relative;*/
-  /*display: inline-block;*/
-  /*border: 2px solid orange;*/
-  /*height: 100%;*/
-  /*width: 7em;*/
-  /*text-align: center;*/
-  /*padding: 5px;*/
-  /*font-size: 1.3em;*/
+  display: none;
 }
 
 #global_timer .red{
