@@ -8,6 +8,13 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
+.config(function(snapRemoteProvider){
+  // Disable touch to drag - not very intuitive, and very buggy.
+  snapRemoteProvider.globalOptions = {
+    disable: 'right',
+    touchToDrag: false
+  }  
+})
 .controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval',
     function($scope,$state,attempt,questions,useranswer,$timeout, $interval) {
       $scope.init = function(questions,status){
