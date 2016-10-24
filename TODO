@@ -77,9 +77,12 @@
 2016-10-24 8:53
   -- On clicking clear the answer in the backend needs to be cleared
   -- If I have marked a answer and not saved it needs to be shown in the sidepane
-  - Finish/exit button (Logic remaining)
+  - Finish/exit button (Logic remains)
   -- Testpaper Name
+  -- Add autosave all questions modal and logic
   ** Left index does not scroll when selectedQuestion goes out of view.
+  Pause timer when the 10 min reminder modal pops up(?)
+  Improve top_bar: justification/alignment of elements - timers, paper_name etc.
  
 
 ***************************
