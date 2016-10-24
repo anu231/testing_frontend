@@ -40,7 +40,12 @@ angular.module('testingFrontendApp')
           if(q.useranswer != undefined){
             if(q.useranswer.answer != undefined){
               console.log(q); 
-              //TODO save each question
+              useranswer.saveAnswer(q.useranswer)
+                .then(function(resp){
+                  //console.log("saved " + q.id);
+                },function(err){
+                  //console.log("Couldn't save " + q.id);
+                });
             } 
           }
         });
