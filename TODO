@@ -75,12 +75,12 @@
   Cease user interaction once the time's up
 
 2016-10-24 8:53
-- On clicking clear the answer in the backend needs to be cleared
-- If I have marked a answer and not saved it needs to be shown in the sidepane
-- Finish button
-- exit the paper button
-- Testpaper Name
-- 
+  -- On clicking clear the answer in the backend needs to be cleared
+  -- If I have marked a answer and not saved it needs to be shown in the sidepane
+  - Finish/exit button (Logic remaining)
+  -- Testpaper Name
+  ** Left index does not scroll when selectedQuestion goes out of view.
+ 
 
 ***************************
 ** Data collection Ideas **

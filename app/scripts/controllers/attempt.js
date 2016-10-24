@@ -18,8 +18,10 @@ angular.module('testingFrontendApp')
 .controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval',
     function($scope,$state,attempt,questions,useranswer,$timeout, $interval) {
       $scope.init = function(questions,status){
+        $scope.paper_title = attempt.attempt.paper_info.name;
         if (questions!=null){
           $scope.questions = questions.data;
+          $scope.paper_title = attempt.attempt.paper_info.name;
           $scope.setUpQuestions();
         } else {
           attempt.loadQuestions()
@@ -57,7 +59,7 @@ angular.module('testingFrontendApp')
 
       // Let the timer begin
       function timer_start(){
-        var duration = 610; //TODO get the time from paper service
+        var duration = attempt.attempt.paper_info.duration; 
         var time = duration;
         var hrs = ""; 
         var mins = "";
