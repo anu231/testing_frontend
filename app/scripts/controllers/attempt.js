@@ -35,7 +35,6 @@ angular.module('testingFrontendApp')
         console.log("Show an confirmation modal"); 
         var finish_confirmation = false;
         if(finish_confirmation == true){
-          // Submit all the answers.
         
         } else {
           // Continue paper 
@@ -79,7 +78,7 @@ angular.module('testingFrontendApp')
       // Used by the init?
       // TODO instead of setting this as default, Let the first screen be a mock for INTRO.js
       $scope.setUpQuestions = function(){
-        $scope.questions.forEach((question) => {
+        $scope.questions.forEach(function(question){
           if(question.ques_type == 'CH'){
             // Mark the next n questions as 'isChRelated = True'
             var lengthLinkedQuestions = question.comprehension_list.length;
@@ -148,13 +147,23 @@ angular.module('testingFrontendApp')
       }
 
       // Clear user selected/entered answer for the selectedQuestion
+      // and syncs with the backend
       // Used by the "clear" control button
-      $scope.clearAnswer = function(){
-        $scope.selectedQuestion.answer = undefined;
-        $scope.selectedQuestion.answerA = undefined;
-        $scope.selectedQuestion.answerB = undefined;
-        $scope.selectedQuestion.answerC = undefined;
-        $scope.selectedQuestion.answerD = undefined;
+      $scope.clearAnswer = function(question){
+        question.answer = undefined;
+        question.answerA = undefined;
+        question.answerB = undefined;
+        question.answerC = undefined;
+        question.answerD = undefined;
+        // Bypass save() and validateAndFormatAnswer() - they don't accept blank strings 
+        // Set useranswer to "" and removes the sync icon
+        useranswer.saveAnswer(question.useranswer).then(function(resp){
+          console.log("CLEARED ANSWER!!");
+          question.useranswer.answer = resp.answer;
+          question.useranswer.isSubmitted = false;
+        },function(err){
+          $scope.alert_notification({msg:"Couldn't connect to the server, please check your internet connection",theme:"red",time:3000});
+        });
       }
 
       // For testing purposes
@@ -180,7 +189,7 @@ angular.module('testingFrontendApp')
           var validAnswers = ["answerA", "answerB", "answerC", "answerD"];
           if(question.answerA != undefined || question.answerB != undefined 
               || question.answerC != undefined || question.answerD != undefined){
-            validAnswers.forEach((va) => {
+            validAnswers.forEach(function(va){
               if(question[va] == true) ansList.push(va[6].toLowerCase()); //Push the last character A/B/C/D
               ansStr = ansList.toString();  // CSV String 
               question.useranswer.answer = ansStr;
@@ -196,8 +205,8 @@ angular.module('testingFrontendApp')
           var matrix_answer = { "A" : [], "B" : [], "C" : [], "D" : [] };
           if(question.answerA != undefined || question.answerB != undefined 
               ||question.answerC != undefined ||question.answerD != undefined){
-            validAnswers.forEach((va) => {
-              validOptions.forEach((vo) => {
+            validAnswers.forEach(function(va){
+              validOptions.forEach(function(vo){
                 if(question[va] != undefined){
                   if(question[va][vo] == true){
                     matrix_answer[va.slice(-1)].push(vo)
@@ -260,7 +269,6 @@ angular.module('testingFrontendApp')
             });
         } else {
           console.log(ques_valid);
-          //alert(ques_valid);
           $scope.alert_notification(ques_valid);
         }
       };
