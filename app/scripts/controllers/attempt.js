@@ -30,9 +30,21 @@ angular.module('testingFrontendApp')
         }
       };
 
+      // Finish/end paper cleanup code
+      $scope.finish = function(){
+        console.log("Show an confirmation modal"); 
+        var finish_confirmation = false;
+        if(finish_confirmation == true){
+          // Submit all the answers.
+        
+        } else {
+          // Continue paper 
+        }
+      }
+
       // Let the timer begin
-      function timer_start(duration){
-        duration = 610; //TODO get the time from paper service
+      function timer_start(){
+        var duration = 610; //TODO get the time from paper service
         var time = duration;
         var hrs = ""; 
         var mins = "";
@@ -56,11 +68,12 @@ angular.module('testingFrontendApp')
             time_disp.html("00:00");
             $interval.cancel(timer);
             $scope.alert_notification({msg:"TIME UP!", theme:"red", time: 10000});
+            $scope.finish();
           }
           time_disp.html(time_str); 
         },1000);
       }
-      timer_start(1);
+      timer_start();
 
       // Question process pipeline; Also sets up the first question
       // Used by the init?
@@ -159,6 +172,7 @@ angular.module('testingFrontendApp')
             return {msg:'Please select atleast one valid option', theme: 'red'};
           } else {
             question.useranswer.answer = question.answer;
+            question.useranswer.timetaken = question.timetaken;
           }
         } else if (question.ques_type=='MC'){
           var ansList = [];
@@ -170,6 +184,7 @@ angular.module('testingFrontendApp')
               if(question[va] == true) ansList.push(va[6].toLowerCase()); //Push the last character A/B/C/D
               ansStr = ansList.toString();  // CSV String 
               question.useranswer.answer = ansStr;
+              question.useranswer.timetaken = question.timetaken;
             });
           } else {
             return {msg:'Please select atleast one valid option', theme: 'red'};
@@ -192,6 +207,7 @@ angular.module('testingFrontendApp')
             });
             console.log(matrix_answer);
             question.useranswer.answer = matrix_answer;
+            question.useranswer.timetaken = question.timetaken;
           
           } else {
             return {msg:'Please select at least one valid answer', theme: 'red'}
@@ -199,7 +215,10 @@ angular.module('testingFrontendApp')
 
         } else if (question.ques_type=='IT'){
           if(question.answer == undefined) return {msg:'Please enter an Integer', theme:'red'};
-          else question.useranswer.answer = question.answer;
+          else {
+            question.useranswer.answer = question.answer;
+            question.useranswer.timetaken = question.timetaken;
+          }
 
         } else if (question.ques_type=='TF'){
           // TODO
@@ -207,7 +226,10 @@ angular.module('testingFrontendApp')
         } else if (question.ques_type=='SA'){
           if(question.answer == undefined) return {msg:'Please write SOMETHING! Jeeze...', theme:'red'};
           if(question.answer == "") return {msg:'Please write SOMETHING! Jeeze...', theme:'red'};
-          else question.useranswer.answer = question.answer;
+          else {
+            question.useranswer.answer = question.answer;
+            question.useranswer.timetaken = question.timetaken;
+          }
         }
         return true;
       }
@@ -221,7 +243,7 @@ angular.module('testingFrontendApp')
             attempt: attempt.attempt.id,
             question: question.id,
             answer: question.answer,
-            timetaken: 1 
+            timetaken: question.timetaken 
           } 
         }
         var ques_valid = $scope.validateAndFormatAnswer(question); 
@@ -256,6 +278,7 @@ angular.module('testingFrontendApp')
           $scope.notification_show = false;
         }, timeout);
       }
+
       // Tooltips and other secondary stuff
       $(function () {
         $('[data-toggle="tooltip"]').tooltip()
