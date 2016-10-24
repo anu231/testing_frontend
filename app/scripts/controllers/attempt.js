@@ -15,8 +15,8 @@ angular.module('testingFrontendApp')
     touchToDrag: false
   }  
 })
-.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval',
-    function($scope,$state,attempt,questions,useranswer,$timeout, $interval) {
+.controller('AttemptCtrl', ['$scope','$state','attempt','questions','paper_obj','useranswer','$timeout','$interval',
+    function($scope,$state,attempt,questions,paper_obj,useranswer,$timeout, $interval) {
       $scope.init = function(questions,status){
         if (questions!=null){
           $scope.questions = questions.data;
