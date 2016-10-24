@@ -35,7 +35,7 @@ angular.module('testingFrontendApp')
         console.log("Show an confirmation modal"); 
         var finish_confirmation = false;
         if(finish_confirmation == true){
-        
+
         } else {
           // Continue paper 
         }
@@ -43,6 +43,7 @@ angular.module('testingFrontendApp')
 
       // Let the timer begin
       function timer_start(){
+        console.log(paper_obj);
         var duration = 610; //TODO get the time from paper service
         var time = duration;
         var hrs = ""; 
@@ -110,8 +111,8 @@ angular.module('testingFrontendApp')
           question.timetaken = 1; 
         }
         question.timerhandle = setInterval(function(){
-              question.timetaken += 1;
-            }, 1000);
+          question.timetaken += 1;
+        }, 1000);
       }
 
       // Question selection pipeline
@@ -150,20 +151,31 @@ angular.module('testingFrontendApp')
       // and syncs with the backend
       // Used by the "clear" control button
       $scope.clearAnswer = function(question){
-        question.answer = undefined;
-        question.answerA = undefined;
-        question.answerB = undefined;
-        question.answerC = undefined;
-        question.answerD = undefined;
-        // Bypass save() and validateAndFormatAnswer() - they don't accept blank strings 
-        // Set useranswer to "" and removes the sync icon
-        useranswer.saveAnswer(question.useranswer).then(function(resp){
-          console.log("CLEARED ANSWER!!");
-          question.useranswer.answer = resp.answer;
-          question.useranswer.isSubmitted = false;
-        },function(err){
-          $scope.alert_notification({msg:"Couldn't connect to the server, please check your internet connection",theme:"red",time:3000});
-        });
+        if(question.useranswer != undefined){
+          var useranswerbackup = question.useranswer.answer;
+          question.useranswer.answer = "null";
+          useranswer.saveAnswer(question.useranswer).then(function(resp){
+            console.log("CLEARED ANSWER!!");
+            question.useranswer.answer = undefined;
+            question.useranswer.isSubmitted = false;
+            question.answer = undefined;
+            question.answerA = undefined;
+            question.answerB = undefined;
+            question.answerC = undefined;
+            question.answerD = undefined;
+            question.isAnswered = false;
+          },function(err){
+            question.useranswer.answer = useranswerbackup;
+            $scope.alert_notification({msg:"Couldn't connect to the server, please check your internet connection",theme:"red",time:3000});
+          });
+        } else {
+          question.answer = undefined;
+          question.answerA = undefined;
+          question.answerB = undefined;
+          question.answerC = undefined;
+          question.answerD = undefined;
+          question.isAnswered = false;
+        }
       }
 
       // For testing purposes
@@ -217,7 +229,7 @@ angular.module('testingFrontendApp')
             console.log(matrix_answer);
             question.useranswer.answer = matrix_answer;
             question.useranswer.timetaken = question.timetaken;
-          
+
           } else {
             return {msg:'Please select at least one valid answer', theme: 'red'}
           }
