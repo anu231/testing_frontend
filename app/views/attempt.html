@@ -297,6 +297,8 @@
         <button ng-class="{'btn': true,'btn-default':true,'control-nav-button':true}"  ng-click="nextQuestion()">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
       </div>
       <button ng-if="true" ng-class="{'btn': true,'btn-warning':true, 'pull-right':true}"  ng-click="displayInfo()"><span class="glyphicon glyphicon-info-sign"></span></button>
+      <button ng-if="true" ng-class="{'btn': true,'btn-primary':true, 'pull-right':true}" data-toggle="modal" data-target="#exitModal"><span class="glyphicon glyphicon-info-sign"></span></button>
+      <button ng-if="true" ng-class="{'btn': true,'btn-danger':true, 'pull-right':true}" data-toggle="modal" data-target="#servantModal"><span class="glyphicon glyphicon-info-sign"></span></button>
     </div>
 
     <!-- Alert popup box  -->
@@ -312,6 +314,60 @@
     </div>
 
   </div> <!-- /Main content area  -->
+
+
+  <!-- MODALS  -->
+  <div class="modal fade" id="exitModal" tabIndex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">
+            Are you sure you want to quit?
+          </h4>
+        </div>
+        <div class="modal-body">
+          <p>
+            Make sure all your answers are <b><u>saved</u></b>. Unsaved answers will <b><u>not</u></b> be considered as attempted. 
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-warn" ng-click="finish()">
+            I am weak :( 
+          </button>
+          <button class="btn btn-primary" data-dismiss="modal">
+            Spartans don't quit!
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="servantModal" tabIndex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">
+            Question save reminder!
+          </h4>
+        </div>
+        <div class="modal-body">
+          <p> 10 minutes remaining! Make sure all your answers have been saved. Unsaved answers will NOT be considered.</p>
+          <p>Do you want to save all your attempted questions now?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-warn" ng-click="finish()">
+            Yes, save all attempted questions automatically.
+          </button>
+          <button class="btn btn-primary" data-dismiss="modal">
+            No, I will save them myself.
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/MODALS-->
 
   <!-- TODO Window close alert box-->
   <!--<script type="text/javascript">-->
