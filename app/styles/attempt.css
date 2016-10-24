@@ -211,16 +211,25 @@
   border: 2px solid black;
   height: 100%;
   width: 7em;
-  /*left: 5%; [>Messes up mobile view<]*/
   text-align: center;
   padding: 5px;
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 /*Hide on small screens*/
 #question_timer {
   display: none;
   transition: 0.2s ease all;
+}
+
+#test_paper_title {
+  position: relative;
+  display: inline-block;
+  border: 2px solid black;
+  height: 100%;
+  text-align: center;
+  padding: 5px;
+  font-size: 1.2em;
 }
 
 @media only screen and (min-width: 600px){
@@ -246,11 +255,10 @@
   display: inline-block;
   border: 2px solid black;
   height: 100%;
-  width: 7em;
-  /*left: 5%; [>Messes up mobile view<]*/
+  width: 3.5em;
   text-align: center;
-  padding: 5px;
-  font-size: 1.3em;
+  padding: 4px;
+  font-size: 1.2em;
 }
 
 #test_series_slug{
@@ -333,7 +341,7 @@
 .option-label {
   float:left;
   vertical-align:top;
-  font-size: 1.3em;
+  font-size: 1em;
 }
 .option-body{
 }
@@ -360,7 +368,7 @@ input[type=radio], input[type=checkbox]{
   min-height: 1.5em;
   background-image: url("/images/radio_off.png");
   background-repeat: no-repeat;
-  background-size: 1.5em 1.5em;
+  background-size: 1.0em 1.0em;
   background-position: center;
   transition: 0.2s;
 }
@@ -376,7 +384,7 @@ input[type=radio]:checked + label > .custom-radio{
   height: 1.5em;
   background-image: url("/images/checkbox_off.png");
   background-repeat: no-repeat;
-  background-size: 1.5em 1.5em;
+  background-size: 1.0em 1.0em;
   background-position: center;
   transition: 0.2s;
 }

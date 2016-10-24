@@ -47,8 +47,9 @@
         <span class="glyphicon glyphicon-list"></span>
       </button>
       <div id="current_question_no" >{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
-      <div id="global_timer"><span class="glyphicon glyphicon-time"></span> <span id="timeo">00:00</span></div>
-      <div ng-if="true" id="question_timer"><span class="glyphicon glyphicon-time"></span> <span id="qtimeo">{{selectedQuestion.timetaken}}</span></div>
+      <div id="global_timer"><span class="glyphicon glyphicon-time"></span> <span id="timeo">00:00:00</span></div>
+      <div id="test_paper_title">RPT-1-NEET-Target 2017</div>
+      <div ng-if="false" id="question_timer"><span class="glyphicon glyphicon-time"></span> <span id="qtimeo">{{selectedQuestion.timetaken}}</span></div>
       <div id="user_info" class="hidden-sm hidden-xs">Ezio Auditore de Firenze</div>
 
     </div> <!-- End info bar  -->
@@ -288,7 +289,7 @@
     <!--Control buttons-->
     <div id="bottom_bar">
       <div id="control_buttons" class="">
-        <button class="btn btn-default control-nav-button" ng-click="previousQuestion()"><span class="glyphicon glyphicon-arrow-left"></span> Prev.</button>
+        <button ng-class="{'btn':true, 'btn-default':true, 'control-nav-button':true}" ng-click="previousQuestion()"><span class="glyphicon glyphicon-arrow-left"></span> Prev.</button>
         <button class="btn btn-success control-button" ng-click="selectedQuestion.confirmed=true;selectedQuestion.marked=false; save(selectedQuestion)" data-toggle="tooltip" data-placement="top" title="Save your progress. Saved questions can be changed later."  ><span class="glyphicon glyphicon-ok"></span> Save</button>
         <button class="btn btn-warning control-button" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false; alert_notification({'msg': 'Question Marked','theme':'yellow','time':1900}); " data-toggle="tooltip" data-placement="top" title="Mark this question for later review"><span class="glyphicon glyphicon-exclamation-sign"></span> Mark</button>
         <button class="btn btn-danger control-button" ng-click="clearAnswer()" data-toggle="tooltip" data-placement="top" title="Clear the selected choices"><span class="glyphicon glyphicon-remove"></span>Clear</button>
