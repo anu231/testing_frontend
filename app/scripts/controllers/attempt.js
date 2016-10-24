@@ -58,8 +58,12 @@ angular.module('testingFrontendApp')
       }
 
       // Let the timer begin
+      // Called by start paper button on instruction modal
       function timer_start(){
         var duration = attempt.attempt.paper_info.duration; 
+        var duration = 615;
+        // Set the 10 min reminder timeout
+        $timeout(function(){$('#servantModal').modal('show');}, (duration - 600) * 1000);
         var time = duration;
         var hrs = ""; 
         var mins = "";
