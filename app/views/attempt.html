@@ -50,7 +50,7 @@
       <div id="current_question_no" >{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
       <div id="global_timer"><span class="glyphicon glyphicon-time"></span> <span id="timeo">00:00:00</span></div>
       <div id="test_paper_title">RPT-1-NEET-Target 2017</div>
-      <button class="btn btn-danger" id="test_paper_title" ng-click="finish()"><span class="glyphicon glyphicon-log-out"> Finish</span></button>
+      <button class="btn btn-danger" id="test_paper_title" data-toggle="modal" data-target="#servantModal"><span class="glyphicon glyphicon-log-out"> Finish</span></button>
       <div ng-if="true" id="question_timer"><span class="glyphicon glyphicon-time"></span> <span id="qtimeo">{{selectedQuestion.timetaken}}</span></div>
       <!--<div id="user_info" class="hidden-sm hidden-xs">Ezio Auditore de Firenze</div>-->
 
@@ -318,7 +318,7 @@
 
 
   <!-- MODALS  -->
-  <div class="modal fade" id="exitModal" tabIndex="-1" role="dialog">
+  <div class="modal fade" id="exitModal" tabIndex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -333,7 +333,7 @@
           </p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-warn" ng-click="finish()">
+          <button class="btn btn-warning" ng-click="finish()">
             I am weak :( 
           </button>
           <button class="btn btn-primary" data-dismiss="modal">
@@ -344,25 +344,25 @@
     </div>
   </div>
 
-  <div class="modal fade" id="servantModal" tabIndex="-1" role="dialog">
+  <div class="modal fade" id="servantModal" tabIndex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title">
-            Question save reminder!
+            10 minutes remaining: Save your questions.
           </h4>
         </div>
         <div class="modal-body">
-          <p> 10 minutes remaining! Make sure all your answers have been saved. Unsaved answers will NOT be considered.</p>
+          <p>Please make sure that you <b><u>SAVE</u></b> <span class="glyphicon glyphicon-ok-sign"></span> all your answers.</p>
+          <p>Unsaved answers <span class="glyphicon glyphicon-record"></span> will <b><u>NOT</u></b> be evaluated.</p>
           <p>Do you want to save all your attempted questions now?</p>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-warn" ng-click="finish()">
-            Yes, save all attempted questions automatically.
+          <button class="btn btn-primary" data-dismiss="modal" ng-click="autosave()">
+            Yes, save all my questions
           </button>
-          <button class="btn btn-primary" data-dismiss="modal">
-            No, I will save them myself.
+          <button class="btn btn-warning" data-dismiss="modal">
+            Nada, I ain't no baby!
           </button>
         </div>
       </div>
