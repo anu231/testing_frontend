@@ -23,7 +23,7 @@ angular.module('testingFrontendApp')
               attempt.startAttempt(paper.id)
               .then(function(resp){
                 attempt.setAttempt(resp.data);
-                $state.go('home.attempt',{'pid':resp.data.id});  
+                $state.go('home.attempt',{'pid':resp.data.id,'paper':$scope.paper});  
               },function(err){
                 //display error
               });
