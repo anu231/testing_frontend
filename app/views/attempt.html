@@ -1,10 +1,7 @@
-<div ng-init="selectedQuestion = questions[0];" style="background-color:black;position:absolute;
-                                                top:8%; right:0;
-                                                bottom:0; left:0;">
-
+<div ng-init="selectedQuestion = questions[0];" class="view-attempt"> 
   <!-- List of question  -->
-  <div snap-drawer id="left_pane">
-    <div class="col-xs-12 question-header">
+  <div snap-drawer id="left_drawer">
+    <div id="index_header" class="col-xs-12">
       <div class="col-xs-3">
         No.
       </div>
@@ -18,113 +15,269 @@
         Sync
       </div>
     </div>
-    <ul class="list-group">
-    <li ng-repeat="question in questions"  class="list-group-item">
-      <div class="option" ng-click="selectQuestion(question)">
-        <div class="col-xs-3">
-          {{$index + 1}} 
-        </div>
-        <div class="col-xs-3">
-          <span ng-class="{'badge':true}">{{question.subj[0]}}</span>
-        </div>
-        <div class="col-xs-3">
-          <span class="badge badge-questiontype"> {{question.ques_type}}</span>
-        </div>
-        <div class="col-xs-3">
-          <span class="badge badge-questiontype">S</span>
-        </div>
-      </div>
-    </li>
-    </ul>
+    <div id="index_list">
+      <ul id="" class="list-group">
+        <li ng-repeat="question in questions"  class="list-group-item index-list-item" ng-click="selectQuestion(question)">
+          <div ng-class="{'row':true, 'index-question':true, 'index-question-active': selectedQuestion==question}">
+            <div class="col-xs-3 index-question-no" ng-class="{'index-question-marked':question.marked==true, 'index-question-saved':question.confirmed==true}">
+              <span class="text-center">{{$index + 1}}</span> 
+            </div>
+            <div class="col-xs-3">
+              <span class="badge" ng-class="{'index-badge-math':question.subj=='Math', 'index-badge-chemistry':question.subj=='Chemistry','index-badge-physics':question.subj=='Physics','center-block':true}">{{question.subj[0]}}</span>
+            </div>
+            <div class="col-xs-3">
+              <span class="" ng-class="{'index-badge-questiontype':false}"> {{question.ques_type}}</span>
+            </div>
+            <div class="col-xs-1">
+              <div ng-if="question.useranswer.isSubmitted" class="sync-status-badge"><span class="glyphicon glyphicon-ok-sign"></span></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
 
   </div> <!-- end side panel  -->  
 
   <!--  Main content area  -->  
-  <div snap-content id="maincontent" class="">
+  <div snap-content id="main_content" class="">
 
     <!-- Top info bar  -->
-    <div id="info_bar" class="nav nav-header">
-      <button id="indexButton" snap-toggle="left" class="col-xs-2 btn btn-primary"><span class="glyphicon glyphicon-list"></span></button>
-      <div id="counts" class="col-xs-10">
-        <div class="count col-xs-2 text-center" ><span class="text-success">{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
-      </div>
+    <div id="top_bar">
+      <button id="left_drawer_button" snap-toggle="left" class="" title="Show the list of questions">
+        <span class="glyphicon glyphicon-list"></span>
+      </button>
+      <div id="current_question_no" >{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
+      <div id="global_timer"><span class="glyphicon glyphicon-time"></span> <span id="timeo">00:00</span></div>
+      <div ng-if="true" id="question_timer"><span class="glyphicon glyphicon-time"></span> <span id="qtimeo">{{selectedQuestion.timetaken}}</span></div>
+      <div id="user_info" class="hidden-sm hidden-xs">Ezio Auditore de Firenze</div>
+
     </div> <!-- End info bar  -->
 
     <!-- question-area  -->
-    <div class=" question-area">
-      <p>{{questions.indexOf(selectedQuestion) + 1}}</p>
-      <div ng-if="selectedQuestion.ques_type=='SC'"> <h5>Ans:{{selectedQuestion.answer}}</h5></div>
-      <div ng-if="selectedQuestion.ques_type=='MC'">
-        <p>a:{{selectedQuestion.answer1}} b: {{selectedQuestion.answer2}} c: {{selectedQuestion.answer3}} d: {{selectedQuestion.answer4}}</p>
-      </div>
-      <!-- question-body  -->
-      <div id="question_body" class="col-xs-10 col-xs-offset-1">
-        <div ng-bind-html="selectedQuestion.question"> </div>
-      </div> <!-- /body  -->
+    <div id="question_area">
 
-      <!-- options for SC -->
-      <div ng-if="selectedQuestion.ques_type=='SC'" id="options-area" class="col-xs-10 col-xs-offset-1">
-        <ul class="list-group">
-        <li ng-repeat="(key, val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
+      <!--only for debugging-->
+      <div ng-if="debug==true">
+        <p>{{questions.indexOf(selectedQuestion) + 1}}</p>
+        <div ng-if="selectedQuestion.ques_type=='SC'"> <h5>Ans:{{selectedQuestion.answer}}</h5></div>
+        <div ng-if="selectedQuestion.ques_type=='MC'">
+          <p>a:{{selectedQuestion.answer1}} b: {{selectedQuestion.answer2}} c: {{selectedQuestion.answer3}} d: {{selectedQuestion.answer4}}</p>
+        </div>
+      </div>
+
+      <!--  SC -->
+      <div ng-if="selectedQuestion.ques_type=='SC'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+        <ul id="question_body_box" class="list-group">
+          <a ng-if="selectedQuestion.isChRelated == true" class="list-group-item comprehension">
+            <h4>Paragraph:</h4>
+            <div id="" ng-bind-html="selectedQuestion.chQuestion"> </div>
+          </a>
+          <a href="#" class="list-group-item">
+            <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
+            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+          </a>
+          <li ng-repeat="(key, val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
             <label for="{{key}}" class="col-xs-12 vcenter">
+              <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-radio col-xs-1">
               </div>
-              <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">
+              <div class="option-body col-xs-10" ng-bind-html="selectedQuestion[val]">
               </div>
             </label>
-        </li>
+          </li>
         </ul>
       </div> <!-- /options SC  -->
 
       <!--options for MC-->
-      <div ng-if="selectedQuestion.ques_type=='MC'" id="options-area" class="col-xs-10 col-xs-offset-1">
-        <ul class="list-group">
-        <li  ng-repeat="(key,val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
-            <input id="{{key}}" type="checkbox" name="{{'option'+$index}}" ng-model="selectedQuestion['answer' + ($index + 1)]" ng-value="key">
+      <div ng-if="selectedQuestion.ques_type=='MC'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+        <ul id="question_body_box" class="list-group">
+          <a ng-if="selectedQuestion.isChRelated == true" class="list-group-item comprehension">
+            <h4>Paragraph:</h4>
+            <div id="" ng-bind-html="selectedQuestion.chQuestion"> </div>
+          </a>
+          <a  class="list-group-item">
+            <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
+            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+          </a>
+          <li  ng-repeat="(key,val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
+            <input id="{{key}}" type="checkbox" name="{{'option'+$index}}" ng-model="selectedQuestion['answer' + key]" ng-false-value="undefined">
             <label for="{{key}}" class="col-xs-12 vcenter">
+              <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-checkbox col-xs-1">
               </div>
-              <div class="option-body col-xs-11" ng-bind-html="selectedQuestion[val]">
+              <div class="option-body col-xs-10" ng-bind-html="selectedQuestion[val]">
               </div>
             </label>
-        </li>
+          </li>
         </ul>
       </div> <!-- /mc  -->
 
       <!--options for IT-->
-      <div ng-if="selectedQuestion.ques_type=='IT'" id="options-area" class="col-xs-10 col-xs-offset-1">
-        <label for="numerical_ans"><h3>Answer:</h3></label>
-        <input id="ans" type="number" name="answer" step="1" ng-model="selectedQuestion.answer">
-        <div role="alert">
-          <!-- TODO Alert if user inputs fractions  -->
-        </div>
+      <div ng-if="selectedQuestion.ques_type=='IT'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+        <ul id="question_body_box" class="list-group">
+          <a class="list-group-item">
+            <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
+            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+          </a>
+          <li class="list-group-item">
+            <label for="numerical_ans"><h3>Answer:</h3></label>
+            <input id="ans" class="form-control" type="number" name="answer" step="1" ng-model="selectedQuestion.answer">
+          </li>
+        </ul>
       </div> <!-- /IT  -->
 
       <!-- TF  -->
-      <div ng-if="selectedQuestion.ques_type=='TF'" id="options-area" class="col-xs-10 col-xs-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='TF'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+        <ul id="question_body_box" class="list-group">
+          <a href="#" class="list-group-item">
+            <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
+            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+          </a>
+          <li ng-repeat="(key, val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
+            <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
+            <label for="{{key}}" class="col-xs-12 vcenter">
+              <p  class="option-label" >{{key.toUpperCase()}}</p>
+              <div class="custom-radio col-xs-1">
+              </div>
+              <div class="option-body col-xs-10" ng-bind-html="selectedQuestion[val]">
+              </div>
+            </label>
+          </li>
+        </ul>
 
       </div> <!-- /TF -->
 
       <!-- AR  -->
-      <div ng-if="selectedQuestion.ques_type=='AR'" id="options-area" class="col-xs-10 col-xs-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='AR'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
         Assertion reasoning
+        <ul id="question_body_box" class="list-group">
+          <a href="#" class="list-group-item">
+            <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
+            <div id="question_body">
+              <div>Assertion:</div>
+              <div ng-bind-html="selectedQuestion.question"> </div>
+              <div>Reason:</div>
+              <div ng-bind-html="selectedQuestion['ans1']"></div>
+            </div>
+          </a>
+          <li ng-repeat="(key, val) in {'a':'Assertion is correct, Reason is also correct and gives the correct justification for Assertion', 'b':'Assertion is correct and Reason is also correct but it does not justify Assertion', 'c':'Assertion is correct and Reason is wrong', 'd':'Assertion is wrong and Reason is correct'}"  class="list-group-item">
+            <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
+            <label for="{{key}}" class="col-xs-12 vcenter">
+              <p  class="option-label" >{{key.toUpperCase()}}</p>
+              <div class="custom-radio col-xs-1">
+              </div>
+              <div class="option-body col-xs-10">
+                {{val}}
+              </div>
+            </label>
+          </li>
+        </ul>
       </div> <!-- /ar  -->
 
       <!-- ch  -->
-      <div ng-if="selectedQuestion.ques_type=='CH'" id="options-area" class="col-xs-10 col-xs-offset-1">
-        comprehension
+      <div ng-if="selectedQuestion.ques_type=='CH'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+        <h3>Comprehension Type</h3>
+        <ul id="question_body_box" class="list-group">
+          <a ng-if="true" class="list-group-item comprehension">
+            <h4>Paragraph:</h4>
+            <!--<div id="question_body" ng-bind-html="selectedQuestion.chQuestion"> </div>-->
+            <div id="comprehension_paragraph"> The comprehension paragraph will appear here! </div>
+          </a>
+          <!--<a ng-if="selectedQuestion.isChRelated == true" class="list-group-item comprehension">-->
+            <!--<div id="question_body" ng-bind-html="selectedQuestion.question"> </div>-->
+          <!--</a>-->
+          <a  class="list-group-item">
+            <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
+            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+          </a>
+          <li  ng-repeat="(key,val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
+            <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="key">
+            <label for="{{key}}" class="col-xs-12 vcenter">
+              <p  class="option-label" >{{key.toUpperCase()}}</p>
+              <div class="custom-radio col-xs-1">
+              </div>
+              <div class="option-body col-xs-10" ng-bind-html="selectedQuestion[val]">
+              </div>
+            </label>
+          </li>
+        </ul>
       </div> <!-- /ch  -->
 
       <!-- SA  --> 
-      <div ng-if="selectedQuestion.ques_type=='SA'" id="options-area" class="col-xs-10 col-xs-offset-1">
-        <label for="answer"><h3>Answer</h3></label>
-        <textarea class="form-control" id="answer" name="answer" cols="30" rows="7"></textarea>
-        <button class="btn-success">save</button>
+      <div ng-if="selectedQuestion.ques_type=='SA'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+        <ul id="question_body_box" class="list-group">
+          <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
+          <a href="#" class="list-group-item">
+            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+          </a>
+          <li class="list-group-item">
+            <label for="answer"><h5 class="text-primary">Answer</h5></label>
+            <textarea class="form-control" id="answer" name="answer" cols="30" rows="7" ng-model="selectedQuestion.answer" ng-maxlength="1000"></textarea>
+            <button class="btn btn-success">save</button>
+          </li>
+        </ul>
       </div> <!-- /SA  -->
 
       <!-- MT  --> 
-      <div ng-if="selectedQuestion.ques_type=='MT'" id="options-area" class="col-xs-10 col-xs-offset-1">
+      <div ng-if="selectedQuestion.ques_type=='MT'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+        <ul id="question_body_box" class="list-group">
+          <a  class="list-group-item">
+            <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
+            <!--<div id="question_body" ng-bind-html="selectedQuestion.question"> </div>-->
+            <div id="question_body"><p>akdsflsdflksjd dsfkljasfk ls Lorem voluptates cumque iure eligendi quae quisquam voluptatum odit facilis! Tempore tempore error fugiat cum sed. Iste nulla at dolorum optio non. Veritatis ipsum temporibus explicabo praesentium necessitatibus atque impedit?5</p></div>
+          </a>
+          <li class="list-group-item">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr id="matrix_headers" class="text-center">
+                  <td>#</td>
+                  <td>P</td>
+                  <td>Q</td>
+                  <td>R</td>
+                  <td>S</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="opt in ['A','B','C','D']">
+                  <td id="matrix_headers" class="text-center">{{opt}}</td>
+                  <td>
+                    <div class="matrix-checkboxes">
+                      <input id="{{opt}}p" ng-model="selectedQuestion['answer'+opt]['p']" type="checkbox" name="" ng-false-value="undefined">
+                      <label for="{{opt}}p">
+                        <div class="custom-checkbox custom-matrix-checkbox col-xs-1"></div>
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="matrix-checkboxes">
+                      <input id="{{opt}}q" ng-model="selectedQuestion['answer'+opt]['q']" type="checkbox" name="" ng-false-value="undefined">
+                      <label for="{{opt}}q">
+                        <div class="custom-checkbox custom-matrix-checkbox"></div>
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="matrix-checkboxes">
+                      <input id="{{opt}}r" ng-model="selectedQuestion['answer'+opt]['r']" type="checkbox" name="" ng-false-value="undefined">
+                      <label for="{{opt}}r">
+                        <div class="custom-checkbox custom-matrix-checkbox"></div>
+                      </label>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="matrix-checkboxes">
+                      <input id="{{opt}}s" ng-model="selectedQuestion['answer'+opt]['s']" type="checkbox" name="" ng-false-value="undefined">
+                      <label for="{{opt}}s">
+                        <div class="custom-checkbox custom-matrix-checkbox"></div>
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
         Matrix Type
       </div> <!-- /SA  -->
 
@@ -133,15 +286,38 @@
     </div> <!-- /question-area  -->
 
     <!--Control buttons-->
-    <div id="control_buttons" class="col-xs-12 ">
-      <button class="btn btn-default" ng-click="previousQuestion()">previous</button>
-      <button class="btn btn-success" ng-click="selectedQuestion.confirmed=true;selectedQuestion.marked=false; save(selectedQuestion)">save</button>
-      <button class="btn btn-danger" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false;">mark</button>
-      <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="nextQuestion()">next</button>
-      <button ng-class="{'btn': true,'btn-default':true}" }} ng-click="displayInfo()">INFO</button>
+    <div id="bottom_bar">
+      <div id="control_buttons" class="">
+        <button class="btn btn-default control-nav-button" ng-click="previousQuestion()"><span class="glyphicon glyphicon-arrow-left"></span> Prev.</button>
+        <button class="btn btn-success control-button" ng-click="selectedQuestion.confirmed=true;selectedQuestion.marked=false; save(selectedQuestion)" data-toggle="tooltip" data-placement="top" title="Save your progress. Saved questions can be changed later."  ><span class="glyphicon glyphicon-ok"></span> Save</button>
+        <button class="btn btn-warning control-button" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false; alert_notification({'msg': 'Question Marked','theme':'yellow','time':1900}); " data-toggle="tooltip" data-placement="top" title="Mark this question for later review"><span class="glyphicon glyphicon-exclamation-sign"></span> Mark</button>
+        <button class="btn btn-danger control-button" ng-click="clearAnswer()" data-toggle="tooltip" data-placement="top" title="Clear the selected choices"><span class="glyphicon glyphicon-remove"></span>Clear</button>
+        <button ng-class="{'btn': true,'btn-default':true,'control-nav-button':true}" }} ng-click="nextQuestion()">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
+      </div>
+      <button ng-if="false" ng-class="{'btn': true,'btn-warning':true, 'pull-right':true}" }} ng-click="displayInfo()"><span class="glyphicon glyphicon-info-sign"></span></button>
+    </div>
+
+    <!-- Alert popup box  -->
+    <div id="abox" ng-model="alert_message" ng-if="notification_show==true" ng-class="{'alert-box':true, 'alert-box-red':alert_message_theme=='red' , 'alert-box-green':alert_message_theme=='green','alert-box-yellow':alert_message_theme=='yellow'}">
+      <div id="alert_message">
+        <span >
+          {{alert_message}}
+        </span>
+      </div>
+      <div class="pull-right" ng-click="">
+        <span class="glyphicon glyphicon-remove"></span>
+      </div>
     </div>
 
   </div> <!-- /Main content area  -->
 
-  LOADING
+  <!-- TODO Window close alert box-->
+  <!--<script type="text/javascript">-->
+<!--window.addEventListener("beforeunload", function (e) {-->
+  <!--// Custom message not working!-->
+    <!--var confirmationMessage = "Future IITians don't give up!";-->
+    <!--e.returnValue = confirmationMessage;     -->
+    <!--return confirmationMessage;            -->
+    <!--}); -->
+<!--</script>-->
 </div>
