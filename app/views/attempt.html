@@ -29,8 +29,9 @@
               <span class="" ng-class="{'index-badge-questiontype':false}"> {{question.ques_type}}</span>
             </div>
             <div class="col-xs-1">
-              <div ng-if="question.useranswer.isSubmitted" class="sync-status-badge"><span class="glyphicon glyphicon-ok-sign"></span></div>
-              <div ng-if="question.isAnswered && question.useranswer.isSubmitted!=true" class="sync-status-badge"><span class="glyphicon glyphicon-record"></span></div>
+              <div class="sync-status-badge">
+                <span ng-if="question.isAnswered && question.useranswer.isSubmitted!=true" class="glyphicon glyphicon-record"></span>
+                <span ng-if="question.useranswer.isSubmitted"  class="glyphicon glyphicon-ok-sign"></span></div>
             </div>
           </div>
         </li>
@@ -188,7 +189,7 @@
             <div id="comprehension_paragraph"> The comprehension paragraph will appear here! </div>
           </a>
           <!--<a ng-if="selectedQuestion.isChRelated == true" class="list-group-item comprehension">-->
-            <!--<div id="question_body" ng-bind-html="selectedQuestion.question"> </div>-->
+          <!--<div id="question_body" ng-bind-html="selectedQuestion.question"> </div>-->
           <!--</a>-->
           <a  class="list-group-item">
             <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
@@ -329,7 +330,7 @@
         </div>
         <div class="modal-body">
           <p>
-            Make sure all your answers are <b><u>saved</u></b>. Unsaved answers will <b><u>not</u></b> be considered as attempted. 
+          Make sure all your answers are <b><u>saved</u></b>. Unsaved answers will <b><u>not</u></b> be considered as attempted. 
           </p>
         </div>
         <div class="modal-footer">
