@@ -17,6 +17,9 @@ angular.module('testingFrontendApp')
 		},
 		getAttemptedPapers : function(){
 			return remote_papers.getList();
-		}
+		},
+    getPaper : function(pid){
+      return remote_papers.one(pid);
+    }
 	}    
   }]);

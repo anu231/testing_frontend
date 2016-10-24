@@ -56,9 +56,6 @@ var attemptState = {
         return attempt.loadQuestions();  
       }
     }],
-    paper_obj : ['$stateParams',function($stateParams){
-      return $stateParams.paper;
-    }]
   },
   url:'/attempt/:pid',
   templateUrl:'views/attempt.html',

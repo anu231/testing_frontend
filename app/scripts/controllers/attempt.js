@@ -15,8 +15,8 @@ angular.module('testingFrontendApp')
     touchToDrag: false
   }  
 })
-.controller('AttemptCtrl', ['$scope','$state','attempt','questions','paper_obj','useranswer','$timeout','$interval',
-    function($scope,$state,attempt,questions,paper_obj,useranswer,$timeout, $interval) {
+.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval',
+    function($scope,$state,attempt,questions,useranswer,$timeout, $interval) {
       $scope.init = function(questions,status){
         if (questions!=null){
           $scope.questions = questions.data;
@@ -30,6 +30,20 @@ angular.module('testingFrontendApp')
         }
       };
 
+      // Autosave all the attempted questions
+      // Used by the 10 minute autosave reminder modal
+      $scope.autoSave = function(){
+        console.log("Saving question "); 
+        $scope.questions.forEach(function(q){
+          if(q.useranswer != undefined){
+            if(q.useranswer.answer != undefined){
+              console.log(q); 
+              //TODO save each question
+            } 
+          }
+        });
+      
+      }
       // Finish/end paper cleanup code
       $scope.finish = function(){
         console.log("Show an confirmation modal"); 
@@ -43,7 +57,6 @@ angular.module('testingFrontendApp')
 
       // Let the timer begin
       function timer_start(){
-        console.log(paper_obj);
         var duration = 610; //TODO get the time from paper service
         var time = duration;
         var hrs = ""; 
@@ -272,8 +285,6 @@ angular.module('testingFrontendApp')
         if (ques_valid==true){
           useranswer.saveAnswer(question.useranswer)
             .then(function(resp){
-              // TODO Save the standard useranswer dict, not the whole restangular object 
-              //question.useranswer = resp; //NOT NEEDED
               question.useranswer.answer = resp.answer;
               question.useranswer.isSubmitted = true;
             },function(err){
