@@ -64,6 +64,7 @@
   Click to expand images on mobile devices
   Responsive images on mobile
   -- list groups in index look ugly... fix or revert back to divs
+  -- handle the url of the images
 
 2016-10-18 17:55
   Created another branch to implement introjs named introjs. Merge that into this when ready.
@@ -73,6 +74,13 @@
   Convert attempt into a sass file
   Cease user interaction once the time's up
 
+2016-10-24 8:53
+- On clicking clear the answer in the backend needs to be cleared
+- If I have marked a answer and not saved it needs to be shown in the sidepane
+- Finish button
+- exit the paper button
+- Testpaper Name
+- 
 
 ***************************
 ** Data collection Ideas **
