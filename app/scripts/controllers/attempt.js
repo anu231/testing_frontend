@@ -75,7 +75,8 @@ angular.module('testingFrontendApp')
           if(resp.status == 200){
             $('#exitModal').modal('hide');
             $('#cleanupModal').modal('hide');
-            $timeout(function(){$window.location = "/#/home";}, 1000);
+            //$timeout(function(){$window.location = "/#/home";}, 1000);
+            $timeout(function(){$state.go('^',{},{reload:true});}, 1000);
           } else {
             alert("CRITICAL ERROR: Couldn't connect to server! Please try again");
           }
