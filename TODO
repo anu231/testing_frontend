@@ -85,6 +85,10 @@
   Improve top_bar: justification/alignment of elements - timers, paper_name etc.
  
 
+ reload the resolves on reaching home
+ on hitting the back button in attempt.html show alert
+ load the answerers when attempt resumes
+
 ***************************
 ** Data collection Ideas **
 ***************************
