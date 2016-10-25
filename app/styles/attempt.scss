@@ -1,0 +1,600 @@
+/*Ids use underscores. Classes use hyphen*/
+//Colors and variables
+$mainContentBgColor: #eeeeee;
+$leftDrawerBgColor: #ffffff;
+$indexHeaderBgColor: #323232; 
+$topBarBgColor: #333333;
+$bottomBarBgColor: #333333;
+$listGroupItemBgColor: #ffffff;
+
+/*View base classes *DO NOT TOUCH**/
+.view-attempt {
+  position: absolute;
+  top: 8%;
+  bottom: 0%;
+  right: 0;
+  left: 0;
+  background-color: black;
+}
+
+/*START Question state classes*/
+/* Header row */
+#index_header{
+  background-color: #323232;
+  height: 7%;
+  color: white;
+  margin-bottom:2px;
+  padding-top:12px;
+  transition: 0.2s background-color;
+  border-bottom: 1px groove black;
+  float: left;
+  position: fixed;
+  width: 270px;
+  border-top: 2px solid black;
+  z-index: 5;
+}
+/*Rest of the list*/
+#index_list{
+  position: relative;
+  top: 8%;
+}
+
+.index-list-item{
+  padding: 5px;
+}
+
+/* Base class */
+.index-question { 
+  background-color:#fff;
+  padding: 0px;
+  transition: 0.2s all;
+}
+.index-question-active {
+  background-color: #212121;
+  box-shadow: 0px 0px 3px 3px #000000;
+  transition: 0.2s all;
+  color: white;
+}
+
+.index-question:hover{
+  background-color: #212121 ;
+  color: white;
+}
+
+
+
+/*START Badges and info*/
+/*default question state*/
+.index-question-no{
+  display: inline-block;
+  background-image: url("/images/index_bg_default.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/*marked confirmed*/
+.index-question-saved {
+  background-image: url("/images/index_bg_green.png");
+}
+/*marked for later review*/
+.index-question-marked {
+  background-image: url("/images/index_bg_red.png");
+}
+
+.index-badge-physics{
+  background-color: #3F51B5;
+}
+.index-badge-math{
+  background-color: #FF5722;
+}
+.index-badge-chemistry{
+  background-color:#009688;
+}
+
+.index-badge-questiontype{
+  background-color: #212121;
+}
+
+.sync-status {
+  display: inline-block;
+  z-index: 5;
+  float: right;
+  width: 1.2em;
+  height: 1.2em;
+}
+.sync-status-badge{
+  z-index: 5;
+  width: 1.5em;
+  height: 1.5em;
+  transition: 0.2s all;
+}
+
+/*End Badges and Info*/
+/* END INDEX */
+
+/*OVERALL THEME*/
+
+/*The left question index drawer*/
+#left_drawer {
+  position: relative;
+  height: 100%;
+  background-color: $leftDrawerBgColor;
+  width: 265px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+/*The primary content*/
+/*The question display pane*/
+#main_content {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color: $mainContentBgColor;
+}
+
+/*Change layout for large screens*/
+@media only screen and (min-width: 1000px) {
+  #main_content {
+    position: relative;
+    height: 100%;
+    left: 20%;
+    width: 80%;
+    background-color: $mainContentBgColor;
+  }
+  #left_drawer {
+    position: relative;
+    height: 100%;
+    background-color: $leftDrawerBgColor;
+    width: 20%;
+    overflow-y: scroll;
+  }
+  #left_drawer_button{
+    display: none;
+    width: 6em;
+    top: 10%;
+    height: 90%;
+    float: left;
+    background-color: #323232;
+    border: none;
+    box-shadow: 0px 0px 3px 5px #212121;
+    margin-right: 10px;
+  }
+  #index_header{
+    background-color: $indexHeaderBgColor;
+    height: 7%;
+    color: white;
+    margin-bottom:2px;
+    padding-top: 12px;
+    transition: 0.2s background-color;
+    border-bottom: 1px groove black;
+    float: left;
+    position: fixed;
+    width: 20%;
+    border-top: 2px solid black;
+    z-index: 5;
+  }
+  #index_list{
+    position: relative;
+    top: 8%;
+  }
+
+}
+/*The info bar (top bar in question pane)*/
+
+#top_bar {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  min-height: 7%;
+  left: 0%;
+  right: 0%;
+  z-index: 10;
+  padding: 2px;
+  border-top: 2px solid black;
+  background-color: $topBarBgColor;
+  color: white;
+}
+
+#left_drawer_button{
+  order: 0;
+  width: 6em;
+  float: left;
+  background-color: #323232;
+  border: none;
+  box-shadow: 0px 0px 3px 5px #212121;
+  margin-right: 10px;
+}
+
+#global_timer {
+  position: relative;
+  display: inline-block;
+  border: 2px solid black;
+  height: 100%;
+  width: 7em;
+  text-align: center;
+  padding: 5px;
+  font-size: 1.2em;
+}
+
+/*Hide on small screens*/
+#question_timer {
+  position: relative;
+  display: inline-block;
+  border: 2px solid black;
+  height: 100%;
+  width: 7em;
+  text-align: center;
+  padding: 5px;
+  font-size: 1.2em;
+  transition: 0.2s ease all;
+}
+
+#test_paper_title {
+  position: relative;
+  display: inline-block;
+  border: 2px solid black;
+  height: 100%;
+  text-align: center;
+  padding: 5px;
+  font-size: 1.2em;
+}
+
+#global_timer .red{
+  color: #EC644B;
+}
+
+#current_question_no{
+  position: relative;
+  display: inline-block;
+  border: 2px solid black;
+  height: 100%;
+  width: 3.5em;
+  text-align: center;
+  padding: 4px;
+  font-size: 1.2em;
+}
+
+#test_series_slug{
+  position: relative;
+  display: inline-block;
+  color: white;
+}
+
+#user_info {
+  position: relative;
+  height: 100%;
+  float: right;
+  color: white;
+  font-size: 1.3em;
+  display: inline-block;
+  border: 2px solid black;
+  text-align: center;
+  padding: 5px;
+}
+
+#user_name {
+  color: white;
+  font-family: "Monospace";
+  font-size: 1.2em;
+  padding: 6px;
+  padding-left: 10px;
+  border-left: 1px solid white;
+}
+
+#test_info {
+  float: right;
+}
+
+@media only screen and (max-width: 600px){
+  #top_bar {
+    justify-content: flex-start;
+  }
+  #global_timer{
+  }
+}
+                        /*END TOPBAR*/
+
+#question_area{
+  position: relative;
+  top: 8%;
+  max-height: 86%;
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+/*Hide scrollbars*/
+#question_area::-webkit-scrollbar{
+  display:none;
+}
+
+#question_body {
+  min-height: 4em;
+  padding: 5px;
+  border: 2px solid #706a6a;
+}
+.list-group-item {
+  background-color: $listGroupItemBgColor;
+}
+
+#question_body_box {
+  //-webkit-box-shadow: 0px 3px 11px 7px rgba(17,17,17,1);
+  //-moz-box-shadow: 0px 3px 11px 7px rgba(17,17,17,1);
+  box-shadow: 0px 3px 7px 5px rgba(17,17,17,1);
+}
+
+.comprehension {
+  border-bottom: 5px solid #212121;
+}
+#comprehension_paragraph {
+  font-size: 1.7em;
+}
+
+/* Kept for future use */
+#matrix_headers{
+  font-size: 1.4em;
+  font-weight: bold;
+}
+.matrix-checkboxes{
+  position: relative;
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  margin-left: 40%;
+}
+.option-label {
+  float:left;
+  vertical-align:top;
+  font-size: 1em;
+}
+.option-body{
+}
+
+/*custom radio buttons and checkboxes*/
+/*hide default boxes*/
+input[type=radio], input[type=checkbox]{
+  display: none;
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  margin: none;
+  padding: none;
+}
+
+/*Vertically center the checkboxes and radios.NB: apply to the parent container*/
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+.custom-radio{
+  min-height: 1.5em;
+  background-image: url("/images/radio_off.png");
+  background-repeat: no-repeat;
+  background-size: 1.0em 1.0em;
+  background-position: center;
+  transition: 0.2s;
+}
+
+input[type=radio]:checked + label > .custom-radio{
+  background-image: url("/images/radio_on.png");
+  transition: 0.5s;
+}
+
+/*checkboxes*/
+.custom-checkbox{
+  padding: 5px;
+  height: 1.5em;
+  background-image: url("/images/checkbox_off.png");
+  background-repeat: no-repeat;
+  background-size: 1.0em 1.0em;
+  background-position: center;
+  transition: 0.2s;
+}
+
+input[type=checkbox]:checked + label > .custom-checkbox{
+  background-image: url("/images/checkbox_on.png");
+  transition: 0.5s;
+}
+/* For matrix types */
+.custom-matrix-checkbox{
+  padding: 12px;
+}
+
+
+/*bottom control panel (bottom_bar)*/
+#bottom_bar {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 7%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  z-index:10;
+  padding: 2px;
+  background-color: $bottomBarBgColor;
+}
+
+#control_buttons {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: 63%;
+  justify-content: center;
+  background-color: #333333;
+  transition: 0.2s ease all;
+}
+.control-button {
+  flex-grow: 1;
+  margin: 2px;
+  padding: 2px;
+  transition: 0.2s ease all;
+
+}
+.control-nav-button {
+  flex-grow: 2;
+  margin: 2px;
+  padding: 2px;
+  transition: 0.2s ease all;
+}
+
+@media only screen and (max-width: 600px){
+  #control_buttons {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    justify-content: center;
+    background-color: #333333;
+    transition: 0.2s ease all;
+  }
+  .control-button {
+    flex-grow: 1;
+    flex-basis: 31%;
+    margin: 2px;
+    padding: 2px;
+    order: 1;
+    transition: 0.2s ease all;
+  }
+  .control-nav-button {
+    flex-grow: 2;
+    flex-basis: 46%;
+    margin: 2px;
+    padding: 2px;
+    order: 2;
+    transition: 0.2s ease all;
+  }
+
+}
+
+/* Notifications and popups alert */
+.alert-box {
+  position: absolute;
+  display: inline-block;
+  width: 50%;
+  bottom: 10%;
+  margin-left: 25%;
+  margin-right: 25%;
+  z-index: 11;
+  color: #212121;
+  padding: 6px;
+  opacity: 1;
+  background-color: white;
+  border-radius: 0px;
+  box-shadow: 0px 3px 18px 5px #212121;
+  transition: 0.5s ease all;
+  font-size: 1.3em;
+}
+.alert-box-red{
+  background-color: #F44336;
+  color: white;
+}
+.alert-box-yellow{
+  background-color: #ffce54;
+  color: black;
+}
+.alert-box-green{
+  background-color: #4CAF50;
+  color: white;
+}
+
+.alert-box.ng-enter{
+  color: white;
+  transition: 0.4s ease all;
+  border-radius: 20px;
+  bottom: 0%;
+  z-index: 9;
+  opacity: 0;
+}
+
+.alert-box.ng-enter-active {
+  bottom: 13%;
+  opacity: 0.5;
+  background-color: white;
+}
+
+.alert-box.ng-leave{
+  transition: 0.05s ease all;
+  z-index: 9;
+}
+
+.alert-box.ng-leave-active {
+  transition: 0.5s ease all;
+  background-color: #212121;
+  bottom: 0%;
+  z-index: 9;
+}
+
+#alert_message {
+  display: inline-block;
+}
+
+@media only screen and (max-width: 700px) {
+  .alert-box {
+    position: absolute;
+    display: inline-block;
+    width: 90%;
+    bottom: 10%;
+    margin-left: 5%;
+    margin-right: 25%;
+    z-index: 11;
+    color: #212121;
+    padding: 6px;
+    opacity: 1;
+    background-color: white;
+    border-radius: 0px;
+    box-shadow: 0px 3px 18px 5px #212121;
+    transition: 0.5s ease all;
+    font-size: 1.3em;
+  }
+  .alert-box-red{
+    background-color: #F44336;
+    color: white;
+  }
+  .alert-box-yellow{
+    background-color: #ffce54;
+    color: black;
+  }
+  .alert-box-green{
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .alert-box.ng-enter{
+    color: white;
+    transition: 0.4s ease all;
+    border-radius: 20px;
+    bottom: 0%;
+    z-index: 9;
+    opacity: 0;
+  }
+
+  .alert-box.ng-enter-active {
+    bottom: 13%;
+    opacity: 0.5;
+    background-color: white;
+  }
+
+  .alert-box.ng-leave{
+    transition: 0.05s ease all;
+    z-index: 9;
+  }
+
+  .alert-box.ng-leave-active {
+    transition: 0.5s ease all;
+    background-color: #212121;
+    bottom: 0%;
+    z-index: 9;
+  }
+
+  #alert_message {
+    display: inline-block;
+  }
+}
+
+#global_timer:hover { animation: shiver 0.03s 10, blow 0.1s 2; animation-direction: alternate; }
+@keyframes shiver { 0% { color: blue; } 50% { color: cyan; } 100% { transform: translate(-3px, 0px); color: red; } }
