@@ -82,7 +82,7 @@
           </a>
           <li ng-repeat="(key, val) in {'a':'ans1', 'b':'ans2', 'c':'ans3', 'd':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
-            <label for="{{key}}" class="col-xs-12 vcenter" ng-click="selectedQuestion.isAnswered=true">
+            <label for="{{key}}" class="col-xs-12 vcenter" ng-click="selectedQuestion.isAnswered=true; selectedQuestion.useranswer.isSubmitted=false;">
               <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-radio col-xs-1">
               </div>
@@ -386,7 +386,7 @@
           <button class="btn btn-default" data-dismiss="modal">
             <u>Provide feedback!</u>
           </button>
-          <button class="btn btn-primary" ng-click="#">
+          <button class="btn btn-primary">
             Go back to home page
           </button>
         </div>

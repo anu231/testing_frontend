@@ -23,8 +23,8 @@ angular.module('testingFrontendApp')
     };
     /* ends the currently going on attempt */
     this.finishAttempt = function(){
-    	attempt.finished = true;
-    	return $http.post(attempt_url+'finish/');
+    	this.attempt.finished = true;
+    	return $http.put(this.attempt_url+this.attempt.id+'/finish/');
     };
     /*
     fetches the specified attempt from the server
