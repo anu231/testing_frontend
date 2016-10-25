@@ -8,10 +8,23 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-  .controller('HomeCtrl', ['$scope','$state','available_papers','attempted_papers','$uibModal',
-  	function ($scope,$state,available_papers,attempted_papers,$uibModal) {
+  .controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal',
+  	function ($scope,$state,available_papers,user_attempts,$uibModal) {
     	$scope.available_papers = available_papers;
-      $scope.attempted_papers = attempted_papers;
+      $scope.user_attempts = user_attempts.data;
+      $scope.init = function () {
+        /*
+        Does initial book keeping for the attempted papers
+         */
+        for (var i=0; i<$scope.user_attempts.length; i++){
+          var p = _.find($scope.available_papers,function(a){return a.id==$scope.user_attempts[i].paper_info.id});
+          if ($scope.user_attempts[i].finished!=true) {
+            p['status'] = 'ongoing';
+          } else {
+            p['status'] = 'attempted';
+          }
+        }
+      }
       $scope.attemptPaper = function(paper){
         var paperInstance = $uibModal.open({
           templateUrl:'views/paper-start.html',
@@ -34,4 +47,5 @@ angular.module('testingFrontendApp')
           }
         });
       };
+      $scope.init();
   }]);

@@ -28,8 +28,8 @@ var homeState = {
     available_papers :['paper',function(paper){
       return paper.getAvailablePapers();
     }],
-    attempted_papers :['paper',function(paper){
-      return paper.getAttemptedPapers();
+    user_attempts :['attempt',function(attempt){
+      return attempt.loadAttempts();
     }]
   },
   url: "/home",

@@ -51,5 +51,8 @@ angular.module('testingFrontendApp')
     };
     this.loadQuestionStatus = function(){
         return $http.get(this.attempt_url+this.attempt.id+'/get_question_states/');
+    };
+    this.loadAttempts = function(){
+        return $http.get(this.attempt_url+'get_attempts/');
     }
   }]);

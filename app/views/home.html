@@ -1,38 +1,27 @@
 <div>
-	<uib-tabset active="active">
-	    <uib-tab index="0" heading="Available Papers">
-	    	<table class="table table-bordered table-striped table-hover">
-	    		<thead>
-	    			<th>Name</th>
-	    			<th>Availbale Till</th>
-	    			<th>Action</th>
-	    			<th>Status</th>
-	    		</thead>
-	    		<tbody>
-	    			<tr ng-repeat='paper in available_papers'>
-	    				<td>{{paper.name}}</td>
-	    				<td>{{paper.lastdate}}</td>
-	    				<td ng-click='attemptPaper(paper)' class='btn btn-default'>Attempt</td>
-              <td><span class="glyphicon glyphicon-ok-sign"></span></td>
-	    			</tr>
-	    		</tbody>
-	    	</table>
-	    </uib-tab>
-	    <uib-tab index="1" heading="Attempted Papers">
-	      <table>
-	      	<thead>
-	      		<th>Name</th><th>Attempt Date</th><th>View Score</th>
-	      	</thead>
-	      	<tbody>
-	      		<tr ng-repeat='paper in attempted_papers'>
-	      			<td>{{paper.name}}</td>
-	      			<td>attempt date</td>
-	      			<td>Score</td>
-	      		</tr>
-	      	</tbody>
-	      </table>
-	    </uib-tab>
-  	</uib-tabset>
+	<table class="table table-bordered table-striped table-hover">
+		<thead>
+			<th>Name</th>
+			<th>Availbale Till</th>
+			<th>Action</th>
+			<th>Status</th>
+		</thead>
+		<tbody>
+			<tr ng-repeat='paper in available_papers'>
+				<td>{{paper.name}}</td>
+				<td>{{paper.lastdate}}</td>
+				<td ng-click='attemptPaper(paper)' class='btn btn-default'>
+					<p ng-if='paper.status == "ongoing"'>Resume</p>
+					<p ng-if='paper.status != "ongoing"'>Attempt</p>
+				</td>
+      			<td ng-if='paper.status == "attempted"'>
+      				<!--<span class="glyphicon glyphicon-ok-sign">Attempted</span>-->
+      				<button class='btn btn-default'>View Report</button>
+      			</td>
+      			<td ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-ruble">Ongoing</span></td>
+			</tr>
+		</tbody>
+	</table>
 	<div ui-view>
 	</div>
 </div>
