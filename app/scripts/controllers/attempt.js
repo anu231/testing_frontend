@@ -72,9 +72,14 @@ angular.module('testingFrontendApp')
         $scope.autoSave();
         attempt.finishAttempt().then(function(resp){
           console.log(resp); 
-          $('#exitModal').modal('hide');
+          if(resp.status == 200){
+            $('#exitModal').modal('hide');
+          } else {
+            alert("CRITICAL ERROR: Couldn't connect to server! Please try again");
+          }
         }, function(err){
-          console.log(err); 
+          $('#final_resume_button').attr('disabled', 'disabled');
+          alert("CRITICAL ERROR: Couldn't connect to server! Please try again");
         });
         $('#endPaperModal').modal('show');
       }
