@@ -53,10 +53,11 @@ angular.module('testingFrontendApp')
       }
       // Finish/end paper cleanup code
       $scope.finish = function(){
-        console.log("Show an confirmation modal"); 
+        console.log("Autosave all questions and quit"); 
         var finish_confirmation = false;
         if(finish_confirmation == true){
-
+          $scope.autoSave();
+          //TODO show a loading sign and exit
         } else {
           // Continue paper 
         }
@@ -66,7 +67,7 @@ angular.module('testingFrontendApp')
       // Called by start paper button on instruction modal
       function timer_start(){
         var duration = attempt.attempt.paper_info.duration; 
-        var duration = 615;
+        //var duration = 615;
         // Set the 10 min reminder timeout
         $timeout(function(){$('#servantModal').modal('show');}, (duration - 600) * 1000);
         var time = duration;
