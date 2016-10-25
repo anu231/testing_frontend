@@ -219,7 +219,14 @@
 
 /*Hide on small screens*/
 #question_timer {
-  display: none;
+  position: relative;
+  display: inline-block;
+  border: 2px solid black;
+  height: 100%;
+  width: 7em;
+  text-align: center;
+  padding: 5px;
+  font-size: 1.2em;
   transition: 0.2s ease all;
 }
 
