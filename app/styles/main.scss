@@ -100,11 +100,11 @@ $brandColorRedText : #ffffff;
 $brandColorGrey: #333333;
 $brandColorGreyText: #ffffff;
 
-$brandColorBlue: #213571;
+$brandColorBlue: #21409a;
 $brandColorBlueText: #ffffff;
 
 .navbar-default{
-  background-color: $brandColorGrey; 
+  background-color: $brandColorBlue; 
   border-color: $brandColorGrey; 
   color: $brandColorRedText;
   position: fixed;
@@ -118,4 +118,19 @@ $brandColorBlueText: #ffffff;
 .footer {
   background-color: $brandColorBlue;
   color: $brandColorGreyText;
+}
+
+#logo {
+  display: inline-block;
+  position: absolute;
+  bottom: 1%;
+  z-index: 100;
+  top: 1%;
+  width: 6.5em; 
+  background-color: #ffffff;
+  background-image: url("/images/educonnect_logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  float: left;
+  border-radius: 10px;
 }
