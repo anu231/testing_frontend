@@ -297,7 +297,7 @@
         <button ng-class="{'btn': true,'btn-default':true,'control-nav-button':true}"  ng-click="nextQuestion()">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
       </div>
       <button ng-if="true" ng-class="{'btn': true,'btn-warning':true, 'pull-right':true}"  ng-click="displayInfo()"><span class="glyphicon glyphicon-info-sign"></span></button>
-      <button ng-if="true" ng-class="{'btn': true,'btn-primary':true, 'pull-right':true}" data-toggle="modal" data-target="#endPaperModal"><span class="glyphicon glyphicon-info-sign"></span></button>
+      <button ng-if="true" ng-class="{'btn': true,'btn-primary':true, 'pull-right':true}" data-toggle="modal" data-target="#cleanupModal"><span class="glyphicon glyphicon-info-sign"></span></button>
       <button ng-if="true" ng-class="{'btn': true,'btn-danger':true, 'pull-right':true}" data-toggle="modal" data-target="#servantModal"><span class="glyphicon glyphicon-info-sign"></span></button>
     </div>
 
@@ -322,16 +322,20 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title"> Are you sure you want to <b>submit</b> the paper?</h4>
+          <h4 class="modal-title"> Are you sure you want to <b>finish</b> the paper?</h4>
         </div>
         <div class="modal-body">
           <p>Please make sure that you <b><u>SAVE</u></b> <span class="glyphicon glyphicon-ok-sign"></span> all your answers.</p>
           <p><b><u>Unsaved</u></b> <span class="glyphicon glyphicon-record"></span> answers will <b><u>NOT</u></b> be evaluated.</p>
           <p>Do you really want to submit the paper and quit?</p>
+          <div id="loading" ng-if="loading==true">
+            <h3>Loading... </h3>
+            <img src="/images/15.gif" alt=""></img>
+          </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" data-dismiss="modal"> <b>Resume</b> </button>
-          <button class="btn btn-danger" ng-click="finish()"> Save and Quit </button>
+          <button class="btn btn-primary" id="final_resume_button" data-dismiss="modal"> <b>Resume</b> </button>
+          <button class="btn btn-danger" id="final_finish_button" ng-click="finish()"> Save and Quit </button>
         </div>
       </div>
     </div>
@@ -361,34 +365,20 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" id="endPaperModal" tabIndex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog modal-lg" role="document">
+
+  <div class="modal fade" id="cleanupModal" tabIndex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title"> Paper Finished </h4>
+          <h2 class="modal-title">
+            Time up! Saving your answers...
+          </h2>
         </div>
         <div class="modal-body">
-          <p>
-          Elit ipsum minus suscipit consequatur dolor itaque libero necessitatibus cumque? Possimus vitae accusamus quos rerum nesciunt dolores, quae eaque. Consectetur omnis sit adipisci nobis repellendus quasi atque eum obcaecati repellendus!kaldfjlsa
-          </p>
-          <p>
-          Lorem pariatur modi veritatis veniam ducimus minima quibusdam quos? Ut fugit incidunt eligendi eligendi porro. Hic sequi quasi deserunt illo voluptates. Dolores quidem in necessitatibus id debitis? Placeat accusamus sequi.
-          </p>
-          <p>
-          Dolor odio qui quasi odio vitae dolores odio fugiat optio voluptates. Deleniti aperiam autem ad labore vero ipsum? Quisquam tempora dolore nemo laboriosam eaque error natus aliquid consequatur sapiente! Itaque.
-          </p>
-          <p>
-          Elit perferendis odio distinctio voluptates fugit? At quam quis consequuntur quisquam blanditiis cumque cumque fugiat ipsa. Commodi voluptatibus adipisci veritatis placeat sapiente! Odio numquam dolorum natus impedit quibusdam nesciunt. Aliquam?
-          </p>
-
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-default" data-dismiss="modal">
-            <u>Provide feedback!</u>
-          </button>
-          <button class="btn btn-primary">
-            Go back to home page
-          </button>
+          <h3>Please do not refresh the page or close the window!</h3>
+          <div id="loading" ng-if="loading==true">
+            <img src="/images/15.gif" alt=""></img>
+          </div>
         </div>
       </div>
     </div>

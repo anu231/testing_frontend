@@ -15,8 +15,8 @@ angular.module('testingFrontendApp')
     touchToDrag: false
   }  
 })
-.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval',
-    function($scope,$state,attempt,questions,useranswer,$timeout, $interval) {
+.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window',
+    function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window) {
       $scope.init = function(questions,status){
         $scope.paper_title = attempt.attempt.paper_info.name;
         if (questions!=null){
@@ -66,22 +66,29 @@ angular.module('testingFrontendApp')
       // Finish/end paper cleanup code
       $scope.finish = function(){
         console.log("Autosave all questions and quit"); 
-        //TODO show a loading sign 
+        $scope.loading = true; // Shows loading sign
+        $('#final_finish_button').attr('disabled', 'disabled');
+        $('#final_resume_button').attr('disabled', 'disabled');
         $scope.autoSave();
         attempt.finishAttempt().then(function(resp){
           console.log(resp); 
-          //TODOredirect to home page
+          if(resp.status == 200){
+            $('#exitModal').modal('hide');
+            $('#cleanupModal').modal('hide');
+            $timeout(function(){$window.location = "/#/home";}, 1000);
+          } else {
+            alert("CRITICAL ERROR: Couldn't connect to server! Please try again");
+          }
         }, function(err){
-          console.log(err); 
+          $('#final_resume_button').attr('disabled', 'disabled');
+          alert("CRITICAL ERROR: Couldn't connect to server! Please try again");
         });
-        //$('#exitModal').modal('show');
       }
 
       // Let the timer begin
       // Called by start paper button on instruction modal
       function timer_start(){
         var duration = attempt.attempt.paper_info.duration; 
-        //var duration = 615;
         // Set the 10 min reminder timeout
         $timeout(function(){$('#servantModal').modal('show');}, (duration - 600) * 1000);
         var time = duration;
@@ -107,6 +114,7 @@ angular.module('testingFrontendApp')
             time_disp.html("00:00");
             $interval.cancel(timer);
             $scope.alert_notification({msg:"TIME UP!", theme:"red", time: 10000});
+            $('#cleanupModal').modal('show');
             $scope.finish();
           }
           time_disp.html(time_str); 
@@ -129,6 +137,8 @@ angular.module('testingFrontendApp')
               $scope.questions[currentIndex + i + 1].isChRelated = true;
               $scope.questions[currentIndex + i + 1].chQuestion = question.question;
             }
+            // Remove ch question from the array
+            $scope.questions.splice($scope.questions.indexOf(question), 1);
           }
         });
         // Set up the first question
