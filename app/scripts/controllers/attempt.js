@@ -17,7 +17,7 @@ angular.module('testingFrontendApp')
 })
 .controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window',
     function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window) {
-      $scope.init = function(questions,status){
+      $scope.init = function(questions){
         $scope.paper_title = attempt.attempt.paper_info.name;
         if (questions!=null){
           $scope.questions = questions.data;
@@ -142,6 +142,18 @@ angular.module('testingFrontendApp')
             $scope.questions.splice($scope.questions.indexOf(question), 1);
           }
         });
+        attempt.loadQuestionStatus()
+        .then(function(resp){
+          console.log(resp);
+          //$scope.status = resp.data;
+          resp.data.forEach(function(ua){
+            var qs = _.find($scope.questions,function(qs){return qs.id==ua.question});
+            qs.useranswer = ua;
+            qs.answer = ua.answer;
+          });
+        },function(err){
+
+        })
         // Set up the first question
         $scope.selectQuestion($scope.questions[0]);
       }
@@ -356,7 +368,7 @@ angular.module('testingFrontendApp')
 
 
 
-      $scope.init(questions, status);
+      $scope.init(questions);
     }]);
 
 
