@@ -136,6 +136,8 @@ angular.module('testingFrontendApp')
               $scope.questions[currentIndex + i + 1].isChRelated = true;
               $scope.questions[currentIndex + i + 1].chQuestion = question.question;
             }
+            // Remove ch question from the array
+            $scope.questions.splice($scope.questions.indexOf(question), 1);
           }
         });
         // Set up the first question
