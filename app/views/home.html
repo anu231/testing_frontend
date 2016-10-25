@@ -1,17 +1,19 @@
 <div>
 	<uib-tabset active="active">
 	    <uib-tab index="0" heading="Available Papers">
-	    	<table>
+	    	<table class="table table-bordered table-striped table-hover">
 	    		<thead>
 	    			<th>Name</th>
 	    			<th>Availbale Till</th>
 	    			<th>Action</th>
+	    			<th>Status</th>
 	    		</thead>
 	    		<tbody>
 	    			<tr ng-repeat='paper in available_papers'>
 	    				<td>{{paper.name}}</td>
 	    				<td>{{paper.lastdate}}</td>
 	    				<td ng-click='attemptPaper(paper)' class='btn btn-default'>Attempt</td>
+              <td><span class="glyphicon glyphicon-ok-sign"></span></td>
 	    			</tr>
 	    		</tbody>
 	    	</table>

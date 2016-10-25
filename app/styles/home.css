@@ -1,0 +1,15 @@
+#home_table_head {
+  background-color: #212121;
+  color: white;
+}
+
+#home_div {
+  position: absolute;
+  background-color: grey;
+  left: 0%;
+  right: 0%;
+  top: 10%;
+}
+#home_tab_area {
+  position: relative;
+}
