@@ -35,25 +35,41 @@ angular.module('testingFrontendApp')
       // Autosave all the attempted questions
       // Used by the 10 minute autosave reminder modal
       $scope.autoSave = function(){
-        console.log("Saving question "); 
+        console.log("Auto Saving question "); 
         $scope.questions.forEach(function(q){
           if(q.useranswer != undefined){
-            q.useranswer.timetaken = q.timetaken;
-            useranswer.saveAnswer(q.useranswer)
-              .then(function(resp){
-                q.useranswer.isSubmitted = true;
-                //console.log("saved " + q.id);
-              },function(err){
-                //console.log("Couldn't save " + q.id);
-              });
+            console.log(q.id);
+            if(q.useranswer.answer == "null"){
+              q.useranswer.timetaken = q.timetaken;
+              useranswer.saveAnswer(q.useranswer)
+                .then(function(resp){
+                  q.useranswer.isSubmitted = true;
+                  //console.log("saved " + q.id);
+                },function(err){
+                  //console.log("Couldn't save " + q.id);
+                });
+            } else {
+              var ques_valid = $scope.validateAndFormatAnswer(question);
+              if (ques_valid==true){
+                useranswer.saveAnswer(question.useranswer)
+                  .then(function(resp){
+                    question.useranswer.answer = resp.answer;
+                    question.useranswer.isSubmitted = true;
+                  },function(err){
+                  });
+              } else {
+                //TODO
+              }
+            }
           }
         });
-      
+
       }
       // Finish/end paper cleanup code
       $scope.finish = function(){
         console.log("Autosave all questions and quit"); 
         $scope.autoSave();
+        $('#exitModal').modal('show');
         //TODO show a loading sign and exit
       }
 
@@ -143,7 +159,6 @@ angular.module('testingFrontendApp')
             attempt: attempt.attempt.id,
             question: question.id,
             answer: "null",
-            //answer: question.answer,
             timetaken: question.timetaken 
           } 
         }
@@ -174,6 +189,7 @@ angular.module('testingFrontendApp')
           // TODO Disable the previous button!
         }
       }
+
 
       // Clear user selected/entered answer for the selectedQuestion
       // and syncs with the backend
