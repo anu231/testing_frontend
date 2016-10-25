@@ -37,40 +37,44 @@ angular.module('testingFrontendApp')
       $scope.autoSave = function(){
         console.log("Auto Saving question "); 
         $scope.questions.forEach(function(q){
-          if(q.useranswer != undefined){
+          if(q.useranswer!=undefined){  // undefined == never viewed/clicked. Timetaken == 0
             console.log(q.id);
-            if(q.useranswer.answer == "null"){
+            if(q.useranswer.answer == "null"){  // null == answered but never saved. Timetaken != 0
               q.useranswer.timetaken = q.timetaken;
               useranswer.saveAnswer(q.useranswer)
                 .then(function(resp){
                   q.useranswer.isSubmitted = true;
-                  //console.log("saved " + q.id);
                 },function(err){
-                  //console.log("Couldn't save " + q.id);
                 });
             } else {
-              var ques_valid = $scope.validateAndFormatAnswer(question);
-              if (ques_valid==true){
-                useranswer.saveAnswer(question.useranswer)
+              var ques_valid = $scope.validateAndFormatAnswer(q);
+              if(ques_valid==true){
+                useranswer.saveAnswer(q.useranswer)
                   .then(function(resp){
-                    question.useranswer.answer = resp.answer;
-                    question.useranswer.isSubmitted = true;
+                    q.useranswer.answer = resp.answer;
+                    q.useranswer.isSubmitted = true;
                   },function(err){
+                    console.log("Couldnt validate: " + q.id + " " + ques_valid);
                   });
               } else {
-                //TODO
+                // Suffer in silence.
               }
             }
           }
         });
-
       }
       // Finish/end paper cleanup code
       $scope.finish = function(){
         console.log("Autosave all questions and quit"); 
+        //TODO show a loading sign 
         $scope.autoSave();
-        $('#exitModal').modal('show');
-        //TODO show a loading sign and exit
+        attempt.finishAttempt().then(function(resp){
+          console.log(resp); 
+          //TODOredirect to home page
+        }, function(err){
+          console.log(err); 
+        });
+        //$('#exitModal').modal('show');
       }
 
       // Let the timer begin
@@ -198,9 +202,10 @@ angular.module('testingFrontendApp')
         if(question.useranswer != undefined){
           var useranswerbackup = question.useranswer.answer;
           question.useranswer.answer = "null";
+          question.useranswer.timetaken = question.timetaken;
           useranswer.saveAnswer(question.useranswer).then(function(resp){
             console.log("CLEARED ANSWER!!");
-            question.useranswer.answer = undefined;
+            question.useranswer.answer = "null";
             question.useranswer.isSubmitted = false;
             question.answer = undefined;
             question.answerA = undefined;
