@@ -38,15 +38,14 @@ angular.module('testingFrontendApp')
         console.log("Saving question "); 
         $scope.questions.forEach(function(q){
           if(q.useranswer != undefined){
-            if(q.useranswer.answer != undefined){
-              console.log(q); 
-              useranswer.saveAnswer(q.useranswer)
-                .then(function(resp){
-                  //console.log("saved " + q.id);
-                },function(err){
-                  //console.log("Couldn't save " + q.id);
-                });
-            } 
+            q.useranswer.timetaken = q.timetaken;
+            useranswer.saveAnswer(q.useranswer)
+              .then(function(resp){
+                q.useranswer.isSubmitted = true;
+                //console.log("saved " + q.id);
+              },function(err){
+                //console.log("Couldn't save " + q.id);
+              });
           }
         });
       
@@ -54,13 +53,8 @@ angular.module('testingFrontendApp')
       // Finish/end paper cleanup code
       $scope.finish = function(){
         console.log("Autosave all questions and quit"); 
-        var finish_confirmation = false;
-        if(finish_confirmation == true){
-          $scope.autoSave();
-          //TODO show a loading sign and exit
-        } else {
-          // Continue paper 
-        }
+        $scope.autoSave();
+        //TODO show a loading sign and exit
       }
 
       // Let the timer begin
@@ -144,6 +138,15 @@ angular.module('testingFrontendApp')
       // Used by the index, nextQuestion and previousQuestion buttons
       // ! Manages timer for each question via questionTimerManager
       $scope.selectQuestion = function(question){
+        if(question.useranswer == undefined){
+          question.useranswer = {
+            attempt: attempt.attempt.id,
+            question: question.id,
+            answer: "null",
+            //answer: question.answer,
+            timetaken: question.timetaken 
+          } 
+        }
         $scope.questionTimerManager(question); 
         $scope.selectedQuestion = question;
       }
@@ -284,14 +287,6 @@ angular.module('testingFrontendApp')
       // Used by the "save" control button.
       $scope.save = function(question){
         // Instantiate useranswer field if not present. Used to track previous attempts(?)
-        if(question.useranswer == undefined){
-          question.useranswer = {
-            attempt: attempt.attempt.id,
-            question: question.id,
-            answer: question.answer,
-            timetaken: question.timetaken 
-          } 
-        }
         var ques_valid = $scope.validateAndFormatAnswer(question); 
 
         if (ques_valid==true){

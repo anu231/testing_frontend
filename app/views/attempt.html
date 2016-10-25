@@ -31,7 +31,7 @@
             <div class="col-xs-1">
               <div class="sync-status-badge">
                 <span ng-if="question.isAnswered && question.useranswer.isSubmitted!=true" class="glyphicon glyphicon-record"></span>
-                <span ng-if="question.useranswer.isSubmitted"  class="glyphicon glyphicon-ok-sign"></span></div>
+                <span ng-if="question.useranswer.isSubmitted && question.isAnswered"  class="glyphicon glyphicon-ok-sign"></span></div>
             </div>
           </div>
         </li>
