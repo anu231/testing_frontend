@@ -84,10 +84,10 @@
   Pause timer when the 10 min reminder modal pops up(?)
   Improve top_bar: justification/alignment of elements - timers, paper_name etc.
  
-
- reload the resolves on reaching home
- on hitting the back button in attempt.html show alert
- load the answerers when attempt resumes
+2016-10-25 17:02
+  -- reload the resolves on reaching home
+  on hitting the back button in attempt.html show alert
+  load the answerers when attempt resumes
 
 ***************************
 ** Data collection Ideas **

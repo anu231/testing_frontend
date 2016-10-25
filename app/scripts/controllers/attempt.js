@@ -86,6 +86,18 @@ angular.module('testingFrontendApp')
         });
       }
 
+      // Self explainatory
+      // Called by the loadQuestionStatus()
+      $scope.deserializeAndSetAnswer = function(question, ans_str){
+        if(question.ques_type == "MC"){
+          var opts = ans_str.split(',');
+          opts.forEach(function(o){question["answer" + o.toUpperCase()] = true});
+        }else if(question.ques_type == "MT"){
+          console.log(opts);
+          //TODO JSON IMPROVEMENT
+        } 
+      }
+
       // Let the timer begin
       // Called by start paper button on instruction modal
       function timer_start(){
@@ -149,7 +161,15 @@ angular.module('testingFrontendApp')
           resp.data.forEach(function(ua){
             var qs = _.find($scope.questions,function(qs){return qs.id==ua.question});
             qs.useranswer = ua;
-            qs.answer = ua.answer;
+            qs.useranswer.isSubmitted=true;
+            qs.isAnswered = true;
+            if(qs.ques_type=="SC" ||  qs.ques_type=="SA"){
+              qs.answer = ua.answer; 
+            } else if (qs.ques_type == "IT"){
+              qs.answer = parseInt(ua.answer)
+            } else if (qs.ques_type == "MC" || qs.ques_type == "MT") {
+              $scope.deserializeAndSetAnswer(qs, ua.answer); 
+            }
           });
         },function(err){
 
@@ -157,6 +177,7 @@ angular.module('testingFrontendApp')
         // Set up the first question
         $scope.selectQuestion($scope.questions[0]);
       }
+
 
       //$scope.init(questions, status);
 
