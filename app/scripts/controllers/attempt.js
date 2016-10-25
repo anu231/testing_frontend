@@ -66,15 +66,17 @@ angular.module('testingFrontendApp')
       // Finish/end paper cleanup code
       $scope.finish = function(){
         console.log("Autosave all questions and quit"); 
-        //TODO show a loading sign 
+        $scope.loading = true; // Shows loading sign
+        $('#final_finish_button').attr('disabled', 'disabled');
+        $('#final_resume_button').attr('disabled', 'disabled');
         $scope.autoSave();
         attempt.finishAttempt().then(function(resp){
           console.log(resp); 
-          //TODOredirect to home page
+          $('#exitModal').modal('hide');
         }, function(err){
           console.log(err); 
         });
-        //$('#exitModal').modal('show');
+        $('#endPaperModal').modal('show');
       }
 
       // Let the timer begin

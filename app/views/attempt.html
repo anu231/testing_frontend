@@ -322,16 +322,20 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title"> Are you sure you want to <b>submit</b> the paper?</h4>
+          <h4 class="modal-title"> Are you sure you want to <b>finish</b> the paper?</h4>
         </div>
         <div class="modal-body">
           <p>Please make sure that you <b><u>SAVE</u></b> <span class="glyphicon glyphicon-ok-sign"></span> all your answers.</p>
           <p><b><u>Unsaved</u></b> <span class="glyphicon glyphicon-record"></span> answers will <b><u>NOT</u></b> be evaluated.</p>
           <p>Do you really want to submit the paper and quit?</p>
+          <div id="loading" ng-if="loading==true">
+            <h3>Loading... </h3>
+            <img src="/images/15.gif" alt=""></img>
+          </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" data-dismiss="modal"> <b>Resume</b> </button>
-          <button class="btn btn-danger" ng-click="finish()"> Save and Quit </button>
+          <button class="btn btn-primary" id="final_resume_button" data-dismiss="modal"> <b>Resume</b> </button>
+          <button class="btn btn-danger" id="final_finish_button" ng-click="finish()"> Save and Quit </button>
         </div>
       </div>
     </div>
