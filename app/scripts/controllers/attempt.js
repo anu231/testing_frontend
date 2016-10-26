@@ -71,7 +71,6 @@ angular.module('testingFrontendApp')
         $('#final_resume_button').attr('disabled', 'disabled');
         $scope.autoSave();
         attempt.finishAttempt().then(function(resp){
-          //console.log(resp); 
           if(resp.status == 200){
             $('#exitModal').modal('hide');
             $('#cleanupModal').modal('hide');
@@ -153,9 +152,7 @@ angular.module('testingFrontendApp')
             // Mark the next n questions as 'isChRelated = True'
             var lengthLinkedQuestions = question.comprehension_list.length;
             var currentIndex = $scope.questions.indexOf(question);
-            //console.log('CH detected at ' + (currentIndex + 1) + '! Next ' + question.comprehension_list.length + ' questions will be linked.'); 
             for(let i=0; i<lengthLinkedQuestions; i++){
-              //console.log('Question index: ' + (currentIndex + i + 1 + 1) + ' will be marked!');
               $scope.questions[currentIndex + i + 1].isChRelated = true;
               $scope.questions[currentIndex + i + 1].chQuestion = question.question;
             }
@@ -256,9 +253,8 @@ angular.module('testingFrontendApp')
           var useranswerbackup = question.useranswer.answer;
           question.useranswer.answer = "null";
           question.useranswer.timetaken = question.timetaken;
-          useranswer.saveAnswer(question.useranswer).then(function(resp){
-            console.log("CLEARED ANSWER!!");
-            question.useranswer.answer = "null";
+          function success(resp){
+            question.useranswer.answer = resp.answer;
             question.useranswer.isSubmitted = false;
             question.answer = undefined;
             question.answerA = undefined;
@@ -266,10 +262,17 @@ angular.module('testingFrontendApp')
             question.answerC = undefined;
             question.answerD = undefined;
             question.isAnswered = false;
-          },function(err){
+          }
+          function failure(err){
             question.useranswer.answer = useranswerbackup;
             $scope.alert_notification({msg:"Couldn't connect to the server, please check your internet connection",theme:"red",time:3000});
-          });
+          }
+          //TODO Save/UPDATE LOGIC
+          if(question.useranswer.isSubmitted != true){
+            useranswer.saveAnswer(question.useranswer).then(success,failure);
+          } else {
+            useranswer.updateAnswer(question.useranswer).then(success, failure); 
+          }
         } else {
           question.answer = undefined;
           question.answerA = undefined;
