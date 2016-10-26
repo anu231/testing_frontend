@@ -1,27 +1,31 @@
 <div>
-	<table class="table table-bordered table-striped table-hover">
-		<thead>
-			<th>Name</th>
-			<th>Availbale Till</th>
-			<th>Action</th>
-			<th>Status</th>
-		</thead>
-		<tbody>
-			<tr ng-repeat='paper in available_papers'>
-				<td>{{paper.name}}</td>
-				<td>{{paper.lastdate}}</td>
-				<td ng-click='attemptPaper(paper)' class='btn btn-default'>
-					<p ng-if='paper.status == "ongoing"'>Resume</p>
-					<p ng-if='paper.status != "ongoing"'>Attempt</p>
-				</td>
-      			<td ng-if='paper.status == "attempted"'>
-      				<!--<span class="glyphicon glyphicon-ok-sign">Attempted</span>-->
-      				<button class='btn btn-default'>View Report</button>
-      			</td>
-      			<td ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-ruble">Ongoing</span></td>
-			</tr>
-		</tbody>
-	</table>
-	<div ui-view>
-	</div>
+  <div id="home_parent_div">
+    <div id="home_papers_table" class="col-xs-12 col-lg-8 col-lg-offset-2">
+      <table class="table table-bordered table-hover">
+        <thead id="home_table_head">
+          <th class="text-center">Name</th>
+          <th class="text-center">Availbale Till</th>
+          <th class="text-center">Action</th>
+          <th class="text-center">Status</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat='paper in available_papers'>
+            <td><b>{{paper.name}}</b></td>
+            <td class="text-center">{{paper.lastdate}}</td>
+            <td ng-click='attemptPaper(paper)' class="text-center">
+              <button class="btn btn-info" ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-play"></span> Resume</button>
+              <button class="btn btn-primary" ng-if='paper.status == undefined'>Attempt</button>
+              <button class="btn btn-primary" ng-if='paper.status == "attempted"'>Retake</button>
+            </td>
+            <td ng-if='paper.status == "attempted"' class="text-center">
+              <button class='btn btn-default'><span class="glyphicon glyphicon-info-sign"></span> Report</button>
+            </td>
+            <td ng-if='paper.status == "ongoing"' class="text-center"> <p class="text-info"><b><u>Ongoing</u></b></p></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div ui-view>
+  </div>
 </div>
