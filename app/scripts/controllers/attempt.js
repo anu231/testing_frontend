@@ -330,12 +330,19 @@ angular.module('testingFrontendApp')
         } else if (question.ques_type=='IT'){
           if(question.answer == undefined) return {msg:'Please enter an Integer', theme:'red'};
           else {
+            question.isAnswered = true; // Special case
             question.useranswer.answer = question.answer;
             question.useranswer.timetaken = question.timetaken;
           }
 
         } else if (question.ques_type=='TF'){
-          // TODO
+          var validAnswers = ["a","b","c","d"];
+          if (question.answer==undefined || !validAnswers.includes(question.answer)){
+            return {msg:'Please select atleast one valid option', theme: 'red'};
+          } else {
+            question.useranswer.answer = question.answer;
+            question.useranswer.timetaken = question.timetaken;
+          }
 
         } else if (question.ques_type=='SA'){
           if(question.answer == undefined) return {msg:'Please write SOMETHING! Jeeze...', theme:'red'};
