@@ -1,9 +1,13 @@
 <div>
-	<div class='panel panel-default'>
-		<div class='panel-heading'>{{paper.name}}</div>
-		<div class='panel-body'>
-			{{paper.lastdate}}
-			<a href="" class='btn btn-default center-block' ng-click='startPaper()'>Start Paper</a>
-		</div>
-	</div>
+  <div class='panel panel-default'>
+    <div class='panel-heading'>{{paper.name}}</div>
+    <div class='panel-body'>
+      {{paper.lastdate}}
+    </div>
+    <div class="panel-footer">
+      <a href="" class='btn btn-primary center-block' ng-if="!paper.status" ng-click='startPaper()'>Start Paper</a>
+      <a href="" class='btn btn-primary center-block' ng-if="paper.status=='attempted'" ng-click='startPaper()'>Restart Paper</a>
+      <a href="" class='btn btn-primary center-block' ng-if="paper.status == 'ongoing'" ng-click='startPaper()'>Resume Paper</a>
+    </div>
+  </div>
 </div>
