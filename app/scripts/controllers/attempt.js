@@ -71,7 +71,7 @@ angular.module('testingFrontendApp')
         $('#final_resume_button').attr('disabled', 'disabled');
         $scope.autoSave();
         attempt.finishAttempt().then(function(resp){
-          console.log(resp); 
+          //console.log(resp); 
           if(resp.status == 200){
             $('#exitModal').modal('hide');
             $('#cleanupModal').modal('hide');
@@ -93,12 +93,17 @@ angular.module('testingFrontendApp')
           var opts = ans_str.split(',');
           opts.forEach(function(o){question["answer" + o.toUpperCase()] = true});
         }else if(question.ques_type == "MT"){
-          console.log(opts);
-          //TODO JSON IMPROVEMENT
-          //var ans_obj = ans_str.replace(/\'/g, "\"");
-          //console.log(ans_obj);
-          question.answer = JSON.parse(ans_str);
-          console.log(question.answer);
+          var ans_obj = JSON.parse(ans_str);
+          var formatted_ans_obj = {"A":{},"B":{},"C":{}, "D":{}};
+          ["A","B","C","D"].forEach(function(opt){
+            ans_obj[opt].forEach(function(letter){
+              formatted_ans_obj[opt][letter] = true; 
+            }); 
+          });
+          question.answerA = formatted_ans_obj.A;
+          question.answerB = formatted_ans_obj.B;
+          question.answerC = formatted_ans_obj.C;
+          question.answerD = formatted_ans_obj.D;
         } 
       }
 
@@ -160,7 +165,7 @@ angular.module('testingFrontendApp')
         });
         attempt.loadQuestionStatus()
         .then(function(resp){
-          console.log(resp);
+          //console.log(resp);
           //$scope.status = resp.data;
           resp.data.forEach(function(ua){
             var qs = _.find($scope.questions,function(qs){return qs.id==ua.question});
@@ -366,18 +371,23 @@ angular.module('testingFrontendApp')
         var ques_valid = $scope.validateAndFormatAnswer(question); 
 
         if (ques_valid==true){
-          if (!question.isAnswered){
+          if (!question.useranswer.isSubmitted){
             useranswer.saveAnswer(question.useranswer)
             .then(function(resp){
+              $scope.alert_notification({msg: "Answer Saved.", theme:"green"});
               question.useranswer.answer = resp.answer;
+              question.useranswer.id = resp.id;
               question.useranswer.isSubmitted = true;
             },function(err){
               $scope.alert_notification({msg:"Couldn't save your answer: Please check your internet connection!", theme:"red"});
             });
           } else {
+            console.log("PUTTING!");
             useranswer.updateAnswer(question.useranswer)
             .then(function(resp){
+              $scope.alert_notification({msg: "Answer Updated.", theme:"green", time:2000});
               question.useranswer.answer = resp.answer;
+              question.useranswer.id = resp.id;
               question.useranswer.isSubmitted = true;
             },function(err){
               $scope.alert_notification({msg:"Couldn't update your answer: Please check your internet connection!", theme:"red"});
