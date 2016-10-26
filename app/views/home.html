@@ -16,7 +16,8 @@
           <tr ng-repeat='paper in available_papers'>
             <td><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
             <td><b>{{paper.time}}</b></td>
-            <td class="text-center">{{paper.lastdate}}</td>
+            <td class="text-center"><b>{{getTzTime(paper.lastdate)}}</b></td>
+            <!--<td class="text-center">{{paper.lastdate}}</td>-->
             <td ng-click='attemptPaper(paper)' class="text-center">
               <button class="btn btn-info" ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-play"></span> Resume</button>
               <button class="btn btn-primary" ng-if='paper.status == undefined'>Attempt</button>
