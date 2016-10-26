@@ -16,7 +16,7 @@ angular.module('testingFrontendApp')
     		return remote_userans.post(userans);
     	},
     	updateAnswer : function(userans){
-    		return remote_userans.put(userans);
+    		return remote_userans.customPUT(userans,userans.id+'/');
     	}
     };
   }]);

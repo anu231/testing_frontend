@@ -95,6 +95,10 @@ angular.module('testingFrontendApp')
         }else if(question.ques_type == "MT"){
           console.log(opts);
           //TODO JSON IMPROVEMENT
+          //var ans_obj = ans_str.replace(/\'/g, "\"");
+          //console.log(ans_obj);
+          question.answer = JSON.parse(ans_str);
+          console.log(question.answer);
         } 
       }
 
@@ -320,7 +324,7 @@ angular.module('testingFrontendApp')
               });
             });
             console.log(matrix_answer);
-            question.useranswer.answer = matrix_answer;
+            question.useranswer.answer = JSON.stringify(matrix_answer);
             question.useranswer.timetaken = question.timetaken;
 
           } else {
@@ -345,8 +349,8 @@ angular.module('testingFrontendApp')
           }
 
         } else if (question.ques_type=='SA'){
-          if(question.answer == undefined) return {msg:'Please write SOMETHING! Jeeze...', theme:'red'};
-          if(question.answer == "") return {msg:'Please write SOMETHING! Jeeze...', theme:'red'};
+          if(question.answer == undefined) return {msg:'Please write SOMETHING! ', theme:'red'};
+          if(question.answer == "") return {msg:'Please write SOMETHING!', theme:'red'};
           else {
             question.useranswer.answer = question.answer;
             question.useranswer.timetaken = question.timetaken;
@@ -362,13 +366,23 @@ angular.module('testingFrontendApp')
         var ques_valid = $scope.validateAndFormatAnswer(question); 
 
         if (ques_valid==true){
-          useranswer.saveAnswer(question.useranswer)
+          if (!question.isAnswered){
+            useranswer.saveAnswer(question.useranswer)
             .then(function(resp){
               question.useranswer.answer = resp.answer;
               question.useranswer.isSubmitted = true;
             },function(err){
               $scope.alert_notification({msg:"Couldn't save your answer: Please check your internet connection!", theme:"red"});
             });
+          } else {
+            useranswer.updateAnswer(question.useranswer)
+            .then(function(resp){
+              question.useranswer.answer = resp.answer;
+              question.useranswer.isSubmitted = true;
+            },function(err){
+              $scope.alert_notification({msg:"Couldn't update your answer: Please check your internet connection!", theme:"red"});
+            });
+          }
         } else {
           console.log(ques_valid);
           $scope.alert_notification(ques_valid);
