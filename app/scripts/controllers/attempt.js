@@ -306,7 +306,7 @@ angular.module('testingFrontendApp')
 
         } else if (question.ques_type=='MT'){
           var validAnswers = ["answerA", "answerB", "answerC", "answerD"];
-          var validOptions = ["p", "q", "r", "s"];
+          var validOptions = ["P", "Q", "R", "S"];
           var matrix_answer = { "A" : [], "B" : [], "C" : [], "D" : [] };
           if(question.answerA != undefined || question.answerB != undefined 
               ||question.answerC != undefined ||question.answerD != undefined){
