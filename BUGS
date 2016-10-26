@@ -1,0 +1,4 @@
+2016-10-26 09:41
+  Answers cleared are not being reflected on reload
+  Answer saved and answer updated logic is messed up - check on isSubmitted being false on answer change
+  Back button alert only works the first time.

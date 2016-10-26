@@ -421,36 +421,20 @@ angular.module('testingFrontendApp')
         $('[data-toggle="tooltip"]').tooltip()
       })
 
+      $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+        if(confirm("The paper expires on " + "" + "You can come finish the paper before it expires. Do you really want to go back?")){
+          $scope.$$listeners.$stateChangeStart = undefined;
+          $scope.autoSave();
+        } else {
+          // TODO Retain the state
+          console.log(event);
+          event.preventDefault();
+          //$window.location = $window.location.href;
+        }
+       });
 
 
       $scope.init(questions);
     }]);
 
 
-/* Notes :
-   Question = questions.data[#]
-   body: Question.question
-   layout: Question.layout
-   type: Question.ques_type
-   subject: Question.subj
-
-   opt1: Question.ans1
-   opt2: Question.ans2
-   opt3: Question.ans3
-   opt4: Question.ans4
-
-   State: The state of the question - (q*)
-   qua: UnAttempted
-   qsel: Currently Selected
-   qa: Attempted              (Same as qm) 
-   qc: Confirmed
-   qm: Marked (for later review)  (Depricated. Use qa instead)
-
-   Type: Type of the question - (t*)
-   MC: Multiple choice questions {Checkboxes}
-   SC: Single choice {RadioButtons} 
-   MT: Matrix Type  {???}
-   CH: Comprehension {TextArea}
-   AR: Assertion Reason {???}
-   SA: Subjective Answers {TextArea}
-   */

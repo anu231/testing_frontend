@@ -87,7 +87,7 @@
 2016-10-25 17:02
   -- reload the resolves on reaching home
   on hitting the back button in attempt.html show alert
-  load the answerers when attempt resumes
+  --load the answers when attempt resumes
 
 ***************************
 ** Data collection Ideas **
