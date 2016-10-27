@@ -10,6 +10,7 @@
 angular.module('testingFrontendApp')
 .controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal',
     function ($scope,$state,available_papers,user_attempts,$uibModal) {
+      //$scope.available_papers = available_papers;
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
       $scope.init = function () {
@@ -84,5 +85,22 @@ angular.module('testingFrontendApp')
           }
         });
       };
+
       $scope.init();
+      $scope.ongoing_papers = [];
+      $scope.fresh_papers = [];
+      $scope.attempted_papers = [];
+      $scope.expired_papers = [];
+      $scope.available_papers.forEach(function(p){
+        if(p.status == "ongoing"){
+          $scope.ongoing_papers.push(p);
+        } else if(p.status == "attempted"){
+          $scope.attempted_papers.push(p);
+        } else if(p.status == undefined){
+          $scope.fresh_papers.push(p);
+        } else if(p.isExpired){ 
+          $scope.expired_papers.push(p);
+        }
+
+      });
     }]);

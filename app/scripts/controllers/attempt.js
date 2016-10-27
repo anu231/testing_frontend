@@ -158,7 +158,7 @@ angular.module('testingFrontendApp')
             // Mark the next n questions as 'isChRelated = True'
             var lengthLinkedQuestions = question.comprehension_list.length;
             var currentIndex = $scope.questions.indexOf(question);
-            for(let i=0; i<lengthLinkedQuestions; i++){
+            for(var i=0; i<lengthLinkedQuestions; i++){
               $scope.questions[currentIndex + i + 1].isChRelated = true;
               $scope.questions[currentIndex + i + 1].chQuestion = question.question;
             }
