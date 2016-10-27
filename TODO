@@ -42,7 +42,7 @@
   -- Make side-panel contextual according to screen size **
   -- Front end form validation **  Almost done
   -- Discuss save/confirm/mark logic
-  Add test instruction modal **
+  --Add test instruction modal **
   
 2016-10-14 16:41                  
   -- time taken for answering each question
@@ -51,11 +51,10 @@
   -- implement clear option button
   -- sync notif
   -- window close alert in attempt.js
-  make error notification dismissable
+  --make error notification dismissable{cancelled}
   google-analytics
   different toolbars(??)
   intro.js
-  underscore.js
   angularcharts
 
 
@@ -67,21 +66,21 @@
   -- handle the url of the images
 
 2016-10-18 17:55
-  Created another branch to implement introjs named introjs. Merge that into this when ready.
+  Created another branch to implement introjs named introjs. Merge that into this when ready. [HOLD]
 
 2016-10-19 12:45
   -- Sync icon next to questions in the index
-  Convert attempt into a sass file
+  --Convert attempt into a sass file
   Cease user interaction once the time's up
 
 2016-10-24 8:53
   -- On clicking clear the answer in the backend needs to be cleared
   -- If I have marked a answer and not saved it needs to be shown in the sidepane
-  - Finish/exit button (Logic remains)
+  -- Finish/exit button
   -- Testpaper Name
   -- Add autosave all questions modal and logic
-  ** Left index does not scroll when selectedQuestion goes out of view.
-  Pause timer when the 10 min reminder modal pops up(?)
+  -- Pause timer when the 10 min reminder modal pops up(?) {cant do}
+  ** Left index does not scroll when selectedQuestion goes out of view. [Cannot do?]
   Improve top_bar: justification/alignment of elements - timers, paper_name etc.
  
 2016-10-25 17:02

@@ -23,12 +23,28 @@ angular.module('testingFrontendApp')
             p['status'] = 'attempted';
           }
         }
+        // Check for expiry
+        $scope.available_papers.forEach(function(paper){if($scope.isExpired(paper)) paper['isExpired'] = true});
       }
+
+      // Checks whether a paper is expired
+      // Used in init
+      $scope.isExpired = function(paper){
+        var last_date = new Date(paper.lastdate);
+        var today = new Date();
+        var delta = (last_date - today);
+        if(delta <= 0) return true;
+        else return true;
+      }
+
+      // Get appropriate local date
       $scope.getTzDate = function(time_str){
         var d = new Date(time_str);
         var date = d.toLocaleDateString();
         return date 
       }
+
+      // Get appropriate local time
       $scope.getTzTime = function(time_str){
         var d = new Date(time_str);
         var time = d.toLocaleTimeString().slice(0,5);
@@ -38,7 +54,7 @@ angular.module('testingFrontendApp')
       $scope.getRemainingTime = function(time_str, duration){
         var now = new Date(); 
         var start = new Date(time_str);
-        var time_passed_seconds = Math.floor((now - start)/1000); // Seconds from starttime till now
+        var time_passed_seconds = Math.floor((now - start)/1000); // Seconds 
         var duration_seconds = duration.split(':')[0] * 3600 + duration.split(':')[1] * 60;
         var delta = duration_seconds - time_passed_seconds;
         return Math.floor(delta/3600) + ":" + Math.floor(delta/60)

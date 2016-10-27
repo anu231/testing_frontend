@@ -1,4 +1,4 @@
 2016-10-26 09:41
-  Answers cleared are not being reflected on reload
+  --The sync badges do not change on answer clear and reload.
   Answer saved and answer updated logic is messed up - check on isSubmitted being false on answer change
   Back button alert only works the first time.

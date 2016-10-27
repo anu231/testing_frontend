@@ -5,6 +5,9 @@
   top: 8%;
 }
 
+.expired {
+  color: red;
+}
 #home_papers_table {
   position: fixed;
   top: 20%;
