@@ -25,22 +25,15 @@ angular.module('testingFrontendApp')
           }
         }
       }
+      $scope.getTzDate = function(time_str){
+        var d = new Date(time_str);
+        var date = d.toLocaleDateString();
+        return date 
+      }
       $scope.getTzTime = function(time_str){
-        var d = new Date();
-        var offset = d.getTimezoneOffset();
-        var reg = /(.*)T(.*)Z/;
-        var date = reg.exec(time_str)[1]
-        var UTCtime = reg.exec(time_str)[2]
-        var uHH = UTCtime.split(':')[0]
-        var uMM = UTCtime.split(':')[1]
-        var oHH = Math.floor(offset/60);
-        var oMM = offset % 60;
-        var lHH = parseInt(uHH) + parseInt(oHH);
-        var lMM = parseInt(uMM) + parseInt(oMM);
-        var time = (lHH) + ':' + (lMM);
-        console.log(time);
-        
-        return date + " " + time
+        var d = new Date(time_str);
+        var time = d.toLocaleTimeString().slice(0,5);
+        return time
       }
 
       $scope.attemptPaper = function(paper){
