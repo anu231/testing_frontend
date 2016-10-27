@@ -13,13 +13,12 @@ angular.module('testingFrontendApp')
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
       $scope.init = function () {
-        /*
-           Does initial book keeping for the attempted papers
-           */
+        //Does initial book keeping for the attempted papers 
         for (var i=0; i<$scope.user_attempts.length; i++){
           var p = _.find($scope.available_papers,function(a){return a.id==$scope.user_attempts[i].paper_info.id});
           if ($scope.user_attempts[i].finished!=true) {
             p['status'] = 'ongoing';
+            p['attemptStartTime'] = $scope.user_attempts[i].starttime;
           } else {
             p['status'] = 'attempted';
           }
@@ -36,6 +35,16 @@ angular.module('testingFrontendApp')
         return time
       }
 
+      $scope.getRemainingTime = function(time_str, duration){
+        var now = new Date(); 
+        var start = new Date(time_str);
+        var time_passed_seconds = Math.floor((now - start)/1000); // Seconds from starttime till now
+        var duration_seconds = duration.split(':')[0] * 3600 + duration.split(':')[1] * 60;
+        var delta = duration_seconds - time_passed_seconds;
+        return Math.floor(delta/3600) + ":" + Math.floor(delta/60)
+        
+      }
+
       $scope.attemptPaper = function(paper){
         var paperInstance = $uibModal.open({
           templateUrl:'views/paper-start.html',
@@ -49,7 +58,8 @@ angular.module('testingFrontendApp')
                   attempt.setAttempt(resp.data);
                   $state.go('home.attempt',{'pid':resp.data.id,'paper':$scope.paper});  
                 },function(err){
-                  //display error
+                  //TODO display proper error message
+                  alert("Couldn't start paper");
                 });
             }
           }],

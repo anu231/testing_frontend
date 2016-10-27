@@ -24,9 +24,11 @@
               <button class="btn btn-default" ng-if='paper.status == "attempted"'>Retake</button>
             </td>
             <td ng-if='paper.status == "attempted"' class="text-center">
-              <button class='btn btn-default'><span class="glyphicon glyphicon-dashboard"></span> Results & Analysis</button>
+              <button class='btn btn-default'><span class="glyphicon glyphicon-dashboard"></span> Results &amp; Analysis</button>
             </td>
-            <td ng-if='paper.status == "ongoing"' class="text-center"> <p class="text-info"><b><u>Ongoing</u> <span class="text-success">(01:13 Remaining)</span></b></p></td>
+            <td ng-if='paper.status == "ongoing"' class="text-center"> 
+              <p class="text-info"><b><u>Ongoing</u> <span class="text-success">({{getRemainingTime(paper.attemptStartTime, paper.time.slice(0,5))}} Remaining)</span></b></p>
+            </td>
             <td ng-if='paper.status == undefined' class="text-center"> <p><b>---</b></p></td>
           </tr>
         </tbody>
