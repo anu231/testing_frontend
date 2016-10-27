@@ -1,26 +1,33 @@
 <div>
   <div id="home_parent_div">
+    <div class="col-xs-12 col-lg-8 col-lg-offset-2">
+    <h3>Available Papers</h3>
+    </div>
     <div id="home_papers_table" class="col-xs-12 col-lg-8 col-lg-offset-2">
       <table class="table table-bordered table-hover">
         <thead id="home_table_head">
-          <th class="text-center">Name</th>
-          <th class="text-center">Availbale Till</th>
+          <th class="text-center">Title</th>
+          <th class="text-center">Duration</th>
+          <th class="text-center">Expires on</th>
           <th class="text-center">Action</th>
           <th class="text-center">Status</th>
         </thead>
         <tbody>
-          <tr ng-repeat='paper in available_papers'>
-            <td><b>{{paper.name}}</b></td>
-            <td class="text-center">{{paper.lastdate}}</td>
+          <tr ng-class="{'info':paper.status=='ongoing'}" ng-repeat='paper in available_papers'>
+            <td><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
+            <td class="text-center"><b>{{paper.time.slice(0,5)}}</b></td>
+            <td class="text-center">{{getTzDate(paper.lastdate)}} - <b>{{getTzTime(paper.lastdate)}}</b></td>
+            <!--<td class="text-center">{{paper.lastdate}}</td>-->
             <td ng-click='attemptPaper(paper)' class="text-center">
               <button class="btn btn-info" ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-play"></span> Resume</button>
               <button class="btn btn-primary" ng-if='paper.status == undefined'>Attempt</button>
-              <button class="btn btn-primary" ng-if='paper.status == "attempted"'>Retake</button>
+              <button class="btn btn-default" ng-if='paper.status == "attempted"'>Retake</button>
             </td>
             <td ng-if='paper.status == "attempted"' class="text-center">
-              <button class='btn btn-default'><span class="glyphicon glyphicon-info-sign"></span> Report</button>
+              <button class='btn btn-default'><span class="glyphicon glyphicon-dashboard"></span> Results & Analysis</button>
             </td>
-            <td ng-if='paper.status == "ongoing"' class="text-center"> <p class="text-info"><b><u>Ongoing</u></b></p></td>
+            <td ng-if='paper.status == "ongoing"' class="text-center"> <p class="text-info"><b><u>Ongoing</u> <span class="text-success">(01:13 Remaining)</span></b></p></td>
+            <td ng-if='paper.status == undefined' class="text-center"> <p><b>---</b></p></td>
           </tr>
         </tbody>
       </table>
