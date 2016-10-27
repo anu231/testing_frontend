@@ -1,0 +1,27 @@
+#home_parent_div {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 8%;
+}
+
+.expired {
+  color: red;
+}
+#home_papers_table {
+  position: fixed;
+  top: 20%;
+  bottom: 10%;
+  overflow-y: scroll;
+  vertical-align: baseline;
+}
+
+#home_table_head {
+  background-color: #21409a;
+  color: white;
+}
+
+
+#home_tab_area {
+  position: relative;
+}
