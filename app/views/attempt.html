@@ -302,15 +302,8 @@
     </div>
 
     <!-- Alert popup box  -->
-    <div id="abox" ng-model="alert_message" ng-if="notification_show==true" ng-class="{'alert-box':true, 'alert-box-red':alert_message_theme=='red' , 'alert-box-green':alert_message_theme=='green','alert-box-yellow':alert_message_theme=='yellow'}">
-      <div id="alert_message">
-        <span >
-          {{alert_message}}
-        </span>
-      </div>
-      <div class="pull-right" ng-click="">
-        <span class="glyphicon glyphicon-remove"></span>
-      </div>
+    <div id="abox" ng-model="alert_message" ng-if="notification_show==true" ng-class="{'text-center': true,'alert-box':true, 'alert-box-red':alert_message_theme=='red' , 'alert-box-green':alert_message_theme=='green','alert-box-yellow':alert_message_theme=='yellow'}">
+        {{alert_message}}  
     </div>
 
   </div> <!-- /Main content area  -->
