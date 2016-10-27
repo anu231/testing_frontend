@@ -34,7 +34,7 @@ angular.module('testingFrontendApp')
         var today = new Date();
         var delta = (last_date - today);
         if(delta <= 0) return true;
-        else return true;
+        else return false;
       }
 
       // Get appropriate local date
