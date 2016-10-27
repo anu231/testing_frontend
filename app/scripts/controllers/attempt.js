@@ -36,32 +36,36 @@ angular.module('testingFrontendApp')
       // Used by the 10 minute autosave reminder modal
       $scope.autoSave = function(){
         console.log("Auto Saving question "); 
+        var autosave_ua = [];
         $scope.questions.forEach(function(q){
           if(q.useranswer!=undefined){  // undefined == never viewed/clicked. Timetaken == 0
             console.log(q.id);
             if(q.useranswer.answer == "null"){  // null == answered but never saved. Timetaken != 0
               q.useranswer.timetaken = q.timetaken;
-              useranswer.saveAnswer(q.useranswer)
+              /*useranswer.saveAnswer(q.useranswer)
                 .then(function(resp){
                   q.useranswer.isSubmitted = true;
                 },function(err){
-                });
+                });*/
+              autosave_ua.push(q.useranswer);
             } else {
               var ques_valid = $scope.validateAndFormatAnswer(q);
               if(ques_valid==true){
-                useranswer.saveAnswer(q.useranswer)
+                /*useranswer.saveAnswer(q.useranswer)
                   .then(function(resp){
                     q.useranswer.answer = resp.answer;
                     q.useranswer.isSubmitted = true;
                   },function(err){
                     console.log("Couldnt validate: " + q.id + " " + ques_valid);
-                  });
+                  });*/
+                  autosave_ua.push(q.useranswer);
               } else {
                 // Suffer in silence.
               }
             }
           }
         });
+        attempt.autoSave(autosave_ua);
       }
       // Finish/end paper cleanup code
       $scope.finish = function(){
@@ -431,6 +435,7 @@ angular.module('testingFrontendApp')
           event.preventDefault();
           //$window.location = $window.location.href;
         }
+        return;
        });
 
 
