@@ -55,4 +55,7 @@ angular.module('testingFrontendApp')
     this.loadAttempts = function(){
         return $http.get(this.attempt_url+'get_attempts/');
     }
+    this.autoSave = function(ua){
+        return $http.post(this.attempt_url+this.attempt.id+'/save_answers/',{'ua':ua});
+    }
   }]);
