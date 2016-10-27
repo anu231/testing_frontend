@@ -85,22 +85,17 @@ angular.module('testingFrontendApp')
           }
         });
       };
+      console.log("dafjlasdjflksadjf");
 
       $scope.init();
-      $scope.ongoing_papers = [];
-      $scope.fresh_papers = [];
-      $scope.attempted_papers = [];
-      $scope.expired_papers = [];
-      $scope.available_papers.forEach(function(p){
-        if(p.status == "ongoing"){
-          $scope.ongoing_papers.push(p);
-        } else if(p.status == "attempted"){
-          $scope.attempted_papers.push(p);
-        } else if(p.status == undefined){
-          $scope.fresh_papers.push(p);
-        } else if(p.isExpired){ 
-          $scope.expired_papers.push(p);
-        }
-
+      $scope.ongoing_papers = _.filter($scope.available_papers, function(p){
+        return p.status == 'ongoing';
       });
+      $scope.attempted_papers =_.filter($scope.available_papers, function(p){
+        return p.status == 'attempted';
+      });
+      $scope.fresh_papers =_.filter($scope.available_papers, function(p){
+        return p.status == undefined;
+      });
+
     }]);
