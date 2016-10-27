@@ -39,33 +39,35 @@ angular.module('testingFrontendApp')
         var autosave_ua = [];
         $scope.questions.forEach(function(q){
           if(q.useranswer!=undefined){  // undefined == never viewed/clicked. Timetaken == 0
-            console.log(q.id);
-            if(q.useranswer.answer == "null"){  // null == answered but never saved. Timetaken != 0
+            console.log("autosaving: " + q.id);
+            if(q.answer != undefined){
+              var ques_valid = $scope.validateAndFormatAnswer(q); 
+              if(ques_valid == true){ autosave_ua.push(q.useranswer)}
+            }else if(q.useranswer.answer == "null" && q.isAnswered){  // null == answered but never saved. Timetaken != 0
               q.useranswer.timetaken = q.timetaken;
-              /*useranswer.saveAnswer(q.useranswer)
-                .then(function(resp){
-                  q.useranswer.isSubmitted = true;
-                },function(err){
-                });*/
               autosave_ua.push(q.useranswer);
             } else {
-              var ques_valid = $scope.validateAndFormatAnswer(q);
-              if(ques_valid==true){
-                /*useranswer.saveAnswer(q.useranswer)
-                  .then(function(resp){
-                    q.useranswer.answer = resp.answer;
-                    q.useranswer.isSubmitted = true;
-                  },function(err){
-                    console.log("Couldnt validate: " + q.id + " " + ques_valid);
-                  });*/
-                  autosave_ua.push(q.useranswer);
-              } else {
-                // Suffer in silence.
-              }
             }
           }
         });
-        attempt.autoSave(autosave_ua);
+        attempt.autoSave(autosave_ua).then(function(resp){
+          resp.data.forEach(function(ua){
+            var qs = _.find($scope.questions,function(qs){return qs.id==ua.question});
+            qs.useranswer = ua;
+            qs.useranswer.isSubmitted=true;
+            qs.isAnswered = true;
+            if(qs.ques_type=="SC" ||  qs.ques_type=="SA"){
+              qs.answer = ua.answer; 
+            } else if (qs.ques_type == "IT"){
+              qs.answer = parseInt(ua.answer)
+            } else if (qs.ques_type == "MC" || qs.ques_type == "MT") {
+              $scope.deserializeAndSetAnswer(qs, ua.answer); 
+            }
+          });
+        }, function(err){
+          //suffer in silence
+        });
+
       }
       // Finish/end paper cleanup code
       $scope.finish = function(){
