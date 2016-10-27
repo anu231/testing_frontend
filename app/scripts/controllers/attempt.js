@@ -431,6 +431,7 @@ angular.module('testingFrontendApp')
           event.preventDefault();
           //$window.location = $window.location.href;
         }
+        return;
        });
 
 
