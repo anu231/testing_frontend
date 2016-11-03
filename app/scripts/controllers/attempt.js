@@ -92,7 +92,7 @@ angular.module('testingFrontendApp')
         });
       }
 
-      // Self explainatory
+      // Sets the answer according to the response
       // Called by the loadQuestionStatus()
       $scope.deserializeAndSetAnswer = function(question, ans_str){
         if(question.ques_type == "MC"){
@@ -113,7 +113,7 @@ angular.module('testingFrontendApp')
         } 
       }
 
-      // Let the timer begin
+      // Starts the timer 
       // Called by start paper button on instruction modal
       function timer_start(){
         var duration = attempt.attempt.paper_info.duration; 
@@ -293,8 +293,8 @@ angular.module('testingFrontendApp')
       // Set question.useranswer.answer if valid, else returns error string for alert
       // TODO No need to expose this to $scope!! 
       $scope.validateAndFormatAnswer = function(question){ 
-        if (question.ques_type=='SC'){
-          var validAnswers = ["a","b","c","d"];
+        if (question.ques_type=='SC' || question.ques_type=='AR' || question.ques_type=='TF'){
+          var validAnswers = ["A","B","C","D"];
           if (question.answer==undefined || !validAnswers.includes(question.answer)){
             return {msg:'Please select atleast one valid option', theme: 'red'};
           } else {
@@ -308,7 +308,7 @@ angular.module('testingFrontendApp')
           if(question.answerA != undefined || question.answerB != undefined 
               || question.answerC != undefined || question.answerD != undefined){
             validAnswers.forEach(function(va){
-              if(question[va] == true) ansList.push(va[6].toLowerCase()); //Push the last character A/B/C/D
+              if(question[va] == true) ansList.push(va[6])); //Push the last character A/B/C/D
               ansStr = ansList.toString();  // CSV String 
               question.useranswer.answer = ansStr;
               question.useranswer.timetaken = question.timetaken;
@@ -348,14 +348,14 @@ angular.module('testingFrontendApp')
             question.useranswer.timetaken = question.timetaken;
           }
 
-        } else if (question.ques_type=='TF'){
-          var validAnswers = ["a","b","c","d"];
-          if (question.answer==undefined || !validAnswers.includes(question.answer)){
-            return {msg:'Please select atleast one valid option', theme: 'red'};
-          } else {
-            question.useranswer.answer = question.answer;
-            question.useranswer.timetaken = question.timetaken;
-          }
+        } /*else if (question.ques_type=='TF'){*/
+          //var validAnswers = ["A","B","C","D"];
+          //if (question.answer==undefined || !validAnswers.includes(question.answer)){
+            //return {msg:'Please select atleast one valid option', theme: 'red'};
+          //} else {
+            //question.useranswer.answer = question.answer;
+            //question.useranswer.timetaken = question.timetaken;
+          /*}*/
 
         } else if (question.ques_type=='SA'){
           if(question.answer == undefined) return {msg:'Please write SOMETHING! ', theme:'red'};
@@ -364,7 +364,7 @@ angular.module('testingFrontendApp')
             question.useranswer.answer = question.answer;
             question.useranswer.timetaken = question.timetaken;
           }
-        }
+        } 
         return true;
       }
 
