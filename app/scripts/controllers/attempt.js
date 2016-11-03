@@ -48,6 +48,7 @@ angular.module('testingFrontendApp')
               autosave_ua.push(q.useranswer);
             } else {
             }
+            $scope.alert_notification({msg:"Autosave complete", theme: "green"})
           }
         });
         attempt.autoSave(autosave_ua).then(function(resp){
@@ -289,12 +290,6 @@ angular.module('testingFrontendApp')
         }
       }
 
-      // For testing purposes
-      // Used by the "info" control button
-      $scope.displayInfo = function(){
-        console.log($scope.selectedQuestion); 
-      }
-
       // Set question.useranswer.answer if valid, else returns error string for alert
       // TODO No need to expose this to $scope!! 
       $scope.validateAndFormatAnswer = function(question){ 
@@ -422,11 +417,12 @@ angular.module('testingFrontendApp')
         }, timeout);
       }
 
-      // Tooltips and other secondary stuff
+      // Tooltips for buttons (bootstrap) 
       $(function () {
         $('[data-toggle="tooltip"]').tooltip()
       })
 
+      // Back and reload button handling
       $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
         if(confirm("The paper expires on " + "" + "You can come finish the paper before it expires. Do you really want to go back?")){
           $scope.$$listeners.$stateChangeStart = undefined;
@@ -440,6 +436,11 @@ angular.module('testingFrontendApp')
         return;
        });
 
+      // For testing purposes
+      // Used by the "info" control button
+      $scope.displayInfo = function(){
+        console.log($scope.selectedQuestion); 
+      }
 
       $scope.init(questions);
     }]);
