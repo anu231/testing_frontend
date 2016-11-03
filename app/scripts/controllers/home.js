@@ -8,8 +8,8 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal',
-    function ($scope,$state,available_papers,user_attempts,$uibModal) {
+.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt',
+    function ($scope,$state,available_papers,user_attempts,$uibModal,attempt) {
       //$scope.available_papers = available_papers;
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
@@ -85,6 +85,13 @@ angular.module('testingFrontendApp')
           }
         });
       };
+
+      // Get the results of all the attempts for a paper
+      $scope.viewResult = function(paper){
+        console.log(user_attempts);
+        _.find($scope.user_attempts, function(a){return true})
+        $state.go("home.result", {'aid':1000});
+      }
 
       $scope.init();
       $scope.ongoing_papers = _.filter($scope.available_papers, function(p){

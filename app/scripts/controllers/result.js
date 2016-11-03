@@ -9,9 +9,5 @@
  */
 angular.module('testingFrontendApp')
   .controller('ResultCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
   });
