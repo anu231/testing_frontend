@@ -62,10 +62,18 @@ var attemptState = {
   controller:'AttemptCtrl'
 }
 
+var resultState = {
+  name: 'home.result',
+  url: '/result/:aid',
+  templateUrl: 'views/result.html',
+  controller: 'ResultCtrl' 
+}
+
 testing_app.config(function($stateProvider,$urlRouterProvider) {
   	$stateProvider
     .state(homeState)
-    .state(attemptState);
+    .state(attemptState)
+    .state(resultState);
   })
 testing_app.constant('server','http://192.168.1.19:8000');
 
