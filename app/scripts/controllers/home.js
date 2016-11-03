@@ -85,7 +85,6 @@ angular.module('testingFrontendApp')
           }
         });
       };
-      console.log("dafjlasdjflksadjf");
 
       $scope.init();
       $scope.ongoing_papers = _.filter($scope.available_papers, function(p){
