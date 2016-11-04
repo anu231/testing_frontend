@@ -39,7 +39,7 @@ angular.module('testingFrontendApp')
         if(paper.status == "ongoing"){
           console.log("resuming..." + paper.ongoingAttempt);
           return this.fetchAttempt(paper.ongoingAttempt.id); 
-        } else if(paper.status == "attempted"){
+        } else if(paper.status == "attempted" || paper.status == undefined){
           console.log("creating new...");
           return this.startNewAttempt(paper.id); 
         } else {
