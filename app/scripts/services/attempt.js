@@ -3,9 +3,9 @@
 /**
  * @ngdoc service
  * @name testingFrontendApp.attempt
- * @description
- * # attempt
- * Service in the testingFrontendApp.
+ * @description Should provide all actions related to attempt
+ * including but not limited to starting new attempts, fetching ongoing
+ * attempts, finishing attempts, getting questions, getting attempt results..
  */
 angular.module('testingFrontendApp')
   .service('attempt', ['$http','server',function ($http,server) {
@@ -51,11 +51,14 @@ angular.module('testingFrontendApp')
     this.getAttempt = function(attmpt){
     	return this.attempt;
     };
+    
     /* Saves the complete current attempt */
+    //TODO Unnecessary
     this.saveAttempt = function(){
 
     };
     /* Saves the response for a specified question */
+    //TODO Unnecessary
     this.savePartialAttempt = function(){
 
     }

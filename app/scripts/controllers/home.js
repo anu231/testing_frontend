@@ -94,7 +94,7 @@ angular.module('testingFrontendApp')
         });
       };
 
-      // TODO Get the results of all the attempts for a paper
+      // Display the results page.
       $scope.viewResult = function(paper){
         var latestAttempt = paper.allAttempts.slice(-1)[0];
         $state.go("home.result", {'aid':latestAttempt.id});
