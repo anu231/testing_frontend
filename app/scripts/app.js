@@ -68,11 +68,8 @@ var resultState = {
   templateUrl: 'views/result.html',
   controller: 'ResultCtrl',
   resolve:{
-    available_papers :['paper',function(paper){
-      return paper.getAvailablePapers();
-    }],
-    user_attempts :['attempt',function(attempt){
-      return attempt.loadAttempts();
+    result : ['result','$stateParams',function(result,$stateParams){
+      return result.getResult($stateParams.aid);
     }]
   },
 }
