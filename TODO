@@ -85,8 +85,14 @@
  
 2016-10-25 17:02
   -- reload the resolves on reaching home
-  on hitting the back button in attempt.html show alert
-  --load the answers when attempt resumes
+  -on hitting the back button in attempt.html show alert [BUGGY]
+  -- load the answers when attempt resumes
+
+2016-11-04 11:26
+  404 pages for the naughty and curious
+  Fetching Attempt marks and buff up the controller
+  Search and Destroy all TODOs
+  Instead of disabling attempt buttons for expired papers, do something else...
 
 ***************************
 ** Data collection Ideas **

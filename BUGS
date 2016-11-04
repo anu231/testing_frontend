@@ -2,3 +2,13 @@
   --The sync badges do not change on answer clear and reload.
   Answer saved and answer updated logic is messed up - check on isSubmitted being false on answer change
   Back button alert only works the first time.
+
+2016-11-03 17:21
+  Home.html
+    Fix ongoing time clock
+    Ugly af
+
+  Attempt.html
+    Timer issues: Duration is displayed on the page and not actual time diff
+2016-11-04 10:47
+  Ongoing time clock: backend doesnt expire papers once time's up

@@ -8,8 +8,8 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal',
-    function ($scope,$state,available_papers,user_attempts,$uibModal) {
+.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt',
+    function ($scope,$state,available_papers,user_attempts,$uibModal,attempt) {
       //$scope.available_papers = available_papers;
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
@@ -17,8 +17,15 @@ angular.module('testingFrontendApp')
         //Does initial book keeping for the attempted papers 
         for (var i=0; i<$scope.user_attempts.length; i++){
           var p = _.find($scope.available_papers,function(a){return a.id==$scope.user_attempts[i].paper_info.id});
+          // Array containing all attempts for a paper
+          if(p['allAttempts'] != undefined){
+            p['allAttempts'].push($scope.user_attempts[i]); 
+          } else {
+            p['allAttempts'] = [];
+          } 
           if ($scope.user_attempts[i].finished!=true) {
             p['status'] = 'ongoing';
+            p['ongoingAttempt'] = $scope.user_attempts[i];
             p['attemptStartTime'] = $scope.user_attempts[i].starttime;
           } else {
             p['status'] = 'attempted';
@@ -70,20 +77,27 @@ angular.module('testingFrontendApp')
             $scope.startPaper = function(){
               $uibModalInstance.close();
               //create the attempt
-              attempt.startAttempt(paper.id)
+              attempt.startOrFetchAttempt(paper, paper.status)
                 .then(function(resp){
                   attempt.setAttempt(resp.data);
+                  console.log(resp);
                   $state.go('home.attempt',{'pid':resp.data.id,'paper':$scope.paper});  
                 },function(err){
                   //TODO display proper error message
                   alert("Couldn't start paper");
                 });
-            }
+            };
           }],
           resolve:{
             paper:paper
           }
         });
+      };
+
+      // Display the results page.
+      $scope.viewResult = function(paper){
+        var latestAttempt = paper.allAttempts.slice(-1)[0];
+        $state.go("home.result", {'aid':latestAttempt.id});
       };
 
       $scope.init();

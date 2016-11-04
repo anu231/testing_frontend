@@ -13,13 +13,13 @@ angular.module('testingFrontendApp')
   snapRemoteProvider.globalOptions = {
     disable: 'right',
     touchToDrag: false
-  }  
+  };
 })
 .controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window',
     function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window) {
       $scope.init = function(questions){
         $scope.paper_title = attempt.attempt.paper_info.name;
-        if (questions!=null){
+        if (questions!==null){
           $scope.questions = questions.data;
           $scope.paper_title = attempt.attempt.paper_info.name;
           $scope.setUpQuestions();
@@ -28,7 +28,7 @@ angular.module('testingFrontendApp')
             .then(function(resp){
               $scope.questions = resp.data;
               $scope.setUpQuestions();
-            })  
+            }); 
         }
       };
 
@@ -38,38 +38,38 @@ angular.module('testingFrontendApp')
         console.log("Auto Saving question "); 
         var autosave_ua = [];
         $scope.questions.forEach(function(q){
-          if(q.useranswer!=undefined){  // undefined == never viewed/clicked. Timetaken == 0
+          if(q.useranswer!==undefined){  // undefined == never viewed/clicked. Timetaken == 0
             console.log("autosaving: " + q.id);
-            if(q.answer != undefined){
+            if(q.answer !==undefined){
               var ques_valid = $scope.validateAndFormatAnswer(q); 
-              if(ques_valid == true){ autosave_ua.push(q.useranswer)}
-            }else if(q.useranswer.answer == "null" && q.isAnswered){  // null == answered but never saved. Timetaken != 0
+              if(ques_valid === true){ autosave_ua.push(q.useranswer);}
+            }else if(q.useranswer.answer ==="null" && q.isAnswered){  // null == answered but never saved. Timetaken != 0
               q.useranswer.timetaken = q.timetaken;
               autosave_ua.push(q.useranswer);
             } else {
             }
-            $scope.alert_notification({msg:"Autosave complete", theme: "green"})
+            $scope.alert_notification({msg:"Autosave complete", theme: "green"});
           }
         });
         attempt.autoSave(autosave_ua).then(function(resp){
           resp.data.forEach(function(ua){
-            var qs = _.find($scope.questions,function(qs){return qs.id==ua.question});
+            var qs = _.find($scope.questions,function(qs){return qs.id===ua.question;});
             qs.useranswer = ua;
             qs.useranswer.isSubmitted=true;
             qs.isAnswered = true;
-            if(qs.ques_type=="SC" ||  qs.ques_type=="SA"){
+            if(qs.ques_type==="SC" ||  qs.ques_type==="SA"){
               qs.answer = ua.answer; 
-            } else if (qs.ques_type == "IT"){
-              qs.answer = parseInt(ua.answer)
-            } else if (qs.ques_type == "MC" || qs.ques_type == "MT") {
+            } else if (qs.ques_type === "IT"){
+              qs.answer = parseInt(ua.answer);
+            } else if (qs.ques_type === "MC" || qs.ques_type === "MT") {
               $scope.deserializeAndSetAnswer(qs, ua.answer); 
             }
           });
         }, function(err){
-          //suffer in silence
+          console.log(err);
         });
 
-      }
+      };
       // Finish/end paper cleanup code
       $scope.finish = function(){
         console.log("Autosave all questions and quit"); 
@@ -78,7 +78,7 @@ angular.module('testingFrontendApp')
         $('#final_resume_button').attr('disabled', 'disabled');
         $scope.autoSave();
         attempt.finishAttempt().then(function(resp){
-          if(resp.status == 200){
+          if(resp.status === 200){
             $('#exitModal').modal('hide');
             $('#cleanupModal').modal('hide');
             //$timeout(function(){$window.location = "/#/home";}, 1000);
@@ -92,13 +92,13 @@ angular.module('testingFrontendApp')
         });
       }
 
-      // Self explainatory
+      // Sets the answer according to the response
       // Called by the loadQuestionStatus()
       $scope.deserializeAndSetAnswer = function(question, ans_str){
-        if(question.ques_type == "MC"){
+        if(question.ques_type === "MC"){
           var opts = ans_str.split(',');
           opts.forEach(function(o){question["answer" + o.toUpperCase()] = true});
-        }else if(question.ques_type == "MT"){
+        }else if(question.ques_type === "MT"){
           var ans_obj = JSON.parse(ans_str);
           var formatted_ans_obj = {"A":{},"B":{},"C":{}, "D":{}};
           ["A","B","C","D"].forEach(function(opt){
@@ -113,7 +113,7 @@ angular.module('testingFrontendApp')
         } 
       }
 
-      // Let the timer begin
+      // Starts the timer 
       // Called by start paper button on instruction modal
       function timer_start(){
         var duration = attempt.attempt.paper_info.duration; 
@@ -155,7 +155,7 @@ angular.module('testingFrontendApp')
       // TODO instead of setting this as default, Let the first screen be a mock for INTRO.js
       $scope.setUpQuestions = function(){
         $scope.questions.forEach(function(question){
-          if(question.ques_type == 'CH'){
+          if(question.ques_type === 'CH'){
             // Mark the next n questions as 'isChRelated = True'
             var lengthLinkedQuestions = question.comprehension_list.length;
             var currentIndex = $scope.questions.indexOf(question);
@@ -172,15 +172,15 @@ angular.module('testingFrontendApp')
           //console.log(resp);
           //$scope.status = resp.data;
           resp.data.forEach(function(ua){
-            var qs = _.find($scope.questions,function(qs){return qs.id==ua.question});
+            var qs = _.find($scope.questions,function(qs){return qs.id===ua.question});
             qs.useranswer = ua;
             qs.useranswer.isSubmitted=true;
             if(ua.answer != "null"){ qs.isAnswered = true;}
-            if(qs.ques_type=="SC" ||  qs.ques_type=="SA"){
+            if(qs.ques_type==="SC" ||  qs.ques_type==="SA"){
               qs.answer = ua.answer; 
-            } else if (qs.ques_type == "IT"){
+            } else if (qs.ques_type === "IT"){
               qs.answer = parseInt(ua.answer)
-            } else if (qs.ques_type == "MC" || qs.ques_type == "MT") {
+            } else if (qs.ques_type === "MC" || qs.ques_type === "MT") {
               $scope.deserializeAndSetAnswer(qs, ua.answer); 
             }
           });
@@ -203,7 +203,7 @@ angular.module('testingFrontendApp')
           clearInterval($scope.selectedQuestion.timerhandle);
         }
         // Start questions timer.
-        if(question.timetaken == undefined){
+        if(question.timetaken === undefined){
           question.timetaken = 1; 
         }
         question.timerhandle = setInterval(function(){
@@ -215,7 +215,7 @@ angular.module('testingFrontendApp')
       // Used by the index, nextQuestion and previousQuestion buttons
       // ! Manages timer for each question via questionTimerManager
       $scope.selectQuestion = function(question){
-        if(question.useranswer == undefined){
+        if(question.useranswer === undefined){
           question.useranswer = {
             attempt: attempt.attempt.id,
             question: question.id,
@@ -293,22 +293,22 @@ angular.module('testingFrontendApp')
       // Set question.useranswer.answer if valid, else returns error string for alert
       // TODO No need to expose this to $scope!! 
       $scope.validateAndFormatAnswer = function(question){ 
-        if (question.ques_type=='SC'){
-          var validAnswers = ["a","b","c","d"];
-          if (question.answer==undefined || !validAnswers.includes(question.answer)){
+        if (question.ques_type==='SC' || question.ques_type==='AR' || question.ques_type==='TF'){
+          var validAnswers = ["A","B","C","D"];
+          if (question.answer===undefined || !validAnswers.includes(question.answer)){
             return {msg:'Please select atleast one valid option', theme: 'red'};
           } else {
             question.useranswer.answer = question.answer;
             question.useranswer.timetaken = question.timetaken;
           }
-        } else if (question.ques_type=='MC'){
+        } else if (question.ques_type==='MC'){
           var ansList = [];
           var ansStr = "";
           var validAnswers = ["answerA", "answerB", "answerC", "answerD"];
           if(question.answerA != undefined || question.answerB != undefined 
               || question.answerC != undefined || question.answerD != undefined){
             validAnswers.forEach(function(va){
-              if(question[va] == true) ansList.push(va[6].toLowerCase()); //Push the last character A/B/C/D
+              if(question[va] === true) ansList.push(va[6]); //Push the last character A/B/C/D
               ansStr = ansList.toString();  // CSV String 
               question.useranswer.answer = ansStr;
               question.useranswer.timetaken = question.timetaken;
@@ -317,7 +317,7 @@ angular.module('testingFrontendApp')
             return {msg:'Please select atleast one valid option', theme: 'red'};
           }
 
-        } else if (question.ques_type=='MT'){
+        } else if (question.ques_type==='MT'){
           var validAnswers = ["answerA", "answerB", "answerC", "answerD"];
           var validOptions = ["P", "Q", "R", "S"];
           var matrix_answer = { "A" : [], "B" : [], "C" : [], "D" : [] };
@@ -326,7 +326,7 @@ angular.module('testingFrontendApp')
             validAnswers.forEach(function(va){
               validOptions.forEach(function(vo){
                 if(question[va] != undefined){
-                  if(question[va][vo] == true){
+                  if(question[va][vo] === true){
                     matrix_answer[va.slice(-1)].push(vo)
                   }
                 }
@@ -340,31 +340,24 @@ angular.module('testingFrontendApp')
             return {msg:'Please select at least one valid answer', theme: 'red'}
           }
 
-        } else if (question.ques_type=='IT'){
-          if(question.answer == undefined) return {msg:'Please enter an Integer', theme:'red'};
+        } else if (question.ques_type==='IT'){
+          if(question.answer === undefined) return {msg:'Please enter an Integer', theme:'red'};
           else {
             question.isAnswered = true; // Special case
             question.useranswer.answer = question.answer;
             question.useranswer.timetaken = question.timetaken;
           }
 
-        } else if (question.ques_type=='TF'){
-          var validAnswers = ["a","b","c","d"];
-          if (question.answer==undefined || !validAnswers.includes(question.answer)){
-            return {msg:'Please select atleast one valid option', theme: 'red'};
-          } else {
-            question.useranswer.answer = question.answer;
-            question.useranswer.timetaken = question.timetaken;
-          }
+        } 
 
-        } else if (question.ques_type=='SA'){
-          if(question.answer == undefined) return {msg:'Please write SOMETHING! ', theme:'red'};
-          if(question.answer == "") return {msg:'Please write SOMETHING!', theme:'red'};
+         else if (question.ques_type==='SA'){
+          if(question.answer === undefined) return {msg:'Please write SOMETHING! ', theme:'red'};
+          if(question.answer === "") return {msg:'Please write SOMETHING!', theme:'red'};
           else {
             question.useranswer.answer = question.answer;
             question.useranswer.timetaken = question.timetaken;
           }
-        }
+        } 
         return true;
       }
 
@@ -374,7 +367,7 @@ angular.module('testingFrontendApp')
         // Instantiate useranswer field if not present. Used to track previous attempts(?)
         var ques_valid = $scope.validateAndFormatAnswer(question); 
 
-        if (ques_valid==true){
+        if (ques_valid===true){
           if (!question.useranswer.isSubmitted){
             useranswer.saveAnswer(question.useranswer)
             .then(function(resp){
