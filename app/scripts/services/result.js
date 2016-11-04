@@ -8,6 +8,12 @@
  * Service in the testingFrontendApp.
  */
 angular.module('testingFrontendApp')
-  .service('result', function () {
-    // AngularJS will instantiate a singleton by calling "new" on this function
-  });
+  .service('result', ['$http','server',function ($http, server) {
+
+    this.getResultForAttemptId = function(attemptId){
+      var resultUrl = server+'/attemptmarks/'+'1151/';
+      //resultUrl = server+'/attemptmarks/'+attemptId+'/';
+      return $http.get(server+'/attemptmarks/'+'1151/');  
+    }
+   
+  }]);

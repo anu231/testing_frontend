@@ -66,7 +66,15 @@ var resultState = {
   name: 'home.result',
   url: '/result/:aid',
   templateUrl: 'views/result.html',
-  controller: 'ResultCtrl' 
+  controller: 'ResultCtrl',
+  resolve:{
+    available_papers :['paper',function(paper){
+      return paper.getAvailablePapers();
+    }],
+    user_attempts :['attempt',function(attempt){
+      return attempt.loadAttempts();
+    }]
+  },
 }
 
 testing_app.config(function($stateProvider,$urlRouterProvider) {
