@@ -16,9 +16,9 @@ angular.module('testingFrontendApp')
     this.setAttempt = function(attmpt){
     	this.attempt = attmpt;
     };
-    /* Begins a new attempt on the specified paper */
-    this.startAttempt = function(paper){
-    	var data = {'paper':paper,'user':1};
+    /* Begins a new attempt on the specified paper id */
+    this.startNewAttempt = function(paperId){
+    	var data = {'paper':paperId,'user':1};
     	return $http.post(this.attempt_url,data);
     };
     /* ends the currently going on attempt */
@@ -30,7 +30,21 @@ angular.module('testingFrontendApp')
     fetches the specified attempt from the server
     */
     this.fetchAttempt = function(att_id){
+        console.log("fetching...");
         return $http.get(this.attempt_url+att_id+'/');
+    }
+    //Starts a new attempt or resumes an ongoing attempt
+    this.startOrFetchAttempt = function(paper){
+        console.log(paper);
+        if(paper.status == "ongoing"){
+          console.log("resuming..." + paper.ongoingAttempt);
+          return this.fetchAttempt(paper.ongoingAttempt.id); 
+        } else if(paper.status == "attempted"){
+          console.log("creating new...");
+          return this.startNewAttempt(paper.id); 
+        } else {
+          alert("critical error: Couldn't start or resume attempt"); 
+        }
     }
     /* Gets the info, status, score on the specified attempt. 
     If none specified then the current attempt */
