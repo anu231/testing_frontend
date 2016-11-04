@@ -8,58 +8,31 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-.controller('ResultCtrl',['$scope','attempt','result','paper','available_papers','user_attempts',function ($scope,attempt,result,paper,available_papers,user_attempts) {
-  $scope.aki = "yolo";
-  $scope.available_papers = available_papers;
+.controller('ResultCtrl',['$scope','attempt','result','paper','current_attempt_result','user_attempts','current_paper',function ($scope,attempt,result,paper,current_attempt_result,user_attempts,current_paper) {
+  $scope.current_attempt_result = current_attempt_result.data;
   $scope.user_attempts = user_attempts.data;
+  $scope.current_attempt = _.find(user_attempts.data, function(a){return a.id == $scope.current_attempt_result.attempt});
+  $scope.current_paper = current_paper;
 
   this.initialize = function(){
-    //Does initial book keeping for the attempted papers 
-    //Identical to home.js init()
-    for (var i=0; i<$scope.user_attempts.length; i++){
-      var p = _.find($scope.available_papers,function(a){return a.id==$scope.user_attempts[i].paper_info.id});
-      // Array containing all attempts for a paper
-      if(p['allAttempts'] != undefined){
-        p['allAttempts'].push($scope.user_attempts[i]); 
-      } else {
-        p['allAttempts'] = [];
-      } 
-      if ($scope.user_attempts[i].finished!=true) {
-        //TODO ignore unfinished
-        p['status'] = 'ongoing';
-        p['ongoingAttempt'] = $scope.user_attempts[i];
-        p['attemptStartTime'] = $scope.user_attempts[i].starttime;
-      } else {
-        p['status'] = 'attempted';
-      }
-    }
-    // Check for expiry
-    $scope.available_papers.forEach(function(paper){if($scope.isExpired(paper)) paper['isExpired'] = true});
-  }
-
-
-
-  // Gets the result...
-  $scope.yolo = function(){
+    $scope.result = current_attempt_result.data;
+    $scope.selectCurrentPaper;
   }
 
   $scope.selectCurrentPaper = function(pid){
     // selects a paper to display results 
-    console.log($scope.attemptedPapers);
-
+    // attempt.getResultForAttemptId(pid)
+    console.log($scope.result);
+    console.log($scope.current_attempt);
+    $scope.rank = $scope.result.mrank;
+    $scope.marks_obtained = $scope.result.marksobt;
+    $scope.paper_name = $scope.current_attempt.paper_info.name;
+    var ad = new Date($scope.current_attempt.endtime);
+    $scope.attempt_date = ad.toLocaleDateString();
+    $scope.duration = $scope.current_attempt.paper_info.duration;
   }
 
   $scope.getResultForAttemptId = function(aid){
-    console.log($scope.available_papers);
-    result.getResultForAttemptId()
-      .then(function(resp){
-        //TODO set result to scope
-        //$scope.selectedPaper.result = resp.data
-        console.log(resp);
-      },
-      function(err){
-        console.log(err);
-      })
   }
 
   $scope.goBack = function(){

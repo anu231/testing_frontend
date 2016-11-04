@@ -10,7 +10,8 @@
 angular.module('testingFrontendApp')
   .service('result', ['$http','server',function ($http, server) {
   	this.url = server+'/attemptmarks/';
-    this.getResult = function(attemptId){
+    this.getLatestResult = function(attemptId){
+      //return $http.get(this.url+'1150');  
       return $http.get(this.url+attemptId);  
     }
   }]);

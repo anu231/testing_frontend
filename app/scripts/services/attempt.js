@@ -76,9 +76,4 @@ angular.module('testingFrontendApp')
     return $http.post(this.attempt_url+this.attempt.id+'/save_answers/',{'ua':ua});
   }
 
-  // Mark related functions
-  this.getResultForAttemptId = function(){
-    console.log(this.attempt_url);
-    return $http.get('/attemptmarks/1151')
-  }
 }]);

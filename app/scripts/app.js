@@ -67,9 +67,19 @@ var resultState = {
   url: '/result/:aid',
   templateUrl: 'views/result.html',
   controller: 'ResultCtrl',
+  params: {
+    aid: null,
+    paper: null,
+  },
   resolve:{
-    result : ['result','$stateParams',function(result,$stateParams){
-      return result.getResult($stateParams.aid);
+    current_attempt_result : ['result','$stateParams',function(result,$stateParams){
+      return result.getLatestResult($stateParams.aid);
+    }],
+    user_attempts :['attempt',function(attempt){
+      return attempt.loadAttempts();
+    }],
+    current_paper: ['$stateParams', function($stateParams){
+      return $stateParams.paper
     }]
   },
 }
