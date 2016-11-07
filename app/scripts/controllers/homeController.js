@@ -97,7 +97,6 @@ angular.module('testingFrontendApp')
       // Display the results page.
       $scope.viewResult = function(paper){
         var latestAttempt = paper.allAttempts.slice(-1)[0];
-        var paper1 = paper
         $state.go("home.result", {'aid':latestAttempt.id, 'paper':paper});
       };
 

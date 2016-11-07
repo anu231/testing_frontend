@@ -16,7 +16,7 @@ angular.module('testingFrontendApp')
 
   this.initialize = function(){
     $scope.result = current_attempt_result.data;
-    $scope.selectCurrentPaper;
+    $scope.selectCurrentPaper();
   }
 
   // Data collection and go back
