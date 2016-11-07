@@ -79,7 +79,7 @@ var resultState = {
       return attempt.loadAttempts();
     }],
     current_paper: ['$stateParams', function($stateParams){
-      return $stateParams.paper
+      return $stateParams.paper;
     }]
   },
 }
