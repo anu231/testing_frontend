@@ -1,43 +1,58 @@
 <div id="results_and_analysis_parent">
-
   <div id="top_bar">
     <div id="test_paper_title">Results and Analysis</div>
-    <div id="user_info" class="col-xs-3">Ezio Auditore de Firenze</div>
+    <div id="user_info">Ezio Auditore de Firenze</div>
     <button class="btn btn-danger" ng-click="goBack()"><span class="glyphicon glyphicon-log-out"> Back</span></button>
-  </div> <!-- End info bar  -->
-
-  <div id="result_area" >
+  </div>
+  <!-- End info bar  -->
+  <div id="result_area">
     <div id="result_area_controls">
-      <button class="btn btn-default" ng-click="getResultForAttemptId()">{{aki}}</button>
       <button class="btn btn-default" ng-click="selectCurrentPaper()">selectP</button>
+      <button class="btn btn-success" ng-click="processResultData(current_attempt_result)">Calculate result</button>
     </div>
-    <hr>
-    <div class="container">
+    <div>
       <div id="paper_information_area">
         <div id="paper_title">
-          <h3><u>{{paper_name}}</u></h3>
+          <h4><u>{{selectedAttempt.paper_name}}</u></h4>
+          <ul>
+            <li>Duration: {{selectedAttempt.duration}}</li>
+            <li>Expires on: {{selectedAttempt.paper_name}}</li>
+            <li>Attempted on: {{selectedAttempt.attempt_date}}</li>
+          </ul>
         </div>
-        <ul>
-          <li>Subject - math</li>
-          <li>Marks - {{marks_obtained}}</li>
-          <li>Attempted Date - {{attempt_date}}</li>
-          <li>Total attempts - 69</li>
-          <li>rank - {{rank}}</li>
-          <li>duration -{{duration}}</li>
-        </ul>
+        <hr>
+        <div id="breakdown">
+          <h6>Subject-wise breakdown</h6>
+          <table class="table table-striped table-bordered">
+            <thead>
+              <th class="text-center">Sub</th>
+              <th class="text-center">Correct</th>
+              <th class="text-center">Incorrect</th>
+              <th class="text-center">Score</th>
+              <th class="text-center">rank</th>
+            </thead>
+            <tbody>
+              <tr class="text-center" ng-repeat="sub in ['Physics','Chemistry','Maths','Biology','Zoology']">
+                <td>{{ sub }}</td>
+                <td>{{ selectedAttempt.result[sub[0].toLowerCase()+'corr'] }}</td>
+                <td>{{ selectedAttempt.result[sub[0].toLowerCase()+'wrong'] }}</td>
+                <td>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }}</td>
+                <td>{{ selectedAttempt.result[sub[0].toLowerCase()+'rank'] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-
-  <div id="chart_area" >
-
+  <div id="chart_area">
     <div id="chart">
-      chart here 
+      <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series">
+      </canvas>
     </div>
     <div id="analysis_area">
-      Elit eligendi adipisci eius similique aliquam aspernatur placeat porro doloribus earum hic ea mollitia! Ducimus asperiores modi enim aspernatur vel, et explicabo quidem. Numquam dolor possimus nisi non quasi mollitia.5 
+      Elit eligendi adipisci eius similique aliquam aspernatur placeat porro doloribus earum hic ea mollitia! Ducimus asperiores
+      modi enim aspernatur vel, et explicabo quidem. Numquam dolor possimus nisi non quasi mollitia.5
     </div>
   </div>
-
-
 </div>

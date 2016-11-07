@@ -12,3 +12,7 @@
     Timer issues: Duration is displayed on the page and not actual time diff
 2016-11-04 10:47
   Ongoing time clock: backend doesnt expire papers once time's up
+
+2016-11-07 
+  /attemptmarks/ is buggy: Doesn't respond/clears cache? for last valid attempt
+    A new attempt has to be completed for it to work again. MAJOR ISSUE
