@@ -20,6 +20,7 @@ var testing_app = angular
     'ui.bootstrap',
     'restangular',
     'snap',
+    'chart.js'
   ]);
 
 var homeState = {
@@ -72,13 +73,13 @@ var resultState = {
     paper: null,
   },
   resolve:{
-    current_attempt_result : ['result','$stateParams',function(result,$stateParams){
+    p_current_attempt_result : ['result','$stateParams',function(result,$stateParams){
       return result.getLatestResult($stateParams.aid);
     }],
-    user_attempts :['attempt',function(attempt){
+    p_user_attempts :['attempt',function(attempt){
       return attempt.loadAttempts();
     }],
-    current_paper: ['$stateParams', function($stateParams){
+    p_current_paper: ['$stateParams', function($stateParams){
       return $stateParams.paper;
     }]
   },
