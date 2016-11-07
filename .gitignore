@@ -9,3 +9,9 @@ gruntfile.js
 /bower_components
 *.swp
 Stash/
+typings/
+jsconfig.json
+.eslintrc.json
+.vscode/
+*.log
+typings.json
