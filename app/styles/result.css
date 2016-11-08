@@ -105,6 +105,15 @@
   color: blue;
 }
 
+#result_area .attempt_selector {
+  padding: 5px;
+
+  margin-bottom: 3px;
+}
+.attempt_selector:hover {
+  background-color: #555555;
+}
+
 .card {
   display:inline-block;
   width: 95%;
@@ -121,6 +130,7 @@
   bottom: 0%;
   top: 15%;
   background-color: #eeeeee;
+  overflow-y: scroll;
 }
 
 #chart {
@@ -133,5 +143,6 @@
   background-color: white;
   padding: 5px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 

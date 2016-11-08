@@ -7,38 +7,54 @@
   <!-- End info bar  -->
   <div id="result_area">
     <div id="result_area_controls">
-      <button class="btn btn-default" ng-click="selectCurrentPaper()">selectP</button>
+
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"aria-expanded="true">
+          Select Attempt <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li ng-repeat="attempt in current_paper_attempts">
+            <div ng-click="selectAttempt(attempt.id)" class="attempt_selector">
+              {{attempt.starttime}}
+            </div>
+          </li>
+        </ul>
+      </div>
+
+
+      <button class="btn btn-default" ng-click="debug()">debug</button>
       <button class="btn btn-success" ng-click="selectCurrentPaper(current_attempt_result)">Calculate result</button>
     </div>   
     <div>
       <div id="paper_information_area">
 
         <div id="paper_title" class="card">
-          <h4>Paper: <u>{{selectedAttempt.paper_name}}</u></h4>
+          <h4 class="text-center">    {{selectedAttempt.paper_name}}</h4>
+          <hr>
           <ul>
-            <li>Duration: {{selectedAttempt.duration}}</li>
-            <li>Expires on: {{selectedAttempt.paper_name}}</li>
-            <li>Attempted on: {{selectedAttempt.attempt_date}}</li>
+            <li>Duration: {{selectedAttempt.duration}} hrs</li>
+            <li>Attempted {{current_paper_attempts.length}} times</li>
+            <li>Expires on: {{selectedAttempt.expiry_date}}</li>
           </ul>
         </div>
 
         <div id="breakdown" class="card">
-          <h5>Subject Wise Breakdown</h5>
-          <table class="table table-striped table-bordered table-hover">
+          <h5>Subject Wise Breakdown: {{selectedAttempt.attempt_date}}</h5>
+          <table class="table table-striped table-hover">
             <thead>
               <th class="text-center">Sub</th>
-              <th class="text-center">Correct</th>
-              <th class="text-center">Incorrect</th>
+              <th class="text-center">Marks Obtained</th>
+              <th class="text-center">Negative Marks</th>
+              <th class="text-center">Unattempted Questions</th>
               <th class="text-center">Score</th>
-              <th class="text-center">rank</th>
             </thead>
             <tbody>
               <tr class="text-center" ng-repeat="sub in ['Physics','Chemistry','Maths','Biology','Zoology']">
                 <td>{{ sub }}</td>
-                <td>{{ selectedAttempt.result[sub[0].toLowerCase()+'corr'] }}</td>
-                <td>{{ selectedAttempt.result[sub[0].toLowerCase()+'wrong'] }}</td>
+                <td class="success">{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }}</td>
+                <td class="danger">{{ selectedAttempt.result[sub[0].toLowerCase()+'negmarks'] }}</td>
+                <td>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }} N/A</td>
                 <td>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }}</td>
-                <td>{{ selectedAttempt.result[sub[0].toLowerCase()+'rank'] }}</td>
               </tr>
             </tbody>
           </table>
@@ -52,9 +68,16 @@
       <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series">
       </canvas>
     </div>
+    <div class="card" id="chart" >
+      <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-series="series">
+      </canvas>
+    </div>
     <div id="analysis_area" class="card">
-      Elit eligendi adipisci eius similique aliquam aspernatur placeat porro doloribus earum hic ea mollitia! Ducimus asperiores
-      modi enim aspernatur vel, et explicabo quidem. Numquam dolor possimus nisi non quasi mollitia.5
+      <p><b><u>Comments</u></b><br></p>
+      <ul>
+        <li><p>Love the performance, keep it up.</p></li>
+        <li><p>Wouldn't hurt if you read a lil' HC Verma... just sayin'</p></li>
+      </ul>
     </div>
   </div>
 </div>
