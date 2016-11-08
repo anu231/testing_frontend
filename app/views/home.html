@@ -1,7 +1,7 @@
 <div>
   <div id="home_parent_div" class="col-xs-12">
     <div class="">
-    <h3>Available Papers</h3>
+    <h3>Test Papers</h3>
     </div>
     <div id="home_papers_table">
       <table class="table table-hover">
@@ -73,7 +73,7 @@
             <td class="text-center"><b>{{paper.time.slice(0,5)}}</b></td>
             <td ng-class="{'text-danger': paper.isExpired}"  class="text-center"><p><span ng-if="paper.isExpired">[ <span class="glyphicon glyphicon-ban-circle"></span>  Expired ]</span></p> {{getTzDate(paper.lastdate)}} - <b>{{getTzTime(paper.lastdate)}}</b> </td>
             <td class="text-center">
-              boo fuckin hoo
+              ¯\_(ツ)_/¯
             </td>
             <!--<td ng-if='paper.status == "attempted"' class="text-center">
               <button class='btn btn-default' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-education"></span> Results &amp; Analysis</button>
@@ -81,7 +81,12 @@
             <td ng-if='paper.status == "ongoing"' class="text-center"> 
               <p class="text-info"><b><u>Ongoing</u> <span class="text-success">({{getRemainingTime(paper.attemptStartTime, paper.time.slice(0,5))}} Remaining)</span></b></p>
             </td>-->
-            <td ng-if='paper.status == undefined' class="text-center"> <p><b>---</b></p></td>
+            <td ng-if="paper.status == 'attempted'" class="text-center">
+              <button class='btn btn-default' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-education"></span> Results &amp; Analysis</button>
+            </td>
+            <td ng-if="paper.status !== 'attempted'" class="text-center">
+              (▀̿Ĺ̯▀̿ ̿) No solvey, no resultey
+            </td>
           </tr>
         </tbody>
       </table>
