@@ -13,6 +13,7 @@ angular.module('testingFrontendApp')
       //$scope.available_papers = available_papers;
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
+      
       $scope.init = function () {
         //Does initial book keeping for the attempted papers 
         for (var i=0; i<$scope.user_attempts.length; i++){
@@ -31,7 +32,7 @@ angular.module('testingFrontendApp')
             p['status'] = 'attempted';
           }
         }
-        // Check for expiry
+        // Marks papers if Expired
         $scope.available_papers.forEach(function(paper){if($scope.isExpired(paper)) paper['isExpired'] = true});
       }
 
@@ -45,20 +46,21 @@ angular.module('testingFrontendApp')
         else return false;
       }
 
-      // Get appropriate local date
+      // Get appropriate local date string
       $scope.getTzDate = function(time_str){
         var d = new Date(time_str);
         var date = d.toLocaleDateString();
         return date 
       }
 
-      // Get appropriate local time
+      // Get appropriate local time string
       $scope.getTzTime = function(time_str){
         var d = new Date(time_str);
         var time = d.toLocaleTimeString().slice(0,5);
         return time
       }
 
+      // TODO BUGGY
       $scope.getRemainingTime = function(time_str, duration){
         var now = new Date(); 
         var start = new Date(time_str);
@@ -69,6 +71,7 @@ angular.module('testingFrontendApp')
         
       }
 
+      // Open the "Attempt/Resume paper modal"
       $scope.attemptPaper = function(paper){
         var paperInstance = $uibModal.open({
           templateUrl:'views/paper-start.html',
@@ -84,6 +87,7 @@ angular.module('testingFrontendApp')
                   $state.go('home.attempt',{'pid':resp.data.id,'paper':$scope.paper});  
                 },function(err){
                   //TODO display proper error message
+                  console.log(err);
                   alert("Couldn't start paper");
                 });
             };
@@ -95,20 +99,27 @@ angular.module('testingFrontendApp')
       };
 
       // Display the results page.
+      // Open the result view
       $scope.viewResult = function(paper){
         var latestAttempt = paper.allAttempts.slice(-1)[0];
         $state.go("home.result", {'aid':latestAttempt.id, 'paper':paper});
       };
 
       $scope.init();
+
+      // Filter papers according to status
+      // Note: call only after init()!
       $scope.ongoing_papers = _.filter($scope.available_papers, function(p){
-        return p.status == 'ongoing';
+        return p.status == 'ongoing' && !p.isExpired;
       });
       $scope.attempted_papers =_.filter($scope.available_papers, function(p){
-        return p.status == 'attempted';
+        return p.status == 'attempted' && !p.isExpired;
       });
       $scope.fresh_papers =_.filter($scope.available_papers, function(p){
-        return p.status == undefined;
+        return p.status == undefined && !p.isExpired;
       });
+      $scope.expired_papers = _.filter($scope.available_papers, function(p){
+        return p.isExpired == true;
+      })
 
     }]);
