@@ -73,7 +73,7 @@
             <td class="text-center"><b>{{paper.time.slice(0,5)}}</b></td>
             <td ng-class="{'text-danger': paper.isExpired}"  class="text-center"><p><span ng-if="paper.isExpired">[ <span class="glyphicon glyphicon-ban-circle"></span>  Expired ]</span></p> {{getTzDate(paper.lastdate)}} - <b>{{getTzTime(paper.lastdate)}}</b> </td>
             <td class="text-center">
-              ¯\_(ツ)_/¯
+              ---
             </td>
             <!--<td ng-if='paper.status == "attempted"' class="text-center">
               <button class='btn btn-default' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-education"></span> Results &amp; Analysis</button>
@@ -85,7 +85,7 @@
               <button class='btn btn-default' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-education"></span> Results &amp; Analysis</button>
             </td>
             <td ng-if="paper.status !== 'attempted'" class="text-center">
-              (▀̿Ĺ̯▀̿ ̿) No solvey, no resultey
+              ---
             </td>
           </tr>
         </tbody>
