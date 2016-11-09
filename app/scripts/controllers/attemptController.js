@@ -416,18 +416,18 @@ angular.module('testingFrontendApp')
       })
 
       // Back and reload button handling
-      $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-        if(confirm("The paper expires on " + "" + "You can come finish the paper before it expires. Do you really want to go back?")){
-          $scope.$$listeners.$stateChangeStart = undefined;
-          $scope.autoSave();
-        } else {
-          // TODO Retain the state
-          console.log(event);
-          event.preventDefault();
-          //$window.location = $window.location.href;
-        }
-        return;
-       });
+      // $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+      //   if(confirm("The paper expires on " + "" + "You can come finish the paper before it expires. Do you really want to go back?")){
+      //     $scope.$$listeners.$stateChangeStart = undefined;
+      //     $scope.autoSave();
+      //   } else {
+      //     // TODO Retain the state
+      //     console.log(event);
+      //     event.preventDefault();
+      //     //$window.location = $window.location.href;
+      //   }
+      //   return;
+      //  });
 
       // For testing purposes
       // Used by the "info" control button
