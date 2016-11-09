@@ -20,6 +20,7 @@ var testing_app = angular
     'ui.bootstrap',
     'restangular',
     'snap',
+    'chart.js'
   ]);
 
 var homeState = {
@@ -67,9 +68,23 @@ var resultState = {
   url: '/result/:aid',
   templateUrl: 'views/result.html',
   controller: 'ResultCtrl',
+  // (Latest)attempt ID and paper MUST be passed.
+  params: {
+    aid: null,
+    paper: null,
+  },
   resolve:{
-    result : ['result','$stateParams',function(result,$stateParams){
-      return result.getResult($stateParams.aid);
+    // Latest attempt
+    p_current_attempt_result : ['result','$stateParams',function(result,$stateParams){
+      return result.getAttemptResult($stateParams.aid);
+    }],
+    // All attempts
+    p_user_attempts :['attempt',function(attempt){
+      return attempt.loadAttempts();
+    }],
+    // Unreliable when abrupt state change or reload. REMOVE! TODO
+    p_current_paper: ['$stateParams', function($stateParams){
+      return $stateParams.paper;
     }]
   },
 }
