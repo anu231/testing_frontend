@@ -42,7 +42,7 @@
   -- Make side-panel contextual according to screen size **
   -- Front end form validation **  Almost done
   -- Discuss save/confirm/mark logic
-  --Add test instruction modal **
+  -- Add test instruction modal **
   
 2016-10-14 16:41                  
   -- time taken for answering each question
@@ -55,7 +55,7 @@
   google-analytics
   different toolbars(??)
   intro.js
-  angularcharts
+  --angularcharts
 
 
 2016-10-17 14:28
@@ -71,7 +71,7 @@
 2016-10-19 12:45
   -- Sync icon next to questions in the index
   --Convert attempt into a sass file
-  Cease user interaction once the time's up
+  --Cease user interaction once the time's up
 
 2016-10-24 8:53
   -- On clicking clear the answer in the backend needs to be cleared
@@ -90,10 +90,15 @@
 
 2016-11-04 11:26
   404 pages for the naughty and curious
-  Fetching Attempt marks and buff up the controller
+  --Fetching Attempt marks and buff up the controller
   Search and Destroy all TODOs
-  Instead of disabling attempt buttons for expired papers, do something else...
-  Reduce image sized
+  --Instead of disabling attempt buttons for expired papers, do something else...
+  --Reduce image sized
+
+2016-11-09
+  Display charts contextually
+
+
 
 ***************************
 ** Data collection Ideas **
