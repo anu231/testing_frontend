@@ -67,18 +67,18 @@ $listGroupItemBgColor: #ffffff;
 /*default question state*/
 .index-question-no{
   display: inline-block;
-  background-image: url("/images/index_bg_default.png");
+  background-image: url("../images/index_bg_default.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 /*marked confirmed*/
 .index-question-saved {
-  background-image: url("/images/index_bg_green.png");
+  background-image: url("../images/index_bg_green.png");
 }
 /*marked for later review*/
 .index-question-marked {
-  background-image: url("/images/index_bg_red.png");
+  background-image: url("../images/index_bg_red.png");
 }
 
 .index-badge-physics{
@@ -371,7 +371,7 @@ input[type=radio], input[type=checkbox]{
 
 .custom-radio{
   min-height: 1.5em;
-  background-image: url("/images/radio_off.png");
+  background-image: url("../images/radio_off.png");
   background-repeat: no-repeat;
   background-size: 1.0em 1.0em;
   background-position: center;
@@ -379,7 +379,7 @@ input[type=radio], input[type=checkbox]{
 }
 
 input[type=radio]:checked + label > .custom-radio{
-  background-image: url("/images/radio_on.png");
+  background-image: url("../images/radio_on.png");
   transition: 0.5s;
 }
 
@@ -387,7 +387,7 @@ input[type=radio]:checked + label > .custom-radio{
 .custom-checkbox{
   padding: 5px;
   height: 1.5em;
-  background-image: url("/images/checkbox_off.png");
+  background-image: url("../images/checkbox_off.png");
   background-repeat: no-repeat;
   background-size: 1.0em 1.0em;
   background-position: center;
@@ -395,7 +395,7 @@ input[type=radio]:checked + label > .custom-radio{
 }
 
 input[type=checkbox]:checked + label > .custom-checkbox{
-  background-image: url("/images/checkbox_on.png");
+  background-image: url("../images/checkbox_on.png");
   transition: 0.5s;
 }
 /* For matrix types */
