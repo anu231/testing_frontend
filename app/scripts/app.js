@@ -95,14 +95,25 @@ testing_app.config(function($stateProvider,$urlRouterProvider) {
     .state(attemptState)
     .state(resultState);
   })
-testing_app.constant('server','http://192.168.1.19:8000');
 
+if (window.location.hostname.indexOf('localhost')!=-1){
+  //working on local server
+  testing_app.constant('server','http://192.168.1.19:8000');
+} else {
+  testing_app.constant('server','http://educonnect');
+}
 
 testing_app.config(function ($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
 	})
 testing_app.config(function(RestangularProvider) {
-    RestangularProvider.setBaseUrl('http://192.168.1.19:8000/');
+    if (window.location.hostname.indexOf('localhost')!=-1){
+      //working on local server
+      RestangularProvider.setBaseUrl('http://192.168.1.19:8000/');  
+    } else {
+      RestangularProvider.setBaseUrl('http://educonnect/');
+    }
+    
     RestangularProvider.setDefaultHttpFields({
             'withCredentials': true              
         });
