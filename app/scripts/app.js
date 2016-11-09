@@ -80,8 +80,13 @@ testing_app.config(function($stateProvider,$urlRouterProvider) {
     .state(attemptState)
     .state(resultState);
   })
-testing_app.constant('server','http://192.168.1.19:8000');
 
+if (window.location.hostname.indexOf('192.168')!=-1){
+  //working on local server
+  testing_app.constant('server','http://192.168.1.19:8000');
+} else {
+  testing_app.constant('server','http://educonnect/');
+}
 
 testing_app.config(function ($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
