@@ -62,6 +62,13 @@
               <th class="text-center">Score</th>
             </thead>
             <tbody>
+              <tr class="text-center">
+                <td><b>Total</b></td>
+                <td class="success"><b>{{selectedAttempt.netScore.correct}}</b></td>
+                <td class="danger"><b>{{selectedAttempt.netScore.incorrect}}</b></td>
+                <td><b>ua</b></td>
+                <td class="info"><b>{{selectedAttempt.result['marksobt']}}</b></td>
+              </tr>
               <tr class="text-center" ng-repeat="sub in ['Physics','Chemistry','Maths','Biology','Zoology']">
                 <td>{{ sub }}</td>
                 <td class="success">{{ selectedAttempt.result[sub[0].toLowerCase()+'corr'] }}</td>
@@ -78,13 +85,13 @@
   </div>
   <div id="chart_area">
     <div class="card" id="pie_chart" >
-      <h5>Mark distribution</h5>
+      <!--<h5>Mark distribution</h5>-->
       <canvas id="bar" class="chart chart-pie" chart-data="pie.data" chart-labels="pie.labels" chart-options="pie.options">
       </canvas>
       <div id="leg"></div>
     </div>
     <div class="card" id="chart" >
-      <h5>Trend Over Time</h5>
+      <!--<h5>Trend Over Time</h5>-->
       <canvas id="bar" class="chart chart-bar" chart-data="bar.data" chart-labels="bar.labels" chart-series="bar.series" chart-options="bar.options">
       </canvas>
     </div>
