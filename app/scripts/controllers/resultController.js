@@ -50,7 +50,7 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
     var result = _.find($scope.allAttemptResults, function(r){return att.id == r.attempt})
     if(!result){
       alert("No result found!");
-      return
+      throw "No result found!"
     }
     $scope.selectedAttempt = {};
     $scope.selectedAttempt.id = att.id;
@@ -74,6 +74,18 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
     $scope.selectedAttempt.result = (function(){
       return _.find($scope.allAttemptResults, function(r){return r.attempt == att.id})
     })();
+    $scope.selectedAttempt.netScore = (function(){
+      var r = $scope.selectedAttempt.result;
+      var correct = 0, incorrect = 0;
+      correct = [r.pcorr,r.ccorr,r.mcorr,r.bcorr,r.zcorr].reduce(function(total, val){
+        return total + val;
+      });
+      incorrect = [r.pwrong,r.cwrong,r.mwrong,r.bwrong,r.zwrong].reduce(function(total, val){
+        return total + val;
+      });
+      return {correct: correct, incorrect: incorrect};
+      
+    })();
     $scope.updateCharts();
   }
 
@@ -91,6 +103,12 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
     $scope.pie.labels = ["Physics", "Chemistry", "Maths", "Biology", "Zoology"];
     $scope.pie.data = [r.pobt,r.cobt,r.mobt,r.bobt,r.zobt];
     $scope.pie.options = {
+      title:{
+        display: true,
+        text: "Mark Distrubution",
+        fontSize: 16,
+        padding: 20,
+      },
       legend:{
         display: true,
         position: "right"
@@ -125,9 +143,18 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
     $scope.bar.data = [ptrend, ctrend, mtrend, btrend, ztrend];
     $("#leg").html = 
     $scope.bar.options = {
+      title: {
+        display: true,
+        text: "Trend Over Time",
+        fontSize: 16,
+        padding: 20,
+      },
       legend: {
-            display: true,
-        }
+        display: true,
+      },
+      labels: {
+        fontSize: 6
+      }
     }
   }
 
