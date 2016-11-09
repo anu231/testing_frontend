@@ -100,7 +100,7 @@ if (window.location.hostname.indexOf('localhost')!=-1){
   //working on local server
   testing_app.constant('server','http://192.168.1.19:8000');
 } else {
-  testing_app.constant('server','http://educonnect/');
+  testing_app.constant('server','http://educonnect');
 }
 
 testing_app.config(function ($httpProvider) {
