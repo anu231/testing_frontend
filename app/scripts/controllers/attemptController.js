@@ -84,10 +84,12 @@ angular.module('testingFrontendApp')
             //$timeout(function(){$window.location = "/#/home";}, 1000);
             $timeout(function(){$state.go('^',{},{reload:true});}, 1000);
           } else {
-            alert("CRITICAL ERROR: Couldn't connect to server! Please try again");
+            // TODO is this necessary?
+            alert("CRITICAL ERROR: Couldn't connect to server!  STATUS CODE != 200");
           }
         }, function(err){
           $('#final_resume_button').attr('disabled', 'disabled');
+          console.log(err);
           alert("CRITICAL ERROR: Couldn't connect to server! Please try again");
         });
       }
