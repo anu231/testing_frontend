@@ -23,6 +23,7 @@ angular.module('testingFrontendApp')
             p['allAttempts'].push($scope.user_attempts[i]); 
           } else {
             p['allAttempts'] = [];
+            p['allAttempts'].push($scope.user_attempts[i]);
           } 
           if ($scope.user_attempts[i].finished!=true) {
             p['status'] = 'ongoing';
