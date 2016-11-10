@@ -15,8 +15,8 @@ angular.module('testingFrontendApp')
     touchToDrag: false
   };
 })
-.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window',
-    function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window) {
+.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window','$document',
+    function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window, $document) {
       $scope.init = function(questions){
         $scope.paper_title = attempt.attempt.paper_info.name;
         if (questions!==null){
@@ -84,10 +84,12 @@ angular.module('testingFrontendApp')
             //$timeout(function(){$window.location = "/#/home";}, 1000);
             $timeout(function(){$state.go('^',{},{reload:true});}, 1000);
           } else {
-            alert("CRITICAL ERROR: Couldn't connect to server! Please try again");
+            // TODO is this necessary?
+            alert("CRITICAL ERROR: Couldn't connect to server!  STATUS CODE != 200");
           }
         }, function(err){
           $('#final_resume_button').attr('disabled', 'disabled');
+          console.log(err);
           alert("CRITICAL ERROR: Couldn't connect to server! Please try again");
         });
       }
@@ -416,24 +418,29 @@ angular.module('testingFrontendApp')
       })
 
       // Back and reload button handling
-      $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-        if(confirm("The paper expires on " + "" + "You can come finish the paper before it expires. Do you really want to go back?")){
-          $scope.$$listeners.$stateChangeStart = undefined;
-          $scope.autoSave();
-        } else {
-          // TODO Retain the state
-          console.log(event);
-          event.preventDefault();
-          //$window.location = $window.location.href;
-        }
-        return;
-       });
+      // $scope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+      //   if(confirm("The paper expires on " + "" + "You can come finish the paper before it expires. Do you really want to go back?")){
+      //     $scope.$$listeners.$stateChangeStart = undefined;
+      //     $scope.autoSave();
+      //   } else {
+      //     // TODO Retain the state
+      //     console.log(event);
+      //     event.preventDefault();
+      //     //$window.location = $window.location.href;
+      //   }
+      //   return;
+      //  });
 
       // For testing purposes
       // Used by the "info" control button
       $scope.displayInfo = function(){
         console.log($scope.selectedQuestion); 
       }
+      // Use arrow keys for navigation
+      $document.keyup(function(e){
+        if(e.keyCode == 39) $scope.nextQuestion();
+        else if (e.keyCode == 37) $scope.previousQuestion();
+      })
 
       $scope.init(questions);
     }]);

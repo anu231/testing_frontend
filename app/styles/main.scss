@@ -123,12 +123,12 @@ $brandColorBlueText: #ffffff;
 #logo {
   display: inline-block;
   position: absolute;
-  bottom: 1%;
   z-index: 100;
   top: 4%;
-  width: 5.7em; 
-  background-image: url("/images/educonnect_logo.png");
+  width: 101px; 
+  height: 91%;
+  margin-left: 10px;
+  background-image: url("../images/educonnect_logo.png");
   background-size: contain;
   background-repeat: no-repeat;
-  float: left;
 }
