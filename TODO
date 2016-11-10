@@ -101,6 +101,9 @@
   --If possible, add left/right arrow question seeking. 
   Make home view responsive
 
+2016-11-10
+  Hide legend for chart_bar in results
+
 
 
 ***************************

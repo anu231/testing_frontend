@@ -82,7 +82,7 @@
     background-color: white;
     padding: 5px;
     margin-bottom: 5px;
-
+    border-bottom: 1px solid #cccccc;
   }
   #home_papers_small  .paper-duration{
     order: 1;
@@ -120,12 +120,18 @@
     align-self: center;
     display: flex;
     justify-content: center;
-    background-color: #eeeeee;
+    /*background-color: #eeeeee;*/
     padding: 5px;
     margin-bottom: 5px;
   }
   #home_papers_small .expired{
     background-color: #ff4646;
+  }
+  #home_papers_small .ongoing{
+    background-color: #60ffbf;
+  }
+  #home_papers_small .attempted{
+    background-color: #e2e2e2;
   }
 
 }
