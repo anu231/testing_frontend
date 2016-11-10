@@ -11,7 +11,7 @@ angular.module('testingFrontendApp')
 .service('attempt', ['$http','server',function ($http,server) {
   // AngularJS will instantiate a singleton by calling "new" on this function
   this.attempt = null;
-  this.attempt_url = server+'/attempts/';
+  this.attempt_url = server+'attempts/';
   /* sets the specified attempt as the current attempt */
   this.setAttempt = function(attmpt){
     this.attempt = attmpt;

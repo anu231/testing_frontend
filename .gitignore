@@ -15,3 +15,4 @@ jsconfig.json
 .vscode/
 *.log
 typings.json
+app/scripts/config.js
