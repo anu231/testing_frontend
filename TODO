@@ -70,8 +70,8 @@
 
 2016-10-19 12:45
   -- Sync icon next to questions in the index
-  --Convert attempt into a sass file
-  --Cease user interaction once the time's up
+  -- Convert attempt into a sass file
+  -- Cease user interaction once the time's up
 
 2016-10-24 8:53
   -- On clicking clear the answer in the backend needs to be cleared
@@ -97,6 +97,9 @@
 
 2016-11-09
   Display charts contextually
+  -- Make Result view Responsive
+  --If possible, add left/right arrow question seeking. 
+  Make home view responsive
 
 
 
