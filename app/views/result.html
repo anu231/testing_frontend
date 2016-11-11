@@ -8,7 +8,8 @@
   <div id="result_area">
     <div id="result_area_controls">
       <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"aria-expanded="true">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="true">
           Select Attempt <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -22,12 +23,11 @@
       <button class="btn btn-default" ng-click="debug()">debug</button>
       <button class="btn btn-info" ng-click="debug()">Answer Key</button>
       <button class="btn btn-success" ng-click="">Provide feedback!</button>
-    </div>   
+    </div>
     <div>
       <div id="paper_information_area">
-
         <div id="paper_card" class="card">
-          <h4 class="text-center text-primary">    {{selectedAttempt.paper_name}}</h4>
+          <h4 class="text-center text-primary"> {{selectedAttempt.paper_name}}</h4>
           <hr>
           <p><b>Details: </b></p>
           <div id="paper_details">
@@ -37,16 +37,15 @@
           </div>
           <p><b>Marking scheme: </b></p>
           <div id="marking_scheme">
-            <div class="mark-detail">SC: +{{selectedPaper.sccor}}  /  {{selectedPaper.scnegmarks}}</div>
-            <div class="mark-detail">MC: +{{selectedPaper.mccor}}  /  {{selectedPaper.mcnegmarks}}</div>
-            <div class="mark-detail">AR: +{{selectedPaper.arcor}} / {{selectedPaper.arnegmarks}}</div>
-            <div class="mark-detail">CH: +{{selectedPaper.chcor}} / {{selectedPaper.chnegmarks}}</div>
-            <div class="mark-detail">SA: +{{selectedPaper.sacor}} / {{selectedPaper.sanegmarks}}</div>
-            <div class="mark-detail">TF: +{{selectedPaper.tfcor}} / {{selectedPaper.tfnegmarks}}</div>
-            <div class="mark-detail">SA: +{{selectedPaper.sacor}} / {{selectedPaper.sanegmarks}}</div>
+            <div class="mark-detail">SC: <span class="badge badge-primary"> +{{selectedPaper.sccor}}  /  {{selectedPaper.scnegmarks}}</span></div>
+            <div class="mark-detail">MC: <span class="badge badge-primary"> +{{selectedPaper.mccor}}  /  {{selectedPaper.mcnegmarks}}</span></div>
+            <div class="mark-detail">AR: <span class="badge badge-primary"> +{{selectedPaper.arcor}} / {{selectedPaper.arnegmarks}}</span></div>
+            <div class="mark-detail">CH: <span class="badge badge-primary"> +{{selectedPaper.chcor}} / {{selectedPaper.chnegmarks}}</span></div>
+            <div class="mark-detail">SA: <span class="badge badge-primary"> +{{selectedPaper.sacor}} / {{selectedPaper.sanegmarks}}</span></div>
+            <div class="mark-detail">TF: <span class="badge badge-primary"> +{{selectedPaper.tfcor}} / {{selectedPaper.tfnegmarks}}</span></div>
+            <div class="mark-detail">SA: <span class="badge badge-primary"> +{{selectedPaper.sacor}} / {{selectedPaper.sanegmarks}}</span></div>
           </div>
         </div>
-
         <div id="breakdown" class="card">
           <h5 class="text-center text-primary">Subject Wise Breakdown: {{selectedAttempt.attempt_date}}</h5>
           <hr>
@@ -76,27 +75,31 @@
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
   </div>
   <div id="chart_area">
-    <div class="card" id="chart_pie" >
+    <div class="card" id="chart_pie">
       <!--<h5>Mark distribution</h5>-->
       <canvas id="canvas_pie" class="chart chart-pie" chart-data="pie.data" chart-labels="pie.labels" chart-options="pie.options">
       </canvas>
       <div id="leg"></div>
     </div>
-    <div class="card" id="chart_bar" >
+    <div class="card" id="chart_bar">
       <!--<h5>Trend Over Time</h5>-->
-      <canvas id="canvas_bar" class="chart chart-bar" chart-data="bar.data" chart-labels="bar.labels" chart-series="bar.series" chart-options="bar.options">
+      <canvas id="canvas_bar" class="chart chart-bar" chart-data="bar.data" chart-labels="bar.labels" chart-series="bar.series"
+        chart-options="bar.options">
       </canvas>
     </div>
     <div id="analysis_area" class="card">
       <p><b><u>Comments</u></b><br></p>
       <ul>
-        <li><p>Love the performance, keep it up.</p></li>
-        <li><p>Wouldn't hurt if you read a lil' HC Verma... just sayin'</p></li>
+        <li>
+          <p>Love the performance, keep it up.</p>
+        </li>
+        <li>
+          <p>Wouldn't hurt if you read a lil' HC Verma... just sayin'</p>
+        </li>
       </ul>
     </div>
   </div>
