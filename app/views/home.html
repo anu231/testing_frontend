@@ -84,7 +84,7 @@
     <div id="home_papers_small">
       <div class="paper-card ongoing" ng-repeat="paper in ongoing_papers | orderBy:'rank'">
         <div class="paper-title">
-          <b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b>
+          <h5 ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</h5>
         </div>
         <div class="paper-duration">
           Duration: <b>{{ paper.time.slice(0,5)}}</b>
@@ -101,10 +101,11 @@
 
         </div>
       </div>
+      <hr>  
       <!--fresh papers-->
       <div class="paper-card unattempted" ng-repeat="paper in fresh_papers | orderBy:'lastdate'">
         <div class="paper-title">
-          <b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b>
+          <h5 ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</h5>
         </div>
         <div class="paper-duration">
           Duration: <b>{{ paper.time.slice(0,5)}}</b>
@@ -122,7 +123,7 @@
       <!--attempted papers-->
       <div class="paper-card attempted" ng-repeat="paper in attempted_papers | orderBy:'-lastdate'">
         <div class="paper-title">
-          <b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b>
+          <h5 ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</h5>
         </div>
         <div class="paper-duration">
           Duration: <b>{{ paper.time.slice(0,5)}}</b>
@@ -140,8 +141,8 @@
       <!--expired papers-->
       <div class="paper-card" ng-repeat="paper in expired_papers | orderBy:'-lastdate'">
         <div class="paper-title">
-          <b class="text-danger"><span class="glyphicon glyphicon-alert"></span>EXPIRED! </b>
-          <b ng-class="{'text-primary': paper.status=='ongoing'}">.  {{paper.name}}</b>
+          <h5 class="text-danger"><span class="glyphicon glyphicon-alert"></span>EXPIRED! </h5>
+          <h5 ng-class="{'text-primary': paper.status=='ongoing'}">.  {{paper.name}}</h5>
         </div>
         <div class="paper-duration">
           Duration: <b>{{ paper.time.slice(0,5)}}</b>
