@@ -83,6 +83,7 @@
     padding: 5px;
     margin-bottom: 5px;
     border-bottom: 1px solid #cccccc;
+    border-radius: 5px;
   }
   #home_papers_small  .paper-duration{
     order: 1;
@@ -91,7 +92,10 @@
     justify-content: center;
     /*background-color: #b3b3b3;*/
     padding: 5px;
+    padding-bottom: 10px;
     margin-bottom: 5px;
+    border-bottom: 1px solid #cccccc;
+    
   }
 
   #home_papers_small  .paper-expiry-date{
@@ -101,7 +105,11 @@
     justify-content: center;
     /*background-color: #eeeeee;*/
     padding: 5px;
+    padding-bottom: 10px;
+    
     margin-bottom: 5px;
+    border-bottom: 1px solid #cccccc;
+    
     }
   #home_papers_small  .paper-action{
     order: 1;
@@ -125,13 +133,29 @@
     margin-bottom: 5px;
   }
   #home_papers_small .expired{
-    background-color: #ff4646;
+    background-color: #ececec;
   }
   #home_papers_small .ongoing{
-    background-color: #60ffbf;
+    background-color: #ffb370;
   }
   #home_papers_small .attempted{
-    background-color: #e2e2e2;
+    background-color: #ececec;
+  }
+   #home_papers_small .unattempted{
+    background-color: #ececec;
+  }
+  #home_papers_small .paper-action-attempt{
+    display: flex;
+    flex-basis: 100%;
+    justify-content: space-around;
+  }
+   #home_papers_small .paper-action-expired{
+    display: flex;
+    flex-basis: 100%;
+    justify-content: space-around;
+  }
+  #home_papers_small .paper-action-button{
+    flex-basis: 75%;
   }
 
 }
