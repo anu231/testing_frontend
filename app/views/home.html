@@ -1,76 +1,86 @@
 <div>
   <div id="home_parent_div" class="col-xs-12">
-    <div id="top_bar">
+    <div id="home_top_bar">
       Test Papers
     </div>
+    <div id="fake_header" class="table-head-hidden">
+            <div id="fake_header_title"><b>Title</b></div>
+            <div id="fake_header_duration"><b>Duration</b></div>
+            <div id="fake_header_expiry"><b>Expires on</b></div>
+            <div id="fake_header_status"><b>Status</b></div>
+            <div id="fake_header_action"><b>Action</b></div>
+    </div>
     <div id="home_papers_table">
-      <table class="table table-hover">
+      <table class="table">
         <thead id="home_table_head">
           <th class="text-center">Title</th>
           <th class="text-center">Duration</th>
           <th class="text-center">Expires on</th>
-          <th class="text-center">Action</th>
           <th class="text-center">Status</th>
+          <th class="text-center">Action</th>
         </thead>
-        <tbody>
+       
+        <tbody id="home_table_body">
           <!--ongoing papers first!-->
           <tr ng-class="{'danger':paper.status=='ongoing'}" ng-repeat="paper in ongoing_papers | orderBy:'rank'">
-            <td><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
+            <td class="text-center"><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
             <td class="text-center"><b>{{paper.time.slice(0,5)}}</b></td>
             <td ng-class="{'text-danger': paper.isExpired}" class="text-center">
               <p><span ng-if="paper.isExpired">[ <span class="glyphicon glyphicon-ban-circle"></span> Expired ]</span>
               </p> {{getTzDate(paper.lastdate)}} - <b>{{getTzTime(paper.lastdate)}}</b> </td>
-            <td class="text-center">
-              <button class="btn btn-info" ng-disabled="paper.isExpired" ng-click='attemptPaper(paper)' ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-play"></span> Resume</button>
-            </td>
             <td ng-if='paper.status == "ongoing"' class="text-center">
               <p class="text-info"><b><u>Ongoing</u> <span class="text-success">({{getRemainingTime(paper.attemptStartTime, paper.time.slice(0,5))}} Remaining)</span></b></p>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-info" ng-disabled="paper.isExpired" ng-click='attemptPaper(paper)' ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-play"></span> Resume</button>
             </td>
           </tr>
           <!-- /ongoing papers  -->
           <!-- fresh unattempted papers-->
           <tr ng-class="{}" ng-repeat="paper in fresh_papers | orderBy:'lastdate'">
-            <td><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
+            <td class="text-center"><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
             <td class="text-center"><b>{{paper.time.slice(0,5)}}</b></td>
-            <td ng-class="{'text-danger': paper.isExpired}" class="text-center"><span ng-if="paper.isExpired">[ <span class="glyphicon glyphicon-ban-circle"></span> Expired ]</span>{{getTzDate(paper.lastdate)}}
+            <td ng-class="{'text-danger': paper.isExpired}" class="text-center">
+              <span ng-if="paper.isExpired">[ <span class="glyphicon glyphicon-ban-circle"></span> Expired ]</span>{{getTzDate(paper.lastdate)}}
               - <b>{{getTzTime(paper.lastdate)}}</b> </td>
-            <td class="text-center">
-              <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-disabled="paper.isExpired" ng-if='paper.status == undefined'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
-            </td>
             <td ng-if='paper.status == undefined' class="text-center">
               <p><b>---</b></p>
+            </td>
+            <td class="text-center">
+              <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-disabled="paper.isExpired" ng-if='paper.status == undefined'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
             </td>
           </tr>
           <!-- /fresh papers  -->
           <!-- attempted papers -->
           <tr ng-class="{'info':paper.status=='ongoing'}" ng-repeat="paper in attempted_papers | orderBy:'-lastdate'">
-            <td><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
+            <td class="text-center"><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
             <td class="text-center"><b>{{paper.time.slice(0,5)}}</b></td>
             <td ng-class="{'text-danger': paper.isExpired}" class="text-center">
-              <p><span ng-if="paper.isExpired">[ <span class="glyphicon glyphicon-ban-circle"></span> Expired ]</span>
-              </p> {{getTzDate(paper.lastdate)}} - <b>{{getTzTime(paper.lastdate)}}</b> </td>
+              <span ng-if="paper.isExpired">[ <span class="glyphicon glyphicon-ban-circle"></span> Expired ]</span>
+              {{getTzDate(paper.lastdate)}} - <b>{{getTzTime(paper.lastdate)}}</b> </td>
+            <td ng-if='paper.status == "attempted"' class="text-center">
+              <button class='btn btn-default' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-education"></span> Results &amp; Analysis</button>
+            </td>
             <td class="text-center">
               <button class="btn btn-info" ng-disabled="paper.isExpired" ng-click='attemptPaper(paper)' ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-play"></span> Resume</button>
               <button class="btn btn-primary" ng-disabled="paper.isExpired" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined'>Attempt</button>
               <button class="btn btn-default" ng-disabled="paper.isExpired" ng-click='attemptPaper(paper)' ng-if='paper.status == "attempted"'><span class="glyphicon glyphicon-repeat"></span> Retake</button>
             </td>
-            <td ng-if='paper.status == "attempted"' class="text-center">
-              <button class='btn btn-default' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-education"></span> Results &amp; Analysis</button>
-            </td>
           </tr>
           <!--/attempted papers-->
           <!--expired papers-->
           <tr ng-class="{'danger':true}" ng-repeat="paper in expired_papers | orderBy:'-lastdate'">
-            <td><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
+            <td class="text-center"><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
             <td class="text-center"><b>{{paper.time.slice(0,5)}}</b></td>
             <td ng-class="{'text-danger': paper.isExpired}" class="text-center">
               <p><span ng-if="paper.isExpired">[ <span class="glyphicon glyphicon-ban-circle"></span> Expired ]</span>
-              </p> {{getTzDate(paper.lastdate)}} - <b>{{getTzTime(paper.lastdate)}}</b> </td>
-            <td class="text-center">
-              ---
+              </p> {{getTzDate(paper.lastdate)}} - <b>{{getTzTime(paper.lastdate)}}</b> 
             </td>
             <td ng-if="paper.status == 'attempted'" class="text-center">
               <button class='btn btn-default' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-education"></span> Results &amp; Analysis</button>
+            </td>
+            <td class="text-center">
+              ---
             </td>
             <td ng-if="paper.status !== 'attempted'" class="text-center">
               ---
@@ -113,9 +123,6 @@
         <div class="paper-expiry-date">
           Expires On : <b> {{getTzDate(paper.lastdate)}} - </b> {{ getTzTime(paper.lastdate)}}
         </div>
-        <!--<div class="paper-results">
-          <p><b>---</b></p>
-        </div>-->
         <div class="paper-action paper-action-attempt">
           <button class="btn btn-primary paper-action-button" ng-click='attemptPaper(paper)' ng-disabled="paper.isExpired" ng-if='paper.status == undefined'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
         </div>
@@ -151,19 +158,11 @@
           Expired On : {{getTzDate(paper.lastdate)}} - <b> {{getTzTime(paper.lastdate)}}</b>
         </div>
         <div class="paper-results paper-action-expired">
-          <!--<div ng-if="paper.status == 'attempted'" class="text-center">-->
             <button ng-if="paper.status == 'attempted'" class='btn btn-default paper-action-button' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-education"></span> Results &amp; Analysis</button>
-          <!--</div>-->
           <div ng-if="paper.status !== 'attempted'" class="text-center">
             ---
           </div>
         </div>
-        <!--<div class="paper-action">
-          <button class="btn btn-default paper-action-button" ng-disabled="paper.isExpired" ng-click='attemptPaper(paper)' ng-if='paper.status == "attempted"'><span class="glyphicon glyphicon-repeat"></span> Retake</button>
-          <div ng-if="paper.status !== 'attempted'" class="text-center">
-              ---
-            </div>
-        </div>-->
       </div>
     </div>
   </div>

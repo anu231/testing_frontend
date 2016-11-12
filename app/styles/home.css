@@ -7,21 +7,103 @@
   background-color: #ffffff;
 }
 
+#home_top_bar {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  min-height: 7%;
+  left: 0%;
+  right: 0%;
+  z-index: 1000;
+  padding: 2px;
+  color: black;
+  background-color: #ffffff;
+  border-top: 2px solid #eeeeee;
+  border-bottom: 2px solid #eeeeee;
+  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
+  -webkit-transform: translateZ(0)
+}
+
 #home_papers_table {
   position: fixed;
-  top: 20%;
-  bottom: 10%;
+  top: 15%;
+  bottom: 0%;
   overflow-y: scroll;
-  vertical-align: baseline;
   width: 95%;
+  margin: auto;
   padding: 10px;
-  box-shadow: 0px 3px 7px 5px #b3b3b3;
+  table-layout: fixed;
 }
 
 #home_table_head {
-  background-color: #21409a;
-  color: white;
+  transition: 0.3s all ease; 
 }
+#home_table_head.table-head-hidden {
+  transition: 0.3s all ease; 
+  opacity: 0;
+}
+#home_table_body tr{
+  transition: 0.2s all linear;
+}
+#home_table_body tr:hover{
+  box-shadow: 0px 3px 10px 2px #333333;
+  background-color: #fefefe;
+}
+
+
+#fake_header{
+  position: fixed;
+  display: flex;
+  font-size: 1.2em;
+  top: 14.7%;
+  width: 94%;
+  margin-left: 5px;
+  padding: 10px;
+  padding-top: 15px;
+  z-index: 999;
+  background-color: white;
+  transition: 0.3s all ease; 
+  border-bottom: 2px solid #eeeeee;
+  box-shadow: 0px 3px 10px -2px rgba(0,0,0,0.75);
+  -webkit-transform: translateZ(0)
+}
+#fake_header.table-head-hidden{
+  top: 5.7%;
+  transition: 0.3s all ease; 
+  box-shadow: 0px 3px 10px -2px rgba(0,0,0,0.75);
+  -webkit-transform: translateZ(0)
+}
+#fake_header #fake_header_title {
+  flex-basis: 43%;
+  display: flex;
+  justify-content: center;
+}
+#fake_header #fake_header_duration {
+  flex-basis: 14%;
+  display: flex;
+  justify-content: center;
+  
+  
+}
+#fake_header #fake_header_expiry {
+  flex-basis: 19%;
+  justify-content: center;
+  display: flex;
+  
+}
+#fake_header #fake_header_status {
+  flex-basis: 26%;
+  justify-content: center;
+  display: flex;
+  
+}
+#fake_header #fake_header_action {
+  flex-basis: 17%;
+  justify-content: center;
+  display: flex;
+}
+
 
 #home_tab_area {
   position: relative;
@@ -51,16 +133,19 @@
   #home_papers_table {
     display: none;
   }
+  #fake_header {
+    display: none;
+  }
 
   #home_papers_small{
     position: fixed;
     display: block;
     justify-content: space-around;
-    top: 17%;
+    top: 15%;
     left: 0px;
     right: 0px;
     bottom: 0px;
-    background-color: white;
+    background-color: deeppink;
     overflow-y: scroll;
   }
 
