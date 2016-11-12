@@ -86,7 +86,7 @@
   display: flex;
   justify-content: center;
   flex-grow: 1;
-  flex-basis: 24%;
+  flex-basis: 20%;
   font-size: 1.5em;
   /*border: 1px solid #e1e1e1;*/
   padding: 3px;
@@ -134,7 +134,7 @@
   margin-top: 2%;
   margin-bottom: 2%;
   padding: 10px;
-  box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.5);
 }
 
 #chart_area {
@@ -195,14 +195,24 @@
   #result_area #paper_card {
     margin-top: 8em;
   }
+  #result_area #paper_card #paper_details .paper-detail {
+    display: flex;
+    justify-content: flex-start;
+    /*flex-grow: 1;*/
+    flex-basis: 20%;
+    font-size: 1.5em;
+    /*border: 1px solid #e1e1e1;*/
+    padding: 3px;
+  }
   #result_area #result_area_controls {
     position: fixed;
     display: flex;
     justify-content: space-between;
     font-size: 1.2em;
-    top: 16%;
+    top: 14%;
     width: 100%;
     padding: 5px;
+    padding-top: 20px;
     z-index: 999;
     background-color: white;
     transition: 0.3s all ease;
