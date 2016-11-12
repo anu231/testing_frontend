@@ -8,8 +8,8 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt','userService',
-    function ($scope,$state,available_papers,user_attempts,$uibModal,attempt, userService) {
+.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt','userService','$timeout','$window',
+    function ($scope,$state,available_papers,user_attempts,$uibModal,attempt, userService,$timeout, $window) {
       //$scope.available_papers = available_papers;
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
@@ -17,7 +17,9 @@ angular.module('testingFrontendApp')
       userService.getUserInfo().then(function(resp){
         $scope.user = resp.data;
       },function(err){
-        console.log("couldnt authenticate", err);
+        // Redirect user out!
+        alert("Error You are not logged in / authorized! Please log in to continue");
+        $timeout(function(){$window.location.href="http://www.raoeduconnect.com"}, 3000);
       })
       
       $scope.init = function () {
