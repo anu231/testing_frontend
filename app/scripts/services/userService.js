@@ -8,15 +8,15 @@
  * Service in the testingFrontendApp.
  */
 angular.module('testingFrontendApp')
-  .service('userService', function () {
-    var remote_user = Restangular.all('authenticate');
+  .service('userService',['$http','server', function($http, server) {
     return{
       getUserInfo : function(){
         // Get information of the user logged in
-        return remote_user.get();
+        return $http.get(server + 'authenticate/')
       },
       userLogout : function(){
         // TODO log out user.
+        return remote_user;
       }
     }
-  });
+  }]);

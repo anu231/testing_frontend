@@ -8,11 +8,17 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt',
-    function ($scope,$state,available_papers,user_attempts,$uibModal,attempt) {
+.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt','userService',
+    function ($scope,$state,available_papers,user_attempts,$uibModal,attempt, userService) {
       //$scope.available_papers = available_papers;
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
+      // $scope.user = userService.getUserInfo();
+      userService.getUserInfo().then(function(resp){
+        $scope.user = resp.data;
+      },function(err){
+        console.log("couldnt authenticate", err);
+      })
       
       $scope.init = function () {
         //Does initial book keeping for the attempted papers 
