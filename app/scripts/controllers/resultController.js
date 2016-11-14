@@ -42,6 +42,10 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
     $state.go('home');
   };
 
+  $scope.getFormattedDate = function(date_str){
+    var d = new Date(date_str);
+    return d.toLocaleDateString() + " : " + d.toLocaleTimeString().slice(0,5);
+  }
   // Paper selection pipeline
   // Basically sets the $scope.selectedAttempt variable.
   // $scope.selectedAttempt is used as the model for result area.

@@ -14,7 +14,7 @@
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
           <li ng-repeat="attempt in current_paper_attempts">
             <div ng-click="selectAttempt(attempt.id)" class="attempt_selector">
-              {{attempt.starttime}}
+              {{getFormattedDate(attempt.starttime)}}
             </div>
           </li>
         </ul>

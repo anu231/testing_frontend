@@ -119,12 +119,18 @@
 }
 
 #result_area .attempt_selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
   padding: 5px;
   margin-bottom: 3px;
+  background-color: #ffffff;
+  
 }
 
 #result_area .attempt_selector:hover {
-  background-color: #555555;
+  background-color: #8bc34a;
 }
 
 #results_and_analysis_parent .card {
