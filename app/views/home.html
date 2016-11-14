@@ -27,10 +27,10 @@
             <td class="text-center"><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
             <td class="text-center"><b>{{paper.time.slice(0,5)}}</b></td>
             <td ng-class="{'text-danger': paper.isExpired}" class="text-center">
-              <p><span ng-if="paper.isExpired">[ <span class="glyphicon glyphicon-ban-circle"></span> Expired ]</span>
-              </p> {{getTzDate(paper.lastdate)}} - <b>{{getTzTime(paper.lastdate)}}</b> </td>
+              <span ng-if="paper.isExpired">[ <span class="glyphicon glyphicon-ban-circle"></span> Expired ]</span>
+               {{getTzDate(paper.lastdate)}} - <b>{{getTzTime(paper.lastdate)}}</b> </td>
             <td ng-if='paper.status == "ongoing"' class="text-center">
-              <p class="text-info"><b><u>Ongoing</u> <span class="text-success">({{getRemainingTime(paper)}} Remaining)</span></b></p>
+              <p><b><u>Ongoing</u> <span>({{getRemainingTime(paper)}} Remaining)</span></b></p>
             </td>
             <td class="text-center">
               <button class="btn btn-info" ng-disabled="paper.isExpired" ng-click='attemptPaper(paper)' ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-play"></span> Resume</button>
