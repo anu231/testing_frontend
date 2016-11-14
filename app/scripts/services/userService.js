@@ -14,9 +14,15 @@ angular.module('testingFrontendApp')
         // Get information of the user logged in
         return $http.get(server + 'authenticate/')
       },
-      userLogout : function(){
-        // TODO log out user.
-        return remote_user;
+      logout : function(){
+        // Logout from educonnect; if successful, log out of django server
+        $http.get(EDUCONNECT_LOGOUT_URL).then(function(resp){
+          $http.get(server + DJANGO_LOGOUT_ENDPOINT)
+          console.log("logging out");
+        }, function(err){
+          console.log(err);
+          alert("COULDN'T LOG YOU OUT")
+        })
       }
     }
   }]);
