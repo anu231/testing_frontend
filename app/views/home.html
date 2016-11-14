@@ -23,7 +23,7 @@
        
         <tbody id="home_table_body">
           <!--ongoing papers first!-->
-          <tr ng-class="{'danger':paper.status=='ongoing'}" ng-repeat="paper in ongoing_papers | orderBy:'rank'">
+          <tr ng-class="{'ongoing':paper.status=='ongoing'}" ng-repeat="paper in ongoing_papers | orderBy:'rank'">
             <td class="text-center"><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
             <td class="text-center"><b>{{paper.time.slice(0,5)}}</b></td>
             <td ng-class="{'text-danger': paper.isExpired}" class="text-center">

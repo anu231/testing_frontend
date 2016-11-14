@@ -114,6 +114,9 @@
 .expired {
   color: red;
 }
+.ongoing {
+  background-color: #ffb370;
+}
 
 #home_papers_small{
   display: none;
