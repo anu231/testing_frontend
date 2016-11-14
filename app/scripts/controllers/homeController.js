@@ -13,7 +13,7 @@ angular.module('testingFrontendApp')
       //$scope.available_papers = available_papers;
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
-      // $scope.user = userService.getUserInfo();
+      // Display the information of the logged in user on the nav bar
       userService.getUserInfo().then(function(resp){
         $scope.user = resp.data;
       },function(err){
