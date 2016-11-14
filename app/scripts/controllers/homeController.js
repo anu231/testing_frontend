@@ -62,13 +62,23 @@ angular.module('testingFrontendApp')
       }
 
       // TODO BUGGY
-      $scope.getRemainingTime = function(time_str, duration){
-        var now = new Date(); 
-        var start = new Date(time_str);
-        var time_passed_seconds = Math.floor((now - start)/1000); // Seconds 
-        var duration_seconds = duration.split(':')[0] * 3600 + duration.split(':')[1] * 60;
-        var delta = duration_seconds - time_passed_seconds;
-        return Math.floor(delta/3600) + ":" + Math.floor(delta/60)
+      $scope.getRemainingTime = function(paper){
+        var st = new Date(paper.attemptStartTime);
+        var now = new Date();
+        var time_passed = Math.floor((now - st)/1000);
+        var splits = paper.time.split(':');
+        var duration = splits[0] * 3600 + splits[1] * 60;
+        var delta = duration - time_passed;
+        var hrs = Math.floor(delta / 3600);
+        var mins = Math.floor(delta % 3600 / 60);
+        function format_time(xx){
+          if(xx < 10) return "0" + xx;
+          else return xx; 
+          }
+        return format_time(hrs) + ":" + format_time(mins);
+      }
+        $scope.getRemainingTime2 = function(paper){
+        console.log(paper.attemptStartTime);
         
       }
 

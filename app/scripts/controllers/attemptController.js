@@ -115,10 +115,13 @@ angular.module('testingFrontendApp')
         } 
       }
 
-      // Starts the timer 
+      // Starts the timer and set the "10 minutes remaining" reminder
       // Called by start paper button on instruction modal
       function timer_start(){
-        var duration = attempt.attempt.paper_info.duration; 
+        var now = new Date();
+        var attempt_start_time = new Date(attempt.attempt.starttime);
+        var duration = Math.floor(attempt.attempt.paper_info.duration - (now - attempt_start_time)/1000);
+        console.log(duration);
         // Set the 10 min reminder timeout
         $timeout(function(){$('#servantModal').modal('show');}, (duration - 600) * 1000);
         var time = duration;

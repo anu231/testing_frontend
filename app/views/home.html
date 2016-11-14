@@ -30,7 +30,7 @@
               <p><span ng-if="paper.isExpired">[ <span class="glyphicon glyphicon-ban-circle"></span> Expired ]</span>
               </p> {{getTzDate(paper.lastdate)}} - <b>{{getTzTime(paper.lastdate)}}</b> </td>
             <td ng-if='paper.status == "ongoing"' class="text-center">
-              <p class="text-info"><b><u>Ongoing</u> <span class="text-success">({{getRemainingTime(paper.attemptStartTime, paper.time.slice(0,5))}} Remaining)</span></b></p>
+              <p class="text-info"><b><u>Ongoing</u> <span class="text-success">({{getRemainingTime(paper)}} Remaining)</span></b></p>
             </td>
             <td class="text-center">
               <button class="btn btn-info" ng-disabled="paper.isExpired" ng-click='attemptPaper(paper)' ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-play"></span> Resume</button>
@@ -107,7 +107,7 @@
           <p>Expires On: {{getTzDate(paper.lastdate)}}-<b> {{getTzTime(paper.lastdate)}}</b></p>
         </div>
         <div class="paper-results">
-          <p class="text-info"><b><u>Ongoing</u> <span class="text-success">({{getRemainingTime(paper.attemptStartTime, paper.time.slice(0,5))}} Remaining)</span></b></p>
+          <p class="text-info"><b><u>Ongoing</u> <span class="text-success">({{getRemainingTime(paper)}} Remaining)</span></b></p>
         </div>
         <div class="paper-action">
           <button class="btn btn-info" ng-disabled="paper.isExpired" ng-click='attemptPaper(paper)' ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-play"></span> Resume</button>
