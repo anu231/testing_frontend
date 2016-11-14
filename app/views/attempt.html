@@ -44,15 +44,15 @@
   <div snap-content id="main_content" class="">
 
     <!-- Top info bar  -->
-    <div id="top_bar">
+    <div id="attempt_top_bar">
       <button id="left_drawer_button" snap-toggle="left" class="" title="Show the list of questions">
         <span class="glyphicon glyphicon-list"></span>
       </button>
       <div id="current_question_no" >{{(questions.indexOf(selectedQuestion) + 1) + '/' +  questions.length }}</div>
-      <div id="global_timer"><span class="glyphicon glyphicon-time"></span> <span id="timeo">00:00:00</span></div>
+      <div id="global_timer"><span class="glyphicon glyphicon-hourglass"></span> <span id="timeo">00:00:00</span></div>
       <div id="question_timer"><span class="glyphicon glyphicon-time"></span> <span id="qtimeo">{{selectedQuestion.timetaken}}</span></div>
       <div id="test_paper_title">{{paper_title}}</div>
-      <button class="btn btn-danger" id="test_paper_title" data-toggle="modal" data-target="#exitModal"><span class="glyphicon glyphicon-log-out"> Finish</span></button>
+      <button class="btn btn-danger" id="finish_paper_button" data-toggle="modal" data-target="#exitModal"><span class="glyphicon glyphicon-log-out"> Finish</span></button>
     </div> <!-- End info bar  -->
 
     <!-- question-area  -->
@@ -68,7 +68,7 @@
       </div>
 
       <!--  SC -->
-      <div ng-if="selectedQuestion.ques_type=='SC'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+      <div ng-if="selectedQuestion.ques_type=='SC'" id="question_card" class="col-xs-12 col-md-8 col-md-offset-2">
         <ul id="question_body_box" class="list-group">
           <a ng-if="selectedQuestion.isChRelated == true" class="list-group-item comprehension">
             <h4>Paragraph:</h4>
@@ -294,9 +294,9 @@
         <button class="btn btn-danger control-button" ng-click="clearAnswer(selectedQuestion)" data-toggle="tooltip" data-placement="top" title="Clear the selected choices"><span class="glyphicon glyphicon-remove"></span>Clear</button>
         <button ng-class="{'btn': true,'btn-default':true,'control-nav-button':true}"  ng-click="nextQuestion()">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
       </div>
-      <button ng-if="true" ng-class="{'btn': true,'btn-warning':true, 'pull-right':true}"  ng-click="displayInfo()"><span class="glyphicon glyphicon-info-sign"></span></button>
-      <button ng-if="true" ng-class="{'btn': true,'btn-primary':true, 'pull-right':true}" data-toggle="modal" data-target="#cleanupModal"><span class="glyphicon glyphicon-info-sign"></span></button>
-      <button ng-if="true" ng-class="{'btn': true,'btn-danger':true, 'pull-right':true}" data-toggle="modal" data-target="#servantModal"><span class="glyphicon glyphicon-info-sign"></span></button>
+      <button ng-if="debug=='true'" ng-class="{'btn': true,'btn-warning':true, 'pull-right':true}"  ng-click="displayInfo()"><span class="glyphicon glyphicon-info-sign"></span></button>
+      <button ng-if="debug=='true'" ng-class="{'btn': true,'btn-primary':true, 'pull-right':true}" data-toggle="modal" data-target="#cleanupModal"><span class="glyphicon glyphicon-info-sign"></span></button>
+      <button ng-if="debug=='true'" ng-class="{'btn': true,'btn-danger':true, 'pull-right':true}" data-toggle="modal" data-target="#servantModal"><span class="glyphicon glyphicon-info-sign"></span></button>
     </div>
 
     <!-- Alert popup box  -->
