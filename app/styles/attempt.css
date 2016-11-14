@@ -182,7 +182,7 @@ $listGroupItemBgColor: #ffffff;
 }
 /*The info bar (top bar in question pane)*/
 
-#top_bar {
+#attempt_top_bar {
   position: fixed;
   display: flex;
   justify-content: space-between;
@@ -267,7 +267,7 @@ $listGroupItemBgColor: #ffffff;
 }
 
 @media only screen and (max-width: 600px){
-  #top_bar {
+  #attempt_top_bar {
     justify-content: flex-start;
   }
   #global_timer{
