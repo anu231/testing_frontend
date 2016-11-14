@@ -109,7 +109,7 @@ $brandColorBlueText: #ffffff;
   color: $brandColorRedText;
   position: fixed;
   top: 0%;
-  height: 8%;
+  min-height: 8%;
 }
 .navbar-default .navbar-brand{
   color: $brandColorRedText;
@@ -124,11 +124,6 @@ $brandColorBlueText: #ffffff;
   display: inline-block;
   position: absolute;
   z-index: 100;
-  top: 4%;
-  width: 101px; 
-  height: 91%;
-  margin-left: 10px;
-  background-image: url("../images/educonnect_logo.png");
-  background-size: contain;
-  background-repeat: no-repeat;
+  height: 100%;
+  padding: 2px;
 }
