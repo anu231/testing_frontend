@@ -127,3 +127,23 @@ $brandColorBlueText: #ffffff;
   height: 100%;
   padding: 2px;
 }
+
+#user_info {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0%;
+  height: 8%;
+  padding: 5px;
+
+}
+
+#user_info #user_name {
+  font-size: 1.4em;
+  color: white;
+  padding: 10px;
+}
+#user_info #logout_button {
+  padding: 10px;
+}
