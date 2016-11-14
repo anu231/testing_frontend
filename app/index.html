@@ -10,7 +10,6 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <!--<link rel="stylesheet" href="bower_components/Bootflat/bootflat/css/bootflat.css" />-->
     <link rel="stylesheet" href="bower_components/Bootflat/bootflat/css/bootflat.min.css" />
     <link rel="stylesheet" href="bower_components/angular-snap/angular-snap.css" />
     <!-- endbower -->
@@ -33,7 +32,12 @@
           <div class="container-fluid">
             <div class="navbar-header">
               <a href="http://raoeduconnect.com/"><img id="logo" src="../images/educonnect_logo.png" alt="RaoEduconnect"></a>
-              <!--<div class="nav"><a href="http://raoeduconnect.com/">Home</a></div>  TODO ADD  MORE LINKS!!-->
+              <div id="user_info">
+                <div id="user_name">Shiva Reddy</div> 
+                <div id="logout_button">
+                  <span><a href="#" ng-click="logout()"><u>Logout{{yolo}}</u></a></span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
