@@ -13,15 +13,7 @@ angular.module('testingFrontendApp')
       //$scope.available_papers = available_papers;
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
-      // Display the information of the logged in user on the nav bar
-      userService.getUserInfo().then(function(resp){
-        $scope.user = resp.data;
-      },function(err){
-        // Redirect user out!
-        alert("Error You are not logged in / authorized! Please log in to continue");
-        $timeout(function(){$window.location.href="http://www.raoeduconnect.com"}, 3000);
-      })
-      
+
       $scope.init = function () {
         //Does initial book keeping for the attempted papers 
         for (var i=0; i<$scope.user_attempts.length; i++){
