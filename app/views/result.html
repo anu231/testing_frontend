@@ -54,7 +54,7 @@
               <th class="text-center">Sub</th>
               <th class="text-center">Correct</th>
               <th class="text-center">Incorrect</th>
-              <th class="text-center">Unattempted</th>
+              <!--<th class="text-center">Unattempted</th>-->
               <th class="text-center">Score</th>
             </thead>
             <tbody>
@@ -62,14 +62,14 @@
                 <td><b>Total</b></td>
                 <td class="success"><b>{{selectedAttempt.netScore.correct}}</b></td>
                 <td class="danger"><b>{{selectedAttempt.netScore.incorrect}}</b></td>
-                <td><b>ua</b></td>
+                <!--<td><b>ua</b></td>-->
                 <td class="info"><b>{{selectedAttempt.result['marksobt']}}</b></td>
               </tr>
               <tr class="text-center" ng-repeat="sub in ['Physics','Chemistry','Maths','Biology','Zoology']">
                 <td>{{ sub }}</td>
                 <td class="success">{{ selectedAttempt.result[sub[0].toLowerCase()+'corr'] }}</td>
                 <td class="danger">{{ selectedAttempt.result[sub[0].toLowerCase()+'wrong'] }}</td>
-                <td>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }} N/A</td>
+                <!--<td>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }} N/A</td>-->
                 <td class="info"><b>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }}</b></td>
               </tr>
             </tbody>
