@@ -163,6 +163,19 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
   }
 
 
+  ////          ANIMATIONS AND EFFECTS          ////
+  var lastScrollTop = 0;
+  $('#results_and_analysis_parent').scroll(function(event){
+     var st = $(this).scrollTop();
+     if (st > lastScrollTop){
+       $('#result_area_controls').addClass('hide-controls');
+     } else {
+       $('#result_area_controls').removeClass('hide-controls');
+     }
+     lastScrollTop = st;
+  });
+
+
   $scope.debug = function(){
     console.log($scope);
   }
