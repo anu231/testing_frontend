@@ -134,17 +134,17 @@ angular.module('testingFrontendApp')
       })
 
       // Animations
-      $('#home_papers_table').scroll(function(){
-    var a = $('#home_papers_table').scrollTop();
-    var hpt = $('#home_table_head')
-    var fh = $('#fake_header')
-    if(a >= 20){
-      hpt.addClass('table-head-hidden');
-      fh.removeClass('table-head-hidden');
-    } else {
-      hpt.removeClass('table-head-hidden')
-      fh.addClass('table-head-hidden')
-    }
-  })
+      $('#home_papers_table').scroll(function () {
+        var a = $('#home_papers_table').scrollTop();
+        var hpt = $('#home_table_head')
+        var fh = $('#fake_header')
+        if (a >= 20) {
+          hpt.addClass('table-head-hidden');
+          fh.removeClass('table-head-hidden');
+        } else {
+          hpt.removeClass('table-head-hidden')
+          fh.addClass('table-head-hidden')
+        }
+      })
 
     }]);
