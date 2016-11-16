@@ -21,20 +21,16 @@ $listGroupItemBgColor: #ffffff;
 /* Header row */
 #index_header{
   position: fixed;
-  height: 7%;
+  display: flex;
+  height: 6.5%;
   color: white;
-  margin-bottom:2px;
-  width: 270px;
+  /*width: 19%;*/
+  width: 270px; // Small screens
   z-index: 1000;
-  float: left;
-  padding-top:12px;
-  transition: 0.2s background-color;
   color: black;
   background-color: $indexHeaderBgColor;
-  border-top: 2px solid #eeeeee;
-  border-bottom: 2px solid #eeeeee;
-  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
-  -webkit-transform: translateZ(0)
+  box-shadow: 0px 1px 6px 0px rgba(0,0,0,0.5);
+  -webkit-transform: translateZ(0);
 }
 /*Rest of the list*/
 #index_list{
@@ -164,21 +160,18 @@ $listGroupItemBgColor: #ffffff;
     margin-right: 10px;
   }
   #index_header{
-     position: fixed;
-  height: 7%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 6.5%;
   color: white;
-  margin-bottom:2px;
-  width: 270px;
+  width: 19%;
   z-index: 1000;
-  float: left;
-  padding-top:12px;
-  transition: 0.2s background-color;
   color: black;
   background-color: $indexHeaderBgColor;
-  border-top: 2px solid #eeeeee;
-  border-bottom: 2px solid #eeeeee;
-  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
-  -webkit-transform: translateZ(0)
+  box-shadow: 0px 1px 6px 0px rgba(0,0,0,0.5);
+  -webkit-transform: translateZ(0);
   }
   #index_list{
     position: relative;
@@ -204,7 +197,7 @@ $listGroupItemBgColor: #ffffff;
   background-color: $topBarBgColor;
   border-top: 2px solid #eeeeee;
   border-bottom: 2px solid #eeeeee;
-  box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 1px 6px 0px rgba(0,0,0,0.5);
   -webkit-transform: translateZ(0)
 }
 
@@ -314,17 +307,16 @@ $listGroupItemBgColor: #ffffff;
 
 #question_body {
   min-height: 4em;
-  padding: 5px;
-  border: 2px solid #706a6a;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #b1b1b1;
 }
 .list-group-item {
   background-color: $listGroupItemBgColor;
 }
 
 #question_body_box {
-  //-webkit-box-shadow: 0px 3px 11px 7px rgba(17,17,17,1);
-  //-moz-box-shadow: 0px 3px 11px 7px rgba(17,17,17,1);
-  box-shadow: 0px 3px 7px 5px #b3b3b3;
+  /*box-shadow: 0px 3px 7px 5px #b3b3b3;*/
 }
 
 .comprehension {
@@ -422,7 +414,7 @@ input[type=checkbox]:checked + label > .custom-checkbox{
   background-color: $bottomBarBgColor;
   border-top: 2px solid #eeeeee;
   border-bottom: 2px solid #eeeeee;
-  box-shadow: 0px -3px 10px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px -1px 6px 0px rgba(0,0,0,0.5);
 }
 
 #control_buttons {
