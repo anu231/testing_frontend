@@ -42,6 +42,12 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
     $state.go('home');
   };
 
+  $scope.viewSolutions = function(){
+    // Get to the solutions page.
+    var aid = $scope.selectedAttempt.id;
+    $state.go('home.solutions', {'aid': aid});
+  };
+
   $scope.getFormattedDate = function(date_str){
     var d = new Date(date_str);
     return d.toLocaleDateString() + " : " + d.toLocaleTimeString().slice(0,5);
