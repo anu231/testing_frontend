@@ -107,6 +107,11 @@
 2016-11-12
   On clicking on "Trend over time"'s date, select that attempt.
 
+2016-11-15
+  Add a solution view
+  pull usermarks lazily rather than preloading em
+  Check out the competition- topper, fiitjee
+  Question markers for integer and subjective type not working
 
 
 ***************************
