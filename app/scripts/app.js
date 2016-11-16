@@ -89,11 +89,28 @@ var resultState = {
   },
 }
 
+var solutionsState = {
+  name: 'home.solutions',
+  url: '/attempts/:aid/get_solutions',
+  templateUrl: 'views/solutions.html',
+  controller: 'SolutionsCtrl',
+  params: {
+    aid: null,
+    paper: null,
+  },
+  resolve: {
+    solutions: function(solutionsService, $stateParams){
+      return solutionsService.getSolutions($stateParams.aid);
+    }
+  }
+}
+
 testing_app.config(function($stateProvider,$urlRouterProvider) {
   	$stateProvider
     .state(homeState)
     .state(attemptState)
-    .state(resultState);
+    .state(resultState)
+    .state(solutionsState);
   })
 
 //if (window.location.hostname.indexOf('localhost')!=-1){
