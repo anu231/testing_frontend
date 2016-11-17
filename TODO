@@ -112,8 +112,13 @@
   pull usermarks lazily rather than preloading em
   Check out the competition- topper, fiitjee
   Question markers for integer and subjective type not working
-
-
+  ATTEMPTS AND SOLUTIONS 
+  LATEX URLS HARDCODED
+  
+2016-11-15
+  Adapt generate_marks for CH marking
+  Topic wise analysis in Results
+  
 ***************************
 ** Data collection Ideas **
 ***************************

@@ -97,10 +97,14 @@ var solutionsState = {
   params: {
     aid: null,
     paper: null,
+    attempt: null
   },
   resolve: {
     solutions: function(solutionsService, $stateParams){
       return solutionsService.getSolutions($stateParams.aid);
+    },
+    attempt: function($stateParams){
+      return $stateParams.attempt;
     }
   }
 }

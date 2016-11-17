@@ -1,33 +1,102 @@
 <div class="view-attempt-solutions-parent"> 
+  <div id="solutions_top_bar">
+    <div id="state_title">
+      Solutions
+    </div>
+    <div id="paper_info">
+      Paper: {{attempt.paper_name}}
+    </div>
+    <div id="attempt_info">
+      Date: {{attempt.attempt_date}}
+    </div>
+    <button id="back_button" class="btn btn-danger" ng-click="goBack()"><span class="glyphicon glyphicon-log-out"> Back</span></button>
+  </div>
   <div class="solutions-container">
 
-    <div ng-if="question.ques_type == 'SC' || question.ques_type == 'MC'" ng-repeat="question in questions" class="question-card">
-      <div>
-        {{$index}}
-      </div>
-      <div class="question-body" ng-bind-html="question.question">
-      </div>
-      <div class="options">
-        <div class="option" ng-repeat="(key, val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}">
-          <div class="option-letter">
-            {{key}}
+    <div ng-repeat="question in questions" class="question-card">
+
+      <section ng-if="question.ques_type == 'SC' || question.ques_type == 'MC' || question.ques_type == 'TF' || question.ques_type == 'AR'" >
+        <div class="question-no" ng-class="{'solution-correct': question.useranswer.score > 0, 'solution-incorrect': question.useranswer.score < 0 && question.useranswer}">
+          <p><b>{{$index + 1}}</b> {{question.ques_type}}</p>
+        </div>
+        <div class="question-body" ng-bind-html="question.question">
+        </div>
+        <hr>
+        <div class="options">
+          <div class="option" ng-repeat="(key, val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}">
+            <div class="option-letter">
+              {{key}}
+            </div>
+            <div class="option-body" ng-bind-html="question[val]">
+            </div>
           </div>
-          <div class="option-body" ng-bind-html="question[val]">
+        </div>
+        <hr>
+        <div>
+          <div class="solution">
+            Correct Answer: {{question.answer_key}}
+          </div>
+          <div class="user_answer" ng-if="question.useranswer != undefined">
+            Your Answer: {{question.useranswer.answer}} <br>
+            Time Spent on this question: {{question.useranswer.timetaken}}
+          </div>
+          <div class="user_answer" ng-if="question.useranswer==undefined">
+            Your Answer: Unattempted
           </div>
         </div>
-      </div>
-      <div ng-class="{'solution-correct': question.useranswer.answer == question.answer_key, 'solution-incorrect': question.useranswer.answer != question.answer_key && question.useranswer}">
-        <div class="solution">
-          Correct Answer: {{question.answer_key}}
+      </section>
+
+      <section ng-if="question.ques_type == 'IT'">
+        <div class="question-no" ng-class="{'solution-correct': question.useranswer.score > 0, 'solution-incorrect': question.useranswer.score < 0 && question.useranswer}">
+          <p><b>{{$index + 1}}</b> {{question.ques_type}}</p>
         </div>
-        <div class="user_answer" ng-if="question.useranswer != undefined">
-          Your Answer: {{question.useranswer.answer}}
-          Time Spent on this question: {{question.useranswer.timetaken}}
+        <div class="question-body" ng-bind-html="question.question">
         </div>
-        <div class="user_answer" ng-if="question.useranswer==undefined">
-          Your Answer: Unattempted
+        <hr>
+        <div>
+          <div class="solution">
+            Correct Answer: {{question.answer_key}}
+          </div>
+          <div class="user_answer" ng-if="question.useranswer != undefined">
+            Your Answer: {{question.useranswer.answer}} <br>
+            Time Spent on this question: {{question.useranswer.timetaken}}
+          </div>
+          <div class="user_answer" ng-if="question.useranswer==undefined">
+            Your Answer: Unattempted
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section ng-if="question.ques_type == 'MT'">
+        <div class="question-no" ng-class="{'solution-correct': question.useranswer.score >= 0, 'solution-incorrect': question.useranswer.score < 0 && question.useranswer}">
+          <p><b>{{$index + 1}}</b> | {{question.ques_type}}</p>
+        </div>
+        <div class="question-body" ng-bind-html="question.question">
+        </div>
+        <hr>
+        <div class="options">
+          <div class="option" ng-repeat="(key, val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}">
+            <div class="option-letter">
+              {{key}}
+            </div>
+            <div class="option-body" ng-bind-html="question[val]">
+            </div>
+          </div>
+        </div>
+        <hr>        
+        <div >
+          <div class="solution">
+            Correct Answer: {{question.answer_key}}
+          </div>
+          <div class="user_answer" ng-if="question.useranswer != undefined">
+            Your Answer: {{question.useranswer.answer_key}} <br>
+            Time Spent on this question: {{question.useranswer.timetaken}}
+          </div>
+          <div class="user_answer" ng-if="question.useranswer==undefined">
+            Your Answer: Unattempted
+          </div>
+        </div>
+      </section>
 
     </div>
 

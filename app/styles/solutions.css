@@ -4,46 +4,90 @@
   bottom: 0%;
   left: 0%;
   right: 0%;
-  background: darkcyan;
-  /*overflow-y: scroll;*/
+  background: #f1f1f1;
+  overflow-y: scroll;
 }
-.solutions-container {
+.view-attempt-solutions-parent #solutions_top_bar{
   position: fixed;
-  top: 10%;
-  bottom: 0%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1000;
+  min-height: 7%;
+  right: 0%;
+  left: 0%;
+  padding: 5px;
+  font-family: inherit;
+  font-size: 1.3em;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.5);
+  -webkit-transform: translateZ(0)
+}
+#solutions_top_bar #state_title {
+  align-self: center;
+  font-size: 1.2em;
+}
+#solutions_top_bar #paper_info {
+  align-self: center;
+}
+#solutions_top_bar #attempt_info {
+  align-self: center;
+}
+
+.solutions-container {
+  position: absolute;
+  top: 8%;
   left: 10%;
   right: 10%;
-  overflow-y: scroll;
 }
 
 .solutions-container .question-card {
   width: 95%;
   margin-left: 2.5%;
   background-color: #ffffff;
-  margin-bottom: 10px;
-  padding: 5px;
+  margin-bottom: 4%;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 0px 1px 6px 0px rgba(0,0,0, 0.5);
 }
 .question-card .question-body {
   display: block;
   width: 100%;
-  border: 2px solid #000000;
+  border: 2px solid #929292;
   padding: 5px;  
+  min-height: 70px;
+  border-radius: 3px;
 }
 
+.question-card .question-no {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.solutions-container .question-card .options {
+  border: 1px solid #333333;
+  border-radius: 5px;
+}
 .solutions-container .question-card .options .option {
   display: flex;
   justify-content: flex-start;
   width: 100%;
-  padding: 5px;
+  padding: 2px;
+  border-bottom: 1px solid #333333;
+  border-right: 1px solid #333333;
 }
 
 .solutions-container .option-letter {
   flex-basis: 10%;
-  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10px;
 }
 .solutions-container .option-body {
   flex-basis: 80%;
   align-items: center;
+  padding-left: 10px;
 }
 .solutions-container .question-card .solution {
   font-size: 1.1em;
@@ -53,8 +97,8 @@
 }
 
 .solution-correct {
-  background: lightseagreen;
+  background: #7dffae;
 }
 .solution-incorrect {
-  background: indianred;
+  background: #ff7d7d;
 }

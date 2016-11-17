@@ -45,7 +45,7 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
   $scope.viewSolutions = function(){
     // Get to the solutions page.
     var aid = $scope.selectedAttempt.id;
-    $state.go('home.solutions', {'aid': aid});
+    $state.go('home.solutions', {'aid': aid, 'attempt': $scope.selectedAttempt});
   };
 
   $scope.getFormattedDate = function(date_str){
