@@ -1,0 +1,25 @@
+ <!-- For when results are calculated -->
+<div class="modal fade" id="marks_alert" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">
+          Your results are ready!
+        </h2>
+      </div>
+      <div class="modal-body">
+        <p>Good job completing the paper, your result is ready.</p> 
+        <p>You can view your result now by clicking on the button below, or you can view it at any later time by clicking
+          on the "Results and Analysis" button next to the paper name</p>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="viewResult(paper)">
+            View result
+          </button>
+          <button class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+    </div>
+  </div>
+</div>
