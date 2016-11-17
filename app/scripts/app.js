@@ -68,11 +68,6 @@ var resultState = {
   url: '/result/:aid',
   templateUrl: 'views/result.html',
   controller: 'ResultCtrl',
-  // (Latest)attempt ID and paper MUST be passed.
-  params: {
-    aid: null,
-    paper: null,
-  },
   resolve:{
     // Latest attempt
     p_current_attempt_result : ['result','$stateParams',function(result,$stateParams){
@@ -94,11 +89,6 @@ var solutionsState = {
   url: '/attempts/:aid/get_solutions',
   templateUrl: 'views/solutions.html',
   controller: 'SolutionsCtrl',
-  params: {
-    aid: null,
-    paper: null,
-    attempt: null
-  },
   resolve: {
     solutions: function(solutionsService, $stateParams){
       return solutionsService.getSolutions($stateParams.aid);
