@@ -114,19 +114,24 @@
 #result_area_controls .control {
   color: blue;
 }
-
 #result_area .attempt_selector {
+  max-height: 30em;
+  overflow-y: scroll;
+}
+
+#result_area .attempt_selector_item {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1em;
   padding: 5px;
   margin-bottom: 3px;
+  max-height: 60%;
   background-color: #ffffff;
   
 }
 
-#result_area .attempt_selector:hover {
+#result_area .attempt_selector_item:hover {
   background-color: #8bc34a;
 }
 
