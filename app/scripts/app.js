@@ -40,8 +40,13 @@ var homeState = {
 
 var attemptState = {
   name:'home.attempt',
+  // DO NOT REMOVE! Paper needs to be declared!
+  params: {
+    paper: null,
+    pid: null
+  },
   resolve:{
-    questions : ['attempt','$stateParams',function(attempt,$stateParams){
+    questions : ['attempt','$stateParams','paper', function(attempt,$stateParams, paper){
       //get all the questions and associated comprehension data
       //var paperid = $stateParams.pid;
       if (attempt.getAttempt()==null){
@@ -57,6 +62,9 @@ var attemptState = {
         return attempt.loadQuestions();  
       }
     }],
+    paper: ['$stateParams', function($stateParams){
+      return $stateParams.paper;
+    }]
   },
   url:'/attempt/:pid',
   templateUrl:'views/attempt.html',

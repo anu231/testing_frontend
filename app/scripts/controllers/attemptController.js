@@ -15,10 +15,11 @@ angular.module('testingFrontendApp')
     touchToDrag: false
   };
 })
-.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window','$document',
-    function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window, $document) {
+.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window','$document', '$uibModal','paper',
+    function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window, $document, $uibModal, paper) {
       $scope.init = function(questions){
         $scope.paper_title = attempt.attempt.paper_info.name;
+        $scope.paper = paper;
         if (questions!==null){
           $scope.questions = questions.data;
           $scope.paper_title = attempt.attempt.paper_info.name;
@@ -71,28 +72,55 @@ angular.module('testingFrontendApp')
 
       };
       // Finish/end paper cleanup code
-      $scope.finish = function(){
-        console.log("Autosave all questions and quit"); 
+      $scope.finish = function () {
+        console.log("Autosave all questions and quit");
         $scope.loading = true; // Shows loading sign
         $('#final_finish_button').attr('disabled', 'disabled');
         $('#final_resume_button').attr('disabled', 'disabled');
         $scope.autoSave();
-        attempt.finishAttempt().then(function(resp){
-          if(resp.status === 200){
+        attempt.finishAttempt().then(function (resp) {
+          if (resp.status === 200) {
             $('#exitModal').modal('hide');
             $('#cleanupModal').modal('hide');
-            //$timeout(function(){$window.location = "/#/home";}, 1000);
-            $timeout(function(){$state.go('^',{},{reload:true});}, 1000);
+            $timeout(function () {
+              $state.go('^', {}, {
+                reload: true
+              });
+            }, 1000);
+            attempt.generate_marks().then(function (resp) {
+              $timeout(function () {
+                $uibModal.open({
+                  templateUrl: 'views/paper-finished.html',
+                  controller: ['$uibModalInstance', '$scope', '$state', 'paper', function ($uibModalInstance, $scope, $state, paper) {
+                    $scope.paper = paper;
+                    $scope.viewResult = function (paper) {
+                      $uibModalInstance.close();
+                      var latestAttempt = paper.allAttempts.slice(-1)[0];
+                      $state.go("home.result", {
+                        'aid': latestAttempt.id,
+                        'paper': paper
+                      });
+                    };
+                  }],
+                  resolve: {
+                    paper: $scope.paper
+                  }
+                });
+              }, 2000)
+            }, function (err) {
+              alert("Crititcal ERROR: Couldnt generate marks");
+            })
           } else {
             // TODO is this necessary?
             alert("CRITICAL ERROR: Couldn't connect to server!  STATUS CODE != 200");
           }
-        }, function(err){
+        }, function (err) {
           $('#final_resume_button').attr('disabled', 'disabled');
           console.log(err);
           alert("CRITICAL ERROR: Couldn't connect to server! Please try again");
         });
       }
+
 
       // Sets the answer according to the response
       // Called by the loadQuestionStatus()

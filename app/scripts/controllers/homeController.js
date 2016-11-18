@@ -95,7 +95,7 @@ angular.module('testingFrontendApp')
                 .then(function(resp){
                   attempt.setAttempt(resp.data);
                   console.log(resp);
-                  $state.go('home.attempt',{'pid':resp.data.id});  
+                  $state.go('home.attempt',{'pid':resp.data.id, 'paper': $scope.paper});  
                 },function(err){
                   //TODO display proper error message
                   console.log(err);
