@@ -78,6 +78,7 @@ angular.module('testingFrontendApp')
         $('#final_finish_button').attr('disabled', 'disabled');
         $('#final_resume_button').attr('disabled', 'disabled');
         $scope.autoSave();
+        // Finish attempt then redirect user to refreshed home page
         attempt.finishAttempt().then(function (resp) {
           if (resp.status === 200) {
             $('#exitModal').modal('hide');
@@ -87,19 +88,17 @@ angular.module('testingFrontendApp')
                 reload: true
               });
             }, 1000);
+            // Generate marks and show a paper finished modal with a viewResults insta button.
             attempt.generate_marks().then(function (resp) {
               $timeout(function () {
                 $uibModal.open({
                   templateUrl: 'views/paper-finished.html',
-                  controller: ['$uibModalInstance', '$scope', '$state', 'paper', function ($uibModalInstance, $scope, $state, paper) {
-                    $scope.paper = paper;
-                    $scope.viewResult = function (paper) {
+                  controller: ['$uibModalInstance', '$scope', '$state','$rootScope','paper', function ($uibModalInstance, $scope, $state,$rootScope, paper) {
+                    $scope.paper = paper; // TODO Not needed?
+                    $scope.viewResult = function(paper) {
                       $uibModalInstance.close();
-                      var latestAttempt = paper.allAttempts.slice(-1)[0];
-                      $state.go("home.result", {
-                        'aid': latestAttempt.id,
-                        'paper': paper
-                      });
+                      // Calls method that redirects to the result state
+                      $rootScope.$broadcast('viewResult', {paper: paper});
                     };
                   }],
                   resolve: {
