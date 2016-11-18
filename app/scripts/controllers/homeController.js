@@ -84,10 +84,20 @@ angular.module('testingFrontendApp')
 
       // Open the "Attempt/Resume paper modal"
       $scope.attemptPaper = function(paper){
+        if(paper.status != undefined){
+          var latestAttempt = paper.allAttempts.slice(-1)[0];
+          var latestAttemptDate = new Date(latestAttempt.starttime);
+          latestAttempt.date = latestAttemptDate.toLocaleDateString();
+        } else {
+          var latestAttempt = undefined;
+        }
         var paperInstance = $uibModal.open({
           templateUrl:'views/paper-start.html',
-          controller:['$uibModalInstance','paper','$scope','$state','attempt', function($uibModalInstance,paper,$scope,$state,attempt){
+          controller:['$uibModalInstance','paper','$scope','$state','attempt','latestAttempt', function($uibModalInstance,paper,$scope,$state,attempt,latestAttempt){
             $scope.paper = paper;
+            // var latestAttemptDate = new Date(latestAttempt.starttime);
+            // latestAttempt.date = latestAttemptDate.toLocaleDateString();
+            $scope.latestAttempt = latestAttempt;  // Undefined if first attempt
             $scope.startPaper = function(){
               $uibModalInstance.close();
               //create the attempt
@@ -104,7 +114,8 @@ angular.module('testingFrontendApp')
             };
           }],
           resolve:{
-            paper:paper
+            paper:paper,
+            latestAttempt: latestAttempt
           }
         });
       };
@@ -115,6 +126,13 @@ angular.module('testingFrontendApp')
         var latestAttempt = paper.allAttempts.slice(-1)[0];
         $state.go("home.result", {'aid':latestAttempt.id, 'paper':paper});
       };
+      // View result from the paper-finished modal.
+      $scope.$on('viewResult', function (event, payload) {
+        var paperId = payload.paper.id;  // payload.paper is outdated by now as new attempt is already created.
+        // Because after finishing the paper, view is refreshed, find paper again.
+        var paperRefreshed = _.filter($scope.available_papers, function(paper){return paper.id == paperId})[0]
+        $scope.viewResult(paperRefreshed);
+      });
 
       $scope.init();
 
