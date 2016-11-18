@@ -76,4 +76,8 @@ angular.module('testingFrontendApp')
     return $http.post(this.attempt_url+this.attempt.id+'/save_answers/',{'ua':ua});
   }
 
+  this.generate_marks = function(){
+    return $http.get(this.attempt_url+this.attempt.id+'/generate_marks/')
+  }
+
 }]);
