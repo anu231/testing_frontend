@@ -1,11 +1,13 @@
 <div>
   <div class='panel panel-default'>
-    <div class='panel-heading'>{{paper.name}}</div>
+    <div class='panel-heading text-center'><h4>{{paper.name}}</h4></div>
     <div class='panel-body'>
-      <div ng-if="!paper.status"> <h4 > Start Paper</h4> </div>
-      <div ng-if="paper.status=='attempted'"> <h4 > Last Attempted on: 12:12:12</h4> </div>
-      <div ng-if="paper.status=='ongoing'"> <h4 > Started on: {{yolo}}</h4> </div>
+      <div><b>Duration: {{paper.time}}</b></div>
+      <div ng-if="!paper.status"><b>Status: You have never attempted this paper before</b></div>
+      <div ng-if="paper.status=='attempted'"><b>Last Attempted on: {{latestAttempt.date}}</b></div>
+      <div ng-if="paper.status=='ongoing'"><b>Started on: {{yolo}}</b></div>
       <hr>
+      <h5>Instructions</h5>
       <div ng-bind-html="paper.instructions"></div>
     </div>
     <div class="panel-footer">
