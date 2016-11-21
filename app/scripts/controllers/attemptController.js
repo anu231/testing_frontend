@@ -293,8 +293,9 @@ angular.module('testingFrontendApp')
           question.useranswer.answer = "null";
           question.useranswer.timetaken = question.timetaken;
           function success(resp){
+            console.log(resp);
             question.useranswer.answer = resp.answer;
-            question.useranswer.isSubmitted = false;
+            question.useranswer.isSubmitted = true;
             question.answer = undefined;
             question.answerA = undefined;
             question.answerB = undefined;
