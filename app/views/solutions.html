@@ -17,7 +17,7 @@
 
       <section ng-if="question.ques_type == 'SC' || question.ques_type == 'MC' || question.ques_type == 'TF' || question.ques_type == 'AR'" >
         <div class="question-no" ng-class="{'solution-correct': question.useranswer.score > 0, 'solution-incorrect': question.useranswer.score < 0 && question.useranswer}">
-          <p><b>{{$index + 1}}</b> {{question.ques_type}}</p>
+          <b>{{$index + 1}}</b> &nbsp; ({{question.ques_type}})
         </div>
         <div class="question-body" ng-bind-html="question.question">
         </div>
@@ -25,45 +25,59 @@
         <div class="options">
           <div class="option" ng-repeat="(key, val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}">
             <div class="option-letter">
-              {{key}}
+              <b>{{key}}</b>
             </div>
             <div class="option-body" ng-bind-html="question[val]">
             </div>
           </div>
         </div>
         <hr>
-        <div>
-          <div class="solution">
-            Correct Answer: {{question.answer_key}}
+        <div class="answers">
+          <div class="correct-answer">
+            <b>Correct Answer:</b> {{question.answer_key}}
           </div>
-          <div class="user_answer" ng-if="question.useranswer != undefined">
-            Your Answer: {{question.useranswer.answer}} <br>
-            Time Spent on this question: {{question.useranswer.timetaken}}
+          <div class="user-answer" ng-if="question.useranswer != undefined && question.useranswer.answer!='null'">
+            <b>Your Answer:</b> {{question.useranswer.answer}} <br>
           </div>
-          <div class="user_answer" ng-if="question.useranswer==undefined">
-            Your Answer: Unattempted
+          <div class="user-answer" ng-if="question.useranswer==undefined || question.useranswer.answer=='null'">
+            <b>Your Answer:</b> Unattempted
           </div>
+          <div class="time-spent" ng-if="question.useranswer!=undefined || question.useranswer.answer=='null'">
+            <b>Time Spent:</b> {{question.useranswer.timetaken.slice(3)}}
+          </div>
+        </div>
+        <h5><button class="btn btn-primary" ng-if="question.show_solution==false || question.show_solution==undefined" ng-click="showSolution(question)">Show Solution</button></h5>
+        <h5><button class="btn btn-primary" ng-if="question.show_solution==true" ng-click="showSolution(question)">Hide Solution</button></h5>
+        <div ng-class="{'hint':true, 'visible': question.show_solution}">
+          <div ng-bind-html="question.hint"></div>
         </div>
       </section>
 
       <section ng-if="question.ques_type == 'IT'">
         <div class="question-no" ng-class="{'solution-correct': question.useranswer.score > 0, 'solution-incorrect': question.useranswer.score < 0 && question.useranswer}">
-          <p><b>{{$index + 1}}</b> {{question.ques_type}}</p>
+          <b>{{$index + 1}}</b> &nbsp; ({{question.ques_type}})
         </div>
         <div class="question-body" ng-bind-html="question.question">
         </div>
         <hr>
-        <div>
-          <div class="solution">
-            Correct Answer: {{question.answer_key}}
+        <div class="answers">
+         <div class="correct-answer">
+            <b>Correct Answer:</b> {{question.answer_key}}
           </div>
-          <div class="user_answer" ng-if="question.useranswer != undefined">
-            Your Answer: {{question.useranswer.answer}} <br>
-            Time Spent on this question: {{question.useranswer.timetaken}}
+          <div class="user-answer" ng-if="question.useranswer != undefined">
+            <b>Your Answer:</b> {{question.useranswer.answer}} <br>
           </div>
-          <div class="user_answer" ng-if="question.useranswer==undefined">
-            Your Answer: Unattempted
+          <div class="user-answer" ng-if="question.useranswer==undefined">
+            <b>Your Answer:</b> Unattempted
           </div>
+          <div class="time-spent" ng-if="question.useranswer!=undefined">
+            <b>Time Spent:</b> {{question.useranswer.timetaken.slice(3)}}
+          </div>
+        </div>
+        <h5><button class="btn btn-primary" ng-if="question.show_solution==false || question.show_solution==undefined" ng-click="showSolution(question)">Show Solution</button></h5>
+        <h5><button class="btn btn-primary" ng-if="question.show_solution==true" ng-click="showSolution(question)">Hide Solution</button></h5>
+        <div ng-class="{'hint':true, 'visible': question.show_solution}">
+          <div ng-bind-html="question.hint"></div>
         </div>
       </section>
 
@@ -77,24 +91,31 @@
         <div class="options">
           <div class="option" ng-repeat="(key, val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}">
             <div class="option-letter">
-              {{key}}
+              <b>{{key}}</b>
             </div>
             <div class="option-body" ng-bind-html="question[val]">
             </div>
           </div>
         </div>
-        <hr>        
-        <div >
-          <div class="solution">
-            Correct Answer: {{question.answer_key}}
+        <hr>
+        <div class="answers">
+          <div class="correct-answer">
+            <b>Correct Answer:</b> {{question.answer_key}}
           </div>
-          <div class="user_answer" ng-if="question.useranswer != undefined">
-            Your Answer: {{question.useranswer.answer_key}} <br>
-            Time Spent on this question: {{question.useranswer.timetaken}}
+          <div class="user-answer" ng-if="question.useranswer != undefined">
+            <b>Your Answer:</b> {{question.useranswer.answer}} <br>
           </div>
-          <div class="user_answer" ng-if="question.useranswer==undefined">
-            Your Answer: Unattempted
+          <div class="user-answer" ng-if="question.useranswer==undefined">
+            <b>Your Answer:</b> Unattempted
           </div>
+          <div class="time-spent" ng-if="question.useranswer!=undefined">
+            <b>Time Spent:</b> {{question.useranswer.timetaken.slice(3)}}
+          </div>
+        </div>
+        <h5><button class="btn btn-primary" ng-if="question.show_solution==false || question.show_solution==undefined" ng-click="showSolution(question)">Show Solution</button></h5>
+        <h5><button class="btn btn-primary" ng-if="question.show_solution==true" ng-click="showSolution(question)">Hide Solution</button></h5>
+        <div ng-class="{'hint':true, 'visible': question.show_solution}">
+          <div ng-bind-html="question.hint"></div>
         </div>
       </section>
 
