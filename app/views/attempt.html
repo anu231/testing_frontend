@@ -92,7 +92,7 @@
       </div> <!-- /options SC  -->
 
       <!--options for MC-->
-      <div ng-if="selectedQuestion.ques_type=='MC'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+      <div ng-if="selectedQuestion.ques_type=='MC'" id="question_card" class="col-xs-12 col-md-8 col-md-offset-2">
         <ul id="question_body_box" class="list-group">
           <a ng-if="selectedQuestion.isChRelated == true" class="list-group-item comprehension">
             <h4>Paragraph:</h4>
@@ -116,7 +116,7 @@
       </div> <!-- /mc  -->
 
       <!--options for IT-->
-      <div ng-if="selectedQuestion.ques_type=='IT'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+      <div ng-if="selectedQuestion.ques_type=='IT'" id="question_card" class="col-xs-12 col-md-8 col-md-offset-2">
         <ul id="question_body_box" class="list-group">
           <a class="list-group-item">
             <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
@@ -130,7 +130,7 @@
       </div> <!-- /IT  -->
 
       <!-- TF  -->
-      <div ng-if="selectedQuestion.ques_type=='TF'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+      <div ng-if="selectedQuestion.ques_type=='TF'" id="question_card" class="col-xs-12 col-md-8 col-md-offset-2">
         <ul id="question_body_box" class="list-group">
           <a href="#" class="list-group-item">
             <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
@@ -151,7 +151,7 @@
       </div> <!-- /TF -->
 
       <!-- AR  -->
-      <div ng-if="selectedQuestion.ques_type=='AR'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+      <div ng-if="selectedQuestion.ques_type=='AR'" id="question_card" class="col-xs-12 col-md-8 col-md-offset-2">
         <ul id="question_body_box" class="list-group">
           <a href="#" class="list-group-item">
             <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
@@ -177,7 +177,7 @@
       </div> <!-- /ar  -->
 
       <!-- ch  -->
-      <div ng-if="selectedQuestion.ques_type=='CH'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+      <div ng-if="selectedQuestion.ques_type=='CH'" id="question_card" class="col-xs-12 col-md-8 col-md-offset-2">
         <h3>Comprehension Type</h3>
         <ul id="question_body_box" class="list-group">
           <a ng-if="true" class="list-group-item comprehension">
@@ -206,7 +206,7 @@
       </div> <!-- /ch  -->
 
       <!-- SA  --> 
-      <div ng-if="selectedQuestion.ques_type=='SA'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+      <div ng-if="selectedQuestion.ques_type=='SA'" id="question_card" class="col-xs-12 col-md-8 col-md-offset-2">
         <ul id="question_body_box" class="list-group">
           <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
           <a href="#" class="list-group-item">
@@ -221,7 +221,7 @@
       </div> <!-- /SA  -->
 
       <!-- MT  --> 
-      <div ng-if="selectedQuestion.ques_type=='MT'" id="" class="col-xs-12 col-md-8 col-md-offset-2">
+      <div ng-if="selectedQuestion.ques_type=='MT'" id="question_card" class="col-xs-12 col-md-8 col-md-offset-2">
         <ul id="question_body_box" class="list-group">
           <a  class="list-group-item">
             <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>

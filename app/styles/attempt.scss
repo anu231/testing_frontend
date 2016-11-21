@@ -17,6 +17,10 @@ $listGroupItemBgColor: #ffffff;
   background-color: black;
 }
 
+.view-attempt img {
+  max-width: 100%;
+}
+
 /*START Question state classes*/
 /* Header row */
 #index_header{
@@ -293,7 +297,7 @@ $listGroupItemBgColor: #ffffff;
   top: 8%;
   height: 80%;
   max-height: 86%;
-  padding: 10px;
+  padding: 0px;
   overflow-y: scroll;
 }
 
@@ -304,6 +308,7 @@ $listGroupItemBgColor: #ffffff;
 
 #question_area #question_card {
   margin-bottom: 50px;
+  padding: 0px;
 }
 
 #question_body {
@@ -483,8 +488,8 @@ input[type=checkbox]:checked + label > .custom-checkbox{
   padding: 6px;
   opacity: 1;
   background-color: white;
-  border-radius: 0px;
-  box-shadow: 0px 3px 18px 5px #212121;
+  border-radius: 2px;
+  box-shadow: 0px 2px 6px 2px #333333;
   transition: 0.5s ease all;
   font-size: 1.3em;
 }
@@ -531,21 +536,10 @@ input[type=checkbox]:checked + label > .custom-checkbox{
 
 @media only screen and (max-width: 700px) {
   .alert-box {
-    position: absolute;
-    display: inline-block;
     width: 90%;
     bottom: 10%;
     margin-left: 5%;
     margin-right: 25%;
-    z-index: 11;
-    color: #212121;
-    padding: 6px;
-    opacity: 1;
-    background-color: white;
-    border-radius: 0px;
-    box-shadow: 0px 3px 18px 5px #212121;
-    transition: 0.5s ease all;
-    font-size: 1.3em;
   }
   .alert-box-red{
     background-color: #F44336;
@@ -590,6 +584,10 @@ input[type=checkbox]:checked + label > .custom-checkbox{
   #alert_message {
     display: inline-block;
   }
+}
+// Remove ugly angular-induced border on selected items
+label:focus{
+  outline:none;
 }
 
 #global_timer:hover { animation: shiver 0.03s 10, blow 0.1s 2; animation-direction: alternate; }
