@@ -68,16 +68,13 @@
   border-radius: 5px
 }
 .solutions-container .question-card .options {
-  border: 1px solid #333333;
-  border-radius: 5px;
 }
 .solutions-container .question-card .options .option {
   display: flex;
   justify-content: flex-start;
   width: 100%;
   padding: 2px;
-  border-bottom: 1px solid #333333;
-  border-right: 1px solid #333333;
+  border: 1px solid #929292;
 }
 
 .solutions-container .option-letter {
@@ -131,4 +128,17 @@
     position: fixed;
     font-size: 1em;
   }
+  
+  .solutions-container {
+    left: 2%;
+    right: 2%;
+  }
+  
+  .solutions-container .question-card {
+    width: 100%;
+    background-color: #ffffff;
+    margin-bottom: 4%;
+    margin-left: 0;
+  }
+
 }

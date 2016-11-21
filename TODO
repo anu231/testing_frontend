@@ -123,6 +123,7 @@
 TESTING:
   Add cancel button to the paper start modal
   Implement some kind of introduction mechanism (A help button on all screens)
+  In attempt view, widen question_cards on smaller screens
 
 
 

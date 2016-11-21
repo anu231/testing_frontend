@@ -32,6 +32,7 @@ angular.module('testingFrontendApp')
 
       $scope.showSolution = function(question){
         question.show_solution ? question.show_solution = false : question.show_solution=true;
+        console.log(question);
       }
 
 

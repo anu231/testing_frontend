@@ -97,6 +97,10 @@ var solutionsState = {
   url: '/attempts/:aid/get_solutions',
   templateUrl: 'views/solutions.html',
   controller: 'SolutionsCtrl',
+  params :{
+    attempt: null,
+    solutions: null,
+  },
   resolve: {
     solutions: function(solutionsService, $stateParams){
       return solutionsService.getSolutions($stateParams.aid);
