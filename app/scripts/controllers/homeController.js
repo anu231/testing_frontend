@@ -8,8 +8,8 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt','userService','$timeout','$window',
-    function ($scope,$state,available_papers,user_attempts,$uibModal,attempt, userService,$timeout, $window) {
+.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt','userService','$timeout','$window','$interval',
+    function ($scope,$state,available_papers,user_attempts,$uibModal,attempt, userService,$timeout, $window, $interval) {
       //$scope.available_papers = available_papers;
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
@@ -29,6 +29,7 @@ angular.module('testingFrontendApp')
             p['status'] = 'ongoing';
             p['ongoingAttempt'] = $scope.user_attempts[i];
             p['attemptStartTime'] = $scope.user_attempts[i].starttime;
+            $scope.setOngoingTimer(p); // Sets the live ongoing-remaining timer on paper
           } else {
             p['status'] = 'attempted';
           }
@@ -61,7 +62,7 @@ angular.module('testingFrontendApp')
         return time
       }
 
-      // TODO BUGGY
+      // Returns formatted time remaining for ongoing papers
       $scope.getRemainingTime = function(paper){
         var st = new Date(paper.attemptStartTime);
         var now = new Date();
@@ -77,10 +78,16 @@ angular.module('testingFrontendApp')
           }
         return format_time(hrs) + ":" + format_time(mins);
       }
-        $scope.getRemainingTime2 = function(paper){
-        console.log(paper.attemptStartTime);
-        
+
+      $scope.setOngoingTimer = function (paper) {
+        paper.time_remaining = $scope.getRemainingTime(paper); // Set once
+        // Repeat every minute
+        paper.timer_handler = $interval(function () {
+          paper.time_remaining = $scope.getRemainingTime(paper);
+          console.log("tick");
+        }, 60000)
       }
+
 
       // Open the "Attempt/Resume paper modal"
       $scope.attemptPaper = function(paper){
@@ -93,7 +100,7 @@ angular.module('testingFrontendApp')
         }
         var paperInstance = $uibModal.open({
           templateUrl:'views/paper-start.html',
-          controller:['$uibModalInstance','paper','$scope','$state','attempt','latestAttempt', function($uibModalInstance,paper,$scope,$state,attempt,latestAttempt){
+          controller:['$uibModalInstance','paper','$scope','$state','attempt','latestAttempt','$interval', function($uibModalInstance,paper,$scope,$state,attempt,latestAttempt,$interval){
             $scope.paper = paper;
             // var latestAttemptDate = new Date(latestAttempt.starttime);
             // latestAttempt.date = latestAttemptDate.toLocaleDateString();
