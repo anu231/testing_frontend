@@ -7,6 +7,9 @@
   background: #f1f1f1;
   overflow-y: scroll;
 }
+.view-attempt-solutions-parent img {
+  max-width: 100%;
+}
 .view-attempt-solutions-parent #solutions_top_bar{
   position: fixed;
   display: flex;
@@ -67,8 +70,7 @@
   margin-bottom: 10px;
   border-radius: 5px
 }
-.solutions-container .question-card .options {
-}
+
 .solutions-container .question-card .options .option {
   display: flex;
   justify-content: flex-start;
