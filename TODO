@@ -31,9 +31,9 @@
 
 
 2016-10-08 17:36
-  Update css for the view: attempt (THIS NEVER ENDS)
-  --Add controller functions for 'attempt'
-  --Implement restangular
+  -- Update css for the view: attempt (THIS NEVER ENDS)
+  -- Add controller functions for 'attempt'
+  -- Implement restangular
   Collect more metadata- Location device-type
                   
 2016-10-12 13:56
@@ -51,15 +51,15 @@
   -- implement clear option button
   -- sync notif
   -- window close alert in attempt.js
-  --make error notification dismissable{cancelled}
+  -- make error notification dismissable{cancelled}
   google-analytics
   different toolbars(??)
   intro.js
-  --angularcharts
+  -- angularcharts
 
 
 2016-10-17 14:28
-  Swipe navigation on mobile devices
+  -- Swipe navigation on mobile devices
   Click to expand images on mobile devices
   Responsive images on mobile
   -- list groups in index look ugly... fix or revert back to divs
@@ -85,7 +85,7 @@
  
 2016-10-25 17:02
   -- reload the resolves on reaching home
-  -on hitting the back button in attempt.html show alert [BUGGY]
+  -- on hitting the back button in attempt.html show alert [BUGGY]
   -- load the answers when attempt resumes
 
 2016-11-04 11:26
@@ -99,7 +99,7 @@
   Display charts contextually
   -- Make Result view Responsive
   --If possible, add left/right arrow question seeking. 
-  Make home view responsive
+  -- Make home view responsive
 
 2016-11-10
   Hide legend for chart_bar in results
@@ -108,17 +108,24 @@
   On clicking on "Trend over time"'s date, select that attempt.
 
 2016-11-15
-  Add a solution view
+  -- Add a solution view
   pull usermarks lazily rather than preloading em
   Check out the competition- topper, fiitjee
   Question markers for integer and subjective type not working
-  ATTEMPTS AND SOLUTIONS 
+  --ATTEMPTS AND SOLUTIONS 
   LATEX URLS HARDCODED
   
 2016-11-15
   Adapt generate_marks for CH marking
   Topic wise analysis in Results
+  --Alert user on home if marks are available
   
+TESTING:
+  Add cancel button to the paper start modal
+  Implement some kind of introduction mechanism (A help button on all screens)
+
+
+
 ***************************
 ** Data collection Ideas **
 ***************************
