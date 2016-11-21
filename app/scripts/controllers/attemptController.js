@@ -401,10 +401,11 @@ angular.module('testingFrontendApp')
         var ques_valid = $scope.validateAndFormatAnswer(question); 
 
         if (ques_valid===true){
-          if (!question.useranswer.isSubmitted){
+          if (!question.isSavedOnce){
             useranswer.saveAnswer(question.useranswer)
             .then(function(resp){
               $scope.alert_notification({msg: "Answer Saved.", theme:"green"});
+              question.isSavedOnce = true;
               question.useranswer.answer = resp.answer;
               question.useranswer.id = resp.id;
               question.useranswer.isSubmitted = true;
