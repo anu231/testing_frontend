@@ -253,3 +253,17 @@
   }
 
 }
+
+@media only screen and (max-width: 400px) {
+  #home_papers_small .paper-card{
+    width: 100%;
+    margin-bottom: 5%;
+    margin-left: 0;
+  }
+  #home_papers_small .paper-action {
+    flex-grow: 1;
+  }
+  #home_papers_small .paper-results {
+    flex-grow: 1;
+  }
+}
