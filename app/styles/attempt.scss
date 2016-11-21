@@ -22,10 +22,11 @@ $listGroupItemBgColor: #ffffff;
 #index_header{
   position: fixed;
   display: flex;
+  justify-content: center;
+  align-items: center;
   height: 6.5%;
   color: white;
-  /*width: 19%;*/
-  width: 270px; // Small screens
+  width: 270px;
   z-index: 1000;
   color: black;
   background-color: $indexHeaderBgColor;
@@ -217,7 +218,7 @@ $listGroupItemBgColor: #ffffff;
   position: relative;
   display: inline-block;
   height: 100%;
-  width: 7em;
+  width: 6em;
   text-align: center;
   padding: 5px;
   font-size: 1.2em;
@@ -228,7 +229,7 @@ $listGroupItemBgColor: #ffffff;
   position: relative;
   display: inline-block;
   height: 100%;
-  width: 7em;
+  width: 4em;
   text-align: center;
   padding: 5px;
   font-size: 1.2em;

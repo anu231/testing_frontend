@@ -32,7 +32,8 @@
           <div id="paper_details">
             <div class="paper-detail"><span class="label label-default">Duration: {{selectedAttempt.duration}} hrs</span></div>
             <div class="paper-detail"><span class="label label-default">Attempted on: {{selectedAttempt.attempt_date}}</span></div>
-            <div class="paper-detail"><span class="label label-default">Attempted {{current_paper_attempts.length}} times</span></div>
+            <div ng-if="current_paper_attempts.length == 1" class="paper-detail"><span class="label label-default">Attempted once</span></div>
+            <div ng-if="current_paper_attempts.length > 1" class="paper-detail"><span class="label label-default">Attempted {{current_paper_attempts.length}} times</span></div>
             <div class="paper-detail"><span class="label label-default">Expires on: {{selectedAttempt.expiry_date}}</span></div>
           </div>
           <p><b>Marking scheme: </b></p>
