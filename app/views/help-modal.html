@@ -1,0 +1,78 @@
+<!-- For when paper is about to start -->
+<div id="help" class="panel">
+  <div class="modal-dialog "role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="closeModal()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">
+          <u>Help:</u>
+        </h4>
+      </div>
+      <div class="modal-body" id="help_modal_body">
+        <section>
+          <h6><b>Legend</b></h6>
+          <ul>
+            <li><span class="glyphicon glyphicon-ok-sign"></span> Represent Saved Answers</li>
+            <li><span class="glyphicon glyphicon-record"></span> Represent Attempted Answers but Not Saved</li>
+          </ul>
+        </section>
+        <section>
+          <h6><b>Answering and Saving</b></h6>
+          <p>Click on the 
+            <button class="btn btn-success control-button"><span class="glyphicon glyphicon-ok"></span> Save</button>
+             button to Save an answer. Note: Without saving, your answers will not be assessed.
+          </p>
+          <p>Click on the 
+            <button class="btn btn-danger control-button"><span class="glyphicon glyphicon-exclamation-sign"></span> Clear</button>
+             button to Clear an answer. Note: Cleared answers are saved automatically.
+          </p>
+          <ul>
+            <li>Single Correct, True/False, Assertion Reasoning: Select the appropriate choice and click Save</li>
+            <li>Multiple Correct, Matrix Type: Select all the appropriate choices and click Save</li>
+            <li>Integer Type: Enter your answer in the field and click Save</li>
+          </ul>
+        </section>
+        <section>
+          <h6><b>Navigation</b></h6>
+          <u>On Desktops:</u>
+          <ul>
+            <li>Click on the 
+              <button ng-class="{'btn':true, 'btn-default':true, 'control-nav-button':true}"><span class="glyphicon glyphicon-arrow-left"></span> Prev.</button>
+              /<button ng-class="{'btn': true,'btn-default':true,'control-nav-button':true}">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
+              buttons at the bottom to go to the Previous/Next question
+            </li>
+            <li>Click on the Question in the left drawer to go directly to that question.</li>
+          </ul>
+          <u>On Smartphones and Tablets:</u>
+          <ul>
+            <li>Click on the 
+              <button ng-class="{'btn':true, 'btn-default':true, 'control-nav-button':true}"><span class="glyphicon glyphicon-arrow-left"></span> Prev.</button>
+              /<button ng-class="{'btn': true,'btn-default':true,'control-nav-button':true}">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
+              buttons at the bottom to go to the Previous/Next question
+            </li>
+            <li>You can also Swipe Left/Right to go to the Previos/Next question.</li>
+            <li>Click on the Drawer button <button class="btn btn-default control-nav-button"><span class="glyphicon glyphicon-list"></span></button>on the top left corner to reveal the drawer And tap on the question you want to jump
+              to.
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h6><b>Important</b></h6>
+          <ul>
+            <li>Do not reload or refresh this page under any circumstances</li>
+            <li>You Must save all your answers.</li>
+            <li>If you are done, Click on the 
+              <button class="btn btn-danger control-nav-button"><span class="glyphicon glyphicon-log-out"> Finish</span></button>
+               button on the top right corner. Note, this will save All your answers, even
+              the unsaved ones. </li>
+          </ul>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="closeModal()">
+            Close
+          </button>
+      </div>
+    </div>
+  </div>
+</div>

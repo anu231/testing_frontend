@@ -31,8 +31,21 @@ angular.module('testingFrontendApp')
               $scope.setUpQuestions();
             }); 
         }
+        timer_start();
       };
 
+      // Instructions/Help modal. Used by the help button
+      $scope.showHelp = function(){
+        $uibModal.open({
+          templateUrl: 'views/help-modal.html',
+          controller: ['$uibModalInstance', '$scope', '$state', '$rootScope',
+          function($uibModalInstance, $scope, $state, $rootScope){
+            $scope.closeModal = function() {
+              $uibModalInstance.close();
+            }
+          }]
+        })
+      }
       // Autosave all the attempted questions
       // Used by the 10 minute autosave reminder modal
       $scope.autoSave = function(){
@@ -176,7 +189,7 @@ angular.module('testingFrontendApp')
           time_disp.html(time_str); 
         },1000);
       }
-      timer_start();
+
 
       // Question process pipeline; Also sets up the first question
       // Used by the init?
