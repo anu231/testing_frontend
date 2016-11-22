@@ -8,8 +8,8 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-  .controller('MainCtrl',['$state','$rootScope','$scope', 'userService', 
-  	function ($state,$rootScope,$scope, userService) {
+  .controller('MainCtrl',['$state','$rootScope','$scope', 'userService', '$timeout', '$window',
+  	function ($state,$rootScope,$scope, userService, $timeout, $window) {
     $scope.init = function(){
     	//$rootScope.baseURL = 'http://localhost:8000/';
     	//$scope.uirouterDebug();
@@ -19,7 +19,7 @@ angular.module('testingFrontendApp')
 			}, function(err){
 				console.log(err);
 				alert("Error You are not logged in / authorized! Please log in to continue");
-        $timeout(function(){$window.location.href="http://www.raoeduconnect.com"}, 3000);
+        // $timeout(function(){$window.location.href="http://www.raoeduconnect.com"}, 3000);
 			});
 			$scope.logout = function(){
 				userService.logout();
