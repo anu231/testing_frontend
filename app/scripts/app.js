@@ -85,10 +85,10 @@ var resultState = {
     p_user_attempts :['attempt',function(attempt){
       return attempt.loadAttempts();
     }],
-    // Unreliable when abrupt state change or reload. REMOVE! TODO
-    p_current_paper: ['$stateParams', function($stateParams){
-      return $stateParams.paper;
-    }]
+    // // Unreliable when abrupt state change or reload. REMOVE! TODO
+    // p_current_paper: ['$stateParams', function($stateParams){
+    //   return $stateParams.paper;
+    // }]
   },
 }
 
