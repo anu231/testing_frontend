@@ -84,7 +84,6 @@ angular.module('testingFrontendApp')
         // Repeat every minute
         paper.timer_handler = $interval(function () {
           paper.time_remaining = $scope.getRemainingTime(paper);
-          console.log("tick");
         }, 60000)
       }
 
@@ -111,11 +110,9 @@ angular.module('testingFrontendApp')
               attempt.startOrFetchAttempt(paper, paper.status)
                 .then(function(resp){
                   attempt.setAttempt(resp.data);
-                  console.log(resp);
                   $state.go('home.attempt',{'pid':resp.data.id, 'paper': $scope.paper});  
                 },function(err){
                   //TODO display proper error message
-                  console.log(err);
                   alert("Couldn't start paper");
                 });
             };

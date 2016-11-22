@@ -30,17 +30,13 @@ angular.module('testingFrontendApp')
      fetches the specified attempt from the server
      */
   this.fetchAttempt = function(att_id){
-    console.log("fetching...");
     return $http.get(this.attempt_url+att_id+'/');
   }
   //Starts a new attempt or resumes an ongoing attempt
   this.startOrFetchAttempt = function(paper){
-    console.log(paper);
     if(paper.status == "ongoing"){
-      console.log("resuming..." + paper.ongoingAttempt);
       return this.fetchAttempt(paper.ongoingAttempt.id); 
     } else if(paper.status == "attempted" || paper.status == undefined){
-      console.log("creating new...");
       return this.startNewAttempt(paper.id); 
     } else {
       alert("critical error: Couldn't start or resume attempt"); 

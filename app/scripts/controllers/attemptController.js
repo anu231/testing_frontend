@@ -36,11 +36,9 @@ angular.module('testingFrontendApp')
       // Autosave all the attempted questions
       // Used by the 10 minute autosave reminder modal
       $scope.autoSave = function(){
-        console.log("Auto Saving question "); 
         var autosave_ua = [];
         $scope.questions.forEach(function(q){
           if(q.useranswer!==undefined){  // undefined == never viewed/clicked. Timetaken == 0
-            console.log("autosaving: " + q.id);
             if(q.answer !==undefined){
               var ques_valid = $scope.validateAndFormatAnswer(q); 
               if(ques_valid === true){ autosave_ua.push(q.useranswer);}
@@ -73,7 +71,6 @@ angular.module('testingFrontendApp')
       };
       // Finish/end paper cleanup code
       $scope.finish = function () {
-        console.log("Autosave all questions and quit");
         $scope.loading = true; // Shows loading sign
         $('#final_finish_button').attr('disabled', 'disabled');
         $('#final_resume_button').attr('disabled', 'disabled');
@@ -148,7 +145,6 @@ angular.module('testingFrontendApp')
         var now = new Date();
         var attempt_start_time = new Date(attempt.attempt.starttime);
         var duration = Math.floor(attempt.attempt.paper_info.duration - (now - attempt_start_time)/1000);
-        console.log(duration);
         // Set the 10 min reminder timeout
         $timeout(function(){$('#servantModal').modal('show');}, (duration - 600) * 1000);
         var time = duration;
@@ -201,8 +197,6 @@ angular.module('testingFrontendApp')
         });
         attempt.loadQuestionStatus()
         .then(function(resp){
-          //console.log(resp);
-          //$scope.status = resp.data;
           resp.data.forEach(function(ua){
             var qs = _.find($scope.questions,function(qs){return qs.id===ua.question});
             qs.useranswer = ua;
@@ -293,7 +287,6 @@ angular.module('testingFrontendApp')
           question.useranswer.answer = "null";
           question.useranswer.timetaken = question.timetaken;
           function success(resp){
-            console.log(resp);
             question.useranswer.answer = resp.answer;
             question.useranswer.isSubmitted = true;
             question.answer = undefined;
@@ -365,7 +358,6 @@ angular.module('testingFrontendApp')
                 }
               });
             });
-            console.log(matrix_answer);
             question.useranswer.answer = JSON.stringify(matrix_answer);
             question.useranswer.timetaken = question.timetaken;
 
@@ -413,7 +405,6 @@ angular.module('testingFrontendApp')
               $scope.alert_notification({msg:"Couldn't save your answer: Please check your internet connection!", theme:"red"});
             });
           } else {
-            console.log("PUTTING!");
             useranswer.updateAnswer(question.useranswer)
             .then(function(resp){
               $scope.alert_notification({msg: "Answer Updated.", theme:"green", time:2000});
@@ -425,7 +416,6 @@ angular.module('testingFrontendApp')
             });
           }
         } else {
-          console.log(ques_valid);
           $scope.alert_notification(ques_valid);
         }
       };

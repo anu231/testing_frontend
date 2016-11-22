@@ -13,20 +13,23 @@ angular.module('testingFrontendApp')
       console.log(attempt);
       $scope.attempt = attempt;
       $scope.solutions = solutions.data;
-      // $scope.solutions.forEach(function (s) {
-      //   // Remove CH type questions.
-      //  if(s.ques_type === 'CH'){
+      // TODO
+      // $scope.setUpQuestions = function(){
+      //   $scope.solutions.forEach(function(solution){
+      //     if(solution.ques_type === 'CH'){
       //       // Mark the next n questions as 'isChRelated = True'
-      //       var lengthLinkedQuestions = s.comprehension_list.length;
-      //       var currentIndex = $scope.solutions.indexOf(s);
+      //       var lengthLinkedQuestions = solution.comprehension_list.length;
+      //       var currentIndex = $scope.solutions.indexOf(solution);
       //       for(var i=0; i<lengthLinkedQuestions; i++){
       //         $scope.solutions[currentIndex + i + 1].isChRelated = true;
-      //         $scope.solutions[currentIndex + i + 1].chQuestion = s.question;
+      //         $scope.solutions[currentIndex + i + 1].chQuestion = solution.question;
       //       }
       //       // Remove ch question from the array
-      //       $scope.solutions.splice($scope.solutions.indexOf(s), 1);
+      //       $scope.solutions.splice($scope.solutions.indexOf(solution), 1);
       //     }
-      // });
+      //   });
+      // }
+      // $scope.setUpQuestions();
       $scope.questions = $scope.solutions
       console.log($scope.questions);
 

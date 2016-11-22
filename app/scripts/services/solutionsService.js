@@ -12,7 +12,6 @@ angular.module('testingFrontendApp')
   function ($http, server) {
     this.solution_url = server + 'attempts/';
     this.getSolutions = function(aid){
-      console.log("in service");
       return $http.get(this.solution_url + aid + '/get_solutions/');
     }
   }]);
