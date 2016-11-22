@@ -121,11 +121,14 @@
   --Alert user on home if marks are available
   
 TESTING:
+  Implement unit tests
   Add cancel button to the paper start modal
   Implement some kind of introduction mechanism (A help button on all screens)
   In attempt view, widen question_cards on smaller screens
 
-
+CELLO TAPE FOR WRAPPING COTTON
+CH solutions dont have list of children
+Dont send paper_list and top
 
 ***************************
 ** Data collection Ideas **

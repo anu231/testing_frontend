@@ -13,11 +13,11 @@ describe('Controller: AttemptCtrl', function () {
     scope = $rootScope.$new();
     AttemptCtrl = $controller('AttemptCtrl', {
       $scope: scope
-      // place here mocked dependencies
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(AttemptCtrl.awesomeThings.length).toBe(3);
+  it('should not pass', function () {
+    $scope.aki = "yolo";
+    expect($scope.aki).toBe("yolo");
   });
 });

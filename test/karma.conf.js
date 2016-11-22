@@ -2,7 +2,7 @@
 // Generated on 2016-09-13
 
 module.exports = function(config) {
-  'use strict';
+  // 'use strict';
 
   config.set({
     // enable / disable watching file and executing tests whenever any file changes
@@ -43,6 +43,7 @@ module.exports = function(config) {
       'bower_components/angular-chart.js/dist/angular-chart.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
+      'app/scripts/config.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
