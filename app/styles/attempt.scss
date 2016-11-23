@@ -432,8 +432,11 @@ input[type=checkbox]:checked + label > .custom-checkbox{
 }
 
 
-// Remove ugly angular-induced border on selected items
+// Remove ugly angular-induced(?) border on selected items
 label:focus{
+  outline:none;
+}
+li:focus{
   outline:none;
 }
 
