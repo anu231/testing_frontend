@@ -17,7 +17,5 @@ describe('Controller: PaperCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(PaperCtrl.awesomeThings.length).toBe(3);
-  });
+
 });

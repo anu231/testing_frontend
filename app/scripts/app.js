@@ -40,8 +40,13 @@ var homeState = {
 
 var attemptState = {
   name:'home.attempt',
+  // DO NOT REMOVE! Paper needs to be declared!
+  params: {
+    paper: null,
+    pid: null
+  },
   resolve:{
-    questions : ['attempt','$stateParams',function(attempt,$stateParams){
+    questions : ['attempt','$stateParams','paper', function(attempt,$stateParams, paper){
       //get all the questions and associated comprehension data
       //var paperid = $stateParams.pid;
       if (attempt.getAttempt()==null){
@@ -57,6 +62,9 @@ var attemptState = {
         return attempt.loadQuestions();  
       }
     }],
+    paper: ['$stateParams', function($stateParams){
+      return $stateParams.paper;
+    }]
   },
   url:'/attempt/:pid',
   templateUrl:'views/attempt.html',
@@ -77,10 +85,10 @@ var resultState = {
     p_user_attempts :['attempt',function(attempt){
       return attempt.loadAttempts();
     }],
-    // Unreliable when abrupt state change or reload. REMOVE! TODO
-    p_current_paper: ['$stateParams', function($stateParams){
-      return $stateParams.paper;
-    }]
+    // // Unreliable when abrupt state change or reload. REMOVE! TODO
+    // p_current_paper: ['$stateParams', function($stateParams){
+    //   return $stateParams.paper;
+    // }]
   },
 }
 
@@ -89,6 +97,10 @@ var solutionsState = {
   url: '/attempts/:aid/get_solutions',
   templateUrl: 'views/solutions.html',
   controller: 'SolutionsCtrl',
+  params :{
+    attempt: null,
+    solutions: null,
+  },
   resolve: {
     solutions: function(solutionsService, $stateParams){
       return solutionsService.getSolutions($stateParams.aid);

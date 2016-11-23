@@ -8,13 +8,13 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-.controller('ResultCtrl',['$scope','$state','attempt','result','paper','p_current_attempt_result','p_user_attempts','p_current_paper',
-function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_attempts,p_current_paper) {
+.controller('ResultCtrl',['$scope','$state','attempt','result','paper','p_current_attempt_result','p_user_attempts',
+function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_attempts) {
   var current_attempt_result = p_current_attempt_result.data;
   var current_attempt = _.find(p_user_attempts.data, function(a){return a.id == current_attempt_result.attempt});
   $scope.current_paper_attempts = _.filter(p_user_attempts.data, function(a){return a.paper_info.id == current_attempt.paper_info.id});
   $scope.processed_current_paper_attempts = [];  // One time processing for "Overtime trend" bar chart
-  $scope.selectedPaper = p_current_paper;
+  // $scope.selectedPaper = p_current_paper;
   // Fetch the paper (Review)
   paper.getPaper(current_attempt.paper_info.id).then(function(resp){
     $scope.selectedPaper = resp;
@@ -102,7 +102,6 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
   //                              >> CHARTS AND ANALYSIS <<                     //
   // Updates charts based on selectedAttempt
   $scope.updateCharts = function () {
-    console.log("updating charts");
     $scope.updateBarChart();
     $scope.updatePieChart();
   }
@@ -181,8 +180,4 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
      lastScrollTop = st;
   });
 
-
-  $scope.debug = function(){
-    console.log($scope);
-  }
 }]);

@@ -1,0 +1,16 @@
+* Design recommendations
+
+  Device        Min     Max   Orientation
+  
+Smartphones     320     480
+Smartphones     321           Landscape
+Smartphones             320   Portrait 
+  
+Tablet-ipad     786     1024  P/L
+Tablet-Galaxy   800     1280   
+Tablet-Nexus    601     906
+  
+Laptops         1200    1600  -webkit-min-device-pixel-ration: 1
+Retinas         1200    1600  --------"---------------------: 2
+
+* Implementation

@@ -70,6 +70,7 @@
 }
 #result_area #paper_card{
   margin-top: 13%;
+  background-color: white;
 }
 #result_area #paper_card #paper_details {
   display: flex;
@@ -114,19 +115,24 @@
 #result_area_controls .control {
   color: blue;
 }
-
 #result_area .attempt_selector {
+  max-height: 30em;
+  overflow-y: scroll;
+}
+
+#result_area .attempt_selector_item {
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1em;
   padding: 5px;
   margin-bottom: 3px;
+  max-height: 60%;
   background-color: #ffffff;
   
 }
 
-#result_area .attempt_selector:hover {
+#result_area .attempt_selector_item:hover {
   background-color: #8bc34a;
 }
 
@@ -146,7 +152,7 @@
   left: 50%;
   bottom: 0%;
   top: 15%;
-  background-color: #ffffff;
+  background-color: #f1f1f1;
   overflow-y: scroll;
 }
 
@@ -185,18 +191,19 @@
     right: 0;
     z-index: 100;
     left: 0;
-    background-color: #ffffff;
+    background-color: #f1f1f1;
     transition: all 0.5s ease;
     overflow-y: scroll;
   }
   #result_area {
     position: relative;
     top: 15%;
-    background-color: #ffffff;
+    background-color: #f1f1f1;
     overflow-y: unset;
   }
   #result_area #paper_card {
     margin-top: 8em;
+    background-color: #ffffff;
   }
   #result_area #paper_card #paper_details .paper-detail {
     display: flex;
@@ -236,7 +243,7 @@
     left: 0%;
     bottom: 0%;
     top: 15%;
-    background-color: #ffffff;
+    background-color: #f1f1f1;
     overflow-y: unset;
   }
 

@@ -8,8 +8,8 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-  .controller('MainCtrl',['$state','$rootScope','$scope', 'userService', 
-  	function ($state,$rootScope,$scope, userService) {
+  .controller('MainCtrl',['$state','$rootScope','$scope', 'userService', '$timeout', '$window',
+  	function ($state,$rootScope,$scope, userService, $timeout, $window) {
     $scope.init = function(){
     	//$rootScope.baseURL = 'http://localhost:8000/';
     	//$scope.uirouterDebug();

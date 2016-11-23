@@ -18,10 +18,10 @@ angular.module('testingFrontendApp')
         // Logout from educonnect; if successful, log out of django server
         $http.get(EDUCONNECT_LOGOUT_URL).then(function(resp){
           $http.get(server + DJANGO_LOGOUT_ENDPOINT)
-          console.log("logging out");
+          // console.log("logging out");
         }, function(err){
           console.log(err);
-          alert("COULDN'T LOG YOU OUT")
+          // alert("COULDN'T LOG YOU OUT")
         })
       }
     }

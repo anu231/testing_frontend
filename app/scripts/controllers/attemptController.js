@@ -15,10 +15,11 @@ angular.module('testingFrontendApp')
     touchToDrag: false
   };
 })
-.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window','$document',
-    function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window, $document) {
+.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window','$document', '$uibModal','paper',
+    function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window, $document, $uibModal, paper) {
       $scope.init = function(questions){
         $scope.paper_title = attempt.attempt.paper_info.name;
+        $scope.paper = paper;
         if (questions!==null){
           $scope.questions = questions.data;
           $scope.paper_title = attempt.attempt.paper_info.name;
@@ -30,16 +31,27 @@ angular.module('testingFrontendApp')
               $scope.setUpQuestions();
             }); 
         }
+        timer_start();
       };
 
+      // Instructions/Help modal. Used by the help button
+      $scope.showHelp = function(){
+        $uibModal.open({
+          templateUrl: 'views/help-modal.html',
+          controller: ['$uibModalInstance', '$scope', '$state', '$rootScope',
+          function($uibModalInstance, $scope, $state, $rootScope){
+            $scope.closeModal = function() {
+              $uibModalInstance.close();
+            }
+          }]
+        })
+      }
       // Autosave all the attempted questions
       // Used by the 10 minute autosave reminder modal
       $scope.autoSave = function(){
-        console.log("Auto Saving question "); 
         var autosave_ua = [];
         $scope.questions.forEach(function(q){
           if(q.useranswer!==undefined){  // undefined == never viewed/clicked. Timetaken == 0
-            console.log("autosaving: " + q.id);
             if(q.answer !==undefined){
               var ques_valid = $scope.validateAndFormatAnswer(q); 
               if(ques_valid === true){ autosave_ua.push(q.useranswer);}
@@ -71,28 +83,53 @@ angular.module('testingFrontendApp')
 
       };
       // Finish/end paper cleanup code
-      $scope.finish = function(){
-        console.log("Autosave all questions and quit"); 
+      $scope.finish = function () {
         $scope.loading = true; // Shows loading sign
         $('#final_finish_button').attr('disabled', 'disabled');
         $('#final_resume_button').attr('disabled', 'disabled');
         $scope.autoSave();
-        attempt.finishAttempt().then(function(resp){
-          if(resp.status === 200){
+        // Finish attempt then redirect user to refreshed home page
+        attempt.finishAttempt().then(function (resp) {
+          if (resp.status === 200) {
             $('#exitModal').modal('hide');
             $('#cleanupModal').modal('hide');
-            //$timeout(function(){$window.location = "/#/home";}, 1000);
-            $timeout(function(){$state.go('^',{},{reload:true});}, 1000);
+            $timeout(function () {
+              $state.go('^', {}, {
+                reload: true
+              });
+            }, 1000);
+            // Generate marks and show a paper finished modal with a viewResults insta button.
+            attempt.generate_marks().then(function (resp) {
+              $timeout(function () {
+                $uibModal.open({
+                  templateUrl: 'views/paper-finished.html',
+                  controller: ['$uibModalInstance', '$scope', '$state','$rootScope','paper', function ($uibModalInstance, $scope, $state,$rootScope, paper) {
+                    $scope.paper = paper; // TODO Not needed?
+                    $scope.viewResult = function(paper) {
+                      $uibModalInstance.close();
+                      // Calls method that redirects to the result state
+                      $rootScope.$broadcast('viewResult', {paper: paper});
+                    };
+                  }],
+                  resolve: {
+                    paper: $scope.paper
+                  }
+                });
+              }, 2000)
+            }, function (err) {
+              alert("Crititcal ERROR: Couldnt generate marks");
+            })
           } else {
             // TODO is this necessary?
             alert("CRITICAL ERROR: Couldn't connect to server!  STATUS CODE != 200");
           }
-        }, function(err){
+        }, function (err) {
           $('#final_resume_button').attr('disabled', 'disabled');
           console.log(err);
           alert("CRITICAL ERROR: Couldn't connect to server! Please try again");
         });
       }
+
 
       // Sets the answer according to the response
       // Called by the loadQuestionStatus()
@@ -121,7 +158,6 @@ angular.module('testingFrontendApp')
         var now = new Date();
         var attempt_start_time = new Date(attempt.attempt.starttime);
         var duration = Math.floor(attempt.attempt.paper_info.duration - (now - attempt_start_time)/1000);
-        console.log(duration);
         // Set the 10 min reminder timeout
         $timeout(function(){$('#servantModal').modal('show');}, (duration - 600) * 1000);
         var time = duration;
@@ -153,7 +189,7 @@ angular.module('testingFrontendApp')
           time_disp.html(time_str); 
         },1000);
       }
-      timer_start();
+
 
       // Question process pipeline; Also sets up the first question
       // Used by the init?
@@ -174,8 +210,6 @@ angular.module('testingFrontendApp')
         });
         attempt.loadQuestionStatus()
         .then(function(resp){
-          //console.log(resp);
-          //$scope.status = resp.data;
           resp.data.forEach(function(ua){
             var qs = _.find($scope.questions,function(qs){return qs.id===ua.question});
             qs.useranswer = ua;
@@ -267,7 +301,7 @@ angular.module('testingFrontendApp')
           question.useranswer.timetaken = question.timetaken;
           function success(resp){
             question.useranswer.answer = resp.answer;
-            question.useranswer.isSubmitted = false;
+            question.useranswer.isSubmitted = true;
             question.answer = undefined;
             question.answerA = undefined;
             question.answerB = undefined;
@@ -337,7 +371,6 @@ angular.module('testingFrontendApp')
                 }
               });
             });
-            console.log(matrix_answer);
             question.useranswer.answer = JSON.stringify(matrix_answer);
             question.useranswer.timetaken = question.timetaken;
 
@@ -373,10 +406,11 @@ angular.module('testingFrontendApp')
         var ques_valid = $scope.validateAndFormatAnswer(question); 
 
         if (ques_valid===true){
-          if (!question.useranswer.isSubmitted){
+          if (!question.isSavedOnce){
             useranswer.saveAnswer(question.useranswer)
             .then(function(resp){
               $scope.alert_notification({msg: "Answer Saved.", theme:"green"});
+              question.isSavedOnce = true;
               question.useranswer.answer = resp.answer;
               question.useranswer.id = resp.id;
               question.useranswer.isSubmitted = true;
@@ -384,7 +418,6 @@ angular.module('testingFrontendApp')
               $scope.alert_notification({msg:"Couldn't save your answer: Please check your internet connection!", theme:"red"});
             });
           } else {
-            console.log("PUTTING!");
             useranswer.updateAnswer(question.useranswer)
             .then(function(resp){
               $scope.alert_notification({msg: "Answer Updated.", theme:"green", time:2000});
@@ -396,7 +429,6 @@ angular.module('testingFrontendApp')
             });
           }
         } else {
-          console.log(ques_valid);
           $scope.alert_notification(ques_valid);
         }
       };

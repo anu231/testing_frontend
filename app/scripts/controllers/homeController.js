@@ -8,8 +8,8 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt','userService','$timeout','$window',
-    function ($scope,$state,available_papers,user_attempts,$uibModal,attempt, userService,$timeout, $window) {
+.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt','userService','$timeout','$window','$interval',
+    function ($scope,$state,available_papers,user_attempts,$uibModal,attempt, userService,$timeout, $window, $interval) {
       //$scope.available_papers = available_papers;
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
@@ -29,6 +29,7 @@ angular.module('testingFrontendApp')
             p['status'] = 'ongoing';
             p['ongoingAttempt'] = $scope.user_attempts[i];
             p['attemptStartTime'] = $scope.user_attempts[i].starttime;
+            $scope.setOngoingTimer(p); // Sets the live ongoing-remaining timer on paper
           } else {
             p['status'] = 'attempted';
           }
@@ -61,7 +62,7 @@ angular.module('testingFrontendApp')
         return time
       }
 
-      // TODO BUGGY
+      // Returns formatted time remaining for ongoing papers
       $scope.getRemainingTime = function(paper){
         var st = new Date(paper.attemptStartTime);
         var now = new Date();
@@ -77,34 +78,48 @@ angular.module('testingFrontendApp')
           }
         return format_time(hrs) + ":" + format_time(mins);
       }
-        $scope.getRemainingTime2 = function(paper){
-        console.log(paper.attemptStartTime);
-        
+
+      $scope.setOngoingTimer = function (paper) {
+        paper.time_remaining = $scope.getRemainingTime(paper); // Set once
+        // Repeat every minute
+        paper.timer_handler = $interval(function () {
+          paper.time_remaining = $scope.getRemainingTime(paper);
+        }, 60000)
       }
+
 
       // Open the "Attempt/Resume paper modal"
       $scope.attemptPaper = function(paper){
+        if(paper.status != undefined){
+          var latestAttempt = paper.allAttempts.slice(-1)[0];
+          var latestAttemptDate = new Date(latestAttempt.starttime);
+          latestAttempt.date = latestAttemptDate.toLocaleDateString();
+        } else {
+          var latestAttempt = undefined;
+        }
         var paperInstance = $uibModal.open({
           templateUrl:'views/paper-start.html',
-          controller:['$uibModalInstance','paper','$scope','$state','attempt', function($uibModalInstance,paper,$scope,$state,attempt){
+          controller:['$uibModalInstance','paper','$scope','$state','attempt','latestAttempt','$interval', function($uibModalInstance,paper,$scope,$state,attempt,latestAttempt,$interval){
             $scope.paper = paper;
+            // var latestAttemptDate = new Date(latestAttempt.starttime);
+            // latestAttempt.date = latestAttemptDate.toLocaleDateString();
+            $scope.latestAttempt = latestAttempt;  // Undefined if first attempt
             $scope.startPaper = function(){
               $uibModalInstance.close();
               //create the attempt
               attempt.startOrFetchAttempt(paper, paper.status)
                 .then(function(resp){
                   attempt.setAttempt(resp.data);
-                  console.log(resp);
-                  $state.go('home.attempt',{'pid':resp.data.id});  
+                  $state.go('home.attempt',{'pid':resp.data.id, 'paper': $scope.paper});  
                 },function(err){
                   //TODO display proper error message
-                  console.log(err);
                   alert("Couldn't start paper");
                 });
             };
           }],
           resolve:{
-            paper:paper
+            paper:paper,
+            latestAttempt: latestAttempt
           }
         });
       };
@@ -115,6 +130,13 @@ angular.module('testingFrontendApp')
         var latestAttempt = paper.allAttempts.slice(-1)[0];
         $state.go("home.result", {'aid':latestAttempt.id, 'paper':paper});
       };
+      // View result from the paper-finished modal.
+      $scope.$on('viewResult', function (event, payload) {
+        var paperId = payload.paper.id;  // payload.paper is outdated by now as new attempt is already created.
+        // Because after finishing the paper, view is refreshed, find paper again.
+        var paperRefreshed = _.filter($scope.available_papers, function(paper){return paper.id == paperId})[0]
+        $scope.viewResult(paperRefreshed);
+      });
 
       $scope.init();
 

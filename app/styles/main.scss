@@ -152,3 +152,8 @@ $brandColorBlueText: #ffffff;
 #user_info #logout_button {
   padding: 10px;
 }
+// Fixes topbar on small screens on snap-drawers
+body {
+  position: relative;
+  max-width: 100%;
+}

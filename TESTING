@@ -1,0 +1,35 @@
+Ideal flow.
+1. User logs in (Authentication)
+
+2. Gets redirected to /home. 
+    Sees a list of available, purchased papers.
+
+3. Selects a paper to attempt. OR Chooses to view results for an already attempted paper.
+
+3A. Chooses to attempt the paper.
+    1. Paper starting dialog box opens showing the instructions. Clicks on attempt/resume or cancel.
+    2. Gets redirected to /attempt. Does his thing.
+    3. Chooses to exit/resume later... Save his stuff and set him free. Gets back later and continues like nothing happened
+    4. 10 mins to end, show a autosave modal. Optional Choice to autosave all answered questions.
+    5. Time up! Start autosave and finish, and redirect to /home
+    6. On exit, autosave and redirect to /home
+
+3B  Chooses to view results and analysis.
+    1. Redirect to /results
+    2. By default view results for latest attempt
+    3. Can choose different attempt to view results
+    4. Go back or chooses to view solutions.
+
+3BA Chooses to view solutions:
+    1. See solutions and go back to results and analysis.
+    2. Choose different attempt, and then view solutions again.
+
+
+
+
+
+                   
+                   
+                    17-11-16
+
+1. User gets redirected to RaoEduconnect (after an alert) if not logged in.
