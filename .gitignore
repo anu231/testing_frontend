@@ -1,8 +1,8 @@
 /node_modules
 /sass
 /stylesheets
-Gruntfile.js
-gruntfile.js
+#Gruntfile.js
+#gruntfile.js
 /dist
 /.tmp
 /.sass-cache
