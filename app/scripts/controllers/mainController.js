@@ -15,16 +15,27 @@ angular.module('testingFrontendApp')
     	//$scope.uirouterDebug();
 			userService.getUserInfo().then(function(resp){
 				$scope.username = resp.data.fname
+				Raven.setUserContext({
+					name: resp.data.fname,
+					email: resp.data.name  // Poor naming conventions :(
+				})
 				$state.go('home');
 			}, function(err){
 				console.log(err);
+				Raven.captureException(err,{
+					level: 'info',
+					logger: 'MainCtrl',
+					extra:{
+						reason: 'no credentials so logged out and redirected'
+					}
+				});
 				alert("Error You are not logged in / authorized! Please log in to continue");
         $timeout(function(){$window.location.href="http://www.raoeduconnect.com"}, 3000);
 			});
+			
 			$scope.logout = function(){
 				userService.logout();
 			}
-    	// $state.go('home');
     };
     $scope.uirouterDebug = function(){
     	$rootScope.$on('$stateChangeStart',function(event, toState, toParams, fromState, fromParams){

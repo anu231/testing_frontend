@@ -19,7 +19,16 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
   paper.getPaper(current_attempt.paper_info.id).then(function(resp){
     $scope.selectedPaper = resp;
     $scope.initialize();
-  }, function(err){console.log(err);});
+  }, function(err){
+    console.log(err);
+    Raven.captureException(err, {
+      logger: 'ResultCtrl',
+      level: 'error',
+      extra: {
+        reason: "could not fetch paper"
+      }
+    })
+  });
 
 
   $scope.initialize = function () {
@@ -35,6 +44,14 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
       $scope.selectAttempt(current_attempt.id);
     }, function (err) {
       console.log("Couldnt fetch results...");
+      console.log(err);
+      Raven.captureException(err, {
+        logger: 'ResultCtrl',
+        level: 'error',
+        extra: {
+          reason: "could not fetch results"
+        }
+      })
     })
   }
   // Data collection and go back
@@ -42,8 +59,8 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
     $state.go('home');
   };
 
+  // Get to the solutions page.
   $scope.viewSolutions = function(){
-    // Get to the solutions page.
     var aid = $scope.selectedAttempt.id;
     $state.go('home.solutions', {'aid': aid, 'attempt': $scope.selectedAttempt});
   };
@@ -60,7 +77,17 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
     var result = _.find($scope.allAttemptResults, function(r){return att.id == r.attempt})
     if(!result){
       alert("No result found!");
-      throw "No result found!"
+      Raven.captureException(new Error("no result found",{
+        logger: "ResultCtrl",
+        level: "error",
+        extra:{
+          reason: 'could not find result for paper in allAttemptResults',
+          data: {
+            attempt: att,
+            results: $scope.allAttemptResults
+          }
+        }
+      }))
     }
     $scope.selectedAttempt = {};
     $scope.selectedAttempt.id = att.id;

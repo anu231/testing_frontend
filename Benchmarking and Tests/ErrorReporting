@@ -1,0 +1,7 @@
+<script src="https://cdn.ravenjs.com/3.8.1/angular/raven.min.js" crossorigin="anonymous"></script>
+<script>Raven.config('https://46caf5e31fa047eda91ce4112752aa2a@sentry.io/117038').install();</script>
+
+
+
+// Not needed
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>

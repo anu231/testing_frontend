@@ -20,7 +20,8 @@ var testing_app = angular
     'ui.bootstrap',
     'restangular',
     'snap',
-    'chart.js'
+    'chart.js',
+    'ngRaven'
   ]);
 
 var homeState = {

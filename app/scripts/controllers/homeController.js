@@ -10,9 +10,15 @@
 angular.module('testingFrontendApp')
 .controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt','userService','$timeout','$window','$interval',
     function ($scope,$state,available_papers,user_attempts,$uibModal,attempt, userService,$timeout, $window, $interval) {
-      //$scope.available_papers = available_papers;
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
+      // Log if no papers available papers for the user
+      if($scope.available_papers.length == 0){
+        Raven.captureMessage("No available papers for user",{
+          logger: 'HomeCtrl',
+          level: 'error'
+        });
+      }
 
       $scope.init = function () {
         //Does initial book keeping for the attempted papers 
@@ -101,8 +107,6 @@ angular.module('testingFrontendApp')
           templateUrl:'views/paper-start.html',
           controller:['$uibModalInstance','paper','$scope','$state','attempt','latestAttempt','$interval', function($uibModalInstance,paper,$scope,$state,attempt,latestAttempt,$interval){
             $scope.paper = paper;
-            // var latestAttemptDate = new Date(latestAttempt.starttime);
-            // latestAttempt.date = latestAttemptDate.toLocaleDateString();
             $scope.latestAttempt = latestAttempt;  // Undefined if first attempt
             $scope.startPaper = function(){
               $uibModalInstance.close();
@@ -113,6 +117,13 @@ angular.module('testingFrontendApp')
                   $state.go('home.attempt',{'pid':resp.data.id, 'paper': $scope.paper});  
                 },function(err){
                   //TODO display proper error message
+                  Raven.captureException(err, {
+                    level: 'error',
+                    logger: 'HomeCtrl',
+                    extra:{
+                      reason: 'Could not start or fetch attempt'
+                    }
+                  })
                   alert("Couldn't start paper");
                 });
             };
@@ -127,7 +138,7 @@ angular.module('testingFrontendApp')
       // Display the results page.
       // Open the result view
       $scope.viewResult = function(paper){
-        var latestAttempt = paper.allAttempts.slice(-1)[0];
+        var latestAttempt = paper.allAttempts.slice(-1)[0]; // Last attempt in the list
         $state.go("home.result", {'aid':latestAttempt.id, 'paper':paper});
       };
       // View result from the paper-finished modal.
