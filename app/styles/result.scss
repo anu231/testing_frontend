@@ -5,10 +5,11 @@
   right: 0;
   z-index: 100;
   left: 0;
-  background-color: white;
+  background-color: #f1f1f1;
   transition: all 0.5s ease;
 }
 
+// TODO Doesn't belong here!
 [ui-view].ng-enter {
   transition: 0.2s;
   opacity: 0;
@@ -50,7 +51,7 @@
   right: 50%;
   bottom: 0%;
   top: 16%;
-  background-color: white;
+  background-color: #f1f1f1;
   overflow-y: scroll;
 }
 
@@ -63,14 +64,14 @@
   width: 50%;
   padding: 5px;
   z-index: 999;
-  background-color: white;
+  background-color: #ffffff;
   transition: 0.3s all ease;
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.5);
   -webkit-transform: translateZ(0)
 }
 #result_area #paper_card{
   margin-top: 13%;
-  background-color: white;
+  background-color: #ffffff;
 }
 #result_area #paper_card #paper_details {
   display: flex;
@@ -110,6 +111,7 @@
 
 #result_area #breakdown {
   overflow-x: scroll;
+  background-color: #ffffff;
 }
 
 #result_area_controls .control {
@@ -181,29 +183,23 @@
 }
 
 
-/*Responsive */
-
-@media only screen and (max-width: 1000px) {
+/*Tablets */
+@media only screen and (max-width: 999px) {
   #results_and_analysis_parent {
-    position: absolute;
-    top: 8%;
-    bottom: 0%;
-    right: 0;
-    z-index: 100;
-    left: 0;
     background-color: #f1f1f1;
-    transition: all 0.5s ease;
     overflow-y: scroll;
   }
   #result_area {
     position: relative;
     top: 15%;
-    background-color: #f1f1f1;
     overflow-y: unset;
+  }
+  #results_and_analysis_parent .card {
+    width: 85%;
+    margin-left: 7.5%;
   }
   #result_area #paper_card {
     margin-top: 8em;
-    background-color: #ffffff;
   }
   #result_area #paper_card #paper_details .paper-detail {
     display: flex;
@@ -247,4 +243,14 @@
     overflow-y: unset;
   }
 
+}
+
+@media only screen and (max-width: 480px) {
+  #results_and_analysis_parent .card {
+    width: 100%;
+    margin-left: 0%;
+  }
+  #result_area #paper_card {
+    margin-top: 8em;
+  }
 }
