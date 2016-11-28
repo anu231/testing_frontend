@@ -129,7 +129,8 @@
   display: none;
 }
 
-@media only screen and (max-width: 800px){
+// Tablets
+@media only screen and (max-width: 1000px){
   #home_parent_div {
   position: fixed;
   left: 0%;
@@ -254,7 +255,8 @@
 
 }
 
-@media only screen and (max-width: 400px) {
+// Phones
+@media only screen and (max-width: 480px) {
   #home_papers_small .paper-card{
     width: 100%;
     margin-bottom: 5%;
