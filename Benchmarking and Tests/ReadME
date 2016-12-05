@@ -1,0 +1,5 @@
+# Testing out django server
+curl -b "csrftoken=rGyiwkQNUrbQ3GenFRXGm22oPatHi2eA;sessionid=p3f3qhzzhn0l7nn2c59atqui9ol1ursw" "http://beta.portal.raoeduconnect.com/spaper/"
+ab -n 10000 -c 10 -C _gat=1 -C "csrftoken=rGyiwkQNUrbQ3GenFRXGm22oPatHi2eA" -C "sessionid=p3f3qhzzhn0l7nn2c59atqui9ol1ursw" "http://beta.portal.raoeduconnect.com/spaper/"
+ab -n 10000 -c 10 -C _gat=1 -C "csrftoken=rGyiwkQNUrbQ3GenFRXGm22oPatHi2eA" -C "sessionid=p3f3qhzzhn0l7nn2c59atqui9ol1ursw" "http://beta.portal.raoeduconnect.com/attempts/10/load_paper/"
+

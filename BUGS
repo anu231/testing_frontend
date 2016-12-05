@@ -22,4 +22,7 @@
   
 
 *** TESTING ***
-
+  Top bar elements spilling on small screen
+  Remove unnecessary text (Help button)
+  Unify card dimensions and styling
+  Solutions back button not working

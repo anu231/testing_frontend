@@ -13,4 +13,9 @@ Tablet-Nexus    601     906
 Laptops         1200    1600  -webkit-min-device-pixel-ration: 1
 Retinas         1200    1600  --------"---------------------: 2
 
+
 * Implementation
+
+smartphones     320     480
+tablets         480     1000
+monitors        >1000
