@@ -8,6 +8,11 @@
  *
  * Main module of the application.
  */
+Raven
+    .config('https://46caf5e31fa047eda91ce4112752aa2a@sentry.io/117038')
+    .addPlugin(Raven.Plugins.Angular)
+    .install();
+
 var testing_app = angular
   .module('testingFrontendApp', [
     'ngAnimate',
