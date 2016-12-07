@@ -32,6 +32,9 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
 
 
   $scope.initialize = function () {
+    var lastdate = new Date($scope.selectedPaper.lastdate);
+    var today = new Date();
+    $scope.solutions_visible = (today - lastdate) <= 0 ? false : true;
     result.getAllAttemptResults().then(function (resp) {
       $scope.allAttemptResults = _.filter(resp.data, function (r) { return true });
       $scope.current_paper_attempts.forEach(function (attempt) {
@@ -121,7 +124,7 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
         return total + val;
       });
       return {correct: correct, incorrect: incorrect};
-      
+
     })();
     $scope.updateCharts();
   }
@@ -132,7 +135,7 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
     $scope.updateBarChart();
     $scope.updatePieChart();
   }
-  
+
   $scope.updatePieChart = function(){
     var r = $scope.selectedAttempt.result;
     $scope.pie = {};
@@ -177,7 +180,7 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
     // Graphics
 
     $scope.bar.data = [ptrend, ctrend, mtrend, btrend, ztrend];
-    $("#leg").html = 
+    $("#leg").html =
     $scope.bar.options = {
       title: {
         display: true,
