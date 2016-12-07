@@ -20,7 +20,8 @@
         </ul>
       </div>
       <!--<button class="btn btn-default" ng-click="debug()">debug</button>-->
-      <button class="btn btn-info" ng-click="viewSolutions()">View Solutions</button>
+      <button ng-if="$scope.solutions_visible" class="btn btn-info" ng-click="viewSolutions()">View Solutions</button>
+      <button ng-if="! $scope.solutions_visible" class="btn btn-info" disabled="disabled">View Solutions</button>
       <!--<button class="btn btn-success" ng-click="">Provide feedback!</button>-->
     </div>
     <div>
