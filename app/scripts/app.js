@@ -26,7 +26,7 @@ var testing_app = angular
     'restangular',
     'snap',
     'chart.js',
-    'ngRaven'
+    // 'ngRaven'
   ]);
 
 var homeState = {

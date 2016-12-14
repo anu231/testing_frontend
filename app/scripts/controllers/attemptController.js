@@ -29,7 +29,7 @@ angular.module('testingFrontendApp')
             .then(function(resp){
               $scope.questions = resp.data;
               $scope.setUpQuestions();
-            }); 
+            });
         }
         timer_start();
       };
@@ -53,7 +53,7 @@ angular.module('testingFrontendApp')
         $scope.questions.forEach(function(q){
           if(q.useranswer!==undefined){  // undefined == never viewed/clicked. Timetaken == 0
             if(q.answer !==undefined){
-              var ques_valid = $scope.validateAndFormatAnswer(q); 
+              var ques_valid = $scope.validateAndFormatAnswer(q);
               if(ques_valid === true){ autosave_ua.push(q.useranswer);}
             }else if(q.useranswer.answer ==="null" && q.isAnswered){  // null == answered but never saved. Timetaken != 0
               q.useranswer.timetaken = q.timetaken;
@@ -70,11 +70,11 @@ angular.module('testingFrontendApp')
             qs.useranswer.isSubmitted=true;
             qs.isAnswered = true;
             if(qs.ques_type==="SC" ||  qs.ques_type==="SA"){
-              qs.answer = ua.answer; 
+              qs.answer = ua.answer;
             } else if (qs.ques_type === "IT"){
               qs.answer = parseInt(ua.answer);
             } else if (qs.ques_type === "MC" || qs.ques_type === "MT") {
-              $scope.deserializeAndSetAnswer(qs, ua.answer); 
+              $scope.deserializeAndSetAnswer(qs, ua.answer);
             }
           });
         }, function(err){
@@ -142,14 +142,14 @@ angular.module('testingFrontendApp')
           var formatted_ans_obj = {"A":{},"B":{},"C":{}, "D":{}};
           ["A","B","C","D"].forEach(function(opt){
             ans_obj[opt].forEach(function(letter){
-              formatted_ans_obj[opt][letter] = true; 
-            }); 
+              formatted_ans_obj[opt][letter] = true;
+            });
           });
           question.answerA = formatted_ans_obj.A;
           question.answerB = formatted_ans_obj.B;
           question.answerC = formatted_ans_obj.C;
           question.answerD = formatted_ans_obj.D;
-        } 
+        }
       }
 
       // Starts the timer and set the "10 minutes remaining" reminder
@@ -161,14 +161,14 @@ angular.module('testingFrontendApp')
         // Set the 10 min reminder timeout
         $timeout(function(){$('#servantModal').modal('show');}, (duration - 600) * 1000);
         var time = duration;
-        var hrs = ""; 
+        var hrs = "";
         var mins = "";
         var secs = "";
         var time_str = "";
         var time_disp = $('#timeo');
         function format_time(xx){
           if(xx < 10) return "0" + xx;
-          else return xx; 
+          else return xx;
         }
         var timer = $interval(function(){
           time -= 1;
@@ -177,7 +177,7 @@ angular.module('testingFrontendApp')
           secs = format_time(time % 60);
           time_str = hrs + ":" + mins + ":" + secs;  // Avoiding seconds here
           if(time <= 10 * 60){    // Last 10 mins. Turn text to red
-            time_disp.addClass('red'); 
+            time_disp.addClass('red');
           }
           if(time <= 1){
             time_disp.html("00:00");
@@ -186,7 +186,7 @@ angular.module('testingFrontendApp')
             $('#cleanupModal').modal('show');
             $scope.finish();
           }
-          time_disp.html(time_str); 
+          time_disp.html(time_str);
         },1000);
       }
 
@@ -216,11 +216,11 @@ angular.module('testingFrontendApp')
             qs.useranswer.isSubmitted=true;
             if(ua.answer != "null"){ qs.isAnswered = true;}
             if(qs.ques_type==="SC" ||  qs.ques_type==="SA"){
-              qs.answer = ua.answer; 
+              qs.answer = ua.answer;
             } else if (qs.ques_type === "IT"){
               qs.answer = parseInt(ua.answer)
             } else if (qs.ques_type === "MC" || qs.ques_type === "MT") {
-              $scope.deserializeAndSetAnswer(qs, ua.answer); 
+              $scope.deserializeAndSetAnswer(qs, ua.answer);
             }
           });
         },function(err){
@@ -243,7 +243,7 @@ angular.module('testingFrontendApp')
         }
         // Start questions timer.
         if(question.timetaken === undefined){
-          question.timetaken = 1; 
+          question.timetaken = 1;
         }
         question.timerhandle = setInterval(function(){
           question.timetaken += 1;
@@ -259,33 +259,33 @@ angular.module('testingFrontendApp')
             attempt: attempt.attempt.id,
             question: question.id,
             answer: "null",
-            timetaken: question.timetaken 
-          } 
+            timetaken: question.timetaken
+          }
         }
-        $scope.questionTimerManager(question); 
+        $scope.questionTimerManager(question);
         $scope.selectedQuestion = question;
       }
 
-      // Select the next question. 
+      // Select the next question.
       // Used by "Next" button.
       $scope.nextQuestion = function(){
-        var currentIndex = $scope.questions.indexOf($scope.selectedQuestion); 
+        var currentIndex = $scope.questions.indexOf($scope.selectedQuestion);
         if(currentIndex < $scope.questions.length - 1){
           $scope.selectQuestion($scope.questions[currentIndex + 1]);
         } else {
-          $scope.selectedQuestion.isLast = true; 
+          $scope.selectedQuestion.isLast = true;
           // TODO Disable the next button!
         }
       }
 
-      // Select the previous question. 
+      // Select the previous question.
       // Used by "Previous" control button.
       $scope.previousQuestion = function(){
-        var currentIndex = $scope.questions.indexOf($scope.selectedQuestion); 
+        var currentIndex = $scope.questions.indexOf($scope.selectedQuestion);
         if(currentIndex > 0){
           $scope.selectQuestion($scope.questions[currentIndex - 1]);
         } else {
-          $scope.selectedQuestion.isFirst = true; 
+          $scope.selectedQuestion.isFirst = true;
           // TODO Disable the previous button!
         }
       }
@@ -317,7 +317,7 @@ angular.module('testingFrontendApp')
           if(question.useranswer.isSubmitted != true){
             useranswer.saveAnswer(question.useranswer).then(success,failure);
           } else {
-            useranswer.updateAnswer(question.useranswer).then(success, failure); 
+            useranswer.updateAnswer(question.useranswer).then(success, failure);
           }
         } else {
           question.answer = undefined;
@@ -330,8 +330,8 @@ angular.module('testingFrontendApp')
       }
 
       // Set question.useranswer.answer if valid, else returns error string for alert
-      // TODO No need to expose this to $scope!! 
-      $scope.validateAndFormatAnswer = function(question){ 
+      // TODO No need to expose this to $scope!!
+      $scope.validateAndFormatAnswer = function(question){
         if (question.ques_type==='SC' || question.ques_type==='AR' || question.ques_type==='TF'){
           var validAnswers = ["A","B","C","D"];
           if (question.answer===undefined || !validAnswers.includes(question.answer)){
@@ -344,11 +344,11 @@ angular.module('testingFrontendApp')
           var ansList = [];
           var ansStr = "";
           var validAnswers = ["answerA", "answerB", "answerC", "answerD"];
-          if(question.answerA != undefined || question.answerB != undefined 
+          if(question.answerA != undefined || question.answerB != undefined
               || question.answerC != undefined || question.answerD != undefined){
             validAnswers.forEach(function(va){
               if(question[va] === true) ansList.push(va[6]); //Push the last character A/B/C/D
-              ansStr = ansList.toString();  // CSV String 
+              ansStr = ansList.toString();  // CSV String
               question.useranswer.answer = ansStr;
               question.useranswer.timetaken = question.timetaken;
             });
@@ -360,7 +360,7 @@ angular.module('testingFrontendApp')
           var validAnswers = ["answerA", "answerB", "answerC", "answerD"];
           var validOptions = ["P", "Q", "R", "S"];
           var matrix_answer = { "A" : [], "B" : [], "C" : [], "D" : [] };
-          if(question.answerA != undefined || question.answerB != undefined 
+          if(question.answerA != undefined || question.answerB != undefined
               ||question.answerC != undefined ||question.answerD != undefined){
             validAnswers.forEach(function(va){
               validOptions.forEach(function(vo){
@@ -386,7 +386,7 @@ angular.module('testingFrontendApp')
             question.useranswer.timetaken = question.timetaken;
           }
 
-        } 
+        }
 
          else if (question.ques_type==='SA'){
           if(question.answer === undefined) return {msg:'Please write SOMETHING! ', theme:'red'};
@@ -395,15 +395,15 @@ angular.module('testingFrontendApp')
             question.useranswer.answer = question.answer;
             question.useranswer.timetaken = question.timetaken;
           }
-        } 
+        }
         return true;
       }
 
-      // Post answer to the backend if valid, else throw an alert. 
+      // Post answer to the backend if valid, else throw an alert.
       // Used by the "save" control button.
       $scope.save = function(question){
         // Instantiate useranswer field if not present. Used to track previous attempts(?)
-        var ques_valid = $scope.validateAndFormatAnswer(question); 
+        var ques_valid = $scope.validateAndFormatAnswer(question);
 
         if (ques_valid===true){
           if (!question.isSavedOnce){
@@ -447,7 +447,7 @@ angular.module('testingFrontendApp')
         }, timeout);
       }
 
-      // Tooltips for buttons (bootstrap) 
+      // Tooltips for buttons (bootstrap)
       $(function () {
         $('[data-toggle="tooltip"]').tooltip()
       })
@@ -469,7 +469,7 @@ angular.module('testingFrontendApp')
       // For testing purposes
       // Used by the "info" control button
       $scope.displayInfo = function(){
-        console.log($scope.selectedQuestion); 
+        console.log($scope.selectedQuestion);
       }
       // Use arrow keys for navigation
       $document.keyup(function(e){
