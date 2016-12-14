@@ -1,0 +1,98 @@
+[
+    {
+        "id": 1,
+        "paper_info": {
+            "id": 213,
+            "name": "RFT-1-AIIMS_HSb Sir_11.12.16_(30 Q.)",
+            "maxmarks": 720,
+            "duration": "10800.0"
+        },
+        "starttime": "2016-12-08T12:05:55.405395Z",
+        "endtime": "2016-12-08T12:10:58.229946Z",
+        "finished": true,
+        "score": null,
+        "valid": true,
+        "user": 1009,
+        "paper": 213
+    },
+    {
+        "id": 2,
+        "paper_info": {
+            "id": 213,
+            "name": "RFT-1-AIIMS_HSb Sir_11.12.16_(30 Q.)",
+            "maxmarks": 720,
+            "duration": "10800.0"
+        },
+        "starttime": "2016-12-08T12:11:31.240290Z",
+        "endtime": "2016-12-08T12:11:42.314822Z",
+        "finished": true,
+        "score": null,
+        "valid": true,
+        "user": 1009,
+        "paper": 213
+    },
+    {
+        "id": 3,
+        "paper_info": {
+            "id": 213,
+            "name": "RFT-1-AIIMS_HSb Sir_11.12.16_(30 Q.)",
+            "maxmarks": 720,
+            "duration": "10800.0"
+        },
+        "starttime": "2016-12-09T05:27:25.665012Z",
+        "endtime": "2016-12-09T07:16:37.786368Z",
+        "finished": true,
+        "score": null,
+        "valid": true,
+        "user": 1009,
+        "paper": 213
+    },
+    {
+        "id": 4,
+        "paper_info": {
+            "id": 213,
+            "name": "RFT-1-AIIMS_HSb Sir_11.12.16_(30 Q.)",
+            "maxmarks": 720,
+            "duration": "10800.0"
+        },
+        "starttime": "2016-12-09T07:20:00.970526Z",
+        "endtime": "2016-12-09T10:20:00.970526Z",
+        "finished": true,
+        "score": null,
+        "valid": true,
+        "user": 1009,
+        "paper": 213
+    },
+    {
+        "id": 7,
+        "paper_info": {
+            "id": 21,
+            "name": "Paper proofreading",
+            "maxmarks": 100,
+            "duration": "1800.0"
+        },
+        "starttime": "2016-12-14T05:13:14.009798Z",
+        "endtime": "2016-12-14T05:13:43.783507Z",
+        "finished": true,
+        "score": null,
+        "valid": true,
+        "user": 1009,
+        "paper": 21
+    },
+    {
+        "id": 8,
+        "paper_info": {
+            "id": 21,
+            "name": "Paper proofreading",
+            "maxmarks": 100,
+            "duration": "1800.0"
+        },
+        "starttime": "2016-12-14T05:40:12.556267Z",
+        "endtime": null,
+        "finished": false,
+        "score": null,
+        "valid": true,
+        "user": 1009,
+        "paper": 21
+    }
+]
