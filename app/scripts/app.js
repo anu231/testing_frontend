@@ -8,10 +8,10 @@
  *
  * Main module of the application.
  */
-Raven
-    .config('https://46caf5e31fa047eda91ce4112752aa2a@sentry.io/117038')
-    .addPlugin(Raven.Plugins.Angular)
-    .install();
+// Raven
+//     .config('https://46caf5e31fa047eda91ce4112752aa2a@sentry.io/117038')
+//     .addPlugin(Raven.Plugins.Angular)
+//     .install();
 
 var testing_app = angular
   .module('testingFrontendApp', [
@@ -65,7 +65,7 @@ var attemptState = {
         });
         return null;
       } else {
-        return attempt.loadQuestions();  
+        return attempt.loadQuestions();
       }
     }],
     paper: ['$stateParams', function($stateParams){
@@ -134,9 +134,9 @@ testing_app.config(function ($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
 	})
 testing_app.config(function(RestangularProvider) {
-    RestangularProvider.setBaseUrl(SERVER_URL);  
-    
+    RestangularProvider.setBaseUrl(SERVER_URL);
+
     RestangularProvider.setDefaultHttpFields({
-            'withCredentials': true              
+            'withCredentials': true
         });
 	});

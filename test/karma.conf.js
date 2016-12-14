@@ -19,6 +19,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'app/scripts/config.js',
       // bower:js
       'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
@@ -41,10 +42,11 @@ module.exports = function(config) {
       'bower_components/angular-snap/angular-snap.js',
       'bower_components/chart.js/dist/Chart.js',
       'bower_components/angular-chart.js/dist/angular-chart.js',
+      'bower_components/raven-js/plugins/angular.js',
       'bower_components/raven-js/dist/raven.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
-      'app/scripts/config.js',
+      'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
@@ -86,9 +88,9 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
     // Uncomment the following lines if you are using grunt's server to run the tests
-    // proxies: {
-    //   '/': 'http://localhost:9000/'
-    // },
+    proxies: {
+      // '/': 'http://localhost:9000/'
+    },
     // URL root prevent conflicts with the site root
     // urlRoot: '_karma_'
   });
