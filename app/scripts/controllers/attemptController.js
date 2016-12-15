@@ -136,13 +136,13 @@ angular.module('testingFrontendApp')
       $scope.deserializeAndSetAnswer = function(question, ans_str){
         if(question.ques_type === "MC"){
           var opts = ans_str.split(',');
-          opts.forEach(function(o){question["answer" + o.toUpperCase()] = true});
+          opts.forEach(function(o){question["answer" + o.toUpperCase().trim()] = true});
         }else if(question.ques_type === "MT"){
           var ans_obj = JSON.parse(ans_str);
           var formatted_ans_obj = {"A":{},"B":{},"C":{}, "D":{}};
           ["A","B","C","D"].forEach(function(opt){
             ans_obj[opt].forEach(function(letter){
-              formatted_ans_obj[opt][letter] = true;
+              formatted_ans_obj[opt][letter.trim()] = true;
             });
           });
           question.answerA = formatted_ans_obj.A;
@@ -366,7 +366,7 @@ angular.module('testingFrontendApp')
               validOptions.forEach(function(vo){
                 if(question[va] != undefined){
                   if(question[va][vo] === true){
-                    matrix_answer[va.slice(-1)].push(vo)
+                    matrix_answer[va.slice(-1)].push(vo) // matrix_answer["X"] for 'answerX'
                   }
                 }
               });
