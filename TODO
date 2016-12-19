@@ -8,21 +8,21 @@
 **                                                                 __/ |             **
 **                                                                |___/              **
 **                                                                                   **
-**     ███████╗██████╗  ██████╗ ███╗   ██╗████████╗    ███████╗███╗   ██╗██████╗     ** 
+**     ███████╗██████╗  ██████╗ ███╗   ██╗████████╗    ███████╗███╗   ██╗██████╗     **
 **     ██╔════╝██╔══██╗██╔═══██╗████╗  ██║╚══██╔══╝    ██╔════╝████╗  ██║██╔══██╗    **
 **     █████╗  ██████╔╝██║   ██║██╔██╗ ██║   ██║       █████╗  ██╔██╗ ██║██║  ██║    **
 **     ██╔══╝  ██╔══██╗██║   ██║██║╚██╗██║   ██║       ██╔══╝  ██║╚██╗██║██║  ██║    **
 **     ██║     ██║  ██║╚██████╔╝██║ ╚████║   ██║       ███████╗██║ ╚████║██████╔╝    **
-**     ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝       ╚══════╝╚═╝  ╚═══╝╚═════╝     ** 
-**                                                                                   ** 
+**     ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝       ╚══════╝╚═╝  ╚═══╝╚═════╝     **
 **                                                                                   **
-**       ████████╗ ██████╗ ██████╗  ██████╗     ██╗     ██╗███████╗████████╗         ** 
-**       ╚══██╔══╝██╔═══██╗██╔══██╗██╔═══██╗    ██║     ██║██╔════╝╚══██╔══╝         ** 
-**          ██║   ██║   ██║██║  ██║██║   ██║    ██║     ██║███████╗   ██║            ** 
-**          ██║   ██║   ██║██║  ██║██║   ██║    ██║     ██║╚════██║   ██║            ** 
-**          ██║   ╚██████╔╝██████╔╝╚██████╔╝    ███████╗██║███████║   ██║            ** 
-**          ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝     ╚══════╝╚═╝╚══════╝   ╚═╝            ** 
-**                                                                                   ** 
+**                                                                                   **
+**       ████████╗ ██████╗ ██████╗  ██████╗     ██╗     ██╗███████╗████████╗         **
+**       ╚══██╔══╝██╔═══██╗██╔══██╗██╔═══██╗    ██║     ██║██╔════╝╚══██╔══╝         **
+**          ██║   ██║   ██║██║  ██║██║   ██║    ██║     ██║███████╗   ██║            **
+**          ██║   ██║   ██║██║  ██║██║   ██║    ██║     ██║╚════██║   ██║            **
+**          ██║   ╚██████╔╝██████╔╝╚██████╔╝    ███████╗██║███████║   ██║            **
+**          ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝     ╚══════╝╚═╝╚══════╝   ╚═╝            **
+**                                                                                   **
 ***************************************************************************************
 --                                                                                   --
 --  Add your needs, wants, and wishes here... And see them get MAGICALLY fulfilled!  --
@@ -35,7 +35,7 @@
   -- Add controller functions for 'attempt'
   -- Implement restangular
   Collect more metadata- Location device-type
-                  
+
 2016-10-12 13:56
   -- Create templates for various question types. Comprehension remaining
   -- Add css to the above templates
@@ -43,8 +43,8 @@
   -- Front end form validation **  Almost done
   -- Discuss save/confirm/mark logic
   -- Add test instruction modal **
-  
-2016-10-14 16:41                  
+
+2016-10-14 16:41
   -- time taken for answering each question
   -- system timer global
   -- information bar
@@ -82,7 +82,7 @@
   -- Pause timer when the 10 min reminder modal pops up(?) {cant do}
   ** Left index does not scroll when selectedQuestion goes out of view. [Cannot do?]
   Improve top_bar: justification/alignment of elements - timers, paper_name etc.
- 
+
 2016-10-25 17:02
   -- reload the resolves on reaching home
   -- on hitting the back button in attempt.html show alert [BUGGY]
@@ -98,7 +98,7 @@
 2016-11-09
   Display charts contextually
   -- Make Result view Responsive
-  --If possible, add left/right arrow question seeking. 
+  --If possible, add left/right arrow question seeking.
   -- Make home view responsive
 
 2016-11-10
@@ -112,14 +112,17 @@
   pull usermarks lazily rather than preloading em
   Check out the competition- topper, fiitjee
   Question markers for integer and subjective type not working
-  --ATTEMPTS AND SOLUTIONS 
+  --ATTEMPTS AND SOLUTIONS
   LATEX URLS HARDCODED
-  
+
 2016-11-15
   Adapt generate_marks for CH marking
   Topic wise analysis in Results
   --Alert user on home if marks are available
-  
+
+2016-12-19 10:08
+  --Add loading indicators
+
 TESTING:
   Uniform css breakpoints for consistency.
   Implement unit tests
@@ -129,7 +132,6 @@ TESTING:
   close drawer on question tap
   Reduce side drawer width
 
-CELLO TAPE FOR WRAPPING COTTON
 CH solutions dont have list of children
 Dont send paper_list and top
 
