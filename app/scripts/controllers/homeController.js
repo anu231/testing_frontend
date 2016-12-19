@@ -21,16 +21,16 @@ angular.module('testingFrontendApp')
       }
 
       $scope.init = function () {
-        //Does initial book keeping for the attempted papers 
+        //Does initial book keeping for the attempted papers
         for (var i=0; i<$scope.user_attempts.length; i++){
           var p = _.find($scope.available_papers,function(a){return a.id==$scope.user_attempts[i].paper_info.id});
           // Array containing all attempts for a paper
           if(p['allAttempts'] != undefined){
-            p['allAttempts'].push($scope.user_attempts[i]); 
+            p['allAttempts'].push($scope.user_attempts[i]);
           } else {
             p['allAttempts'] = [];
             p['allAttempts'].push($scope.user_attempts[i]);
-          } 
+          }
           if ($scope.user_attempts[i].finished!=true) {
             p['status'] = 'ongoing';
             p['ongoingAttempt'] = $scope.user_attempts[i];
@@ -58,7 +58,7 @@ angular.module('testingFrontendApp')
       $scope.getTzDate = function(time_str){
         var d = new Date(time_str);
         var date = d.toLocaleDateString();
-        return date 
+        return date
       }
 
       // Get appropriate local time string
@@ -80,7 +80,7 @@ angular.module('testingFrontendApp')
         var mins = Math.floor(delta % 3600 / 60);
         function format_time(xx){
           if(xx < 10) return "0" + xx;
-          else return xx; 
+          else return xx;
           }
         return format_time(hrs) + ":" + format_time(mins);
       }
@@ -114,7 +114,7 @@ angular.module('testingFrontendApp')
               attempt.startOrFetchAttempt(paper, paper.status)
                 .then(function(resp){
                   attempt.setAttempt(resp.data);
-                  $state.go('home.attempt',{'pid':resp.data.id, 'paper': $scope.paper});  
+                  $state.go('home.attempt',{'pid':resp.data.id, 'paper': $scope.paper});
                 },function(err){
                   //TODO display proper error message
                   Raven.captureException(err, {
@@ -150,6 +150,7 @@ angular.module('testingFrontendApp')
       });
 
       $scope.init();
+      $('#loading_papers').hide(); // hide the loading animation after initilization
 
       // Filter papers according to status
       // Note: call only after init()!
