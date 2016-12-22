@@ -115,6 +115,9 @@ angular.module('testingFrontendApp')
                       // Calls method that redirects to the result state
                       $rootScope.$broadcast('viewResult', {paper: paper});
                     };
+                    $scope.closeModal = function() {
+                      $uibModalInstance.close();
+                    }
                   }],
                   resolve: {
                     paper: $scope.paper

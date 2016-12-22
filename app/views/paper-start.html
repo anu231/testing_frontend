@@ -12,9 +12,11 @@
       <div ng-bind-html="paper.instructions"></div>
     </div>
     <div class="panel-footer">
-      <a href="" class='btn btn-primary center-block' ng-if="!paper.status" ng-click='startPaper()'>Start Paper</a>
-      <a href="" class='btn btn-primary center-block' ng-if="paper.status=='attempted'" ng-click='startPaper()'>Retake Paper</a>
-      <a href="" class='btn btn-info center-block' ng-if="paper.status == 'ongoing'" ng-click='startPaper()'><span class="glyphicon glyphicon-play"></span> Resume Paper</a>
+      <a href="" class='btn btn-lg btn-primary center-block' ng-if="!paper.status" ng-click='startPaper()'>Start Paper</a>
+      <a href="" class='btn btn-lg btn-primary center-block' ng-if="paper.status=='attempted'" ng-click='startPaper()'>Retake Paper</a>
+      <a href="" class='btn btn-lg btn-info center-block' ng-if="paper.status == 'ongoing'" ng-click='startPaper()'><span class="glyphicon glyphicon-play"></span> Resume Paper</a>
+      <hr>
+      <a href="" class='btn btn-danger' ng-click='closeModal()'> Cancel</a>
     </div>
   </div>
 </div>

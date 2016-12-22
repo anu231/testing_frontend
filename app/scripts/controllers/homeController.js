@@ -127,6 +127,9 @@ angular.module('testingFrontendApp')
                   alert("Couldn't start paper");
                 });
             };
+            $scope.closeModal = function() {
+                      $uibModalInstance.close();
+            };
           }],
           resolve:{
             paper:paper,
