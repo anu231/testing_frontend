@@ -15,8 +15,8 @@ angular.module('testingFrontendApp')
     touchToDrag: false
   };
 })
-.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window','$document', '$uibModal','paper',
-    function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window, $document, $uibModal, paper) {
+.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window','$document', '$uibModal','paper','$sce',
+    function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window, $document, $uibModal, paper,$sce) {
       $scope.init = function(questions){
         $scope.paper_title = attempt.attempt.paper_info.name;
         $scope.paper = paper;
@@ -33,6 +33,11 @@ angular.module('testingFrontendApp')
         }
         timer_start();
       };
+
+      // Don't sanatize Latex images
+      $scope.trustedHtml = function (html) {
+        return $sce.trustAsHtml(html);
+      }
 
       // Instructions/Help modal. Used by the help button
       $scope.showHelp = function(){

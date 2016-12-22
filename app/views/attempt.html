@@ -1,4 +1,4 @@
-<div ng-init="selectedQuestion = questions[0];" class="view-attempt"> 
+<div ng-init="selectedQuestion = questions[0];" class="view-attempt">
   <!-- List of question  -->
   <div snap-drawer id="left_drawer">
     <div id="index_header" class="col-xs-12">
@@ -20,7 +20,7 @@
         <li ng-repeat="question in questions"  class="list-group-item index-list-item" ng-click="selectQuestion(question)">
           <div ng-class="{'row':true, 'index-question':true, 'index-question-active': selectedQuestion==question}">
             <div class="col-xs-3 index-question-no" ng-class="{'index-question-marked':question.marked==true, 'index-question-saved':question.confirmed==true}">
-              <span class="text-center">{{$index + 1}}</span> 
+              <span class="text-center">{{$index + 1}}</span>
             </div>
             <div class="col-xs-3">
               <span class="badge" ng-class="{'index-badge-math':question.subj=='Math', 'index-badge-chemistry':question.subj=='Chemistry','index-badge-physics':question.subj=='Physics','center-block':true}">{{question.subj[0]}}</span>
@@ -38,9 +38,9 @@
       </ul>
     </div>
 
-  </div> <!-- end side panel  -->  
+  </div> <!-- end side panel  -->
 
-  <!--  Main content area  -->  
+  <!--  Main content area  -->
   <div snap-content id="main_content" class="">
 
     <!-- Top info bar  -->
@@ -73,11 +73,11 @@
         <ul id="question_body_box" class="list-group">
           <a ng-if="selectedQuestion.isChRelated == true" class="list-group-item comprehension">
             <h4>Paragraph:</h4>
-            <div id="" ng-bind-html="selectedQuestion.chQuestion"> </div>
+            <div id="" ng-bind-html="trustedHtml(selectedQuestion.chQuestion)"> </div>
           </a>
           <a href="#" class="list-group-item">
             <div ng-if="selectedQuestion.useranswer.isSubmitted && selectedQuestion.isAnswered" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
-            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+            <div id="question_body" ng-bind-html="trustedHtml(selectedQuestion.question)"> </div>
           </a>
           <li ng-repeat="(key, val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
@@ -85,7 +85,7 @@
               <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-radio col-xs-1">
               </div>
-              <div class="option-body col-xs-10" ng-bind-html="selectedQuestion[val]">
+              <div class="option-body col-xs-10" ng-bind-html="trustedHtml(selectedQuestion[val])">
               </div>
             </label>
           </li>
@@ -97,11 +97,11 @@
         <ul id="question_body_box" class="list-group">
           <a ng-if="selectedQuestion.isChRelated == true" class="list-group-item comprehension">
             <h4>Paragraph:</h4>
-            <div id="" ng-bind-html="selectedQuestion.chQuestion"> </div>
+            <div id="" ng-bind-html="trustedHtml(selectedQuestion.chQuestion)"> </div>
           </a>
           <a  class="list-group-item">
             <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
-            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+            <div id="question_body" ng-bind-html="trustedHtml(selectedQuestion.question)"> </div>
           </a>
           <li  ng-repeat="(key,val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="checkbox" name="{{'option'+$index}}" ng-model="selectedQuestion['answer' + key]" ng-false-value="undefined">
@@ -109,7 +109,7 @@
               <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-checkbox col-xs-1">
               </div>
-              <div class="option-body col-xs-10" ng-bind-html="selectedQuestion[val]">
+              <div class="option-body col-xs-10" ng-bind-html="trustedHtml(selectedQuestion[val])">
               </div>
             </label>
           </li>
@@ -121,7 +121,7 @@
         <ul id="question_body_box" class="list-group">
           <a class="list-group-item">
             <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
-            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+            <div id="question_body" ng-bind-html="trustedHtml(selectedQuestion.question)"> </div>
           </a>
           <li class="list-group-item">
             <label for="numerical_ans"><h3>Answer:</h3></label>
@@ -135,7 +135,7 @@
         <ul id="question_body_box" class="list-group">
           <a href="#" class="list-group-item">
             <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
-            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+            <div id="question_body" ng-bind-html="trustedHtml(selectedQuestion.question)"> </div>
           </a>
           <li ng-repeat="(key, val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
@@ -143,7 +143,7 @@
               <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-radio col-xs-1">
               </div>
-              <div class="option-body col-xs-10" ng-bind-html="selectedQuestion[val]">
+              <div class="option-body col-xs-10" ng-bind-html="trustedHtml(selectedQuestion[val])">
               </div>
             </label>
           </li>
@@ -157,10 +157,10 @@
           <a href="#" class="list-group-item">
             <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
             <div id="question_body">
-              <div>Assertion:</div>
-              <div ng-bind-html="selectedQuestion.question"> </div>
-              <div>Reason:</div>
-              <div ng-bind-html="selectedQuestion['ans1']"></div>
+              <div><b>Assertion:</b></div>
+              <div ng-bind-html="trustedHtml(selectedQuestion.question)"> </div>
+              <div><b>Reason:</b></div>
+              <div ng-bind-html="trustedHtml(selectedQuestion['ans1'])"></div>
             </div>
           </a>
           <li ng-repeat="(key, val) in {'A':'Assertion is correct, Reason is also correct and gives the correct justification for Assertion', 'B':'Assertion is correct and Reason is also correct but it does not justify Assertion', 'C':'Assertion is correct and Reason is wrong', 'D':'Assertion is wrong and Reason is correct'}"  class="list-group-item">
@@ -191,7 +191,7 @@
           <!--</a>-->
           <a  class="list-group-item">
             <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
-            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+            <div id="question_body" ng-bind-html="trustedHtml(selectedQuestion.question)"> </div>
           </a>
           <li  ng-repeat="(key,val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="key">
@@ -199,19 +199,19 @@
               <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-radio col-xs-1">
               </div>
-              <div class="option-body col-xs-10" ng-bind-html="selectedQuestion[val]">
+              <div class="option-body col-xs-10" ng-bind-html="trustedHtml(selectedQuestion[val])">
               </div>
             </label>
           </li>
         </ul>
       </div> <!-- /ch  -->
 
-      <!-- SA  --> 
+      <!-- SA  -->
       <div ng-if="selectedQuestion.ques_type=='SA'" id="question_card" class="col-xs-12 col-md-8 col-md-offset-2">
         <ul id="question_body_box" class="list-group">
           <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
           <a href="#" class="list-group-item">
-            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+            <div id="question_body" ng-bind-html="trustedHtml(selectedQuestion.question)"> </div>
           </a>
           <li class="list-group-item">
             <label for="answer"><h5 class="text-primary">Answer</h5></label>
@@ -221,13 +221,13 @@
         </ul>
       </div> <!-- /SA  -->
 
-      <!-- MT  --> 
+      <!-- MT  -->
       <div ng-if="selectedQuestion.ques_type=='MT'" id="question_card" class="col-xs-12 col-md-8 col-md-offset-2">
         <ul id="question_body_box" class="list-group">
           <a  class="list-group-item">
             <div ng-if="selectedQuestion.useranswer.isSubmitted" class="sync-status"><span class="glyphicon glyphicon-ok-sign"></span></div>
-            <!--<div id="question_body" ng-bind-html="selectedQuestion.question"> </div>-->
-            <div id="question_body"><p>akdsflsdflksjd dsfkljasfk ls Lorem voluptates cumque iure eligendi quae quisquam voluptatum odit facilis! Tempore tempore error fugiat cum sed. Iste nulla at dolorum optio non. Veritatis ipsum temporibus explicabo praesentium necessitatibus atque impedit?5</p></div>
+            <div id="question_body" ng-bind-html="selectedQuestion.question"> </div>
+            <!--<div id="question_body"><p>squam v. Iste nulla at  impedit?5</p></div>-->
           </a>
           <li class="list-group-item">
             <table class="table table-bordered table-hover">
@@ -302,7 +302,7 @@
 
     <!-- Alert popup box  -->
     <div id="abox" ng-model="alert_message" ng-if="notification_show==true" ng-class="{'text-center': true,'alert-box':true, 'alert-box-red':alert_message_theme=='red' , 'alert-box-green':alert_message_theme=='green','alert-box-yellow':alert_message_theme=='yellow'}">
-        {{alert_message}}  
+        {{alert_message}}
     </div>
 
   </div> <!-- /Main content area  -->
