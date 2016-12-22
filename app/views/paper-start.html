@@ -6,6 +6,7 @@
       <div ng-if="!paper.status"><b>Status: You have never attempted this paper before</b></div>
       <div ng-if="paper.status=='attempted'"><b>Last Attempted on: {{latestAttempt.date}}</b></div>
       <div ng-if="paper.status=='ongoing'"><b>Started on: {{yolo}}</b></div>
+      <div ng-if="paper.isExpired"><b>Note: The paper has expired. You can still attempt the paper and view results. But the results will NOT be considered.</b></div>
       <hr>
       <h5>Instructions</h5>
       <div ng-bind-html="paper.instructions"></div>
