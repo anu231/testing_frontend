@@ -19,6 +19,7 @@ angular.module('testingFrontendApp')
     function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window, $document, $uibModal, paper,$sce) {
       $scope.init = function(questions){
         $scope.paper_title = attempt.attempt.paper_info.name;
+        document.title = "Test:"+"$scope.paper_title";
         $scope.paper = paper;
         if (questions!==null){
           $scope.questions = questions.data;

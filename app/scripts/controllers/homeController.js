@@ -10,6 +10,7 @@
 angular.module('testingFrontendApp')
 .controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt','userService','$timeout','$window','$interval',
     function ($scope,$state,available_papers,user_attempts,$uibModal,attempt, userService,$timeout, $window, $interval) {
+      document.title = "RaoEduconnect Test Portal: Home";
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
       // Log if no papers available papers for the user
