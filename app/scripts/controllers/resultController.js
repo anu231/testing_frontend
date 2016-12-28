@@ -10,6 +10,7 @@
 angular.module('testingFrontendApp')
 .controller('ResultCtrl',['$scope','$state','attempt','result','paper','p_current_attempt_result','p_user_attempts',
 function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_attempts) {
+  document.title = "Results and Analysis";
   var current_attempt_result = p_current_attempt_result.data;
   var current_attempt = _.find(p_user_attempts.data, function(a){return a.id == current_attempt_result.attempt});
   $scope.current_paper_attempts = _.filter(p_user_attempts.data, function(a){return a.paper_info.id == current_attempt.paper_info.id});
@@ -32,9 +33,9 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
 
 
   $scope.initialize = function () {
-    var lastdate = new Date($scope.selectedPaper.lastdate);
-    var today = new Date();
-    $scope.solutions_visible = (today - lastdate) <= 0 ? false : true;
+    // var lastdate = new Date($scope.selectedPaper.lastdate);
+    // var today = new Date();
+    // $scope.solutions_visible = (today - lastdate) <= 0 ? false : true;  // Hide solutions
     result.getAllAttemptResults().then(function (resp) {
       $scope.allAttemptResults = _.filter(resp.data, function (r) { return true });
       $scope.current_paper_attempts.forEach(function (attempt) {
@@ -65,6 +66,7 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
   // Get to the solutions page.
   $scope.viewSolutions = function(){
     var aid = $scope.selectedAttempt.id;
+    $('#loading_papers').show();
     $state.go('home.solutions', {'aid': aid, 'attempt': $scope.selectedAttempt});
   };
 
@@ -167,6 +169,13 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
     $scope.bar = {};
     $scope.bar.series = ["Physics", "Chemistry", "Maths", "Biology", "Zoology"];
     $scope.bar.labels = [];
+    if($scope.processed_current_paper_attempts.length < 2){ // Hide Bar chart if less than 2 attempts
+      $scope.HIDEBARCHART = true; //
+      return
+    }
+    if($scope.processed_current_paper_attempts.length >= 5){
+      $scope.processed_current_paper_attempts.splice(-4); // Display trend of last 4 papers only
+    }
     $scope.processed_current_paper_attempts.forEach(function(a){
       var date = new Date(a.endtime);
       $scope.bar.labels.push(date.toLocaleDateString());
@@ -180,7 +189,7 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
     // Graphics
 
     $scope.bar.data = [ptrend, ctrend, mtrend, btrend, ztrend];
-    $("#leg").html =
+    // $("#leg").html =
     $scope.bar.options = {
       title: {
         display: true,

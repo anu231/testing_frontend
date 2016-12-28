@@ -111,6 +111,7 @@ angular.module('testingFrontendApp')
             $scope.latestAttempt = latestAttempt;  // Undefined if first attempt
             $scope.startPaper = function(){
               $uibModalInstance.close();
+              $('#loading_papers').show();
               //create the attempt
               attempt.startOrFetchAttempt(paper, paper.status)
                 .then(function(resp){
@@ -118,6 +119,7 @@ angular.module('testingFrontendApp')
                   $state.go('home.attempt',{'pid':resp.data.id, 'paper': $scope.paper});
                 },function(err){
                   //TODO display proper error message
+                  $('#loading_papers').hide();
                   Raven.captureException(err, {
                     level: 'error',
                     logger: 'HomeCtrl',
@@ -129,7 +131,7 @@ angular.module('testingFrontendApp')
                 });
             };
             $scope.closeModal = function() {
-                      $uibModalInstance.close();
+                $uibModalInstance.close();
             };
           }],
           resolve:{

@@ -32,6 +32,7 @@ angular.module('testingFrontendApp')
               $scope.setUpQuestions();
             });
         }
+        $('#loading_papers').hide();
         timer_start();
       };
 
@@ -98,11 +99,11 @@ angular.module('testingFrontendApp')
         attempt.finishAttempt().then(function (resp) {
           if (resp.status === 200) {
             $('#exitModal').modal('hide');
-            $('#cleanupModal').modal('hide');
             $timeout(function () {
               $state.go('^', {}, {
                 reload: true
               });
+              $('#cleanupModal').modal('hide');
             }, 1000);
             // Generate marks and show a paper finished modal with a viewResults insta button.
             attempt.generate_marks().then(function (resp) {
@@ -124,7 +125,7 @@ angular.module('testingFrontendApp')
                     paper: $scope.paper
                   }
                 });
-              }, 2000)
+              }, 5000)
             }, function (err) {
               alert("Crititcal ERROR: Couldnt generate marks");
             })
