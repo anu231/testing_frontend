@@ -20,7 +20,7 @@
         </ul>
       </div>
       <!--<button class="btn btn-default" ng-click="debug()">debug</button>-->
-      <button class="btn btn-info" ng-disabled="!solutions_visible" ng-click="viewSolutions()">View Solutions</button>
+      <button class="btn btn-info" ng-click="viewSolutions()">View Solutions</button>
       <!--<button class="btn btn-success" ng-click="">Provide feedback!</button>-->
     </div>
     <div>
@@ -80,15 +80,15 @@
     </div>
   </div>
   <div id="chart_area">
-    <div class="card" id="chart_pie">
+    <div class="card" id="card_pie">
       <!--<h5>Mark distribution</h5>-->
-      <canvas id="canvas_pie" class="chart chart-pie" chart-data="pie.data" chart-labels="pie.labels" chart-options="pie.options">
+      <canvas id="chart_pie" class="chart chart-pie" chart-data="pie.data" chart-labels="pie.labels" chart-options="pie.options">
       </canvas>
-      <div id="leg"></div>
+      <!--<div id="leg"></div>-->
     </div>
-    <div class="card" id="chart_bar">
+    <div class="card" id="card_bar" ng-if="! HIDEBARCHART">
       <!--<h5>Trend Over Time</h5>-->
-      <canvas id="canvas_bar" class="chart chart-bar" chart-data="bar.data" chart-labels="bar.labels" chart-series="bar.series"
+      <canvas id="chart_bar" class="chart chart-bar" chart-data="bar.data" chart-labels="bar.labels" chart-series="bar.series"
         chart-options="bar.options">
       </canvas>
     </div>
