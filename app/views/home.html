@@ -1,7 +1,7 @@
 <div>
   <div id="home_parent_div" class="col-xs-12">
     <div id="home_top_bar">
-      <div id="state_title"><u>Available Test Papers</u></div>
+      <div id="state_title">Available Test Papers</div>
       <!--<div id="user_info">{{user.name}}</div>-->
     </div>
     <div id="fake_header" class="table-head-hidden">
@@ -81,10 +81,10 @@
             <td ng-if="paper.status == 'attempted'" class="text-center">
               <button class='btn btn-danger' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-stats"></span> Results &amp; Analysis</button>
             </td>
-            <td class="text-center">
+            <td ng-if="paper.status !=='attempted'" class="text-center">
               ---
             </td>
-            <td ng-if="paper.status !== 'attempted'" class="text-center">
+            <td class="text-center">
               <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined'>Attempt</button>
               <button class="btn btn-info" ng-click='attemptPaper(paper)' ng-if='paper.status == "attempted"'><span class="glyphicon glyphicon-repeat"></span> Retake</button>
             </td>
