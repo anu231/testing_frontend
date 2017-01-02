@@ -1,4 +1,4 @@
-<div class="view-attempt-solutions-parent"> 
+<div class="view-attempt-solutions-parent">
   <div id="solutions_top_bar">
     <div id="state_title">
       Solutions
@@ -19,14 +19,14 @@
         <div class="question-no" ng-class="{'solution-correct': question.useranswer.score > 0, 'solution-incorrect': (question.useranswer.score < 0 && question.useranswer) || (question.useranswer.score == null)}">
           <b>{{$index + 1}}</b> &nbsp; ({{question.ques_type}})
         </div>
-        <div class="question-body" ng-bind-html="question.question">
+        <div class="question-body" ng-bind-html="trustedHtml(question.question)">
         </div>
         <div class="options">
           <div class="option" ng-repeat="(key, val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}">
             <div class="option-letter">
               <b>{{key}}</b>
             </div>
-            <div class="option-body" ng-bind-html="question[val]">
+            <div class="option-body" ng-bind-html="trustedHtml(question[val])">
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@
         <h5><button class="btn btn-info" ng-if="question.show_solution==false || question.show_solution==undefined" ng-click="showSolution(question)">Show Solution</button></h5>
         <h5><button class="btn btn-info" ng-if="question.show_solution==true" ng-click="showSolution(question)">Hide Solution</button></h5>
         <div ng-class="{'hint':true, 'visible': question.show_solution}">
-          <div ng-bind-html="question.hint"></div>
+          <div ng-bind-html="trustedHtml(question.hint)"></div>
           <i><a href="#" ng-if="question.show_solution==true" ng-click="showSolution(question)">Hide Solution</a></i>
         </div>
       </section>
@@ -57,7 +57,7 @@
         <div class="question-no" ng-class="{'solution-correct': question.useranswer.score > 0, 'solution-incorrect': question.useranswer.score < 0 && question.useranswer}">
           <b>{{$index + 1}}</b> &nbsp; ({{question.ques_type}})
         </div>
-        <div class="question-body" ng-bind-html="question.question">
+        <div class="question-body" ng-bind-html="trustedHtml(question.question)">
         </div>
         <div class="answers">
          <div class="correct-answer">
@@ -76,7 +76,7 @@
         <h5><button class="btn btn-info" ng-if="question.show_solution==false || question.show_solution==undefined" ng-click="showSolution(question)">Show Solution</button></h5>
         <h5><button class="btn btn-info" ng-if="question.show_solution==true" ng-click="showSolution(question)">Hide Solution</button></h5>
         <div ng-class="{'hint':true, 'visible': question.show_solution}">
-          <div ng-bind-html="question.hint"></div>
+          <div ng-bind-html="trustedHtml(question.hint)"></div>
           <i><a href="#" ng-if="question.show_solution==true" ng-click="showSolution(question)">Hide Solution</a></i>
         </div>
       </section>
@@ -85,14 +85,14 @@
         <div class="question-no" ng-class="{'solution-correct': question.useranswer.score >= 0, 'solution-incorrect': question.useranswer.score < 0 && question.useranswer}">
           <p><b>{{$index + 1}}</b> | {{question.ques_type}}</p>
         </div>
-        <div class="question-body" ng-bind-html="question.question">
+        <div class="question-body" ng-bind-html="trustedHtml(question.question)">
         </div>
         <div class="options">
           <div class="option" ng-repeat="(key, val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}">
             <div class="option-letter">
               <b>{{key}}</b>
             </div>
-            <div class="option-body" ng-bind-html="question[val]">
+            <div class="option-body" ng-bind-html="trustedHtml(question[val])">
             </div>
           </div>
         </div>
@@ -114,7 +114,7 @@
         <h5><button class="btn btn-info" ng-if="question.show_solution==false || question.show_solution==undefined" ng-click="showSolution(question)">Show Solution</button></h5>
         <h5><button class="btn btn-info" ng-if="question.show_solution==true" ng-click="showSolution(question)">Hide Solution</button></h5>
         <div ng-class="{'hint':true, 'visible': question.show_solution}">
-          <div ng-bind-html="question.hint"></div>
+          <div ng-bind-html="trustedHtml(question.hint)"></div>
           <i><a href="#" ng-if="question.show_solution==true" ng-click="showSolution(question)">Hide Solution</a></i>
         </div>
       </section>
