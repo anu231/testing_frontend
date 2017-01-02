@@ -161,13 +161,19 @@
         <div class="paper-expiry-date">
           <p><b>Expired On </b>: {{getTzDate(paper.lastdate)}} - {{getTzTime(paper.lastdate)}}</b></p>
         </div>
-        <div class="paper-results">
+
+        <div ng-if="paper.status !=='attempted'" class="paper-results">
+          ---
+        </div>
+        <div ng-if="paper.status == 'attempted'" class="paper-results">
           <button class='btn btn-danger paper-action-button' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-stats"></span> Results &amp; Analysis</button>
           </div>
         <div class="paper-action">
-          <button class="btn btn-info paper-action-button" ng-click='attemptPaper(paper)'><span class="glyphicon glyphicon-plus"></span> Attempt</button>
+          <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined'>Attempt</button>
+          <button class="btn btn-info" ng-click='attemptPaper(paper)' ng-if='paper.status == "attempted"'><span class="glyphicon glyphicon-repeat"></span> Retake</button>
+
         </div>
-        </div>
+        <!--</div>-->
       </div>
     </div>
   </div>
