@@ -108,6 +108,13 @@ angular.module('testingFrontendApp')
           templateUrl:'views/paper-start.html',
           controller:['$uibModalInstance','paper','$scope','$state','attempt','latestAttempt','$interval', function($uibModalInstance,paper,$scope,$state,attempt,latestAttempt,$interval){
             $scope.paper = paper;
+            if(paper.status == 'ongoing'){
+              $scope.startedOn = (function(){
+                var d = new Date(paper.ongoingAttempt.starttime);
+                var time = d.toLocaleTimeString().slice(0,5);
+                return time
+              })();
+            }
             $scope.latestAttempt = latestAttempt;  // Undefined if first attempt
             $scope.startPaper = function(){
               $uibModalInstance.close();
@@ -161,13 +168,13 @@ angular.module('testingFrontendApp')
       // Filter papers according to status
       // Note: call only after init()!
       $scope.ongoing_papers = _.filter($scope.available_papers, function(p){
-        return p.status == 'ongoing' && !p.isExpired;
+        return p.status == 'ongoing';
       });
       $scope.attempted_papers =_.filter($scope.available_papers, function(p){
-        return p.status == 'attempted' && !p.isExpired;
+        return p.status == 'attempted';
       });
       $scope.fresh_papers =_.filter($scope.available_papers, function(p){
-        return p.status == undefined && !p.isExpired;
+        return p.status == undefined;
       });
       $scope.expired_papers = _.filter($scope.available_papers, function(p){
         return p.isExpired == true;
