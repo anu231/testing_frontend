@@ -99,7 +99,7 @@ var resultState = {
 }
 
 var solutionsState = {
-  name: 'home.solutions',
+  name: 'home.result.solutions',
   url: '/result/:aid/solutions',
   templateUrl: 'views/solutions.html',
   controller: 'SolutionsCtrl',
@@ -108,12 +108,12 @@ var solutionsState = {
     solutions: null,
   },
   resolve: {
-    solutions: function(solutionsService, $stateParams){
+    solutions: ['solutionsService','$stateParams',function(solutionsService, $stateParams){
       return solutionsService.getSolutions($stateParams.aid);
-    },
-    attempt: function($stateParams){
+    }],
+    attempt: ['$stateParams',function($stateParams){
       return $stateParams.attempt;
-    }
+    }]
   }
 }
 
