@@ -99,8 +99,8 @@ var resultState = {
 }
 
 var solutionsState = {
-  name: 'home.result.solutions',
-  url: '/solutions',
+  name: 'home.solutions',
+  url: '/result/:aid/solutions',
   templateUrl: 'views/solutions.html',
   controller: 'SolutionsCtrl',
   params :{
