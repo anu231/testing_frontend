@@ -59,9 +59,16 @@ angular.module('testingFrontendApp')
         var autosave_ua = [];
         $scope.questions.forEach(function(q){
           if(q.useranswer!==undefined){  // undefined == never viewed/clicked. Timetaken == 0
-            if(q.answer !==undefined){
+            if(q.isSavedOnce){    // Mark saved answers. Saved answers will be processed differently on the backend
+              q.useranswer.isSavedOnce = 1;
+            } else {
+              q.useranswer.isSavedOnce = 0;
+            }
+            if(q.answer !==undefined){ // Is answered
               var ques_valid = $scope.validateAndFormatAnswer(q);
-              if(ques_valid === true){ autosave_ua.push(q.useranswer);}
+              if(ques_valid === true){
+                 autosave_ua.push(q.useranswer);
+                }
             }else if(q.useranswer.answer ==="null" && q.isAnswered){  // null == answered but never saved. Timetaken != 0
               q.useranswer.timetaken = q.timetaken;
               autosave_ua.push(q.useranswer);
