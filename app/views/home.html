@@ -72,8 +72,8 @@
           </tr>
           <!--/attempted papers-->
           <!--expired papers-->
-          <tr ng-repeat="paper in expired_papers | orderBy:'-lastdate'">
-            <td class="text-center"><b ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</b></td>
+          <!--<tr class="text-danger" ng-repeat="paper in expired_papers | orderBy:'-lastdate'">
+            <td class="text-center"><b ng-class="{'text-primary': paper.status=='ongoing'}">zzzz {{paper.name}}</b></td>
             <td class="text-center">{{paper.time.slice(0,5)}}</td>
             <td ng-class="{'text-danger': paper.isExpired}" class="text-center">
               </p> {{getTzDate(paper.lastdate)}} - {{getTzTime(paper.lastdate)}}
@@ -89,7 +89,7 @@
               <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined'>Attempt</button>
               <button class="btn btn-info" ng-click='attemptPaper(paper)' ng-if='paper.status == "attempted"'><span class="glyphicon glyphicon-repeat"></span> Retake</button>
             </td>
-          </tr>
+          </tr>-->
         </tbody>
       </table>
     </div>
@@ -151,7 +151,7 @@
         </div>
       </div>
       <!--expired papers-->
-      <div class="paper-card" ng-repeat="paper in expired_papers | orderBy:'-lastdate'">
+      <!--<div class="paper-card" ng-repeat="paper in expired_papers | orderBy:'-lastdate'">
         <div class="paper-title">
           <h5 ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</h5>
         </div>
@@ -174,7 +174,7 @@
 
         </div>
         <!--</div>-->
-      </div>
+      </div>-->
     </div>
   </div>
   <div ui-view>
