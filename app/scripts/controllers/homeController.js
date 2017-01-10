@@ -25,6 +25,17 @@ angular.module('testingFrontendApp')
         //Does initial book keeping for the attempted papers
         for (var i=0; i<$scope.user_attempts.length; i++){
           var p = _.find($scope.available_papers,function(a){return a.id==$scope.user_attempts[i].paper_info.id});
+          // Skip papers with no attempts
+          if(! p){
+            Raven.captureMessage("Paper for attempts not available.",{
+              logger: 'HomeCtrl',
+              level: 'error',
+              extra: {
+                user_attempt: $scope.user_attempts[i]
+              }
+            });
+            continue;
+          }
           // Array containing all attempts for a paper
           if(p['allAttempts'] != undefined){
             p['allAttempts'].push($scope.user_attempts[i]);
