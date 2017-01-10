@@ -21,13 +21,23 @@ angular.module('testingFrontendApp')
         $scope.paper_title = attempt.attempt.paper_info.name;
         document.title = "Test:"+"$scope.paper_title";
         $scope.paper = paper;
-        if (questions!==null){
+        if (questions.data.length !==null){
           $scope.questions = questions.data;
           $scope.paper_title = attempt.attempt.paper_info.name;
           $scope.setUpQuestions();
         } else {
           attempt.loadQuestions()
             .then(function(resp){
+              if(resp.data.length == 0){
+                Raven.captureMessage("No Questions available for paper",{
+                  logger: 'AttemptCtrl',
+                  level: 'error',
+                  extra: {
+                    attempt: attempt,
+                    paper: $scope.paper
+                  }
+                });
+              }
               $scope.questions = resp.data;
               $scope.setUpQuestions();
             });
@@ -227,6 +237,16 @@ angular.module('testingFrontendApp')
         });
         attempt.loadQuestionStatus()
         .then(function(resp){
+          if(! resp.data){
+            Raven.captureMessage("Empty response when loading question status.",{
+              logger: 'AttemptCtrl',
+              level: 'error',
+              extra: {
+                response: resp
+              }
+            });
+            return
+          }
           resp.data.forEach(function(ua){
             var qs = _.find($scope.questions,function(qs){return qs.id===ua.question});
             qs.useranswer = ua;
