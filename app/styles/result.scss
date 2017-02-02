@@ -151,6 +151,7 @@
   margin-top: 2%;
   margin-bottom: 2%;
   padding: 10px;
+  background-color: #ffffff;
   box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.6);
 }
 
@@ -174,9 +175,14 @@
   background-color: #ffffff;
   padding: 15px;
   margin-top: 5%;
+  display: block;
+  width: 400px;
+  height: 400px;
+  max-width: 80%;
+  margin: 0 auto;
 }
 #chart_area #chart_pie {
-  // max-width: 20%;
+
 }
 
 #chart_area #card_bar {
@@ -186,11 +192,144 @@
 #chart_area #chart_bar {
 }
 
-#chart_area #analysis_area {
-  background-color: white;
-  padding: 5px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+
+// Analysis Topic breakdown
+
+#chart_area #topic_analysis {
+  background-color: #ffffff;
+}
+#chart_area .analysis-subject {
+  margin-bottom: 1em;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+#chart_area .analysis-subject.physics{
+  border: 3px solid rgba(157,187,205, 0.4);
+  background-color: rgba(157,187,205, 0.3);
+}
+#chart_area .analysis-subject.chemistry{
+  border: 3px solid rgba(220,220,220, 0.4);
+  background-color: rgba(220,220,220, 0.3);
+}
+#chart_area .analysis-subject.math{
+  border: 3px solid rgba(247,70,47, 0.4);
+  background-color: rgba(247,70,47, 0.3);
+}
+#chart_area .analysis-subject.biology{
+  border: 3px solid rgba(70,191,189, 0.4);
+  background-color: rgba(70,191,189, 0.3);
+}
+#chart_area .analysis-subject.zoology{
+  border: 3px solid rgba(253,180,92, 0.4);
+  background-color: rgba(253,180,92, 0.3);
+}
+
+#chart_area .analysis-header {
+  display: flex;
+  transition: 0.3s ease all;
+}
+#chart_area .analysis-header:hover {
+  box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.22);
+}
+#chart_area .analysis-header:focus {
+  outline: none;
+  border: 0;
+}
+#chart_area .collapse-button {
+  position: relative;
+  width: 0px;
+  right: 28px;
+  top: 15px;
+}
+#chart_area #chevron-up {
+  border-radius: 10px;
+  padding-left: 1px;
+  padding-bottom: 1px;
+  transition: 0.2s ease all;
+}
+#chart_area #chevron-down {
+  border-radius: 10px;
+  padding-left: 1px;
+  padding-top: 2px;
+  transition: 0.2s ease all;
+}
+#chart_area #chevron-up:hover, #chart_area #chevron-down:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 1px 4px 2px rgba(0,0,0, 0.7);
+}
+#chart_area #chevron-up:active, #chart_area #chevron-down:active {
+  transform: scale(1);
+  box-shadow: inset 0px 1px 4px 1px rgba(0,0,0, 0.7);
+}
+#chart_area .header-name {
+  display: flex;
+  justify-content: flex-start;
+  align-self: center;
+  width: 80%;
+  padding-left: 5px;
+}
+#chart_area .header-score {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  flex-grow: 1;
+}
+
+#chart_area .collapsable {
+  display: flex;
+  height: 2.3em;
+  border-top: 1px solid rgba(0,0,0,0.3);
+  transition: 0.3s ease all;
+  overflow: hidden;
+}
+#chart_area .collapsable.collapsed {
+  height: 0em;
+  border: none;
+}
+#chart_area [data-subject="Chemistry"].collapsable {
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+#chart_area .collapsable .subtopic {
+  display: flex;
+  height: 2.2em;
+  width: 100%;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  transition: 0.3s ease all;
+  overflow: hidden;
+}
+#chart_area .subtopic.collapsed {
+  height: 0em;
+  border: none;
+}
+#chart_area .collapsable .subname {
+  display: flex;
+  justify-content: flex-start;
+  align-self: center;
+  width: 80%;
+  padding-left: 40px;
+}
+
+#chart_area .collapsable .subscore {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  flex-grow: 1;
+}
+
+#chart_area #topic_analysis .name {
+  display: flex;
+  justify-content: flex-start;
+  align-self: center;
+  width: 80%;
+  padding-left: 20px;
+}
+#chart_area .collapsable .score {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  flex-grow: 1;
 }
 
 

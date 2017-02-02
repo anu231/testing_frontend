@@ -219,4 +219,53 @@ function ($scope,$state,attempt,result,paper,p_current_attempt_result,p_user_att
      lastScrollTop = st;
   });
 
+  $scope.analysis = JSON.parse('{"Physics": {"score": 0, "child": {"Work ,Energy and power": {"score": 0, "child": {"Power": {"score": 0, "child": {}}}}, "Fluids": {"score": -2, "child": {"Bernoulli\'s theorem and it\'s applications": {"score": -1, "child": {}}, "Surface tension": {"score": -1, "child": {}}}}, "Electromagnetic Induction( EMI )": {"score": -1, "child": {}}, "Ray Optics": {"score": -1, "child": {"Thin lenses": {"score": -1, "child": {}}}}, "Kinematics": {"score": 0, "child": {}}, "Heat and thermodynamics": {"score": 6, "child": {"Caloriemetry": {"score": 0, "child": {}}, "Expansion of solid": {"score": 3, "child": {}}, "Black body radiation": {"score": 3, "child": {}}}}, "Wave optics": {"score": 0, "child": {"Interference of light": {"score": 0, "child": {}}}}, "Modern Physics": {"score": 0, "child": {"Photons": {"score": 0, "child": {}}}}, "Units,Dimensions & Error analysis": {"score": 0, "child": {"Experiments based on using verniercalipers and screw gauge ( micrometer )": {"score": 0, "child": {}}}}, "Circular motion": {"score": 0, "child": {}}, "Wave Motion": {"score": -1, "child": {"Transverse waves on a string": {"score": 0, "child": {}}, "Doppler effect in sound": {"score": -1, "child": {}}}}, "Simple harmonic motion": {"score": -1, "child": {}}}}, "Chemistry": {"score": 7, "child": {"Physical": {"score": 5, "child": {"Chemical equilibrium": {"score": 0, "child": {}}, "Gaseous State": {"score": 4, "child": {}}, "Thermodynamics": {"score": -1, "child": {}}, "Volumetric analysis": {"score": 3, "child": {}}}}, "Organic": {"score": -1, "child": {"CARBONYLS": {"score": 0, "child": {}}, "Nomecalture": {"score": 0, "child": {"Aliphatic": {"score": 0, "child": {"Alkenes": {"score": 0, "child": {}}}}}}, "Phenols": {"score": -1, "child": {}}, "CARBOXYLIC ACIDS AND ITS DERIVATIVES": {"score": -1, "child": {}}, "Alcohols": {"score": 0, "child": {}}, "GOC": {"score": 0, "child": {}}}}, "Inorganic": {"score": -1, "child": {"Coordination Compounds": {"score": 0, "child": {}}, "P-block": {"score": 0, "child": {}}, "Qualitative": {"score": -1, "child": {}}}}}}, "Math": {"score": 7, "child": {"Solutions of Triangle": {"score": 3, "child": {}}, "Three Dimensional Geometry": {"score": 0, "child": {}}, "Differential Equations": {"score": 0, "child": {}}, "Sequence & Series": {"score": 3, "child": {}}, "Straight Lines & Pair of Straight Lines": {"score": 0, "child": {"Different forms of the straight lines": {"score": 0, "child": {"Locus and its Equation": {"score": 0, "child": {}}}}, "Straight lines": {"score": 0, "child": {}}}}, "Quadratic Equations": {"score": 3, "child": {}}, "Determinants & Matrices": {"score": 0, "child": {"Matrices Multiplications": {"score": 0, "child": {}}}}, "Definite integrals": {"score": 0, "child": {}}, "Inverse Trigonometric Functions": {"score": 0, "child": {}}, "Limits": {"score": 0, "child": {}}, "Circles": {"score": 0, "child": {}}, "Probability": {"score": -1, "child": {}}, "Trigonometric Ratios & Identities": {"score": 0, "child": {}}, "Continuity.Differentiability & Derivatives": {"score": 0, "child": {}}, "Permutations & Combinations": {"score": -1, "child": {}}}}}');
+
+  console.log($scope.analysis);
+  $scope.toggle_subtopics = function(subject){
+
+    function set_state(subject, items, action, state){
+      // Iterate over each item in items and set its state
+      if(action == 'add'){
+        items.forEach(function(row) {
+          row.classList.add(state);
+        }, this);
+        document.querySelector('#analysis-'+ subject +' #chevron-up').classList.add('hidden');
+        document.querySelector('#analysis-'+ subject +' #chevron-down').classList.remove('hidden');
+        if(subject == 'chemistry'){
+          var subtopics = document.querySelectorAll('.subtopic');
+          subtopics.forEach(function(subtopic) {
+            subtopic.classList.add(state);
+          }, this);
+        }
+      } else if (action == 'remove'){
+        items.forEach(function(row) {
+          row.classList.remove(state);
+        }, this);
+        document.querySelector('#analysis-'+ subject +' #chevron-up').classList.remove('hidden');
+        document.querySelector('#analysis-'+ subject +' #chevron-down').classList.add('hidden');
+        if(subject == 'chemistry'){
+          var subtopics = document.querySelectorAll('.subtopic');
+          subtopics.forEach(function(subtopic) {
+            subtopic.classList.remove(state);
+          }, this);
+        }
+      }
+    }
+
+
+    var subjectdiv = document.getElementById('analysis-' + subject.toLowerCase());
+    var topics = document.querySelectorAll('[data-subject="'+ subject +'"]');
+    var collapsed = subjectdiv.getAttribute('data-collapsed'); // Boolean
+    if( collapsed == 'false' || collapsed == null ){
+      // Collapse all topics
+      set_state(subject.toLowerCase(), topics, 'add', 'collapsed');
+      subjectdiv.setAttribute('data-collapsed', 'true');
+    } else if ( collapsed == 'true' ){
+      // Un-Collapse all topics
+      set_state(subject.toLowerCase(), topics, 'remove', 'collapsed');
+      subjectdiv.setAttribute('data-collapsed', 'false');
+    }
+  }
+
 }]);

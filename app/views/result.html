@@ -91,16 +91,95 @@
         chart-options="bar.options">
       </canvas>
     </div>
-    <!--<div id="analysis_area" class="card">
-      <p><b><u>Comments</u></b><br></p>
-      <ul>
-        <li>
-          <p>Love the performance, keep it up.</p>
-        </li>
-        <li>
-          <p>Wouldn't hurt if you read a lil' HC Verma... just sayin'</p>
-        </li>
-      </ul>
-    </div>-->
+    <div class="card" id="topic_analysis">
+      <h5>Topical Analysis</h5>
+      <hr>
+      <!-- PHYSICS -->
+      <div class="analysis-subject physics" ng-if="analysis.Physics">
+        <div class="analysis-header" id="analysis-physics"  ng-click="toggle_subtopics('Physics')">
+          <div class="header-name"><h5>Physics</h5></div>
+          <div class="header-score"><h5>{{analysis.Physics.score}}</h5></div>
+          <div class="collapse-button">
+            <span id="chevron-up" class="glyphicon glyphicon-chevron-up"></span>
+            <span id="chevron-down" class="glyphicon glyphicon-chevron-down hidden"></span>
+          </div>
+        </div>
+        <div data-subject='Physics' class="collapsable" ng-repeat="(name, data) in analysis.Physics.child">
+          <div class="name">{{name}}</div>
+          <div class="score">{{data.score}}</div>
+        </div>
+      </div>
+
+      <!-- CHEMISTRY -->
+      <div class="analysis-subject chemistry" ng-if="analysis.Chemistry">
+        <div class="analysis-header" id="analysis-chemistry" ng-click="toggle_subtopics('Chemistry')">
+          <div class="header-name"><h5>Chemistry</h5></div>
+          <div class="header-score"><h5>{{analysis.Chemistry.score}}</h5></div>
+          <div class="collapse-button">
+            <span id="chevron-up" class="glyphicon glyphicon-chevron-up"></span>
+            <span id="chevron-down" class="glyphicon glyphicon-chevron-down hidden"></span>
+          </div>
+        </div>
+
+        <div data-subject='Chemistry' class="collapsable" ng-repeat="(name, data) in analysis.Chemistry.child">
+          <div class="name"><h6>{{name}}</h6></div>
+          <div class="score">{{data.score}}</div>
+          <div class="subtopic" ng-repeat="(subname, subdata) in analysis.Chemistry.child[name].child">
+            <div class="subname">{{subname}}</div>
+            <div class="subscore">{{subdata.score}}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MATH -->
+      <div class="analysis-subject math" ng-if="analysis.Math">
+        <div class="analysis-header" id="analysis-math" ng-click="toggle_subtopics('Math')">
+          <div class="header-name"><h5>Math</h5></div>
+          <div class="header-score"><h5>{{analysis.Math.score}}</h5></div>
+          <div class="collapse-button">
+            <span id="chevron-up" class="glyphicon glyphicon-chevron-up"></span>
+            <span id="chevron-down" class="glyphicon glyphicon-chevron-down hidden"></span>
+          </div>
+        </div>
+        <div data-subject='Math' class="collapsable" ng-repeat="(name, data) in analysis.Math.child">
+          <div class="name">{{name}}</div>
+          <div class="score">{{data.score}}</div>
+        </div>
+      </div>
+
+      <!-- BIOLOGY -->
+      <div class="analysis-subject biology" ng-if="analysis.Biology">
+        <div class="analysis-header" id="analysis-biology" ng-click="toggle_subtopics('Biology')">
+          <div class="header-name"><h5>Biology</h5></div>
+          <div class="header-score"><h5>{{analysis.Biology.score}}</h5></div>
+          <div class="collapse-button">
+            <span id="chevron-up" class="glyphicon glyphicon-chevron-up"></span>
+            <span id="chevron-down" class="glyphicon glyphicon-chevron-down hidden"></span>
+          </div>
+        </div>
+        <div data-subject='Biology' class="collapsable"ng-repeat="(name, data) in analysis.Biology.child">
+          <div class="name">{{name}}</div>
+          <div class="score">{{data.score}}</div>
+        </div>
+      </div>
+
+      <!-- ZOOLOGY -->
+      <div class="analysis-subject zoology" ng-if="analysis.Zoology">
+        <div class="analysis-header" id="analysis-zoology" ng-if="analysis.Zoology" ng-click="toggle_subtopics('Zoology')">
+          <div class="header-name"><h5>Zoology</h5></div>
+          <div class="header-score"><h5>{{analysis.Zoology.score}}</h5></div>
+          <div class="collapse-button">
+            <span id="chevron-up" class="glyphicon glyphicon-chevron-up"></span>
+            <span id="chevron-down" class="glyphicon glyphicon-chevron-down hidden"></span>
+          </div>
+        </div>
+        <div data-subject='Zoology' class="collapsable" ng-repeat="(name, data) in analysis.Zoology.child">
+          <div class="name">{{name}}</div>
+          <div class="score">{{data.score}}</div>
+        </div>
+      </div>
+
+
+    </div>
   </div>
 </div>
