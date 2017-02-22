@@ -191,17 +191,38 @@ angular.module('testingFrontendApp')
         return p.isExpired == true;
       })
 
-      // Animations
-      $('#home_papers_table').scroll(function () {
-        var a = $('#home_papers_table').scrollTop();
-        var hpt = $('#home_table_head')
-        var fh = $('#fake_header')
-        if (a >= 20) {
-          hpt.addClass('table-head-hidden');
-          fh.removeClass('table-head-hidden');
+
+      // Search
+      var list;
+      $window.setTimeout(function(){  // Set timeout to avoid clash with angular setup
+        list = new List('home_parent_div', {
+          listClass:"paper-list",
+          valueNames:['paper-name', 'expiry-date']
+        });
+      });
+
+      $scope.resetSearch = function(){
+        $('#search_box .search').val('');
+        list.search('');
+      }
+
+
+      // Scrolling
+      $('#home_parent_div').scroll(function () {
+        var parent_div = $('#home_parent_div');
+        var top_bar = $('#home_top_bar');
+        var table_head = $('#home_table_head');
+        if(parent_div.scrollTop() > 0){
+          table_head.addClass('floating');
+          top_bar.addClass('floating');
+          var offset = parent_div.scrollTop();
+          top_bar.css('transform', 'translateY(' + offset + 'px)');
+          table_head.css('transform', 'translateY(' + (offset - 10) + 'px)');
         } else {
-          hpt.removeClass('table-head-hidden')
-          fh.addClass('table-head-hidden')
+          top_bar.removeClass('floating');
+          table_head.removeClass('floating');
+          top_bar.css('transform', 'translateY(0px)');
+          table_head.css('transform', 'translateY(0px)');
         }
       })
 
