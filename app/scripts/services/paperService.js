@@ -13,13 +13,13 @@ angular.module('testingFrontendApp')
 	var remote_papers = Restangular.all('spaper/');
 	return {
 		getAvailablePapers : function(){
-			return remote_papers.getList(); 
+			return remote_papers.getList();
 		},
 		getAttemptedPapers : function(){
 			return remote_papers.getList();
 		},
     getPaper : function(pid){
-      return remote_papers.oneUrl(pid).get();
+      return remote_papers.oneUrl(pid+'/').get();
     }
-	}    
+	}
   }]);

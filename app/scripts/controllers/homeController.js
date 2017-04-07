@@ -8,8 +8,8 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt','userService','$timeout','$window','$interval',
-    function ($scope,$state,available_papers,user_attempts,$uibModal,attempt, userService,$timeout, $window, $interval) {
+.controller('HomeCtrl', ['$scope','$state','available_papers','user_attempts','$uibModal','attempt','userService','$timeout','$window','$interval', '$stateParams', '$rootScope',
+    function ($scope,$state,available_papers,user_attempts,$uibModal,attempt, userService,$timeout, $window, $interval, $stateParams, $rootScope) {
       document.title = "RaoEduconnect Test Portal: Home";
       $scope.available_papers = available_papers;
       $scope.user_attempts = user_attempts.data;
@@ -174,6 +174,13 @@ angular.module('testingFrontendApp')
       });
 
       $scope.init();
+      // Here we check if vid and vstate vars are populated (user coming from edumate).
+      // If so, we redirect him to the results view
+      if($stateParams.vid != 0 && $stateParams.vstate != ''){
+        console.log('Redirecting user to results');
+        // Broadcast message with only the essential parameters for state transition
+        $rootScope.$broadcast('viewResult', {paper: {id: $stateParams.vid}});
+      }
       $('#loading_papers').hide(); // hide the loading animation after initilization
 
       // Filter papers according to status
