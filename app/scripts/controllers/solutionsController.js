@@ -8,11 +8,15 @@
  * Controller of the testingFrontendApp
  */
 angular.module('testingFrontendApp')
-  .controller('SolutionsCtrl', ['$scope', '$state', 'solutions', 'attempt', '$sce',
-    function ($scope, $state, solutions, attempt, $sce) {
+  .controller('SolutionsCtrl', ['$scope', '$state', 'solutions', 'attemptInstance', '$sce',
+    function ($scope, $state, solutions, attemptInstance, $sce) {
       document.title = "Solutions and Answer Key";
       $('#loading_papers').hide();
-      $scope.attempt = attempt;
+      if(attemptInstance){
+        $scope.attempt = attemptInstance.data ? attemptInstance.data : attemptInstance;
+      }
+      else
+        alert('No attempt info');
       $scope.solutions = solutions.data;
       $scope.questions = $scope.solutions
 

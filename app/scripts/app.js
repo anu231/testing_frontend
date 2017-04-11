@@ -126,15 +126,19 @@ var solutionsState = {
   templateUrl: 'views/solutions.html',
   controller: 'SolutionsCtrl',
   params :{
-    attempt: null,
+    attemptInstance: null,
     solutions: null,
   },
   resolve: {
     solutions: ['solutionsService','$stateParams',function(solutionsService, $stateParams){
       return solutionsService.getSolutions($stateParams.aid);
     }],
-    attempt: ['$stateParams',function($stateParams){
-      return $stateParams.attempt;
+    attemptInstance: ['$stateParams', 'attempt',function($stateParams, attempt){
+      if($stateParams.attemptInstance)
+        return $stateParams.attemptInstance;
+      else {
+        return attempt.fetchAttempt($stateParams.aid);
+      }
     }]
   }
 }

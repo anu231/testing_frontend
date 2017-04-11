@@ -2,19 +2,22 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 #loading_papers {
-  z-index: 10000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  background-color: white;
-  border-radius: 5px;
   position: fixed;
-  left: 20%;
-  right: 20%;
-  top: 40%;
-  bottom: 40%;
+  display: block;;
+  background-color: #333;
+  border-radius: 5px;
+  width: 50%;
+  left: 25%;
+  padding: 20px;
+  text-align: center;
+  color: white;
   box-shadow: 1px 0px 6px 3px #cccccc;
+  z-index: 10000;
+
+  #loading_text {
+    font-size: 1.5em;
+    padding: 10px;
+  }
 }
 @media only screen and (max-width: 480px) {
   #loading_papers {
@@ -22,6 +25,7 @@
     right: 2%;
     top: 40%;
     bottom: 40%;
+    width: 96%;
   }
 }
 
@@ -158,6 +162,7 @@
   right: 0%;
   top: 8%;
   background-color: #ffffff;
+  overflow-y: hidden; // Hide the scrollbar
   }
 
   #home_top_bar {
