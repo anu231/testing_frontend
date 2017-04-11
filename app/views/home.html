@@ -46,7 +46,7 @@
               {{getTzDate(paper.lastdate)}} - {{getTzTime(paper.lastdate)}}
             </td>
             <td ng-if='paper.status == undefined' class="text-center">
-              <p><b><span class="label label-default"> Never Attempted </span></b></p>
+              <!--<p><b><span class="label label-default"> Never Attempted </span></b></p>-->
             </td>
             <td class="text-center">
               <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
