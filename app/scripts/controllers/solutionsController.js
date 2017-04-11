@@ -34,5 +34,13 @@ angular.module('testingFrontendApp')
         window.history.back();
       };
 
+      $scope.debug = function(question) {
+        console.log(question.answer_key);
+        console.log(question.useranswer.answer);
+        console.log(question.useranswer.answer_key);
+        console.log(question.useranswer.score);
+        console.log('');
+      }
+
     }
   ]);

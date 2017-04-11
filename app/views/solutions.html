@@ -21,6 +21,7 @@
             <section ng-if="question.ques_type == 'SC' || question.ques_type == 'MC' || question.ques_type == 'TF' || question.ques_type == 'AR'">
                 <div class="question-no">
                     {{$index + 1}}
+                    <!--{{$index + 1}}  <button ng-click="debug(question)">[{{question.ques_type}}]</button>-->
                 </div>
                 <div class="question-body" ng-bind-html="trustedHtml(question.question)">
                 </div>
@@ -40,7 +41,7 @@
                     <div class="correct-answer">
                         Correct Answer: {{question.answer_key}}
                     </div>
-                    <div class="user-answer" ng-if="question.useranswer != undefined && question.useranswer.answer!='null'" ng-class="{'correct': question.useranswer.score > 0, 'wrong': (question.useranswer.score =< 0) || (question.useranswer.score == null)}">
+                    <div class="user-answer" ng-if="question.useranswer != undefined && question.useranswer.answer!='null'" ng-class="{'correct': question.useranswer.score > 0, 'wrong': (question.useranswer.score <= 0) || (question.useranswer.score == null)}">
                         Your Answer: <b>{{question.useranswer.answer}}</b>
                     </div>
                     <div class="user-answer" ng-if="question.useranswer==undefined || question.useranswer.answer=='null'">
@@ -64,6 +65,7 @@
             <section ng-if="question.ques_type == 'IT'">
                 <div class="question-no">
                     {{$index + 1}}
+                    <!--{{$index + 1}}  <button ng-click="debug(question)">[{{question.ques_type}}]</button>-->
                 </div>
                 <div class="question-body" ng-bind-html="trustedHtml(question.question)">
                 </div>
@@ -98,6 +100,7 @@
             <section ng-if="question.ques_type == 'MT'">
                 <div class="question-no" ng-class="{'solution-correct': question.useranswer.score >= 0, 'solution-incorrect': question.useranswer.score < 0 && question.useranswer}">
                     {{$index + 1}}
+                    <!--{{$index + 1}} <button ng-click="debug(question)">[{{question.ques_type}}]</button>-->
                 </div>
                 <div class="question-body" ng-bind-html="trustedHtml(question.question)">
                 </div>
@@ -118,7 +121,7 @@
                     <div class="correct-answer">
                         Correct Answer: {{question.answer_key}}
                     </div>
-                    <div class="user-answer" ng-if="question.useranswer != undefined && question.useranswer.answer!='null'" ng-class="{'correct': question.useranswer.score > 0, 'wrong': (question.useranswer.score =< 0) || (question.useranswer.score == null)}">
+                    <div class="user-answer" ng-if="question.useranswer != undefined && question.useranswer.answer!='null'" ng-class="{'correct': (question.useranswer.score > 0), 'wrong': (question.useranswer.score <= 0) || (question.useranswer.score == null)}">
                         Your Answer: <b>{{question.useranswer.answer}}</b>
                     </div>
                     <div class="user-answer" ng-if="question.useranswer==undefined || question.useranswer.answer=='null'">
