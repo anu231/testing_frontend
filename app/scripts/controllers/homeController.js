@@ -215,17 +215,22 @@ angular.module('testingFrontendApp')
 
 
       // Search
-      var list;
+      var list, list2;
       $window.setTimeout(function(){  // Set timeout to avoid clash with angular setup
         list = new List('home_parent_div', {
           listClass:"paper-list",
           valueNames:['paper-name', 'expiry-date']
+        });
+        list2 = new List('home_parent_div', {
+          listClass:"paper-list2",
+          valueNames:['paper-title', 'paper-expiry-date']
         });
       });
 
       $scope.resetSearch = function(){
         $('#search_box .search').val('');
         list.search('');
+        list2.search('');
       }
 
 

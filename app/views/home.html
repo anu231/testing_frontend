@@ -4,7 +4,7 @@
       <div id="state_title">Test Papers</div>
       <div id="search_panel">
         <div id="search_box">
-          <input type="text" class="search" placeholder="Search by paper name, date, duration,etc..."/>
+          <input type="text" class="search" placeholder="Search Papers..."/>
           <span class="glyphicon glyphicon-remove" ng-click="resetSearch()"></span>
         </div>
         <button class="btn btn-primary btn-sm">Search</button>
@@ -77,7 +77,7 @@
 
 
                                         <!--Small  screens-->
-    <div id="home_papers_small">
+    <div id="home_papers_small" class="paper-list2">
       <!--ongoing papers-->
       <div class="paper-card ongoing" ng-repeat="paper in ongoing_papers | orderBy:'rank'">
         <div class="paper-title">
