@@ -42,7 +42,7 @@ var rootState = {
   },
   url: "/",
   templateUrl: "views/home.html",
-  controller:"MainCtrl",
+  controller:"HomeCtrl",
 }
 
 var homeState = {
@@ -50,8 +50,8 @@ var homeState = {
   // Params in case user was directed from edumate. These are used to get latest attempt
   // id and direct him to the results.
   params:{
-    vid: 0, // paper id
-    vstate: '', // state to go to
+    vid: null, // paper id
+    vstate: null, // state to go to
   },
   resolve:{
     available_papers :['paper',function(paper){

@@ -170,17 +170,23 @@ angular.module('testingFrontendApp')
         var paperId = payload.paper.id;  // payload.paper is outdated by now as new attempt is already created.
         // Because after finishing the paper, view is refreshed, find paper again.
         var paperRefreshed = _.filter($scope.available_papers, function(paper){return paper.id == paperId})[0]
-        $scope.viewResult(paperRefreshed);
+        // Check if the user has ever attempted the paper        
+        if(paperRefreshed.allAttempts)
+          $scope.viewResult(paperRefreshed);
+        else {
+          // We open the attempt paper dialog in case the user has never attempted the paper
+          console.log('Paper never attempted. Prompt user.');
+          var paper = _.find($scope.fresh_papers, function(p){return p.id == paperId}); // Find paper in unattempted papers
+          if(paper)
+            $scope.attemptPaper(paper);
+          else
+            console.log('Couldn\'t find paper!');
+        }
+
       });
 
       $scope.init();
-      // Here we check if vid and vstate vars are populated (user coming from edumate).
-      // If so, we redirect him to the results view
-      if($stateParams.vid != 0 && $stateParams.vstate != ''){
-        console.log('Redirecting user to results');
-        // Broadcast message with only the essential parameters for state transition
-        $rootScope.$broadcast('viewResult', {paper: {id: $stateParams.vid}});
-      }
+
       $('#loading_papers').hide(); // hide the loading animation after initilization
 
       // Filter papers according to status
@@ -196,7 +202,16 @@ angular.module('testingFrontendApp')
       });
       $scope.expired_papers = _.filter($scope.available_papers, function(p){
         return p.isExpired == true;
-      })
+      });
+
+
+      // Here we check if vid and vstate vars are populated (user coming from edumate).
+      // If so, we redirect him to the results view
+      if($stateParams.vid && $stateParams.vstate){
+        console.log('Redirecting user to results');
+        // Broadcast message with only the essential parameters for state transition
+        $rootScope.$broadcast('viewResult', {paper: {id: $stateParams.vid}});
+      }
 
 
       // Search
