@@ -128,6 +128,7 @@ testing_app.config(function($stateProvider,$urlRouterProvider) {
 //if (window.location.hostname.indexOf('localhost')!=-1){
   //working on local server
   testing_app.constant('server',SERVER_URL);
+  testing_app.constant('moodle',MOODLE_SERVER_URL);
 //}
 
 testing_app.config(function ($httpProvider) {

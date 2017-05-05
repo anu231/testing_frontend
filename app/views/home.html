@@ -50,7 +50,8 @@
               <p><b><span class="label label-default"> Never Attempted </span></b></p>
             </td>
             <td class="text-center">
-              <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
+              <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined && paper.offline == false'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
+
             </td>
           </tr>
           <!-- /fresh papers  -->
@@ -64,7 +65,7 @@
             <td ng-if='paper.status == "attempted"' class="text-center">
               <button class='btn btn-danger' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-stats"></span> Results &amp; Analysis</button>
             </td>
-            <td class="text-center">
+            <td class="text-center" ng-if="paper.offline == false">
               <button class="btn btn-info" ng-click='attemptPaper(paper)' ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-play"></span> Resume</button>
               <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined'>Attempt</button>
               <button class="btn btn-info" ng-click='attemptPaper(paper)' ng-if='paper.status == "attempted"'><span class="glyphicon glyphicon-repeat"></span> Retake</button>
