@@ -124,16 +124,16 @@
   --Add loading indicators
 
 TESTING:
-  Uniform css breakpoints for consistency.
+  --Uniform css breakpoints for consistency.
   Implement unit tests
-  Add cancel button to the paper start modal
-  Implement some kind of introduction mechanism (A help button on all screens)
-  In attempt view, widen question_cards on smaller screens
+  --Add cancel button to the paper start modal
+  --Implement some kind of introduction mechanism (A help button on all screens)
+  --In attempt view, widen question_cards on smaller screens
   close drawer on question tap
   Reduce side drawer width
 
 CH solutions dont have list of children
-Dont send paper_list and top
+Dont send paper_list and top (if not logged in?)
 
 ***************************
 ** Data collection Ideas **

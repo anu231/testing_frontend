@@ -8,10 +8,10 @@
  *
  * Main module of the application.
  */
-Raven
-    .config('https://46caf5e31fa047eda91ce4112752aa2a@sentry.io/117038')
-    .addPlugin(Raven.Plugins.Angular)
-    .install();
+// Raven
+//     .config('https://46caf5e31fa047eda91ce4112752aa2a@sentry.io/117038')
+//     .addPlugin(Raven.Plugins.Angular)
+//     .install();
 
 var testing_app = angular
   .module('testingFrontendApp', [
@@ -26,11 +26,33 @@ var testing_app = angular
     'restangular',
     'snap',
     'chart.js',
-    'ngRaven'
+    // 'ngRaven'
   ]);
+
+// Redirect root to /home/
+var rootState = {
+  name :'root',
+  resolve:{
+    available_papers :['paper',function(paper){
+      return paper.getAvailablePapers();
+    }],
+    user_attempts :['attempt',function(attempt){
+      return attempt.loadAttempts();
+    }]
+  },
+  url: "/",
+  templateUrl: "views/home.html",
+  controller:"HomeCtrl",
+}
 
 var homeState = {
   name :'home',
+  // Params in case user was directed from edumate. These are used to get latest attempt
+  // id and direct him to the results.
+  params:{
+    vid: null, // paper id
+    vstate: null, // state to go to
+  },
   resolve:{
     available_papers :['paper',function(paper){
       return paper.getAvailablePapers();
@@ -104,21 +126,26 @@ var solutionsState = {
   templateUrl: 'views/solutions.html',
   controller: 'SolutionsCtrl',
   params :{
-    attempt: null,
+    attemptInstance: null,
     solutions: null,
   },
   resolve: {
     solutions: ['solutionsService','$stateParams',function(solutionsService, $stateParams){
       return solutionsService.getSolutions($stateParams.aid);
     }],
-    attempt: ['$stateParams',function($stateParams){
-      return $stateParams.attempt;
+    attemptInstance: ['$stateParams', 'attempt',function($stateParams, attempt){
+      if($stateParams.attemptInstance)
+        return $stateParams.attemptInstance;
+      else {
+        return attempt.fetchAttempt($stateParams.aid);
+      }
     }]
   }
 }
 
 testing_app.config(function($stateProvider,$urlRouterProvider) {
   	$stateProvider
+    .state(rootState)
     .state(homeState)
     .state(attemptState)
     .state(resultState)

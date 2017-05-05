@@ -1,18 +1,17 @@
 <div>
   <div id="home_parent_div" class="col-xs-12">
     <div id="home_top_bar">
-      <div id="state_title">Available Test Papers</div>
-      <!--<div id="user_info">{{user.name}}</div>-->
-    </div>
-    <div id="fake_header" class="table-head-hidden">
-            <div id="fake_header_title"><b>Title</b></div>
-            <div id="fake_header_duration"><b>Duration</b></div>
-            <div id="fake_header_expiry"><b>Expires on</b></div>
-            <div id="fake_header_status"><b>Status</b></div>
-            <div id="fake_header_action"><b>Action</b></div>
+      <div id="state_title">Test Papers</div>
+      <div id="search_panel">
+        <div id="search_box">
+          <input type="text" class="search" placeholder="Search Papers..."/>
+          <span class="glyphicon glyphicon-remove" ng-click="resetSearch()"></span>
+        </div>
+        <button class="btn btn-primary btn-sm">Search</button>
+      </div>
     </div>
     <div id="home_papers_table">
-      <table class="table">
+      <table class="table table-striped table-bordered">
         <thead id="home_table_head">
           <th class="text-center">Title</th>
           <th class="text-center">Duration</th>
@@ -21,10 +20,10 @@
           <th class="text-center">Action</th>
         </thead>
 
-        <tbody id="home_table_body">
+        <tbody id="home_table_body" class="paper-list">
           <!--ongoing papers first!-->
           <tr class="ongoing" ng-repeat="paper in ongoing_papers | orderBy:'rank'">
-            <td class="text-center"><b>--{{paper.name}}</b></td>
+            <td class="text-center paper-name"><b>{{paper.name}}</b></td>
             <td class="text-center"><b>{{paper.time.slice(0,5)}}</b></td>
             <td class="text-center">
               <span ng-if="paper.isExpired">[ Expired ]</span>
@@ -39,31 +38,31 @@
           </tr>
           <!-- /ongoing papers  -->
           <!-- fresh unattempted papers-->
-          <tr ng-class="{}" ng-repeat="paper in fresh_papers | orderBy:'lastdate'">
-            <td class="text-center"><b >{{paper.name}}</b></td>
+          <tr ng-class="" ng-repeat="paper in fresh_papers | orderBy:'lastdate'">
+            <td class="paper-name"><span>{{paper.name}}</span></td>
             <td class="text-center">{{paper.time.slice(0,5)}}</td>
-            <td class="text-center">
+            <td class="text-center expiry-date">
               <span ng-if="paper.isExpired">[ Expired ]</span>
               {{getTzDate(paper.lastdate)}} - {{getTzTime(paper.lastdate)}}
             </td>
             <td ng-if='paper.status == undefined' class="text-center">
-              <p><b><span class="label label-default"> Never Attempted </span></b></p>
+              <!--<p><b><span class="label label-default"> Never Attempted </span></b></p>-->
             </td>
             <td class="text-center">
               <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined && paper.offline == false'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
-
             </td>
           </tr>
           <!-- /fresh papers  -->
           <!-- attempted papers -->
           <tr ng-class="{'info':paper.status=='ongoing'}" ng-repeat="paper in attempted_papers | orderBy:'-lastdate'">
-            <td class="text-center"><b>{{paper.name}}</b></td>
+            <td class="paper-name"><span>{{paper.name}}</span></td>
             <td class="text-center">{{paper.time.slice(0,5)}}</td>
-            <td  class="text-center">
+            <td  class="text-center expiry-date">
               <span ng-if="paper.isExpired">[ Expired ]</span>
               {{getTzDate(paper.lastdate)}} - {{getTzTime(paper.lastdate)}} </td>
             <td ng-if='paper.status == "attempted"' class="text-center">
-              <button class='btn btn-danger' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-stats"></span> Results &amp; Analysis</button>
+              <button class='btn btn-danger disabled' ng-if='offline'><span class="glyphicon glyphicon-stats"></span> View Results</button>
+              <button class='btn btn-danger' ng-click="viewResult(paper)" ng-if='!offline'><span class="glyphicon glyphicon-stats"></span> View Results</button>
             </td>
             <td class="text-center" ng-if="paper.offline == false">
               <button class="btn btn-info" ng-click='attemptPaper(paper)' ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-play"></span> Resume</button>
@@ -72,33 +71,13 @@
             </td>
           </tr>
           <!--/attempted papers-->
-          <!--expired papers-->
-          <!--<tr class="text-danger" ng-repeat="paper in expired_papers | orderBy:'-lastdate'">
-            <td class="text-center"><b ng-class="{'text-primary': paper.status=='ongoing'}">zzzz {{paper.name}}</b></td>
-            <td class="text-center">{{paper.time.slice(0,5)}}</td>
-            <td ng-class="{'text-danger': paper.isExpired}" class="text-center">
-              </p> {{getTzDate(paper.lastdate)}} - {{getTzTime(paper.lastdate)}}
-              <p><span ng-if="paper.isExpired">[ Expired ]</span>
-            </td>
-            <td ng-if="paper.status == 'attempted'" class="text-center">
-              <button class='btn btn-danger' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-stats"></span> Results &amp; Analysis</button>
-            </td>
-            <td ng-if="paper.status !=='attempted'" class="text-center">
-              <span class="label label-default">Never Attempted</span>
-            </td>
-            <td class="text-center">
-              <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined'>Attempt</button>
-              <button class="btn btn-info" ng-click='attemptPaper(paper)' ng-if='paper.status == "attempted"'><span class="glyphicon glyphicon-repeat"></span> Retake</button>
-            </td>
-          </tr>-->
         </tbody>
       </table>
     </div>
 
 
                                         <!--Small  screens-->
-    <div id="home_papers_small">
-
+    <div id="home_papers_small" class="paper-list2">
       <!--ongoing papers-->
       <div class="paper-card ongoing" ng-repeat="paper in ongoing_papers | orderBy:'rank'">
         <div class="paper-title">
@@ -121,7 +100,7 @@
       <!--fresh papers-->
       <div class="paper-card unattempted" ng-repeat="paper in fresh_papers | orderBy:'lastdate'">
         <div class="paper-title">
-          <h5 ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</h5>
+          <span ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</span>
         </div>
         <div class="paper-duration">
           <b>Duration</b>: {{ paper.time.slice(0,5)}}
@@ -130,13 +109,13 @@
           <p><b>Expires On </b>: {{getTzDate(paper.lastdate)}} - {{ getTzTime(paper.lastdate)}}</p>
         </div>
         <div class="paper-action paper-action-attempt">
-          <button class="btn btn-primary paper-action-button" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
+          <button class="btn btn-primary paper-action-button" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined && !offline'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
         </div>
       </div>
       <!--attempted papers-->
       <div class="paper-card attempted" ng-repeat="paper in attempted_papers | orderBy:'-lastdate'">
         <div class="paper-title">
-          <h5 ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</h5>
+          <span ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</span>
         </div>
         <div class="paper-duration">
           <b>Duration</b>: {{ paper.time.slice(0,5)}}
@@ -145,37 +124,13 @@
           <p><b>Expires On </b>: {{getTzDate(paper.lastdate)}} - {{getTzTime(paper.lastdate)}}</b></p>
         </div>
         <div class="paper-results">
-          <button class='btn btn-danger paper-action-button' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-stats"></span> Results &amp; Analysis</button>
+          <button class='btn btn-danger paper-action-button' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-stats"></span> View Results</button>
         </div>
         <div class="paper-action">
-          <button class="btn btn-info paper-action-button" ng-click='attemptPaper(paper)' ng-if='paper.status == "attempted"'><span class="glyphicon glyphicon-repeat"></span> Retake</button>
+          <button class="btn btn-info paper-action-button" ng-click='attemptPaper(paper)' ng-if='paper.status == "attempted" && !offline'><span class="glyphicon glyphicon-repeat"></span> Retake</button>
         </div>
       </div>
-      <!--expired papers-->
-      <!--<div class="paper-card" ng-repeat="paper in expired_papers | orderBy:'-lastdate'">
-        <div class="paper-title">
-          <h5 ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</h5>
-        </div>
-        <div class="paper-duration">
-          <b>Duration</b>: {{ paper.time.slice(0,5)}}
-        </div>
-        <div class="paper-expiry-date">
-          <p><b>Expired On </b>: {{getTzDate(paper.lastdate)}} - {{getTzTime(paper.lastdate)}}</b></p>
-        </div>
-
-        <div ng-if="paper.status !=='attempted'" class="paper-results">
-          <span class="label label-default">Never Attempted</span>
-        </div>
-        <div ng-if="paper.status == 'attempted'" class="paper-results">
-          <button class='btn btn-danger paper-action-button' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-stats"></span> Results &amp; Analysis</button>
-          </div>
-        <div class="paper-action">
-          <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined'>Attempt</button>
-          <button class="btn btn-info" ng-click='attemptPaper(paper)' ng-if='paper.status == "attempted"'><span class="glyphicon glyphicon-repeat"></span> Retake</button>
-
-        </div>
-        <!--</div>-->
-      </div>-->
+      </div>
     </div>
   </div>
   <div ui-view>

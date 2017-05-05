@@ -1,185 +1,152 @@
 <div id="results_and_analysis_parent" ng-cloak>
-  <div id="result_top_bar">
-    <div id="state_title">Results and Analysis</div>
-    <button id="back_button" class="btn btn-danger" ng-click="goBack()"><span class="glyphicon glyphicon-log-out"> Back</span></button>
-  </div>
-  <!-- End info bar  -->
-  <div id="result_area">
-    <div id="result_area_controls">
-      <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="true">
-          Select Attempt <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu attempt_selector" aria-labelledby="dropdownMenu1">
-          <li ng-repeat="attempt in current_paper_attempts" >
-            <div ng-click="selectAttempt(attempt.id)" class="attempt_selector_item">
-              {{getFormattedDate(attempt.starttime)}}
+    <div id="result_top_bar">
+        <div id="state_title">Results and Analysis</div>
+        <button id="back_button" class="btn btn-danger" ng-click="goBack()"><span class="glyphicon glyphicon-log-out"> Back</span></button>
+    </div>
+    <!-- End info bar  -->
+    <div id="result_area">
+        <div id="paper_information_area">
+            <div id="paper_card" class="card">
+                <h4 class="text-center text-uppercase"> {{selectedAttempt.paper_name}}</h4>
+                <hr>
+                <div class="paper-info">
+                    <div id="paper_details">
+                        <ul class="list-group">
+                            <li class="list-group-item">Duration: {{selectedAttempt.duration}} hrs</li>
+                            <li class="list-group-item">Attempted on: {{selectedAttempt.attempt_date}}</li>
+                            <li class="list-group-item">Expires on: {{selectedAttempt.expiry_date}}</li>
+                        </ul>
+                    </div>
+                    <div class="marking_scheme">
+                        <p style="padding-left:8px;"><b>Marking scheme:</b></p>
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <td>Question Type</td>
+                                    <td>Correct</td>
+                                    <td>Incorrect</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-if="selectedPaper.sccor"><td>SC</td>  <td>+ {{selectedPaper.sccor}} </td><td>- {{selectedPaper.scnegmarks}}</td></tr>
+                                <tr ng-if="selectedPaper.mccor"><td>MC</td>  <td>+ {{selectedPaper.mccor}} </td><td>- {{selectedPaper.mcnegmarks}}</td></tr>
+                                <tr ng-if="selectedPaper.arcor"><td>AR</td>  <td>+ {{selectedPaper.arcor}} </td><td>- {{selectedPaper.arnegmarks}}</td></tr>
+                                <tr ng-if="selectedPaper.chcor"><td>CH</td>  <td>+ {{selectedPaper.chcor}} </td><td>- {{selectedPaper.chnegmarks}}</td></tr>
+                                <tr ng-if="selectedPaper.sacor"><td>SA</td>  <td>+ {{selectedPaper.sacor}} </td><td>- {{selectedPaper.sanegmarks}}</td></tr>
+                                <tr ng-if="selectedPaper.tfcor"><td>TF</td>  <td>+ {{selectedPaper.tfcor}} </td><td>- {{selectedPaper.tfnegmarks}}</td></tr>
+                                <tr ng-if="selectedPaper.sacor"><td>SA</td>  <td>+ {{selectedPaper.sacor}} </td><td>- {{selectedPaper.sanegmarks}}</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="attempts-info">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-success">Select Attempt</li>
+                        <li ng-click="selectAttempt(attempt.id)" class="list-group-item" ng-repeat="attempt in current_paper_attempts">
+                            <a ng-click="selectAttempt(attempt.id)">{{getFormattedDate(attempt.starttime)}}</a>
+                        </li>
+                    </ul>
+                    <button class="btn btn-info" ng-click="viewSolutions()"> View Solutions </button>
+                    <button class="btn btn-info" ng-click=""> View OMR Sheet </button>
+                </div>
             </div>
-          </li>
-        </ul>
-      </div>
-      <div class="selected-attempt">{{selectedAttempt.attempt_date}}</div>
-      <button class="btn btn-info" ng-click="viewSolutions()">Solutions</button>
-    </div>
-    <div>
-      <div id="paper_information_area">
-        <div id="paper_card" class="card">
-          <h4 class="text-center text-uppercase"> {{selectedAttempt.paper_name}}</h4>
-          <hr>
-          <!--<p><b>Details: </b></p>-->
-          <div id="paper_details">
-            <div class="paper-detail"><span class="label label-default">Duration: {{selectedAttempt.duration}} hrs</span></div>
-            <div class="paper-detail"><span class="label label-default">Attempted on: {{selectedAttempt.attempt_date}}</span></div>
-            <div ng-if="current_paper_attempts.length == 1" class="paper-detail"><span class="label label-default">Attempted once</span></div>
-            <div ng-if="current_paper_attempts.length > 1" class="paper-detail"><span class="label label-default">Attempted {{current_paper_attempts.length}} times</span></div>
-            <div class="paper-detail"><span class="label label-default">Expires on: {{selectedAttempt.expiry_date}}</span></div>
-          </div>
-          <p><b>Marking scheme: </b></p>
-          <div id="marking_scheme">
-            <div class="mark-detail"><span class="label label-default">SC  + {{selectedPaper.sccor}} | {{selectedPaper.scnegmarks}}</span></div>
-            <div class="mark-detail"><span class="label label-default">MC  + {{selectedPaper.mccor}} | {{selectedPaper.mcnegmarks}}</span></div>
-            <div class="mark-detail"><span class="label label-default">AR  + {{selectedPaper.arcor}} | {{selectedPaper.arnegmarks}}</span></div>
-            <div class="mark-detail"><span class="label label-default">CH  + {{selectedPaper.chcor}} | {{selectedPaper.chnegmarks}}</span></div>
-            <div class="mark-detail"><span class="label label-default">SA  + {{selectedPaper.sacor}} | {{selectedPaper.sanegmarks}}</span></div>
-            <div class="mark-detail"><span class="label label-default">TF  + {{selectedPaper.tfcor}} | {{selectedPaper.tfnegmarks}}</span></div>
-            <div class="mark-detail"><span class="label label-default">SA  + {{selectedPaper.sacor}} | {{selectedPaper.sanegmarks}}</span></div>
-          </div>
         </div>
-        <div id="breakdown" class="card">
-          <h5 class="text-center ">Subject Wise Breakdown: {{selectedAttempt.attempt_date}}</h5>
-          <hr>
-          <table class="table table-striped table-hover table-responsive">
-            <thead>
-              <th class="text-center">Sub</th>
-              <th class="text-center">Correct</th>
-              <th class="text-center">Incorrect</th>
-              <!--<th class="text-center">Unattempted</th>-->
-              <th class="text-center">Score</th>
-            </thead>
-            <tbody>
-              <tr class="text-center">
-                <td><b>Total</b></td>
-                <td class="success"><b>{{selectedAttempt.netScore.correct}}</b></td>
-                <td class="danger"><b>{{selectedAttempt.netScore.incorrect}}</b></td>
-                <!--<td><b>ua</b></td>-->
-                <td class="info"><b>{{selectedAttempt.result['marksobt']}}</b></td>
-              </tr>
-              <tr class="text-center" ng-repeat="sub in ['Physics','Chemistry','Maths','Biology','Zoology']">
-                <td>{{ sub }}</td>
-                <td class="success">{{ selectedAttempt.result[sub[0].toLowerCase()+'corr'] }}</td>
-                <td class="danger">{{ selectedAttempt.result[sub[0].toLowerCase()+'wrong'] }}</td>
-                <!--<td>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }} N/A</td>-->
-                <td class="info"><b>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }}</b></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
-  </div>
-  <div id="chart_area">
-    <div class="card" id="card_pie">
-      <!--<h5>Mark distribution</h5>-->
-      <canvas id="chart_pie" class="chart chart-pie" chart-data="pie.data" chart-labels="pie.labels" chart-options="pie.options">
+
+    <!--CHART AREA STARTS-->
+    <div id="chart_area">
+        <div class="card" id="mark_distribution">
+            <canvas id="chart_pie" class="chart chart-pie" chart-data="charts.totalMarks.data" chart-labels="charts.totalMarks.info.labels"
+                chart-options="charts.totalMarks.info.options">
+            </canvas>
+            <!--<div id="leg"></div>-->
+        </div>
+        <div class="card" id="marks-table">
+            <h5 class="text-center ">Subject Wise Breakdown: {{selectedAttempt.attempt_date}}</h5>
+            <hr>
+            <table class="table table-striped table-hover table-responsive">
+                <thead>
+                    <th class="text-center">Sub</th>
+                    <th class="text-center">Correct</th>
+                    <th class="text-center">Incorrect</th>
+                    <!--<th class="text-center">Unattempted</th>-->
+                    <th class="text-center">Score</th>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td><b>Total</b></td>
+                        <td class="success"><b>{{selectedAttempt.netScore.correct}}</b></td>
+                        <td class="danger"><b>{{selectedAttempt.netScore.incorrect}}</b></td>
+                        <!--<td><b>ua</b></td>-->
+                        <td class="info"><b>{{selectedAttempt.result['marksobt']}}</b></td>
+                    </tr>
+                    <tr class="text-center" ng-repeat="sub in ['Physics','Chemistry','Maths','Biology','Zoology']">
+                        <td>{{ sub }}</td>
+                        <td class="success">{{ selectedAttempt.result[sub[0].toLowerCase()+'corr'] }}</td>
+                        <td class="danger">{{ selectedAttempt.result[sub[0].toLowerCase()+'wrong'] }}</td>
+                        <!--<td>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }} N/A</td>-->
+                        <td class="info"><b>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }}</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--HOLD THIS CHART FOR NOW-->
+        <!--<div class="card" id="card_bar" ng-if="!HIDEBARCHART">
+      <h5>Trend Over Time</h5>
+      <canvas id="chart_bar" class="chart chart-bar" chart-data="charts.trendOverTime.data" chart-labels="charts.trendOverTime.info.labels" chart-series="charts.trendOverTime.info.series"
+        chart-options="charts.trendOverTime.info.options">
       </canvas>
-      <!--<div id="leg"></div>-->
-    </div>
-    <div class="card" id="card_bar" ng-if="! HIDEBARCHART">
-      <!--<h5>Trend Over Time</h5>-->
-      <canvas id="chart_bar" class="chart chart-bar" chart-data="bar.data" chart-labels="bar.labels" chart-series="bar.series"
-        chart-options="bar.options">
-      </canvas>
-    </div>
-    <div class="card" id="topic_analysis">
-      <h5>Topical Analysis</h5>
-      <hr>
-      <!-- PHYSICS -->
-      <div class="analysis-subject physics" ng-if="analysis.Physics">
-        <div class="analysis-header" id="analysis-physics"  ng-click="toggle_subtopics('Physics')">
-          <div class="header-name"><h5>Physics</h5></div>
-          <div class="header-score"><h5>{{analysis.Physics.score}}</h5></div>
-          <div class="collapse-button">
-            <span id="chevron-up" class="glyphicon glyphicon-chevron-up"></span>
-            <span id="chevron-down" class="glyphicon glyphicon-chevron-down hidden"></span>
-          </div>
-        </div>
-        <div data-subject='Physics' class="collapsable" ng-repeat="(name, data) in analysis.Physics.child">
-          <div class="name">{{name}}</div>
-          <div class="score">{{data.score}}</div>
-        </div>
-      </div>
+    </div>-->
 
-      <!-- CHEMISTRY -->
-      <div class="analysis-subject chemistry" ng-if="analysis.Chemistry">
-        <div class="analysis-header" id="analysis-chemistry" ng-click="toggle_subtopics('Chemistry')">
-          <div class="header-name"><h5>Chemistry</h5></div>
-          <div class="header-score"><h5>{{analysis.Chemistry.score}}</h5></div>
-          <div class="collapse-button">
-            <span id="chevron-up" class="glyphicon glyphicon-chevron-up"></span>
-            <span id="chevron-down" class="glyphicon glyphicon-chevron-down hidden"></span>
-          </div>
+        <div ng-repeat="(subject, data) in analysis">
+            <div class="card subject-card {{subject}}" data-subject="{{subject}}" data-collapsed="false">
+                <div class="subject-header" ng-click="toggle_card(subject)">
+                    <span class="card-title">{{subject}}</span>
+                    <div class="collapse-button">
+                        <span id="chevron-up" class="glyphicon glyphicon-chevron-up"></span>
+                        <span id="chevron-down" class="glyphicon glyphicon-chevron-down hidden"></span>
+                    </div>
+                </div>
+                <hr>
+                <div class="subject-body">
+                    <div class="my-col my-col-40">
+                        <div class="topics-data">
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-heading">
+                                    <div class="subject-name">
+                                        Subtopic
+                                    </div>
+                                    <div class="subject-score">
+                                        0**
+                                    </div>
+                                </li>
+                                <li class="list-group-item" ng-repeat="topic in data.topics">
+                                    <div class="topic-name">{{topic.name}}</div>
+                                    <div class="topic-score">{{topic.marks}}</div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--<div class="card" id="question_distribution">
+                            <canvas id="chart_pie" class="chart-pie"
+                                chart-data="charts.subTopicDistribution.subjects[subject].data.percentile"
+                                chart-labels="charts.subTopicDistribution.subjects[subject].topics"
+                                chart-options="charts.questionDistribution.info.options">
+                            </canvas> 
+                        </div>-->
+                    </div>
+                    <!--<div class="my-col my-col-60">
+                        <div class="card" id="subtopic_distribution">
+                            <canvas id="chart_bar" class="chart-bar" 
+                                chart-data="charts.subTopicDistribution.subjects[subject].data.percentile"
+                                chart-labels="charts.subTopicDistribution.subjects[subject].topics"
+                                chart-options="charts.subTopicDistribution.info.options">
+                            </canvas>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
         </div>
-
-        <div data-subject='Chemistry' class="collapsable" ng-repeat="(name, data) in analysis.Chemistry.child">
-          <div class="name"><h6>{{name}}</h6></div>
-          <div class="score">{{data.score}}</div>
-          <div class="subtopic" ng-repeat="(subname, subdata) in analysis.Chemistry.child[name].child">
-            <div class="subname">{{subname}}</div>
-            <div class="subscore">{{subdata.score}}</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MATH -->
-      <div class="analysis-subject math" ng-if="analysis.Math">
-        <div class="analysis-header" id="analysis-math" ng-click="toggle_subtopics('Math')">
-          <div class="header-name"><h5>Math</h5></div>
-          <div class="header-score"><h5>{{analysis.Math.score}}</h5></div>
-          <div class="collapse-button">
-            <span id="chevron-up" class="glyphicon glyphicon-chevron-up"></span>
-            <span id="chevron-down" class="glyphicon glyphicon-chevron-down hidden"></span>
-          </div>
-        </div>
-        <div data-subject='Math' class="collapsable" ng-repeat="(name, data) in analysis.Math.child">
-          <div class="name">{{name}}</div>
-          <div class="score">{{data.score}}</div>
-        </div>
-      </div>
-
-      <!-- BIOLOGY -->
-      <div class="analysis-subject biology" ng-if="analysis.Biology">
-        <div class="analysis-header" id="analysis-biology" ng-click="toggle_subtopics('Biology')">
-          <div class="header-name"><h5>Biology</h5></div>
-          <div class="header-score"><h5>{{analysis.Biology.score}}</h5></div>
-          <div class="collapse-button">
-            <span id="chevron-up" class="glyphicon glyphicon-chevron-up"></span>
-            <span id="chevron-down" class="glyphicon glyphicon-chevron-down hidden"></span>
-          </div>
-        </div>
-        <div data-subject='Biology' class="collapsable"ng-repeat="(name, data) in analysis.Biology.child">
-          <div class="name">{{name}}</div>
-          <div class="score">{{data.score}}</div>
-        </div>
-      </div>
-
-      <!-- ZOOLOGY -->
-      <div class="analysis-subject zoology" ng-if="analysis.Zoology">
-        <div class="analysis-header" id="analysis-zoology" ng-if="analysis.Zoology" ng-click="toggle_subtopics('Zoology')">
-          <div class="header-name"><h5>Zoology</h5></div>
-          <div class="header-score"><h5>{{analysis.Zoology.score}}</h5></div>
-          <div class="collapse-button">
-            <span id="chevron-up" class="glyphicon glyphicon-chevron-up"></span>
-            <span id="chevron-down" class="glyphicon glyphicon-chevron-down hidden"></span>
-          </div>
-        </div>
-        <div data-subject='Zoology' class="collapsable" ng-repeat="(name, data) in analysis.Zoology.child">
-          <div class="name">{{name}}</div>
-          <div class="score">{{data.score}}</div>
-        </div>
-      </div>
-
 
     </div>
-  </div>
 </div>

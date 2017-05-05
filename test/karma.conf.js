@@ -43,6 +43,7 @@ module.exports = function(config) {
       'bower_components/chart.js/dist/Chart.js',
       'bower_components/angular-chart.js/dist/angular-chart.js',
       'bower_components/raven-js/dist/raven.js',
+      'bower_components/list.js/dist/list.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/app.js',
