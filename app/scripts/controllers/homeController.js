@@ -53,7 +53,10 @@ angular.module('testingFrontendApp')
           }
         }
         // Marks papers if Expired
-        $scope.available_papers.forEach(function(paper){if($scope.isExpired(paper)) paper['isExpired'] = true});
+        $scope.available_papers.forEach(function(paper) {
+          if($scope.isExpired(paper)) paper['isExpired'] = true;
+          if (paper.offline && $scope.show_paper_solution(paper)){paper['show_solution']=true;}
+        });
       }
 
       // Checks whether a paper is expired
@@ -65,7 +68,17 @@ angular.module('testingFrontendApp')
         if(delta <= 0) return true;
         else return false;
       }
-
+      //decides whether to show the paper's solution or not
+      $scope.show_paper_solution = function(paper){
+        var start_date = new Date(paper.startdate);
+        var today = new Date();
+        start_date.setHours(19);
+        if (today>start_date){
+          return true;
+        } else {
+          return false;
+        }
+      }
       // Get appropriate local date string
       $scope.getTzDate = function(time_str){
         var d = new Date(time_str);
@@ -164,6 +177,10 @@ angular.module('testingFrontendApp')
       $scope.viewResult = function(paper){
         var latestAttempt = paper.allAttempts.slice(-1)[0]; // Last attempt in the list
         $state.go("home.result", {'aid':latestAttempt.id, 'paper':paper});
+      };
+      $scope.viewSolution = function(paper){
+        //var latestAttempt = paper.allAttempts.slice(-1)[0]; // Last attempt in the list
+        $state.go("home.solutions", {'aid':paper.id, 'attempted':false});
       };
       // View result from the paper-finished modal.
       $scope.$on('viewResult', function (event, payload) {

@@ -22,9 +22,10 @@ angular.module('testingFrontendApp')
       chartColors: [ '#3F51B5', '#f44336', '#78909C', '#FFEE58', '#AB47BC', '#7E57C2', '#26C6DA', '#26A69A', '#ffb3ba', '#ffdfba', '#ffffba', ],
     });
   }])
-    .controller('ResultCtrl', ['$scope', '$state', 'attempt', 'result', 'paper', 'p_current_attempt_result', 'p_user_attempts',
-        function ($scope, $state, attempt, result, paper, p_current_attempt_result, p_user_attempts) {
+    .controller('ResultCtrl', ['$scope', '$state', 'attempt', 'result', 'paper', 'p_current_attempt_result', 'p_user_attempts','server','$http',
+        function ($scope, $state, attempt, result, paper, p_current_attempt_result, p_user_attempts,server,$http) {
             document.title = "Results and Analysis";
+            $scope.subject_list = ["Physics", "Chemistry", "Maths", "Biology"];
             var current_attempt_result = p_current_attempt_result.data; // Latest attempt result
             var current_attempt = _.find(p_user_attempts.data, function (a) { // Latest attempt
                 return a.id == current_attempt_result.attempt
@@ -33,7 +34,7 @@ angular.module('testingFrontendApp')
                 return a.paper_info.id == current_attempt.paper_info.id
             });
             $scope.processed_current_paper_attempts = []; // One time processing for "Overtime trend" bar chart
-
+            $scope.show_solution = false;
             // Fetch the paper (Review)
             paper.getPaper(current_attempt.paper_info.id)
             .then(function (resp) {
@@ -52,6 +53,17 @@ angular.module('testingFrontendApp')
 
 
             $scope.initialize = function () {
+                //check if we can show the solutions
+                //solutions will be visible from 7pm starting from start date
+                var now = new Date();
+                var start_time = new Date($scope.selectedPaper.startdate);
+                var date_show_solution = new Date(start_time.getFullYear(),start_time.getMonth(),start_time.getDate(),19);
+                if (now > date_show_solution){
+                    //show solution
+                    $scope.show_solution = true;
+                }
+
+
                 result.getAllAttemptResults()
                 .then(function (resp) {
                     $scope.allAttemptResults = _.filter(resp.data, function (r) { // TODO Why?
@@ -90,10 +102,14 @@ angular.module('testingFrontendApp')
                 $('#loading_papers').show();
                 $state.go('home.solutions', {
                     'aid': aid,
-                    'attemptInstance': $scope.selectedAttempt
+                    'attemptInstance': $scope.selectedAttempt,
+                    'attempted':true
                 });
             };
-
+            $scope.viewOMR = function(){
+                var win = window.open(server+'attempts/'+$scope.selectedAttempt.id+'/get_omr','_blank');
+                win.focus();
+            }
             $scope.getFormattedDate = function (date_str) {
                 var d = new Date(date_str);
                 return d.toLocaleDateString() + " : " + d.toLocaleTimeString().slice(0, 5);
@@ -171,7 +187,7 @@ angular.module('testingFrontendApp')
             $scope.charts = {
                 totalMarks: {
                     info: {
-                        labels: ["Physics", "Chemistry", "Maths", "Biology", "Zoology"],
+                        labels: $scope.subject_list,
                         options: {
                             title: {
                                 display: true,
@@ -189,7 +205,7 @@ angular.module('testingFrontendApp')
                     update: function(){
                         var r = $scope.selectedAttempt.result;
                         // this.data = [r.pobt, r.cobt, r.mobt, r.bobt, r.zobt];
-                        this.data = [1,1,1,1,1]
+                        this.data = _.map($scope.subject_list,function(n){return $scope.analysis[n]!=undefined?$scope.analysis[n]['score']:0;});//[1,1,1,1,1];
                     }
                 },
                 trendOverTime: {
@@ -255,21 +271,26 @@ angular.module('testingFrontendApp')
                         var availableSubjects = Object.keys($scope.analysis);
                         // Populate each subject with its topics[], marks[], and percentile[].
                         availableSubjects.forEach(function(subject){
-                            var topics = _.sortBy($scope.analysis[subject].topics, function(topic){
-                                return topic.percentile;
-                            }).reverse();
-                            // Set up fields
-                            this.subjects[subject] = {topics:[],data:{marks:[],percentile:[]}};
-                            // Populate topics
-                            this.subjects[subject].topics = topics.map(function(topic){return topic.name});
-                            // Populate marks
-                            this.subjects[subject].data.marks = topics.map(function(topic){
-                                return topic.marks;
-                            }.bind(this));
-                            // Populate percentile
-                            this.subjects[subject].data.percentile = topics.map(function(topic){
-                                return topic.percentile;
-                            }.bind(this));
+                            if (subject=='Chemistry' && (availableSubjects.indexOf('Inorganic')!=-1 || availableSubjects.indexOf('Physical')!=-1 || availableSubjects.indexOf('Organic')!=-1)){
+                                $scope.skip_chem = true;
+                            } else {
+                                var topics = _.sortBy($scope.analysis[subject].topics, function(topic){
+                                    return topic.percentile;
+                                }).reverse();
+                                // Set up fields
+                                this.subjects[subject] = {topics:[],data:{marks:[],percentile:[]}};
+                                // Populate topics
+                                this.subjects[subject].topics = topics.map(function(topic){return topic.name});
+                                // Populate marks
+                                this.subjects[subject].data.marks = topics.map(function(topic){
+                                    return topic.marks;
+                                }.bind(this));
+                                // Populate percentile
+                                this.subjects[subject].data.percentile = topics.map(function(topic){
+                                    return topic.percentile;
+                                }.bind(this));    
+                            }
+                            
                         }.bind(this));
                         console.log(this);
                     }
@@ -304,12 +325,20 @@ angular.module('testingFrontendApp')
             });
 
             $scope.updateCharts = function () {
-                $scope.charts.totalMarks.update()
-                $scope.charts.trendOverTime.updateOnce()
-                $scope.charts.subTopicDistribution.update();
+                //fetch the analysis data
+                $http.get(server+'attempts/'+$scope.selectedAttempt.id+'/topic_wise_analysis/')
+                .then(function(resp){
+                    $scope.analysis = resp.data;
+                    $scope.charts.totalMarks.update()
+                    $scope.charts.trendOverTime.updateOnce()
+                    $scope.charts.subTopicDistribution.update();
+                },function(err){
+                    //display error
+                })
+
             }
 
-            $scope.analysis = {"physics":{"topics":[{"id":0,"name":"Topic-0","marks":9,"percentile":85.445},{"id":1,"name":"Topic-1","marks":7,"percentile":10.239},{"id":2,"name":"Topic-2","marks":1,"percentile":1.3800000000000001},{"id":3,"name":"Topic-3","marks":5,"percentile":61.141},{"id":4,"name":"Topic-4","marks":4,"percentile":23.154}]},"chemistry":{"topics":[{"id":0,"name":"Topic-0","marks":4,"percentile":82.552},{"id":1,"name":"Topic-1","marks":0,"percentile":25.901999999999997},{"id":2,"name":"Topic-2","marks":1,"percentile":80.04599999999999},{"id":3,"name":"Topic-3","marks":9,"percentile":98.156},{"id":4,"name":"Topic-4","marks":4,"percentile":22.554},{"id":5,"name":"Topic-5","marks":6,"percentile":49.047}]},"maths":{"topics":[{"id":0,"name":"Topic-0","marks":10,"percentile":59.400000000000006},{"id":1,"name":"Topic-1","marks":7,"percentile":17.355},{"id":2,"name":"Topic-2","marks":4,"percentile":69.94200000000001},{"id":3,"name":"Topic-3","marks":10,"percentile":95.482},{"id":4,"name":"Topic-4","marks":2,"percentile":11.632},{"id":5,"name":"Topic-5","marks":5,"percentile":70.378},{"id":6,"name":"Topic-6","marks":7,"percentile":0.782},{"id":7,"name":"Topic-7","marks":2,"percentile":46.864999999999995},{"id":8,"name":"Topic-8","marks":0,"percentile":78.662},{"id":9,"name":"Topic-9","marks":9,"percentile":64.797},{"id":10,"name":"Topic-10","marks":6,"percentile":78.513}]}}
+            //$scope.analysis = {"physics":{"topics":[{"id":0,"name":"Topic-0","marks":9,"percentile":85.445},{"id":1,"name":"Topic-1","marks":7,"percentile":10.239},{"id":2,"name":"Topic-2","marks":1,"percentile":1.3800000000000001},{"id":3,"name":"Topic-3","marks":5,"percentile":61.141},{"id":4,"name":"Topic-4","marks":4,"percentile":23.154}]},"chemistry":{"topics":[{"id":0,"name":"Topic-0","marks":4,"percentile":82.552},{"id":1,"name":"Topic-1","marks":0,"percentile":25.901999999999997},{"id":2,"name":"Topic-2","marks":1,"percentile":80.04599999999999},{"id":3,"name":"Topic-3","marks":9,"percentile":98.156},{"id":4,"name":"Topic-4","marks":4,"percentile":22.554},{"id":5,"name":"Topic-5","marks":6,"percentile":49.047}]},"maths":{"topics":[{"id":0,"name":"Topic-0","marks":10,"percentile":59.400000000000006},{"id":1,"name":"Topic-1","marks":7,"percentile":17.355},{"id":2,"name":"Topic-2","marks":4,"percentile":69.94200000000001},{"id":3,"name":"Topic-3","marks":10,"percentile":95.482},{"id":4,"name":"Topic-4","marks":2,"percentile":11.632},{"id":5,"name":"Topic-5","marks":5,"percentile":70.378},{"id":6,"name":"Topic-6","marks":7,"percentile":0.782},{"id":7,"name":"Topic-7","marks":2,"percentile":46.864999999999995},{"id":8,"name":"Topic-8","marks":0,"percentile":78.662},{"id":9,"name":"Topic-9","marks":9,"percentile":64.797},{"id":10,"name":"Topic-10","marks":6,"percentile":78.513}]}}
 
 
 

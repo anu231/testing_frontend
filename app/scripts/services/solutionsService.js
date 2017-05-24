@@ -11,7 +11,12 @@ angular.module('testingFrontendApp')
   .service('solutionsService', ['$http', 'server',
   function ($http, server) {
     this.solution_url = server + 'attempts/';
-    this.getSolutions = function(aid){
-      return $http.get(this.solution_url + aid + '/get_solutions/');
+    this.paper_solution_url = server +'spaper/';
+    this.getSolutions = function(aid,attempt_solution){
+      if (attempt_solution){
+      	return $http.get(this.solution_url + aid + '/get_solutions/');	
+      } else {
+      	return $http.get(this.paper_solution_url + aid + '/get_solutions/');
+      }
     }
   }]);

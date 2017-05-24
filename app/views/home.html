@@ -47,14 +47,15 @@
             </td>
             <td ng-if='paper.status == undefined' class="text-center">
               <!--<p><b><span class="label label-default"> Never Attempted </span></b></p>-->
+              <button class='btn btn-danger' ng-click="viewSolution(paper)" ng-if='paper.show_solution && paper.offline'><span class="glyphicon glyphicon-stats"></span> View Solution</button>
             </td>
             <td class="text-center">
               <button class="btn btn-primary" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined && paper.offline == false'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
             </td>
           </tr>
           <!-- /fresh papers  -->
-          <!-- attempted papers -->
-          <tr ng-class="{'info':paper.status=='ongoing'}" ng-repeat="paper in attempted_papers | orderBy:'-lastdate'">
+          <!-- attempted papers --
+>          <tr ng-class="{'info':paper.status=='ongoing'}" ng-repeat="paper in attempted_papers | orderBy:'-lastdate'">
             <td class="paper-name"><span>{{paper.name}}</span></td>
             <td class="text-center">{{paper.time.slice(0,5)}}</td>
             <td  class="text-center expiry-date">
@@ -109,7 +110,8 @@
           <p><b>Expires On </b>: {{getTzDate(paper.lastdate)}} - {{ getTzTime(paper.lastdate)}}</p>
         </div>
         <div class="paper-action paper-action-attempt">
-          <button class="btn btn-primary paper-action-button" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined && !offline'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
+          <button class="btn btn-primary paper-action-button" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined && !paper.offline'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
+          <button class="btn btn-primary paper-action-button" ng-click='viewSolution(paper)' ng-if='paper.status == undefined && paper.offline && paper.show_solution'> <span class="glyphicon glyphicon-plus"></span> View Solutions</button>
         </div>
       </div>
       <!--attempted papers-->

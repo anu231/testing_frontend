@@ -46,8 +46,8 @@
                             <a ng-click="selectAttempt(attempt.id)">{{getFormattedDate(attempt.starttime)}}</a>
                         </li>
                     </ul>
-                    <button class="btn btn-info" ng-click="viewSolutions()"> View Solutions </button>
-                    <button class="btn btn-info" ng-click=""> View OMR Sheet </button>
+                    <button class="btn btn-info" ng-click="viewSolutions()" ng-if='show_solution'> View Solutions </button>
+                    <button class="btn btn-info" ng-click="viewOMR()"> View OMR Sheet </button>
                 </div>
             </div>
         </div>
@@ -118,12 +118,16 @@
                                         Subtopic
                                     </div>
                                     <div class="subject-score">
-                                        0**
+                                        Score
                                     </div>
                                 </li>
-                                <li class="list-group-item" ng-repeat="topic in data.topics">
+                                <!--<li class="list-group-item" ng-repeat="topic in data.topics">
                                     <div class="topic-name">{{topic.name}}</div>
                                     <div class="topic-score">{{topic.marks}}</div>
+                                </li>-->
+                                <li class="list-group-item" ng-repeat="(name,topic) in data.child">
+                                    <div class="topic-name">{{name}}</div>
+                                    <div class="topic-score">{{topic.score}}</div>
                                 </li>
                             </ul>
                         </div>
