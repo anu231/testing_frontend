@@ -131,9 +131,12 @@ var solutionsState = {
   },
   resolve: {
     solutions: ['solutionsService','$stateParams',function(solutionsService, $stateParams){
-      return solutionsService.getSolutions($stateParams.aid);
+      return solutionsService.getSolutions($stateParams.aid,$stateParams.attempted);
     }],
     attemptInstance: ['$stateParams', 'attempt',function($stateParams, attempt){
+      if (!$stateParams.attempted){
+        return undefined;
+      }
       if($stateParams.attemptInstance)
         return $stateParams.attemptInstance;
       else {
