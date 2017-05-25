@@ -128,6 +128,7 @@ var solutionsState = {
   params :{
     attemptInstance: null,
     solutions: null,
+    attempted:null,
   },
   resolve: {
     solutions: ['solutionsService','$stateParams',function(solutionsService, $stateParams){

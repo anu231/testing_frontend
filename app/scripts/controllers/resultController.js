@@ -148,7 +148,12 @@ angular.module('testingFrontendApp')
                     return ad.toLocaleDateString();
                 })();
                 $scope.selectedAttempt.attempt_date = (function () {
-                    var ad = new Date(att.endtime);
+                    var ad = undefined;
+                    if (att.endtime==null){
+                        ad = new Date(att.starttime);
+                    } else {
+                        ad = new Date(att.endtime);
+                    }
                     return ad.toLocaleDateString();
                 })();
                 $scope.selectedAttempt.duration = (function () {
