@@ -227,7 +227,7 @@ angular.module('testingFrontendApp')
       if($stateParams.vid && $stateParams.vstate){
         console.log('Redirecting user to results');
         // Broadcast message with only the essential parameters for state transition
-        $rootScope.$broadcast('viewResult', {paper: {id: $stateParams.vid}});
+        //$rootScope.$broadcast('viewResult', {paper: {id: $stateParams.vid}});
       }
 
 
