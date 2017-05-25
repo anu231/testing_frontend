@@ -14,7 +14,7 @@
                         <ul class="list-group">
                             <li class="list-group-item">Duration: {{selectedAttempt.duration}} hrs</li>
                             <li class="list-group-item">Attempted on: {{selectedAttempt.attempt_date}}</li>
-                            <li class="list-group-item">Expires on: {{selectedAttempt.expiry_date}}</li>
+                            <li class="list-group-item" ng-if="!selectedPaper.offline">Expires on: {{selectedAttempt.expiry_date}}</li>
                         </ul>
                     </div>
                     <div class="marking_scheme">
