@@ -71,6 +71,7 @@
                     <th class="text-center">Incorrect</th>
                     <!--<th class="text-center">Unattempted</th>-->
                     <th class="text-center">Score</th>
+                    <th class="text-center">Rank</th>
                 </thead>
                 <tbody>
                     <tr class="text-center">
@@ -79,6 +80,7 @@
                         <td class="danger"><b>{{selectedAttempt.netScore.incorrect}}</b></td>
                         <!--<td><b>ua</b></td>-->
                         <td class="info"><b>{{selectedAttempt.result['marksobt']}}</b></td>
+                        <td class="primary"><b>{{selectedAttempt.result['rank']}}</b></td>
                     </tr>
                     <tr class="text-center" ng-repeat="sub in ['Physics','Chemistry','Maths','Biology','Zoology']">
                         <td>{{ sub }}</td>
@@ -86,6 +88,7 @@
                         <td class="danger">{{ selectedAttempt.result[sub[0].toLowerCase()+'wrong'] }}</td>
                         <!--<td>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }} N/A</td>-->
                         <td class="info"><b>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }}</b></td>
+                        <td class="primary"><b>{{ selectedAttempt.result[sub[0].toLowerCase()+'rank'] }}</b></td>
                     </tr>
                 </tbody>
             </table>
