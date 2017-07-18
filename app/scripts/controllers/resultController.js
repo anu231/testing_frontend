@@ -26,6 +26,7 @@ angular.module('testingFrontendApp')
         function ($scope, $state, attempt, result, paper, p_current_attempt_result, p_user_attempts,server,$http) {
             document.title = "Results and Analysis";
             $scope.subject_list = ["Physics", "Chemistry", "Maths", "Biology"];
+            $scope.show_max_avg_comparsion = false;
             var current_attempt_result = p_current_attempt_result.data; // Latest attempt result
             var current_attempt = _.find(p_user_attempts.data, function (a) { // Latest attempt
                 return a.id == current_attempt_result.attempt
@@ -260,6 +261,46 @@ angular.module('testingFrontendApp')
                     }
 
                 },
+                high_avg:{
+                    options: {
+                        title: {
+                            display: true,
+                            text: "Comparison With Highest & Avg",
+                            fontSize: 16,
+                            padding: 20,
+                            backgroundColor:['#3F51B5', '#f44336', '#78909C']
+                        },
+                        legend: {
+                            display: true,
+                        },
+                        labels: {
+                            fontSize: 6
+                        }
+                    },
+                    labels:["Total", "Physics", "Chemistry", "Maths", "Biology"],
+                    series:['Self', 'Average', 'Highest'],
+                    data:[[],[],[]],
+                    update:function(){
+                        //fetch the average and highest marks
+                        $http.get(server+'attempts/'+$scope.selectedAttempt.id+'/get_avg_highest_marks/')
+                        .then(function(resp){
+                            var highest = resp.data[0];
+                            var average = resp.data[1];
+                            var own_marks = $scope.selectedAttempt.result;
+                            $scope.charts.high_avg.data[0] = [own_marks['marksobt'],own_marks['pobt'],own_marks['cobt'],own_marks['mobt'],own_marks['bobt']]
+                            $scope.charts.high_avg.data[1] = [average.marksobt,average.pobt, average.cobt, average.mobt, average.bobt];
+                            $scope.charts.high_avg.data[2] = [highest.marksobt,highest.pobt, highest.cobt, highest.mobt, highest.bobt];
+                            $scope.show_max_avg_comparison = true;
+                            //$scope.charts.high_avg.data[0] = [$scope.selectedAttempt.result['marksobt'], average.marksobt, highest.marksobt];
+                            //$scope.charts.high_avg.data[1] = [$scope.selectedAttempt.result['pobt'], average.pobt, highest.pobt];
+                            //$scope.charts.high_avg.data[2] = [$scope.selectedAttempt.result['cobt'], average.cobt, highest.cobt];
+                            //$scope.charts.high_avg.data[3] = [$scope.selectedAttempt.result['mobt'], average.mobt, highest.mobt];
+                            //$scope.charts.high_avg.data[4] = [$scope.selectedAttempt.result['bobt'], average.bobt, highest.bobt];
+                        },function(err){
+                            Console.log('Error Fetching the average and highest marks');
+                        })
+                    }
+                },
                 subTopicDistribution: { // For each subject
                     subjects: {},
                     info: {
@@ -331,11 +372,12 @@ angular.module('testingFrontendApp')
 
             $scope.updateCharts = function () {
                 //fetch the analysis data
+                $scope.charts.high_avg.update();
                 $http.get(server+'attempts/'+$scope.selectedAttempt.id+'/topic_wise_analysis/')
                 .then(function(resp){
                     $scope.analysis = resp.data;
                     $scope.charts.totalMarks.update()
-                    $scope.charts.trendOverTime.updateOnce()
+                    //$scope.charts.trendOverTime.updateOnce()
                     $scope.charts.subTopicDistribution.update();
                 },function(err){
                     //display error

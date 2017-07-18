@@ -93,7 +93,12 @@
                 </tbody>
             </table>
         </div>
-
+        <div class="card" id="card_bar" ng-show='show_max_avg_comparison'>
+          <h5>Comparison with Average and Highest Marks</h5>
+          <canvas id="chart_bar" class="chart chart-bar" chart-data="charts.high_avg.data" chart-labels="charts.high_avg.labels" chart-series="charts.high_avg.series"
+            chart-options="charts.high_avg.options">
+          </canvas>
+        </div>
         <!--HOLD THIS CHART FOR NOW-->
         <!--<div class="card" id="card_bar" ng-if="!HIDEBARCHART">
       <h5>Trend Over Time</h5>
@@ -102,7 +107,7 @@
       </canvas>
     </div>-->
 
-        <div ng-repeat="(subject, data) in analysis" ng-show='false'>
+        <div ng-repeat="(subject, data) in analysis">
             <div class="card subject-card {{subject}}" data-subject="{{subject}}" data-collapsed="false">
                 <div class="subject-header" ng-click="toggle_card(subject)">
                     <span class="card-title">{{subject}}</span>
