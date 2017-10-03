@@ -250,6 +250,10 @@ angular.module('testingFrontendApp')
         list2.search('');
       }
 
+      $scope.goHome = function(){
+        $state.go('home');
+      }
+
 
       // Scrolling
       $('#home_parent_div').scroll(function () {

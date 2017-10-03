@@ -1,0 +1,26 @@
+<div class='view-analysis-parent'>
+	<div class='top_bar'>
+		<div class='analysis_title'>
+			Overall Analysis
+		</div>
+		<button id="back_button" class="btn btn-danger" ng-click='goHome()'>
+			<span class="glyphicon glyphicon-log-out">
+				Back
+			</span>
+		</button>
+	</div>
+	<div class='parent_container'>
+		<!--Showing total and subject wise score over time-->
+		<div ng-repeat='subject in chart_analysis' class='card overall_analysis_card'>
+			<div class='panel panel-default'>
+				<div class='analysis_subject_title h4 center-block panel-heading'>
+					{{subject.name}}
+				</div>
+				<div class='panel-body'>
+					<canvas class="chart chart-line" chart-data="subject.data" chart-labels="x_labels" chart-options='chart_options' chart-colors='color_chart'>
+					</canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
