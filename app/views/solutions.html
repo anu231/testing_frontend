@@ -17,10 +17,15 @@
     <div class="solutions-container">
 
         <div ng-repeat="question in questions" class="question-card">
-
+            <section ng-if="question.ques_type == 'CH'">
+                <div class='question-no'>Comprehension Text</div>
+                <div class="question-body" ng-bind-html="trustedHtml(question.question)">
+                </div>
+            </section>
             <section ng-if="question.ques_type == 'SC' || question.ques_type == 'MC' || question.ques_type == 'TF' || question.ques_type == 'AR'">
                 <div class="question-no">
-                    {{$index + 1}}
+                    <!--{{$index + 1}}-->
+                    {{question.index}}
                     <!--{{$index + 1}}  <button ng-click="debug(question)">[{{question.ques_type}}]</button>-->
                 </div>
                 <div class="question-body" ng-bind-html="trustedHtml(question.question)">

@@ -32,9 +32,10 @@
                                 <tr ng-if="selectedPaper.mccor"><td>MC</td>  <td>+ {{selectedPaper.mccor}} </td><td>- {{selectedPaper.mcnegmarks}}</td></tr>
                                 <tr ng-if="selectedPaper.arcor"><td>AR</td>  <td>+ {{selectedPaper.arcor}} </td><td>- {{selectedPaper.arnegmarks}}</td></tr>
                                 <tr ng-if="selectedPaper.chcor"><td>CH</td>  <td>+ {{selectedPaper.chcor}} </td><td>- {{selectedPaper.chnegmarks}}</td></tr>
-                                <tr ng-if="selectedPaper.sacor"><td>SA</td>  <td>+ {{selectedPaper.sacor}} </td><td>- {{selectedPaper.sanegmarks}}</td></tr>
+                                <!--<tr ng-if="selectedPaper.sacor"><td>SA</td>  <td>+ {{selectedPaper.sacor}} </td><td>- {{selectedPaper.sanegmarks}}</td></tr>-->
                                 <tr ng-if="selectedPaper.tfcor"><td>TF</td>  <td>+ {{selectedPaper.tfcor}} </td><td>- {{selectedPaper.tfnegmarks}}</td></tr>
                                 <tr ng-if="selectedPaper.sacor"><td>SA</td>  <td>+ {{selectedPaper.sacor}} </td><td>- {{selectedPaper.sanegmarks}}</td></tr>
+                                <tr ng-if="selectedPaper.sdcor"><td>IT</td>  <td>+ {{selectedPaper.sdcor}} </td><td>- {{selectedPaper.sdnegmarks}}</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -94,7 +95,7 @@
             </table>
         </div>
         <div class="card" id="card_bar" ng-show='show_max_avg_comparison'>
-          <h5>Comparison with Average and Highest Marks</h5>
+          <h5>Comparison with Highest Marks</h5>
           <canvas id="chart_bar" class="chart chart-bar" chart-data="charts.high_avg.data" chart-labels="charts.high_avg.labels" chart-series="charts.high_avg.series"
             chart-options="charts.high_avg.options">
           </canvas>
@@ -118,6 +119,21 @@
                 </div>
                 <hr>
                 <div class="subject-body">
+                    <table class='table'>
+                        <thead class='thead-inverse'>
+                            <th>Subtopic</th>
+                            <th>Score</th>
+                            <th>Percentage</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(name, topic) in data.child">
+                                <td>{{name}}</td>
+                                <td>{{topic.score}}</td>
+                                <td>{{topic.percentage | number:2}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <!--
                     <div class="my-col my-col-40">
                         <div class="topics-data">
                             <ul class="list-group">
@@ -128,25 +144,26 @@
                                     <div class="subject-score">
                                         Score
                                     </div>
+                                    <div class="subject-percentage">
+                                        Percentage
+                                    </div>
                                 </li>
-                                <!--<li class="list-group-item" ng-repeat="topic in data.topics">
-                                    <div class="topic-name">{{topic.name}}</div>
-                                    <div class="topic-score">{{topic.marks}}</div>
-                                </li>-->
                                 <li class="list-group-item" ng-repeat="(name,topic) in data.child">
                                     <div class="topic-name">{{name}}</div>
                                     <div class="topic-score">{{topic.score}}</div>
+                                    <div class="topic-percent">{{topic.percentage}}</div>
                                 </li>
                             </ul>
                         </div>
-                        <!--<div class="card" id="question_distribution">
+                        <div class="card" id="question_distribution">
                             <canvas id="chart_pie" class="chart-pie"
                                 chart-data="charts.subTopicDistribution.subjects[subject].data.percentile"
                                 chart-labels="charts.subTopicDistribution.subjects[subject].topics"
                                 chart-options="charts.questionDistribution.info.options">
                             </canvas> 
-                        </div>-->
+                        </div>
                     </div>
+                -->
                     <!--<div class="my-col my-col-60">
                         <div class="card" id="subtopic_distribution">
                             <canvas id="chart_bar" class="chart-bar" 

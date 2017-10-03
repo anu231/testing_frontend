@@ -232,7 +232,7 @@
                 margin-left: 2.5%;
 
                 .subject-name {
-                    width: 80%;
+                    width: 70%;
                     display: inline-block;
                     text-transform: capitalize;                
                     padding-left: 5px;
@@ -241,9 +241,13 @@
                     display: inline-block;
                     width: 15%;
                 }
+                .subject-percentage {
+                    display: inline-block;
+                    width: 15%;
+                }
                 .topic-name{
                     // border:1px solid;
-                    width: 80%;                    
+                    width: 70%;                    
                     display: inline-block;
                 }
                 .topic-score{
@@ -251,7 +255,11 @@
                     width: 15%;
                     display: inline-block;
                 }
-
+                .topic-percentage{
+                    // border:1px solid;
+                    width: 15%;
+                    display: inline-block;
+                }
                 [data-subject="Chemistry"].collapsable {
                     flex-wrap: wrap;
                     height: 100%;

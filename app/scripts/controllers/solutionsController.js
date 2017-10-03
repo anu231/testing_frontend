@@ -21,7 +21,15 @@ angular.module('testingFrontendApp')
         }
       }
       $scope.solutions = solutions.data;
-      $scope.questions = $scope.solutions
+      $scope.questions = $scope.solutions;
+      //add a index for all the questions
+      var index = 1;
+      for (var i=0; i<$scope.questions.length; i++){
+        if ($scope.questions[i].ques_type != 'CH'){
+          $scope.questions[i]['index'] = index;
+          index++;
+        }
+      }
 
       // Don't sanatize Latex images
       $scope.trustedHtml = function (html) {

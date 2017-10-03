@@ -45,6 +45,15 @@ var rootState = {
   controller:"HomeCtrl",
 }
 
+var analysisState = {
+  name :'home.analysis',
+  resolve:{
+  },
+  url: "/home/analysis",
+  templateUrl: "views/analysis.html",
+  controller:"AnalysisCtrl",
+}
+
 var homeState = {
   name :'home',
   // Params in case user was directed from edumate. These are used to get latest attempt
@@ -150,6 +159,7 @@ var solutionsState = {
 testing_app.config(function($stateProvider,$urlRouterProvider) {
   	$stateProvider
     .state(rootState)
+    .state(analysisState)
     .state(homeState)
     .state(attemptState)
     .state(resultState)

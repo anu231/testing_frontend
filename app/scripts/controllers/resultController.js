@@ -268,7 +268,7 @@ angular.module('testingFrontendApp')
                             text: "Comparison With Highest & Avg",
                             fontSize: 16,
                             padding: 20,
-                            backgroundColor:['#3F51B5', '#f44336', '#78909C']
+                            backgroundColor:['#3F51B5', '#f44336']
                         },
                         legend: {
                             display: true,
@@ -278,8 +278,8 @@ angular.module('testingFrontendApp')
                         }
                     },
                     labels:["Total", "Physics", "Chemistry", "Maths", "Biology"],
-                    series:['Self', 'Average', 'Highest'],
-                    data:[[],[],[]],
+                    series:['Self', 'Highest'],
+                    data:[[],[]],
                     update:function(){
                         //fetch the average and highest marks
                         $http.get(server+'attempts/'+$scope.selectedAttempt.id+'/get_avg_highest_marks/')
@@ -288,8 +288,8 @@ angular.module('testingFrontendApp')
                             var average = resp.data[1];
                             var own_marks = $scope.selectedAttempt.result;
                             $scope.charts.high_avg.data[0] = [own_marks['marksobt'],own_marks['pobt'],own_marks['cobt'],own_marks['mobt'],own_marks['bobt']]
-                            $scope.charts.high_avg.data[1] = [average.marksobt,average.pobt, average.cobt, average.mobt, average.bobt];
-                            $scope.charts.high_avg.data[2] = [highest.marksobt,highest.pobt, highest.cobt, highest.mobt, highest.bobt];
+                            //$scope.charts.high_avg.data[1] = [average.marksobt,average.pobt, average.cobt, average.mobt, average.bobt];
+                            $scope.charts.high_avg.data[1] = [highest.marksobt,highest.pobt, highest.cobt, highest.mobt, highest.bobt];
                             $scope.show_max_avg_comparison = true;
                             //$scope.charts.high_avg.data[0] = [$scope.selectedAttempt.result['marksobt'], average.marksobt, highest.marksobt];
                             //$scope.charts.high_avg.data[1] = [$scope.selectedAttempt.result['pobt'], average.pobt, highest.pobt];
