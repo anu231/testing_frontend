@@ -180,6 +180,7 @@ angular.module('testingFrontendApp')
       };
       $scope.viewSolution = function(paper){
         //var latestAttempt = paper.allAttempts.slice(-1)[0]; // Last attempt in the list
+        $('#loading_papers').show();
         $state.go("home.solutions", {'aid':paper.id, 'attempted':false});
       };
       // View result from the paper-finished modal.

@@ -69,7 +69,7 @@
 
             <section ng-if="question.ques_type == 'IT'">
                 <div class="question-no">
-                    {{$index + 1}}
+                    {{question.index}}
                     <!--{{$index + 1}}  <button ng-click="debug(question)">[{{question.ques_type}}]</button>-->
                 </div>
                 <div class="question-body" ng-bind-html="trustedHtml(question.question)">
@@ -104,7 +104,7 @@
 
             <section ng-if="question.ques_type == 'MT'">
                 <div class="question-no" ng-class="{'solution-correct': question.useranswer.score >= 0, 'solution-incorrect': question.useranswer.score < 0 && question.useranswer}">
-                    {{$index + 1}}
+                    {{question.index}}
                     <!--{{$index + 1}} <button ng-click="debug(question)">[{{question.ques_type}}]</button>-->
                 </div>
                 <div class="question-body" ng-bind-html="trustedHtml(question.question)">
