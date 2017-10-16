@@ -58,7 +58,8 @@ angular.module('testingFrontendApp')
                 //solutions will be visible from 7pm starting from start date
                 var now = new Date();
                 var start_time = new Date($scope.selectedPaper.startdate);
-                var date_show_solution = new Date(start_time.getFullYear(),start_time.getMonth(),start_time.getDate(),19);
+                //var date_show_solution = new Date(start_time.getFullYear(),start_time.getMonth(),start_time.getDate(),19);
+                var date_show_solution = new Date($scope.selectedPaper.soln_show_date);
                 if (now > date_show_solution){
                     //show solution
                     $scope.show_solution = true;

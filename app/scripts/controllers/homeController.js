@@ -70,9 +70,9 @@ angular.module('testingFrontendApp')
       }
       //decides whether to show the paper's solution or not
       $scope.show_paper_solution = function(paper){
-        var start_date = new Date(paper.startdate);
+        var start_date = new Date(paper.soln_show_date);
         var today = new Date();
-        start_date.setHours(19);
+        //start_date.setHours(19);
         if (today>start_date){
           return true;
         } else {
