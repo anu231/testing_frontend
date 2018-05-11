@@ -251,7 +251,7 @@ angular.module('testingFrontendApp')
             var qs = _.find($scope.questions,function(qs){return qs.id===ua.question});
             qs.useranswer = ua;
             qs.useranswer.isSubmitted=true;
-            if(ua.answer != "null"){ qs.isAnswered = true;}
+            if(ua.answer != "null"){ qs.isAnswered = true;qs.isSavedOnce=true;}
             if(qs.ques_type==="SC" ||  qs.ques_type==="SA"){
               qs.answer = ua.answer;
             } else if (qs.ques_type === "IT"){
