@@ -355,7 +355,7 @@ angular.module('testingFrontendApp')
             $scope.alert_notification({msg:"Couldn't connect to the server, please check your internet connection",theme:"red",time:3000});
           }
           //TODO Save/UPDATE LOGIC
-          if(question.useranswer.isSubmitted != true){
+          if(question.isSavedOnce != true){
             useranswer.saveAnswer(question.useranswer).then(success,failure);
           } else {
             useranswer.updateAnswer(question.useranswer).then(success, failure);
