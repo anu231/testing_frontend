@@ -290,7 +290,7 @@
     <div id="bottom_bar">
       <div id="control_buttons" class="">
         <button ng-class="{'btn':true, 'btn-default':true, 'control-nav-button':true}" ng-click="previousQuestion()"><span class="glyphicon glyphicon-arrow-left"></span> Prev.</button>
-        <button class="btn btn-success control-button" ng-click="selectedQuestion.marked=false; save(selectedQuestion)" data-toggle="tooltip" data-placement="top" title="Save your progress. Saved questions can be changed later."  ><span class="glyphicon glyphicon-ok"></span> Save</button>
+        <button class="btn btn-success control-button" ng-disabled="save_disable" ng-click="selectedQuestion.marked=false; save(selectedQuestion)" data-toggle="tooltip" data-placement="top" title="Save your progress. Saved questions can be changed later."  ><span class="glyphicon glyphicon-ok"></span> Save</button>
         <button class="btn btn-warning control-button" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false; alert_notification({'msg': 'Question Marked','theme':'yellow','time':1900}); " data-toggle="tooltip" data-placement="top" title="Mark this question for later review"><span class="glyphicon glyphicon-exclamation-sign"></span> Mark</button>
         <button class="btn btn-danger control-button" ng-click="clearAnswer(selectedQuestion)" data-toggle="tooltip" data-placement="top" title="Clear the selected choices"><span class="glyphicon glyphicon-remove"></span>Clear</button>
         <button ng-class="{'btn': true,'btn-default':true,'control-nav-button':true}"  ng-click="nextQuestion()">Next <span class="glyphicon glyphicon-arrow-right"></span></button>

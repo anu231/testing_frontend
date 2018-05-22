@@ -19,7 +19,8 @@ angular.module('testingFrontendApp')
     function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window, $document, $uibModal, paper,$sce) {
       $scope.init = function(questions){
         $scope.paper_title = attempt.attempt.paper_info.name;
-        document.title = "Test:"+"$scope.paper_title";
+        document.title = "Test:"+$scope.paper_title;
+        $scope.save_disable = false;
         $scope.paper = paper;
         if (questions.data.length !==null){
           $scope.questions = questions.data;
@@ -122,8 +123,9 @@ angular.module('testingFrontendApp')
               });
               $('#cleanupModal').modal('hide');
             }, 1000);
+            alert('Dear Student Your Score will be available by today evening. Please chack again in the evening.');
             // Generate marks and show a paper finished modal with a viewResults insta button.
-            attempt.generate_marks().then(function (resp) {
+            /*attempt.generate_marks().then(function (resp) {
               $timeout(function () {
                 $uibModal.open({
                   templateUrl: 'views/paper-finished.html',
@@ -145,7 +147,7 @@ angular.module('testingFrontendApp')
               }, 5000)
             }, function (err) {
               alert("Crititcal ERROR: Couldnt generate marks");
-            })
+            })*/
           } else {
             // TODO is this necessary?
             alert("CRITICAL ERROR: Couldn't connect to server!  STATUS CODE != 200");
@@ -337,14 +339,16 @@ angular.module('testingFrontendApp')
           question.useranswer.answer = "null";
           question.useranswer.timetaken = question.timetaken;
           function success(resp){
-            question.useranswer.answer = resp.answer;
-            question.useranswer.isSubmitted = true;
+            //question.useranswer.answer = resp.answer;
+            //question.useranswer.isSubmitted = true;
+            question.useranswer = resp;
             question.answer = undefined;
             question.answerA = undefined;
             question.answerB = undefined;
             question.answerC = undefined;
             question.answerD = undefined;
             question.isAnswered = false;
+            question.isSavedOnce = true;
           }
           function failure(err){
             question.useranswer.answer = useranswerbackup;
@@ -441,11 +445,12 @@ angular.module('testingFrontendApp')
       $scope.save = function(question){
         // Instantiate useranswer field if not present. Used to track previous attempts(?)
         var ques_valid = $scope.validateAndFormatAnswer(question);
-
+        $scope.save_disable = true;
         if (ques_valid===true){
           if (!question.isSavedOnce){
             useranswer.saveAnswer(question.useranswer)
             .then(function(resp){
+              $scope.save_disable = false;
               $scope.alert_notification({msg: "Answer Saved.", theme:"green"});
               question.isSavedOnce = true;
               question.useranswer.answer = resp.answer;
@@ -457,6 +462,7 @@ angular.module('testingFrontendApp')
           } else {
             useranswer.updateAnswer(question.useranswer)
             .then(function(resp){
+              $scope.save_disable = false;
               $scope.alert_notification({msg: "Answer Updated.", theme:"green", time:2000});
               question.useranswer.answer = resp.answer;
               question.useranswer.id = resp.id;
