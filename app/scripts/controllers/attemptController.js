@@ -445,8 +445,8 @@ angular.module('testingFrontendApp')
       $scope.save = function(question){
         // Instantiate useranswer field if not present. Used to track previous attempts(?)
         var ques_valid = $scope.validateAndFormatAnswer(question);
-        $scope.save_disable = true;
         if (ques_valid===true){
+          $scope.save_disable = true;
           if (!question.isSavedOnce){
             useranswer.saveAnswer(question.useranswer)
             .then(function(resp){
