@@ -453,10 +453,11 @@ angular.module('testingFrontendApp')
               $scope.save_disable = false;
               $scope.alert_notification({msg: "Answer Saved.", theme:"green"});
               question.isSavedOnce = true;
-              question.useranswer.answer = resp.answer;
-              question.useranswer.id = resp.id;
+              question.useranswer.answer = resp.data.answer;
+              question.useranswer.id = resp.data.id;
               question.useranswer.isSubmitted = true;
             },function(err){
+              $scope.save_disable = false;
               $scope.alert_notification({msg:"Couldn't save your answer: Please check your internet connection!", theme:"red"});
             });
           } else {
@@ -468,6 +469,7 @@ angular.module('testingFrontendApp')
               question.useranswer.id = resp.id;
               question.useranswer.isSubmitted = true;
             },function(err){
+              $scope.save_disable = false;
               $scope.alert_notification({msg:"Couldn't update your answer: Please check your internet connection!", theme:"red"});
             });
           }

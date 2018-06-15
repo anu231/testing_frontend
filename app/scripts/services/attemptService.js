@@ -35,14 +35,14 @@ angular.module('testingFrontendApp')
   //Starts a new attempt or resumes an ongoing attempt
   this.startOrFetchAttempt = function(paper){
     if(paper.status == "ongoing"){
-      return this.fetchAttempt(paper.ongoingAttempt.id); 
+      return this.fetchAttempt(paper.ongoingAttempt.id);
     } else if(paper.status == "attempted" || paper.status == undefined){
-      return this.startNewAttempt(paper.id); 
+      return this.startNewAttempt(paper.id);
     } else {
-      alert("critical error: Couldn't start or resume attempt"); 
+      alert("critical error: Couldn't start or resume attempt");
     }
   }
-  /* Gets the info, status, score on the specified attempt. 
+  /* Gets the info, status, score on the specified attempt.
      If none specified then the current attempt */
   this.getAttempt = function(attmpt){
     return this.attempt;
@@ -71,6 +71,10 @@ angular.module('testingFrontendApp')
   this.autoSave = function(ua){
     return $http.post(this.attempt_url+this.attempt.id+'/save_answers/',{'ua':ua});
   }
+
+  /*this.saveAnswer = function(ua){
+    return $http.post(this.attempt_url+this.attempt.id+'/save_answer/',ua);
+  }*/
 
   this.generate_marks = function(){
     return $http.get(this.attempt_url+this.attempt.id+'/generate_marks/')
