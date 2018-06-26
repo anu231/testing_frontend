@@ -341,7 +341,9 @@ angular.module('testingFrontendApp')
           function success(resp){
             //question.useranswer.answer = resp.answer;
             //question.useranswer.isSubmitted = true;
-            question.useranswer = resp;
+            $scope.save_disable = false;
+            question.useranswer.answer = resp.data.answer;
+            question.useranswer.id = resp.data.id;
             question.answer = undefined;
             question.answerA = undefined;
             question.answerB = undefined;
@@ -351,10 +353,12 @@ angular.module('testingFrontendApp')
             question.isSavedOnce = true;
           }
           function failure(err){
+            $scoep.save_disable = false;
             question.useranswer.answer = useranswerbackup;
             $scope.alert_notification({msg:"Couldn't connect to the server, please check your internet connection",theme:"red",time:3000});
           }
           //TODO Save/UPDATE LOGIC
+          $scope.save_disable = true;
           if(question.isSavedOnce != true){
             useranswer.saveAnswer(question.useranswer).then(success,failure);
           } else {
