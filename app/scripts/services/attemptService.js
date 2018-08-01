@@ -80,4 +80,9 @@ angular.module('testingFrontendApp')
     return $http.get(this.attempt_url+this.attempt.id+'/generate_marks/')
   }
 
+  this.check_attempt = function(pid){
+    //checks if attempt exists for the specified pid
+    return $http.get(this.attempt_url+'check_attempts/?pid='+pid);
+  }
+
 }]);
