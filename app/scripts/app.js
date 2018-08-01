@@ -73,7 +73,25 @@ var homeState = {
   url: "/home",
   templateUrl: "views/home.html",
   controller:"HomeCtrl",
-}
+};
+
+var paperState = {
+    name:'paper',
+    params:{
+        pid:null
+    },
+    resolve:{
+        paper_obj: ['paper','$stateParams',function(paper, $stateParams){
+            return paper.getPaper($stateParams.pid);
+        }],
+        attempts:['attempt','$stateParams', function(attempt, $stateParams){
+            return attempt.check_attempt($stateParams.pid);
+        }]
+    },
+    url:"/home/paper/:pid",
+    templateUrl:'views/paper.html',
+    controller:'PaperCtrl'
+};
 
 var attemptState = {
   name:'home.attempt',
@@ -163,7 +181,8 @@ testing_app.config(function($stateProvider,$urlRouterProvider) {
     .state(homeState)
     .state(attemptState)
     .state(resultState)
-    .state(solutionsState);
+    .state(solutionsState)
+    .state(paperState);
   })
 
 //if (window.location.hostname.indexOf('localhost')!=-1){

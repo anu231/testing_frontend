@@ -29,20 +29,27 @@ angular.module('testingFrontendApp')
 
             // Here we check whether the user has been redirected from edumate.
             // If so, resolve the parameters and then take appropriate action
-            var hash = document.location.hash;
-            var items = hash.replace('#/', '').replace('?', '').split('&');
-            var vstate, vid;
-            items.forEach(function(item){
-                if(item.match(/state=(\w+)/))
-                    vstate = item.match(/state=(\w+)/)[1];
-                if(item.match(/id=(\w+)/))
-                    vid = item.match(/id=(\w+)/)[1];
-            });
-            if(vid && vstate)
-                $state.go('home', {vid: vid, vstate: vstate});
-            else if(hash != ''){}
-            else
-                $state.go('home');
+            var queryDict = {}
+            location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]});
+            console.log(queryDict);
+            if (queryDict['pid'] != undefined){
+                $state.go('paper',{pid:queryDict['pid']});
+            }else {
+                var hash = document.location.hash;
+                var items = hash.replace('#/', '').replace('?', '').split('&');
+                var vstate, vid;
+                items.forEach(function(item){
+                    if(item.match(/state=(\w+)/))
+                        vstate = item.match(/state=(\w+)/)[1];
+                    if(item.match(/id=(\w+)/))
+                        vid = item.match(/id=(\w+)/)[1];
+                });
+                if(vid && vstate)
+                    $state.go('home', {vid: vid, vstate: vstate});
+                else if(hash != ''){}
+                else
+                    $state.go('home');
+            }
         }, function(err){
             console.log(err);
             Raven.captureException(err,{
