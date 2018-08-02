@@ -1,1 +1,189 @@
 <p>This is the paper view.</p>
+  <div class="row">
+    <div class="col-md-12" style="border:1px solid #000;">
+          <div><center>{{paper_obj.name}}</center></div>
+    </div>
+  </div>
+  <div id="results_and_analysis_parent" ng-cloak>
+    <!--  <div id="result_top_bar">
+          <div id="state_title">Results and Analysis</div>
+          <button id="back_button" class="btn btn-danger" ng-click="goBack()"><span class="glyphicon glyphicon-log-out"> Back</span></button>
+      </div>  -->
+      <!-- End info bar  -->
+      <div id="result_area">
+          <div id="paper_information_area">
+              <div id="paper_card" class="card">
+                  <h4 class="text-center text-uppercase"> {{paper_obj.name}} </h4>
+                  <hr>
+                  <div class="paper-info">
+                      <div id="paper_details">
+                          <ul class="list-group">
+                              <li class="list-group-item">Duration : {{paper_obj.time}} hrs</li>
+                              <li class="list-group-item" ng-repeat="attempt_data in attempts">Attempted on :  {{attempt_data.starttime | date:"dd-MM-yyyy 'at' h:mma"}} </li>
+                              <li class="list-group-item" >Expires on :  {{paper_obj.lastdate | date:"dd-MM-yyyy 'at' h:mma"}} </li>
+                              <li class="list-group-item">Solutions Show : {{paper_obj.soln_show_date | date:" dd-MM-yyyy 'at' h:mma"}} </li>
+                          </ul>
+                      </div>
+                      <div class="marking_scheme">
+                          <p style="padding-left:8px;"><b>Marking scheme:</b></p>
+                          <table class="table table-hover table-striped">
+                              <thead>
+                                  <tr>
+                                      <td>Question Type</td>
+                                      <td>Correct</td>
+                                      <td>Incorrect</td>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr ng-if="paper_obj.sccor"><td>SC</td>  <td>+ {{paper_obj.sccor}} </td><td>- {{paper_obj.scnegmarks}}</td></tr>
+                                  <tr ng-if="paper_obj.mccor"><td>MC</td>  <td>+ {{paper_obj.mccor}} </td><td>- {{paper_obj.mcnegmarks}}</td></tr>
+                                  <tr ng-if="paper_obj.arcor"><td>AR</td>  <td>+ {{paper_obj.arcor}} </td><td>- {{paper_obj.arnegmarks}}</td></tr>
+                                  <tr ng-if="paper_obj.chcor"><td>CH</td>  <td>+ {{paper_obj.chcor}} </td><td>- {{paper_obj.chnegmarks}}</td></tr>
+                                  <!--<tr ng-if="selectedPaper.sacor"><td>SA</td>  <td>+ {{selectedPaper.sacor}} </td><td>- {{selectedPaper.sanegmarks}}</td></tr>-->
+                                  <tr ng-if="paper_obj.tfcor"><td>TF</td>  <td>+ {{paper_obj.tfcor}} </td><td>- {{paper_obj.tfnegmarks}}</td></tr>
+                                  <tr ng-if="paper_obj.sacor"><td>SA</td>  <td>+ {{paper_obj.sacor}} </td><td>- {{paper_obj.sanegmarks}}</td></tr>
+                                  <tr ng-if="paper_obj.sdcor"><td>IT</td>  <td>+ {{paper_obj.sdcor}} </td><td>- {{paper_obj.sdnegmarks}}</td></tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <div class="attempts-info">
+                      <ul class="list-group">
+                          <li class="list-group-item list-group-item-success">Select Attempt</li>
+                          <li ng-click="getAttemptResult(attempt_data.id)" class="list-group-item" ng-repeat="attempt_data in attempts">
+                              <a ng-click="getAttemptResult(attempt_data.id)">{{attempt_data.id}}/{{attempt_data.starttime | date:"dd-MM-yyyy 'at' h:mma"}}</a>
+                          </li>
+                      </ul>
+                      <button class="btn btn-info" ng-click="viewSolutions()" ng-if='show_solution'> View Solutions </button>
+                      <button class="btn btn-info" ng-click="viewOMR()"> View OMR Sheet </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <!--CHART AREA STARTS-->
+      <div id="chart_area">
+          <div class="card" id="mark_distribution" style='display: none;'>
+              <canvas id="chart_pie" class="chart chart-pie" chart-data="charts.totalMarks.data" chart-labels="charts.totalMarks.info.labels"
+                  chart-options="charts.totalMarks.info.options">
+              </canvas>
+              <!--<div id="leg"></div>-->
+          </div>
+          <div class="card" id="marks-table">
+            
+              <h5 class="text-center ">Subject Wise Breakdown: {{getAttemptResult.attempt_data.id}}</h5>
+              <hr>
+              <table class="table table-striped table-hover table-responsive">
+                  <thead>
+                      <th class="text-center">Sub</th>
+                      <th class="text-center">Correct Qs</th>
+                      <th class="text-center">Incorrect Qs</th>
+                      <!--<th class="text-center">Unattempted</th>-->
+                      <th class="text-center">Score</th>
+                      <th class="text-center">Rank</th>
+                  </thead>
+                  <tbody>
+                      <tr class="text-center">
+                          <td><b>Total</b></td>
+                          <td class="success"><b>{{paper_obj.netScore.correct}}</b></td>
+                          <td class="danger"><b>{{selectedAttempt.netScore.incorrect}}</b></td>
+                          <!--<td><b>ua</b></td>-->
+                          <td class="info"><b>{{selectedAttempt.result['marksobt']}}</b></td>
+                          <td class="primary"><b>{{selectedAttempt.result['rank']}}</b></td>
+                      </tr>
+                      <tr class="text-center" ng-repeat="sub in ['Physics','Chemistry','Maths','Biology','Zoology']">
+                          <td>{{ sub }}</td>
+                          <td class="success">{{ selectedAttempt.result[sub[0].toLowerCase()+'corr'] }}</td>
+                          <td class="danger">{{ selectedAttempt.result[sub[0].toLowerCase()+'wrong'] }}</td>
+                          <!--<td>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }} N/A</td>-->
+                          <td class="info"><b>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }}</b></td>
+                          <td class="primary"><b>{{ selectedAttempt.result[sub[0].toLowerCase()+'rank'] }}</b></td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          <div class="card" id="card_bar" ng-show='show_max_avg_comparison'>
+            <h5>Comparison with Highest Marks</h5>
+            <canvas id="chart_bar" class="chart chart-bar" chart-data="charts.high_avg.data" chart-labels="charts.high_avg.labels" chart-series="charts.high_avg.series"
+              chart-options="charts.high_avg.options">
+            </canvas>
+          </div>
+          <!--HOLD THIS CHART FOR NOW-->
+          <!--<div class="card" id="card_bar" ng-if="!HIDEBARCHART">
+        <h5>Trend Over Time</h5>
+        <canvas id="chart_bar" class="chart chart-bar" chart-data="charts.trendOverTime.data" chart-labels="charts.trendOverTime.info.labels" chart-series="charts.trendOverTime.info.series"
+          chart-options="charts.trendOverTime.info.options">
+        </canvas>
+      </div>-->
+
+          <div ng-repeat="(subject, data) in analysis">
+              <div class="card subject-card {{subject}}" data-subject="{{subject}}" data-collapsed="false">
+                  <div class="subject-header" ng-click="toggle_card(subject)">
+                      <span class="card-title">{{subject}}</span>
+                      <div class="collapse-button">
+                          <span id="chevron-up" class="glyphicon glyphicon-chevron-up"></span>
+                          <span id="chevron-down" class="glyphicon glyphicon-chevron-down hidden"></span>
+                      </div>
+                  </div>
+                  <hr>
+                  <div class="subject-body">
+                      <table class='table'>
+                          <thead class='thead-inverse'>
+                              <th>Subtopic</th>
+                              <th>Score</th>
+                              <th>Percentage</th>
+                          </thead>
+                          <tbody>
+                              <tr ng-repeat="(name, topic) in data.child">
+                                  <td>{{name}}</td>
+                                  <td>{{topic.score}}</td>
+                                  <td>{{topic.percentage | number:2}}</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  <!--
+                      <div class="my-col my-col-40">
+                          <div class="topics-data">
+                              <ul class="list-group">
+                                  <li class="list-group-item list-group-item-heading">
+                                      <div class="subject-name">
+                                          Subtopic
+                                      </div>
+                                      <div class="subject-score">
+                                          Score
+                                      </div>
+                                      <div class="subject-percentage">
+                                          Percentage
+                                      </div>
+                                  </li>
+                                  <li class="list-group-item" ng-repeat="(name,topic) in data.child">
+                                      <div class="topic-name">{{name}}</div>
+                                      <div class="topic-score">{{topic.score}}</div>
+                                      <div class="topic-percent">{{topic.percentage}}</div>
+                                  </li>
+                              </ul>
+                          </div>
+                          <div class="card" id="question_distribution">
+                              <canvas id="chart_pie" class="chart-pie"
+                                  chart-data="charts.subTopicDistribution.subjects[subject].data.percentile"
+                                  chart-labels="charts.subTopicDistribution.subjects[subject].topics"
+                                  chart-options="charts.questionDistribution.info.options">
+                              </canvas>
+                          </div>
+                      </div>
+                  -->
+                      <!--<div class="my-col my-col-60">
+                          <div class="card" id="subtopic_distribution">
+                              <canvas id="chart_bar" class="chart-bar"
+                                  chart-data="charts.subTopicDistribution.subjects[subject].data.percentile"
+                                  chart-labels="charts.subTopicDistribution.subjects[subject].topics"
+                                  chart-options="charts.subTopicDistribution.info.options">
+                              </canvas>
+                          </div>
+                      </div>-->
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
