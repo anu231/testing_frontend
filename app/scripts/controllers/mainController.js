@@ -13,6 +13,18 @@ angular.module('testingFrontendApp')
     $scope.init = function(){
     	//$rootScope.baseURL = 'http://localhost:8000/';
     	//$scope.uirouterDebug();
+    $scope.notification_show = false;
+    $scope.alert_notification = function (message){
+        $scope.alert_message = message.msg;
+        $scope.notification_show = true;
+        $scope.alert_message_theme = message.theme;
+        var timeout = message.time || 3000;
+        $timeout(function(){
+          $scope.alert_message_theme = "";
+          $scope.alert_message = "";
+          $scope.notification_show = false;
+        }, timeout);
+    }
 
 		userService.getUserInfo().then(function(resp){
         	if( resp.data.result == 0 ){

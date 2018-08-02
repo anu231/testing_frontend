@@ -49,9 +49,9 @@
                   </div>
                   <div class="attempts-info">
                       <ul class="list-group">
-                          <li class="list-group-item list-group-item-success">Select Attempt</li>
-                          <li ng-click="get_attempt_result(attempt_data.id)" class="list-group-item" ng-repeat="attempt_data in attempts">
-                              <a ng-click="get_attempt_result(attempt_result.id == attempt_data.id)" >{{attempt_data.starttime | date:"dd-MM-yyyy 'at' h:mma"}}</a>
+                          <li class="list-group-item">Select Attempt</li>
+                          <li ng-click="get_attempt_result(attempt_data)" ng-repeat="attempt_data in attempts" ng-class="{'list-group-item-success': attempt_data.id == selected_attempt.id}">
+                              <a>{{attempt_data.starttime | date:"dd-MM-yyyy 'at' h:mma"}}</a>
                           </li>
                       </ul>
                       <button class="btn btn-info" ng-click="viewSolutions()" ng-if='show_solution'> View Solutions </button>
