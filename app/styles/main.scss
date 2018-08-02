@@ -108,8 +108,8 @@ $brandColorBlue: #3F51B5;
 $brandColorBlueText: #ffffff;
 
 .navbar-default{
-  background-color: $brandColorBlue; 
-  border-color: $brandColorGrey; 
+  background-color: $brandColorBlue;
+  border-color: $brandColorGrey;
   color: $brandColorRedText;
   position: fixed;
   top: 0%;
@@ -136,7 +136,7 @@ $brandColorBlueText: #ffffff;
   transition: 0.2s ease-out all;
 
   &:hover{
-    // box-shadow: 1px 2px 6px 3px rgba(179, 179, 179, 0);    
+    // box-shadow: 1px 2px 6px 3px rgba(179, 179, 179, 0);
     box-shadow: 1px 2px 6px 3px rgba(179, 179, 179, 0.69);
     transform: scale(1.02);
   }

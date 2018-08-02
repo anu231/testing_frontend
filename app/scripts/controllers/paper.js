@@ -14,9 +14,16 @@ angular.module('testingFrontendApp')
         console.log(attempts.data);
         $scope.paper_obj = paper_obj;
         $scope.attempts = attempts.data;
-
         $('#loading_papers').hide();
-      }
-      
+      };
+      $scope.get_attempt_result = function(attempt_id){
+        result.getAttemptResult(attempt_id)
+        .then(function(resp){
+            $scope.attempt_result = resp.data;
+        },function(err){
+            //show notification
+        });
+      };
       $scope.init();
+      $scope.get_attempt_result();
 }]);

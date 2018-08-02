@@ -82,7 +82,7 @@ angular.module('testingFrontendApp')
 
   this.check_attempt = function(pid){
     //checks if attempt exists for the specified pid
-    return $http.get(this.attempt_url+'check_attempts/?pid='+pid);
+    return $http.get(this.attempt_url+'check_attempts/?pid='+pid)
   }
 
 }]);
