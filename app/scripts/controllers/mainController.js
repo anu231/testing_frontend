@@ -34,10 +34,10 @@ angular.module('testingFrontendApp')
 	          //window.location.href = moodle + 'portal_sso_auth.php';
             }
             $scope.username = resp.data.fname
-            Raven.setUserContext({
+            /*Raven.setUserContext({
                 name: resp.data.fname,
                 email: resp.data.name  // Poor naming conventions :(
-            });
+            });*/
 
             // Here we check whether the user has been redirected from edumate.
             // If so, resolve the parameters and then take appropriate action

@@ -15,10 +15,10 @@ angular.module('testingFrontendApp')
       $scope.user_attempts = user_attempts.data;
       // Log if no papers available papers for the user
       if($scope.available_papers.length == 0){
-        Raven.captureMessage("No available papers for user",{
+        /*Raven.captureMessage("No available papers for user",{
           logger: 'HomeCtrl',
           level: 'error'
-        });
+        });*/
       }
 
       $scope.init = function () {
@@ -27,13 +27,13 @@ angular.module('testingFrontendApp')
           var p = _.find($scope.available_papers,function(a){return a.id==$scope.user_attempts[i].paper_info.id});
           // Skip papers with no attempts
           if(! p){
-            Raven.captureMessage("Paper for attempts not available.",{
+            /*Raven.captureMessage("Paper for attempts not available.",{
               logger: 'HomeCtrl',
               level: 'error',
               extra: {
                 user_attempt: $scope.user_attempts[i]
               }
-            });
+            });*/
             continue;
           }
           // Array containing all attempts for a paper

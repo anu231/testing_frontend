@@ -13,6 +13,14 @@
 //     .addPlugin(Raven.Plugins.Angular)
 //     .install();
 
+/*angular.uppercase=function(text){
+    return text.toUpperCase();
+};*/
+/*angular.lowercase=function(text){
+    return text.toLowerCase();
+};*/
+
+
 var testing_app = angular
   .module('testingFrontendApp', [
     'ngAnimate',
@@ -183,7 +191,7 @@ testing_app.config(function($stateProvider,$urlRouterProvider) {
     .state(resultState)
     .state(solutionsState)
     .state(paperState);
-  })
+  });
 
 //if (window.location.hostname.indexOf('localhost')!=-1){
   //working on local server
