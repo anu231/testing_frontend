@@ -1,9 +1,8 @@
-<p>This is the paper view.</p>
-  <div class="row">
+  <!--<div class="row">
     <div class="col-md-12" style="border:1px solid #000;">
-          <div><center>{{paper_obj.name}}</center></div>
+          <div><center>{{paper.name}}</center></div>
     </div>
-  </div>
+  </div>-->
   <div id="results_and_analysis_parent" ng-cloak>
     <!--  <div id="result_top_bar">
           <div id="state_title">Results and Analysis</div>
@@ -13,15 +12,15 @@
       <div id="result_area">
           <div id="paper_information_area">
               <div id="paper_card" class="card">
-                  <h4 class="text-center text-uppercase"> {{paper_obj.name}} </h4>
+                  <h4 class="text-center text-uppercase"> {{paper.name}} </h4>
                   <hr>
                   <div class="paper-info">
                       <div id="paper_details">
                           <ul class="list-group">
-                              <li class="list-group-item">Duration : {{paper_obj.time}} hrs</li>
+                              <li class="list-group-item">Duration : {{paper.time}} hrs</li>
                               <li class="list-group-item" ng-repeat="attempt_data in attempts">Attempted on :  {{attempt_data.starttime | date:"dd-MM-yyyy 'at' h:mma"}} </li>
-                              <li class="list-group-item" >Expires on :  {{paper_obj.lastdate | date:"dd-MM-yyyy 'at' h:mma"}} </li>
-                              <li class="list-group-item">Solutions Show : {{paper_obj.soln_show_date | date:" dd-MM-yyyy 'at' h:mma"}} </li>
+                              <li class="list-group-item" >Expires on :  {{paper.lastdate | date:"dd-MM-yyyy 'at' h:mma"}} </li>
+                              <li class="list-group-item">Solutions Show : {{paper.soln_show_date | date:" dd-MM-yyyy 'at' h:mma"}} </li>
                           </ul>
                       </div>
                       <div class="marking_scheme">
@@ -35,34 +34,40 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                  <tr ng-if="paper_obj.sccor"><td>SC</td>  <td>+ {{paper_obj.sccor}} </td><td>- {{paper_obj.scnegmarks}}</td></tr>
-                                  <tr ng-if="paper_obj.mccor"><td>MC</td>  <td>+ {{paper_obj.mccor}} </td><td>- {{paper_obj.mcnegmarks}}</td></tr>
-                                  <tr ng-if="paper_obj.arcor"><td>AR</td>  <td>+ {{paper_obj.arcor}} </td><td>- {{paper_obj.arnegmarks}}</td></tr>
-                                  <tr ng-if="paper_obj.chcor"><td>CH</td>  <td>+ {{paper_obj.chcor}} </td><td>- {{paper_obj.chnegmarks}}</td></tr>
+                                  <tr ng-if="paper.sccor"><td>SC</td>  <td>+ {{paper.sccor}} </td><td>- {{paper.scnegmarks}}</td></tr>
+                                  <tr ng-if="paper.mccor"><td>MC</td>  <td>+ {{paper.mccor}} </td><td>- {{paper.mcnegmarks}}</td></tr>
+                                  <tr ng-if="paper.arcor"><td>AR</td>  <td>+ {{paper.arcor}} </td><td>- {{paper.arnegmarks}}</td></tr>
+                                  <tr ng-if="paper.chcor"><td>CH</td>  <td>+ {{paper.chcor}} </td><td>- {{paper.chnegmarks}}</td></tr>
                                   <!--<tr ng-if="selectedPaper.sacor"><td>SA</td>  <td>+ {{selectedPaper.sacor}} </td><td>- {{selectedPaper.sanegmarks}}</td></tr>-->
-                                  <tr ng-if="paper_obj.tfcor"><td>TF</td>  <td>+ {{paper_obj.tfcor}} </td><td>- {{paper_obj.tfnegmarks}}</td></tr>
-                                  <tr ng-if="paper_obj.sacor"><td>SA</td>  <td>+ {{paper_obj.sacor}} </td><td>- {{paper_obj.sanegmarks}}</td></tr>
-                                  <tr ng-if="paper_obj.sdcor"><td>IT</td>  <td>+ {{paper_obj.sdcor}} </td><td>- {{paper_obj.sdnegmarks}}</td></tr>
+                                  <tr ng-if="paper.tfcor"><td>TF</td>  <td>+ {{paper.tfcor}} </td><td>- {{paper.tfnegmarks}}</td></tr>
+                                  <tr ng-if="paper.sacor"><td>SA</td>  <td>+ {{paper.sacor}} </td><td>- {{paper.sanegmarks}}</td></tr>
+                                  <tr ng-if="paper.sdcor"><td>IT</td>  <td>+ {{paper.sdcor}} </td><td>- {{paper.sdnegmarks}}</td></tr>
                               </tbody>
                           </table>
                       </div>
                   </div>
                   <div class="attempts-info">
-                      <ul class="list-group">
+                      <ul class="list-group" ng-if='attempts.length>0'>
                           <li class="list-group-item">Select Attempt</li>
                           <li ng-click="get_attempt_result(attempt_data)" ng-repeat="attempt_data in attempts" ng-class="{'list-group-item-success': attempt_data.id == selected_attempt.id}">
                               <a>{{attempt_data.starttime | date:"dd-MM-yyyy 'at' h:mma"}}</a>
                           </li>
                       </ul>
-                      <button class="btn btn-info" ng-click="viewSolutions()" ng-if='show_solution'> View Solutions </button>
-                      <button class="btn btn-info" ng-click="viewOMR()"> View OMR Sheet </button>
+                      <button class="btn btn-info" ng-click="attempt()" ng-if='!paper.offline && attempts.length==0'> Attempt </button>
+                      <button class="btn btn-info" ng-click="attempt()" ng-if='!paper.offline && attempts.length>0 && ongoing_attempt==0'> Retake </button>
+                      <button class="btn btn-info" ng-click="attempt()" ng-if='!paper.offline && attempts.length>0 && ongoing_attempt!=0'> Resume </button>
+                      <button class="btn btn-info" ng-click="viewSolutions()" ng-if='show_solution && ongoing_attempt==0'> View Solutions </button>
+                      <button class="btn btn-info" ng-click="viewOMR()" ng-if="show_omr"> View OMR Sheet </button>
                   </div>
               </div>
           </div>
       </div>
 
       <!--CHART AREA STARTS-->
-      <div id="chart_area">
+      <div ng-if="attempts.length>0 && !selected_attempt.finished">
+        Please click resume to resume this attempt
+      </div>
+      <div id="chart_area" ng-if="selected_attempt.finished">
           <div class="card" id="mark_distribution" style='display: none;'>
               <canvas id="chart_pie" class="chart chart-pie" chart-data="charts.totalMarks.data" chart-labels="charts.totalMarks.info.labels"
                   chart-options="charts.totalMarks.info.options">
@@ -85,19 +90,19 @@
                   <tbody>
                       <tr class="text-center">
                           <td><b>Total</b></td>
-                          <td class="success" ng-click="get_attempt_result(attempt_result.id == attempt_data.id)"><b>{{attempt_result.ccorr}}</b></td>
-                          <td class="danger"><b>{{selectedAttempt.netScore.incorrect}}</b></td>
+                          <td class="success"><b>{{attempt_result.netScore.corr}}</b></td>
+                          <td class="danger"><b>{{attempt_resul;t.netScore.incorrect}}</b></td>
                           <!--<td><b>ua</b></td>-->
-                          <td class="info"><b>{{selectedAttempt.result['marksobt']}}</b></td>
-                          <td class="primary"><b>{{selectedAttempt.result['rank']}}</b></td>
+                          <td class="info"><b>{{attempt_result.marksobt}}</b></td>
+                          <td class="primary"><b>{{attempt_result.rank}}</b></td>
                       </tr>
                       <tr class="text-center" ng-repeat="sub in ['Physics','Chemistry','Maths','Biology','Zoology']">
                           <td>{{ sub }}</td>
-                          <td class="success">{{ selectedAttempt.result[sub[0].toLowerCase()+'corr'] }}</td>
-                          <td class="danger">{{ selectedAttempt.result[sub[0].toLowerCase()+'wrong'] }}</td>
+                          <td class="success">{{ attempt_result[sub[0].toLowerCase()+'corr'] }}</td>
+                          <td class="danger">{{ attempt_result[sub[0].toLowerCase()+'wrong'] }}</td>
                           <!--<td>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }} N/A</td>-->
-                          <td class="info"><b>{{ selectedAttempt.result[sub[0].toLowerCase()+'obt'] }}</b></td>
-                          <td class="primary"><b>{{ selectedAttempt.result[sub[0].toLowerCase()+'rank'] }}</b></td>
+                          <td class="info"><b>{{ attempt_result[sub[0].toLowerCase()+'obt'] }}</b></td>
+                          <td class="primary"><b>{{ attempt_result[sub[0].toLowerCase()+'rank'] }}</b></td>
                       </tr>
                   </tbody>
               </table>

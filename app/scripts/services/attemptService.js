@@ -33,9 +33,9 @@ angular.module('testingFrontendApp')
     return $http.get(this.attempt_url+att_id+'/');
   }
   //Starts a new attempt or resumes an ongoing attempt
-  this.startOrFetchAttempt = function(paper){
+  this.startOrFetchAttempt = function(paper,latestAttempt){
     if(paper.status == "ongoing"){
-      return this.fetchAttempt(paper.ongoingAttempt.id);
+      return this.fetchAttempt(latestAttempt.id);
     } else if(paper.status == "attempted" || paper.status == undefined){
       return this.startNewAttempt(paper.id);
     } else {

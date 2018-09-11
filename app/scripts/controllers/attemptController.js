@@ -118,7 +118,7 @@ angular.module('testingFrontendApp')
           if (resp.status === 200) {
             $('#exitModal').modal('hide');
             $timeout(function () {
-              $state.go('^', {}, {
+              $state.go('home.paper', {}, {
                 reload: true
               });
               $('#cleanupModal').modal('hide');
