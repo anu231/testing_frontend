@@ -342,8 +342,13 @@ angular.module('testingFrontendApp')
             //question.useranswer.answer = resp.answer;
             //question.useranswer.isSubmitted = true;
             $scope.save_disable = false;
-            question.useranswer.answer = resp.data.answer;
-            question.useranswer.id = resp.data.id;
+            if (resp.data != undefined){
+              question.useranswer.answer = resp.data.answer;
+              question.useranswer.id = resp.data.id;  
+            } else{
+              question.useranswer.answer = resp.answer;
+              question.useranswer.id = resp.id;
+            }
             question.answer = undefined;
             question.answerA = undefined;
             question.answerB = undefined;
