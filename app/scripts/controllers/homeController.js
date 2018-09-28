@@ -144,7 +144,7 @@ angular.module('testingFrontendApp')
               $uibModalInstance.close();
               $('#loading_papers').show();
               //create the attempt
-              attempt.startOrFetchAttempt(paper, paper.status)
+              attempt.startOrFetchAttempt(paper, latestAttempt)
                 .then(function(resp){
                   attempt.setAttempt(resp.data);
                   $state.go('home.attempt',{'pid':resp.data.id, 'paper': $scope.paper});
@@ -158,7 +158,11 @@ angular.module('testingFrontendApp')
                       reason: 'Could not start or fetch attempt'
                     }
                   })
-                  alert("Couldn't start paper");
+                  if (err.data != undefined && err.data.non_field_errors != undefined){
+                    alert(err.data.non_field_errors[0]);  
+                  } else {
+                    alert("Couldn't start paper");
+                  }
                 });
             };
             $scope.closeModal = function() {
