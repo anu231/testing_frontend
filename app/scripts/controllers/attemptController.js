@@ -15,14 +15,15 @@ angular.module('testingFrontendApp')
     touchToDrag: false
   };
 })
-.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window','$document', '$uibModal','paper','$sce',
-    function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window, $document, $uibModal, paper,$sce) {
+.controller('AttemptCtrl', ['$scope','$state','attempt','questions','useranswer','$timeout','$interval','$window','$document', '$uibModal','paper','$sce','$http',
+    function($scope,$state,attempt,questions,useranswer,$timeout, $interval, $window, $document, $uibModal, paper,$sce,$http) {
       $scope.init = function(questions){
+        console.log(attempt.getAttempt());
         $scope.paper_title = attempt.attempt.paper_info.name;
         document.title = "Test:"+$scope.paper_title;
         $scope.save_disable = false;
         $scope.paper = paper;
-        if (questions.data.length !==null){
+        if (questions!=null && questions.data.length !==null){
           $scope.questions = questions.data;
           $scope.paper_title = attempt.attempt.paper_info.name;
           $scope.setUpQuestions();
@@ -47,6 +48,14 @@ angular.module('testingFrontendApp')
         timer_start();
       };
 
+      $scope.load_paper = function(){
+        paper.getPaper(attempt.getAttempt().paper)
+        .then(function(resp){
+          $scope.paper_obj = resp;
+        },function(err){
+          console.log(err);
+        })
+      }
       // Don't sanatize Latex images
       $scope.trustedHtml = function (html) {
         return $sce.trustAsHtml(html);
@@ -56,12 +65,16 @@ angular.module('testingFrontendApp')
       $scope.showHelp = function(){
         $uibModal.open({
           templateUrl: 'views/help-modal.html',
-          controller: ['$uibModalInstance', '$scope', '$state', '$rootScope',
-          function($uibModalInstance, $scope, $state, $rootScope){
+          controller: ['$uibModalInstance', '$scope', '$state', '$rootScope','paper_obj',
+          function($uibModalInstance, $scope, $state, $rootScope,paper_obj){
+            $scope.paper = paper_obj;
             $scope.closeModal = function() {
               $uibModalInstance.close();
             }
-          }]
+          }],
+          resolve: {
+            paper_obj:$scope.paper_obj
+          }
         })
       }
       // Autosave all the attempted questions
@@ -219,7 +232,13 @@ angular.module('testingFrontendApp')
         },1000);
       }
 
-
+      $scope.local_storage_auto_save =function(){
+        $interval(function(){
+          $scope.questions.forEach(function(ques){
+            $scope.save_local_storage(ques, true);
+          });
+        },5000);
+      }
       // Question process pipeline; Also sets up the first question
       // Used by the init?
       // TODO instead of setting this as default, Let the first screen be a mock for INTRO.js
@@ -250,25 +269,42 @@ angular.module('testingFrontendApp')
             return
           }
           resp.data.forEach(function(ua){
-            var qs = _.find($scope.questions,function(qs){return qs.id===ua.question});
-            qs.useranswer = ua;
-            qs.useranswer.isSubmitted=true;
-            if(ua.answer != "null"){ qs.isAnswered = true;qs.isSavedOnce=true;}
-            if(qs.ques_type==="SC" ||  qs.ques_type==="SA"){
-              qs.answer = ua.answer;
-            } else if (qs.ques_type === "IT"){
-              qs.answer = parseInt(ua.answer)
-            } else if (qs.ques_type === "MC" || qs.ques_type === "MT") {
-              $scope.deserializeAndSetAnswer(qs, ua.answer);
-            }
+            $scope.restore_question(ua, false);
           });
+          //now load data from local storage
+          $scope.restore_local_storage();
+          //$scope.local_storage_auto_save();
         },function(err){
 
         })
         // Set up the first question
         $scope.selectQuestion($scope.questions[0]);
+        $scope.load_paper();
       }
-
+      /*
+      restores the question value in scope to the provided values
+      parameteres : question->provided question, ua-> provided useranswer from localstorage/web, override->override the value in the question ins cope with value provided
+      return - None
+       */
+      $scope.restore_question = function(ua, is_local){
+        console.log(ua.question+':'+is_local);
+        var qs = _.find($scope.questions,function(qs){return qs.id===ua.question});
+        if (!is_local || (ua.server_synced!=undefined && !ua.server_synced)){
+          qs.useranswer = ua;
+          qs.useranswer.isSubmitted=true;
+          if(ua.answer != "null"){ qs.isAnswered = true;qs.isSavedOnce=true;}
+          if(qs.ques_type==="SC" ||  qs.ques_type==="SA"){
+            qs.answer = ua.answer;
+          } else if (qs.ques_type === "IT"){
+            qs.answer = parseInt(ua.answer)
+          } else if (qs.ques_type === "MC" || qs.ques_type === "MT") {
+            $scope.deserializeAndSetAnswer(qs, ua.answer);
+          }
+        }
+        if (is_local && ua.server_synced != undefined && !ua.server_synced){
+          qs.useranswer.isSubmitted = false;
+        }
+      }
 
       //$scope.init(questions, status);
 
@@ -315,6 +351,7 @@ angular.module('testingFrontendApp')
           $scope.selectedQuestion.isLast = true;
           // TODO Disable the next button!
         }
+        $scope.save_disable = false;
       }
 
       // Select the previous question.
@@ -327,6 +364,7 @@ angular.module('testingFrontendApp')
           $scope.selectedQuestion.isFirst = true;
           // TODO Disable the previous button!
         }
+        $scope.save_disable = false;
       }
 
 
@@ -448,12 +486,59 @@ angular.module('testingFrontendApp')
         }
         return true;
       }
-
+      $scope.mark_question = function(question){
+        //save this question to local storage for retrieval
+        //$scope.save_local_storage(question);
+      }
+      $scope.save_to_local_storage = function(question, server_synced){
+        $timeout(function(){
+          $scope.save_local_storage(question, true, server_synced);
+        },2000,true,question, server_synced);
+      }
+      $scope.save_local_storage = function(question, validate, server_synced){
+        /*
+        saves the question to local storage with attempt id as the key
+        */
+        var ls_key = 'att'+attempt.getAttempt().id;
+        var stored_data = $window.localStorage.getItem(ls_key);
+        if (stored_data == null || stored_data == ''){
+          stored_data = {};
+        }else {
+          stored_data = angular.fromJson(stored_data);
+        }
+        //save the question to local storage
+        if (validate){
+          $scope.validateAndFormatAnswer(question);  
+        }
+        console.log(question);
+        question.useranswer.server_synced = (server_synced==undefined)?false:server_synced;
+        if (!question.useranswer.server_synced){
+          question.useranswer.isSubmitted = false;
+        }
+        stored_data[question.id] = question.useranswer;
+        $window.localStorage.setItem(ls_key, angular.toJson(stored_data));
+      }
+      $scope.restore_local_storage = function(){
+        var ls_key = 'att'+attempt.getAttempt().id;
+        var stored_data = $window.localStorage.getItem(ls_key);
+        if (stored_data == null || stored_data == ''){
+          return;
+        }
+        stored_data = angular.fromJson(stored_data);
+        Object.keys(stored_data).forEach(function(key){
+          if (stored_data.hasOwnProperty(key)){
+            $scope.restore_question(stored_data[key], true);
+          }
+        });
+        //clear the local storage data
+        //$window.localStorage.setItem(ls_key,'');
+      }
       // Post answer to the backend if valid, else throw an alert.
       // Used by the "save" control button.
       $scope.save = function(question){
         // Instantiate useranswer field if not present. Used to track previous attempts(?)
         var ques_valid = $scope.validateAndFormatAnswer(question);
+        $scope.save_local_storage(question, false, false);//save the value locally as well
         if (ques_valid===true){
           $scope.save_disable = true;
           if (!question.isSavedOnce){
@@ -465,6 +550,7 @@ angular.module('testingFrontendApp')
               question.useranswer.answer = resp.data.answer;
               question.useranswer.id = resp.data.id;
               question.useranswer.isSubmitted = true;
+              $scope.save_local_storage(question, false, true);//mark value as synced in local storage
             },function(err){
               $scope.save_disable = false;
               $scope.alert_notification({msg:"Couldn't save your answer: Please check your internet connection!", theme:"red"});
@@ -477,6 +563,7 @@ angular.module('testingFrontendApp')
               question.useranswer.answer = resp.answer;
               question.useranswer.id = resp.id;
               question.useranswer.isSubmitted = true;
+              $scope.save_local_storage(question, false, true);//mark value as synced in local storage
             },function(err){
               $scope.save_disable = false;
               $scope.alert_notification({msg:"Couldn't update your answer: Please check your internet connection!", theme:"red"});

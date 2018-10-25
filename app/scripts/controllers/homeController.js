@@ -54,6 +54,7 @@ angular.module('testingFrontendApp')
         }
         // Marks papers if Expired
         $scope.available_papers.forEach(function(paper) {
+          paper.startdate_formatted = new Date(paper.startdate);
           if($scope.isExpired(paper)) paper['isExpired'] = true;
           if (paper.offline && $scope.show_paper_solution(paper)){paper['show_solution']=true;}
         });

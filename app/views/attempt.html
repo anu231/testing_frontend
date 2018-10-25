@@ -67,7 +67,7 @@
           <p>a:{{selectedQuestion.answer1}} b: {{selectedQuestion.answer2}} c: {{selectedQuestion.answer3}} d: {{selectedQuestion.answer4}}</p>
         </div>
       </div>
-
+      <div>{{selectedQuestion.id}}</div>
       <!--  SC -->
       <div ng-if="selectedQuestion.ques_type=='SC'" id="question_card" class="col-xs-12 col-md-8 col-md-offset-2">
         <ul id="question_body_box" class="list-group">
@@ -81,7 +81,7 @@
           </a>
           <li ng-repeat="(key, val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
-            <label for="{{key}}" class="col-xs-12 vcenter" ng-click="selectedQuestion.isAnswered=true; selectedQuestion.useranswer.isSubmitted=false;">
+            <label for="{{key}}" class="col-xs-12 vcenter" ng-click="selectedQuestion.isAnswered=true; selectedQuestion.useranswer.isSubmitted=false;save_to_local_storage(selectedQuestion)">
               <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-radio col-xs-1">
               </div>
@@ -105,7 +105,7 @@
           </a>
           <li  ng-repeat="(key,val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="checkbox" name="{{'option'+$index}}" ng-model="selectedQuestion['answer' + key]" ng-false-value="undefined">
-            <label for="{{key}}" class="col-xs-12 vcenter" ng-click="selectedQuestion.isAnswered=true">
+            <label for="{{key}}" class="col-xs-12 vcenter" ng-click="selectedQuestion.isAnswered=true;save_to_local_storage(selectedQuestion)">
               <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-checkbox col-xs-1">
               </div>
@@ -125,7 +125,7 @@
           </a>
           <li class="list-group-item">
             <label for="numerical_ans"><h3>Answer:</h3></label>
-            <input id="ans" class="form-control" type="number" name="answer" step="1" ng-model="selectedQuestion.answer">
+            <input id="ans" class="form-control" type="number" name="answer" step="1" ng-model="selectedQuestion.answer" ng-keypress="save_to_local_storage(selectedQuestion)">
           </li>
         </ul>
       </div> <!-- /IT  -->
@@ -139,7 +139,7 @@
           </a>
           <li ng-repeat="(key, val) in {'A':'ans1', 'B':'ans2', 'C':'ans3', 'D':'ans4'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
-            <label for="{{key}}" class="col-xs-12 vcenter" ng-click="selectedQuestion.isAnswered=true">
+            <label for="{{key}}" class="col-xs-12 vcenter" ng-click="selectedQuestion.isAnswered=true;save_to_local_storage(selectedQuestion)">
               <p  class="option-label" >{{key.toUpperCase()}}</p>
               <div class="custom-radio col-xs-1">
               </div>
@@ -165,7 +165,7 @@
           </a>
           <li ng-repeat="(key, val) in {'A':'Assertion is correct, Reason is also correct and gives the correct justification for Assertion', 'B':'Assertion is correct and Reason is also correct but it does not justify Assertion', 'C':'Assertion is correct and Reason is wrong', 'D':'Assertion is wrong and Reason is correct'}"  class="list-group-item">
             <input id="{{key}}" type="radio" name="option" ng-model="selectedQuestion.answer" value="{{key}}">
-            <label for="{{key}}" class="col-xs-12 vcenter" ng-click="selectedQuestion.isAnswered=true">
+            <label for="{{key}}" class="col-xs-12 vcenter" ng-click="selectedQuestion.isAnswered=true;save_to_local_storage(selectedQuestion)">
               <p  class="option-label" >{{key}}</p>
               <div class="custom-radio col-xs-1">
               </div>
@@ -246,7 +246,7 @@
                   <td>
                     <div class="matrix-checkboxes">
                       <input id="{{opt}}p" ng-model="selectedQuestion['answer'+opt]['P']" type="checkbox" name="" ng-false-value="undefined">
-                      <label for="{{opt}}p" ng-click="selectedQuestion.isAnswered=true">
+                      <label for="{{opt}}p" ng-click="selectedQuestion.isAnswered=true;save_to_local_storage(selectedQuestion)">
                         <div class="custom-checkbox custom-matrix-checkbox col-xs-1"></div>
                       </label>
                     </div>
@@ -262,7 +262,7 @@
                   <td>
                     <div class="matrix-checkboxes">
                       <input id="{{opt}}r" ng-model="selectedQuestion['answer'+opt]['R']" type="checkbox" name="" ng-false-value="undefined">
-                      <label for="{{opt}}r" ng-click="selectedQuestion.isAnswered=true">
+                      <label for="{{opt}}r" ng-click="selectedQuestion.isAnswered=true;save_to_local_storage(selectedQuestion)">
                         <div class="custom-checkbox custom-matrix-checkbox"></div>
                       </label>
                     </div>
@@ -270,7 +270,7 @@
                   <td>
                     <div class="matrix-checkboxes">
                       <input id="{{opt}}s" ng-model="selectedQuestion['answer'+opt]['S']" type="checkbox" name="" ng-false-value="undefined">
-                      <label for="{{opt}}s" ng-click="selectedQuestion.isAnswered=true">
+                      <label for="{{opt}}s" ng-click="selectedQuestion.isAnswered=true;save_to_local_storage(selectedQuestion)">
                         <div class="custom-checkbox custom-matrix-checkbox"></div>
                       </label>
                     </div>
@@ -291,7 +291,7 @@
       <div id="control_buttons" class="">
         <button ng-class="{'btn':true, 'btn-default':true, 'control-nav-button':true}" ng-click="previousQuestion()"><span class="glyphicon glyphicon-arrow-left"></span> Prev.</button>
         <button class="btn btn-success control-button" ng-disabled="save_disable" ng-click="selectedQuestion.marked=false; save(selectedQuestion)" data-toggle="tooltip" data-placement="top" title="Save your progress. Saved questions can be changed later."  ><span class="glyphicon glyphicon-ok"></span> Save</button>
-        <button class="btn btn-warning control-button" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false; alert_notification({'msg': 'Question Marked','theme':'yellow','time':1900}); " data-toggle="tooltip" data-placement="top" title="Mark this question for later review"><span class="glyphicon glyphicon-exclamation-sign"></span> Mark</button>
+        <button class="btn btn-warning control-button" ng-click="selectedQuestion.marked = true; selectedQuestion.confirmed=false; alert_notification({'msg': 'Question Marked','theme':'yellow','time':1900});mark_question(selectedQuestion);" data-toggle="tooltip" data-placement="top" title="Mark this question for later review"><span class="glyphicon glyphicon-exclamation-sign"></span> Mark</button>
         <button class="btn btn-danger control-button" ng-click="clearAnswer(selectedQuestion)" data-toggle="tooltip" data-placement="top" title="Clear the selected choices"><span class="glyphicon glyphicon-remove"></span>Clear</button>
         <button ng-class="{'btn': true,'btn-default':true,'control-nav-button':true}"  ng-click="nextQuestion()">Next <span class="glyphicon glyphicon-arrow-right"></span></button>
       </div>

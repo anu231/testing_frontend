@@ -98,10 +98,13 @@ var attemptState = {
       } else {
         return attempt.loadQuestions();
       }
-    }],
+    }]/*,
     paper: ['$stateParams', function($stateParams){
       return $stateParams.paper;
-    }]
+    }]*//*,
+    attempt_obj: ['attempt','$stateParams', function(attempt, $stateParams){
+      return attempt.fetchAttempt($stateParams.pid);
+    }]*/
   },
   url:'/attempt/:pid',
   templateUrl:'views/attempt.html',

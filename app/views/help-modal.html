@@ -10,6 +10,32 @@
       </div>
       <div class="modal-body" id="help_modal_body">
         <section>
+          <h4>Useful Data</h4>
+          <img src='images/useful_data.png'/>
+        </section>
+        <section class="marking_scheme">
+            <p style="padding-left:8px;"><b>Marking scheme:</b></p>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <td>Question Type</td>
+                        <td>Correct</td>
+                        <td>Incorrect</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="paper.sccor"><td>SC</td>  <td>+ {{paper.sccor}} </td><td>- {{paper.scnegmarks}}</td></tr>
+                    <tr ng-if="paper.mccor"><td>MC</td>  <td>+ {{paper.mccor}} </td><td>- {{paper.mcnegmarks}}</td></tr>
+                    <tr ng-if="paper.arcor"><td>AR</td>  <td>+ {{paper.arcor}} </td><td>- {{paper.arnegmarks}}</td></tr>
+                    <tr ng-if="paper.chcor"><td>CH</td>  <td>+ {{paper.chcor}} </td><td>- {{paper.chnegmarks}}</td></tr>
+                    <!--<tr ng-if="paper.sacor"><td>SA</td>  <td>+ {{paper.sacor}} </td><td>- {{paper.sanegmarks}}</td></tr>-->
+                    <tr ng-if="paper.tfcor"><td>TF</td>  <td>+ {{paper.tfcor}} </td><td>- {{paper.tfnegmarks}}</td></tr>
+                    <tr ng-if="paper.sacor"><td>SA</td>  <td>+ {{paper.sacor}} </td><td>- {{paper.sanegmarks}}</td></tr>
+                    <tr ng-if="paper.sdcor"><td>IT</td>  <td>+ {{paper.sdcor}} </td><td>- {{paper.sdnegmarks}}</td></tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
           <h6><b>Legend</b></h6>
           <ul>
             <li><span class="glyphicon glyphicon-ok-sign"></span> Represent Saved Answers</li>

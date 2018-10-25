@@ -17,7 +17,8 @@ angular.module('testingFrontendApp')
             return $http.post(server+'attempts/'+userans.attempt+'/save_answer/',userans);
     	},
     	updateAnswer : function(userans){
-    		return remote_userans.customPUT(userans,userans.id+'/');
+            return $http.post(server+'attempts/'+userans.attempt+'/save_answer/',userans);
+    		//return remote_userans.customPUT(userans,userans.id+'/');
     	}
     };
   }]);

@@ -1,13 +1,6 @@
 <div>
   <div id="home_parent_div" class="col-xs-12">
-    <div id='home_analysis'>
-      <div class='home_state_title'>
-        <button class='btn btn-danger'>
-          <span class="glyphicon glyphicon-stats"></span>
-          <a ui-sref='home.analysis'>View Overall Analysis</a>
-        </button>
-      </div>
-    </div>
+    
     <div id="home_top_bar">
       <div id="state_title">Test Papers</div>
       <div id="search_panel">
@@ -47,7 +40,7 @@
           </tr>
           <!-- /ongoing papers  -->
           <!-- fresh unattempted papers-->
-          <tr ng-class="" ng-repeat="paper in fresh_papers | orderBy:'lastdate'">
+          <tr ng-class="" ng-repeat="paper in fresh_papers | orderBy:'-startdate_formatted'">
             <td class="paper-name"><span>{{paper.name}}</span></td>
             <td class="text-center">{{paper.time.slice(0,5)}}</td>
             <td class="text-center" ng-if="paper.offline"></td>
@@ -65,7 +58,7 @@
           </tr>
           <!-- /fresh papers  -->
           <!-- attempted papers -->          
-          <tr ng-class="{'info':paper.status=='ongoing'}" ng-repeat="paper in attempted_papers | orderBy:'-lastdate'">
+          <tr ng-class="{'info':paper.status=='ongoing'}" ng-repeat="paper in attempted_papers | orderBy:'-startdate_formatted'">
             <td class="paper-name"><span>{{paper.name}}</span></td>
             <td class="text-center">{{paper.time.slice(0,5)}}</td>
             <td class="text-center" ng-if="paper.offline"></td>
