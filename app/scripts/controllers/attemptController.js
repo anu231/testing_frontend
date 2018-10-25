@@ -493,7 +493,7 @@ angular.module('testingFrontendApp')
       $scope.save_to_local_storage = function(question, server_synced){
         $timeout(function(){
           $scope.save_local_storage(question, true, server_synced);
-        },2000,true,question, server_synced);
+        },500,true,question, server_synced);
       }
       $scope.save_local_storage = function(question, validate, server_synced){
         /*
