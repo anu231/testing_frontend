@@ -136,7 +136,7 @@ angular.module('testingFrontendApp')
               });
               $('#cleanupModal').modal('hide');
             }, 1000);
-            alert('Dear Student Your Score will be available by today evening. Please chack again in the evening.');
+            alert('Dear Student Your Score will be available by today evening. Please chack again in the evening. The ranklist will be declared by coming Thursday, if you are giving the paper on the paper release date and before Thursday.');
             // Generate marks and show a paper finished modal with a viewResults insta button.
             /*attempt.generate_marks().then(function (resp) {
               $timeout(function () {

@@ -16,6 +16,7 @@
         <thead id="home_table_head">
           <th class="text-center">Title</th>
           <th class="text-center">Duration</th>
+          <th class="text-center">Start Date</th>
           <th class="text-center">Expires on</th>
           <th class="text-center">Status</th>
           <th class="text-center">Action</th>
@@ -26,6 +27,7 @@
           <tr class="ongoing" ng-repeat="paper in ongoing_papers | orderBy:'rank'">
             <td class="text-center paper-name"><b>{{paper.name}}</b></td>
             <td class="text-center"><b>{{paper.time.slice(0,5)}}</b></td>
+            <td class="text-center"><b>{{getTzDate(paper.startdate)}}</b></td>
             <td class="text-center" ng-if="paper.offline"></td>
             <td class="text-center" ng-if="!paper.offline">
               <span ng-if="paper.isExpired">[ Expired ]</span>
@@ -41,8 +43,9 @@
           <!-- /ongoing papers  -->
           <!-- fresh unattempted papers-->
           <tr ng-class="" ng-repeat="paper in fresh_papers | orderBy:'-startdate_formatted'">
-            <td class="paper-name"><span>{{paper.name}}</span></td>
+            <td class="paper-name"><span>{{paper.name}}</span><!--<button type="button" class="btn btn-primary btn-xs pull-right">syllabus</button>--></td>
             <td class="text-center">{{paper.time.slice(0,5)}}</td>
+            <td class="text-center"><b>{{getTzDate(paper.startdate)}}</b></td>
             <td class="text-center" ng-if="paper.offline"></td>
             <td class="text-center expiry-date" ng-if="!paper.offline">
               <span ng-if="paper.isExpired">[ Expired ]</span>
@@ -61,6 +64,7 @@
           <tr ng-class="{'info':paper.status=='ongoing'}" ng-repeat="paper in attempted_papers | orderBy:'-startdate_formatted'">
             <td class="paper-name"><span>{{paper.name}}</span></td>
             <td class="text-center">{{paper.time.slice(0,5)}}</td>
+            <td class="text-center"><b>{{getTzDate(paper.lastdate)}}</b></td>
             <td class="text-center" ng-if="paper.offline"></td>
             <td  class="text-center expiry-date" ng-if="!paper.offline">
               <span ng-if="paper.isExpired">[ Expired ]</span>
@@ -93,6 +97,10 @@
         <div class="paper-duration">
           <b>Duration</b>: {{ paper.time.slice(0,5)}}
         </div>
+        <b>{{getTzDate(paper.startdate)}}</b>
+        <div> 
+          <p><b>Start Date</b>: {{getTzDate(paper.startdate)}}</p>
+        </div>
         <div class="paper-expiry-date" ng-if="!paper.offline"> 
           <p><b>Expires On</b>: {{getTzDate(paper.lastdate)}}- {{getTzTime(paper.lastdate)}}</p>
         </div>
@@ -105,12 +113,15 @@
       </div>
       <hr>
       <!--fresh papers-->
-      <div class="paper-card unattempted" ng-repeat="paper in fresh_papers | orderBy:'lastdate'">
+      <div class="paper-card unattempted" ng-repeat="paper in fresh_papers | orderBy:'-startdate_formatted'">
         <div class="paper-title">
           <span ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</span>
         </div>
         <div class="paper-duration">
           <b>Duration</b>: {{ paper.time.slice(0,5)}}
+        </div>
+        <div> 
+          <p><b>Start Date</b>: {{getTzDate(paper.startdate)}}</p>
         </div>
         <div class="paper-expiry-date" ng-if="!paper.offline">
           <p><b>Expires On </b>: {{getTzDate(paper.lastdate)}} - {{ getTzTime(paper.lastdate)}}</p>
@@ -121,12 +132,15 @@
         </div>
       </div>
       <!--attempted papers-->
-      <div class="paper-card attempted" ng-repeat="paper in attempted_papers | orderBy:'-lastdate'">
+      <div class="paper-card attempted" ng-repeat="paper in attempted_papers | orderBy:'-startdate_formatted'">
         <div class="paper-title">
           <span ng-class="{'text-primary': paper.status=='ongoing'}">{{paper.name}}</span>
         </div>
         <div class="paper-duration">
           <b>Duration</b>: {{ paper.time.slice(0,5)}}
+        </div>
+        <div> 
+          <p><b>Start Date</b>: {{getTzDate(paper.startdate)}}</p>
         </div>
         <div class="paper-expiry-date" ng-if="!paper.offline">
           <p><b>Expires On </b>: {{getTzDate(paper.lastdate)}} - {{getTzTime(paper.lastdate)}}</b></p>

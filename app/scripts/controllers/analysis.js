@@ -14,7 +14,7 @@ angular.module('testingFrontendApp')
 	    $scope.analysis = null;
 	    $scope.chart_analysis = null;
 	    $scope.subject_map = {
-	    	'Total':'marks',
+	    	'Total':'',
 	    	'Physics':'p',
 	    	'Chemistry':'c',
 	    	'Maths':'m',
@@ -58,7 +58,7 @@ angular.module('testingFrontendApp')
 	    		var subj = {};
 	    		subj['name'] = subjects[i];
 	    		subj['data'] = [_.map($scope.analysis, function(val){
-	    			var marks = parseInt(val[$scope.subject_map[subjects[i]]+'obt']);
+	    			var marks = parseInt(val[$scope.subject_map[subjects[i]]+'rank']);
 	    			if (marks!=0){
 	    				check_all_zero = false;
 	    			}

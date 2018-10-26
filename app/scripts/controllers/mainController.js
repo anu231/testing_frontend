@@ -11,14 +11,9 @@ angular.module('testingFrontendApp')
   .controller('MainCtrl',['$state','$rootScope','$scope', 'userService', '$timeout', '$window','moodle',
   	function ($state,$rootScope,$scope, userService, $timeout, $window,moodle) {
     $scope.init = function(){
-    	//$rootScope.baseURL = 'http://localhost:8000/';
-    	//$scope.uirouterDebug();
-
 		userService.getUserInfo().then(function(resp){
         	if( resp.data.result == 0 ){
 	          // Redirect for authnetication
-	          //alert("Error You are not logged in / authorized! Please log in to continue");
-	          //$timeout(function(){$window.location.href="http://www.raoeduconnect.com"}, 3000);
 	          window.location.href = moodle + 'portal_sso_auth.php';
             }
             $scope.username = resp.data.fname
