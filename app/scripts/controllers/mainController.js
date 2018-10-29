@@ -15,6 +15,7 @@ angular.module('testingFrontendApp')
         	if( resp.data.result == 0 ){
 	          // Redirect for authnetication
 	          window.location.href = moodle + 'portal_sso_auth.php';
+              return;
             }
             $scope.username = resp.data.fname
             Raven.setUserContext({
@@ -47,8 +48,8 @@ angular.module('testingFrontendApp')
                     reason: 'no credentials so logged out and redirected'
                 }
             });
-            alert("Error You are not logged in / authorized! Please log in to continue");
-            $timeout(function(){$window.location.href=moodle}, 3000);
+            //alert("Error You are not logged in / authorized! Please log in to continue");
+            $timeout(function(){$window.location.href=moodle}, 1000);
         });
 
         $scope.logout = function(){
