@@ -25,7 +25,7 @@
         <tbody id="home_table_body" class="paper-list">
           <!--ongoing papers first!-->
           <tr class="ongoing" ng-repeat="paper in ongoing_papers | orderBy:'rank'">
-            <td class="text-center paper-name"><b>{{paper.name}}</b></td>
+            <td class="text-center paper-name" ng-click='show_syllabus(paper)'><b>{{paper.name}}</b><button class="btn btn-primary btn-xs pull-right">Syllabus</button></td>
             <td class="text-center"><b>{{paper.time.slice(0,5)}}</b></td>
             <td class="text-center"><b>{{getTzDate(paper.startdate)}}</b></td>
             <td class="text-center" ng-if="paper.offline"></td>
@@ -43,7 +43,7 @@
           <!-- /ongoing papers  -->
           <!-- fresh unattempted papers-->
           <tr ng-class="" ng-repeat="paper in fresh_papers | orderBy:'-startdate_formatted'">
-            <td class="paper-name"><span>{{paper.name}}</span><!--<button type="button" class="btn btn-primary btn-xs pull-right">syllabus</button>--></td>
+            <td class="paper-name" ng-click='show_syllabus(paper)' ><span>{{paper.name}}</span><button class="btn btn-primary btn-xs pull-right">Syllabus</button></td>
             <td class="text-center">{{paper.time.slice(0,5)}}</td>
             <td class="text-center"><b>{{getTzDate(paper.startdate)}}</b></td>
             <td class="text-center" ng-if="paper.offline"></td>
@@ -62,7 +62,7 @@
           <!-- /fresh papers  -->
           <!-- attempted papers -->          
           <tr ng-class="{'info':paper.status=='ongoing'}" ng-repeat="paper in attempted_papers | orderBy:'-startdate_formatted'">
-            <td class="paper-name"><span>{{paper.name}}</span></td>
+            <td class="paper-name" ng-click='show_syllabus(paper)'><span>{{paper.name}}</span><button class="btn btn-primary btn-xs pull-right">Syllabus</button></td>
             <td class="text-center">{{paper.time.slice(0,5)}}</td>
             <td class="text-center"><b>{{getTzDate(paper.lastdate)}}</b></td>
             <td class="text-center" ng-if="paper.offline"></td>
@@ -108,6 +108,7 @@
           <p><b><u>Ongoing</u> <span>({{paper.time_remaining}} Remaining)</span></b></p>
         </div>
         <div class="paper-action">
+          <button class="btn btn-primary btn-xs pull-right" ng-click='show_syllabus(paper)'>Syllabus</button>
           <button class="btn btn-default" ng-click='attemptPaper(paper)' ng-if='paper.status == "ongoing"'><span class="glyphicon glyphicon-play"></span> Resume</button>
         </div>
       </div>
@@ -127,6 +128,7 @@
           <p><b>Expires On </b>: {{getTzDate(paper.lastdate)}} - {{ getTzTime(paper.lastdate)}}</p>
         </div>
         <div class="paper-action paper-action-attempt">
+          <button class="btn btn-primary btn-xs pull-right" ng-click='show_syllabus(paper)'>Syllabus</button>
           <button class="btn btn-primary paper-action-button" ng-click='attemptPaper(paper)' ng-if='paper.status == undefined && !paper.offline'> <span class="glyphicon glyphicon-plus"></span> Attempt</button>
           <button class="btn btn-primary paper-action-button" ng-click='viewSolution(paper)' ng-if='paper.status == undefined && paper.offline && paper.show_solution'> <span class="glyphicon glyphicon-plus"></span> View Solutions</button>
         </div>
@@ -149,6 +151,7 @@
           <button class='btn btn-danger paper-action-button' ng-click="viewResult(paper)"><span class="glyphicon glyphicon-stats"></span> View Results</button>
         </div>
         <div class="paper-action">
+          <button class="btn btn-primary btn-xs pull-right" ng-click='show_syllabus(paper)'>Syllabus</button>
           <button class="btn btn-info paper-action-button" ng-click='attemptPaper(paper)' ng-if='paper.status == "attempted" && !paper.offline'><span class="glyphicon glyphicon-repeat"></span> Retake</button>
         </div>
       </div>

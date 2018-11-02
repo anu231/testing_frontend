@@ -119,6 +119,20 @@ angular.module('testingFrontendApp')
         }, 60000)
       }
 
+      $scope.show_syllabus = function(paper){
+        var syllabus_instance = $uibModal.open({
+          templateUrl:'views/paper-syllabus.html',
+          controller: ['$uibModalInstance','paper_obj','$scope', function($uibModalInstance,paper_obj, $scope){
+            $scope.paper = paper_obj;
+            $scope.closeModal = function() {
+                $uibModalInstance.close();
+            };
+          }],
+          resolve: {
+            paper_obj:paper
+          }
+        });
+      }
 
       // Open the "Attempt/Resume paper modal"
       $scope.attemptPaper = function(paper){

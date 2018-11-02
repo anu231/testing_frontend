@@ -70,10 +70,6 @@ angular.module('testingFrontendApp')
 		$rootScope.$on('$viewContentLoading',function(event, viewConfig){
 		   console.log('$viewContentLoading - view begins loading - dom not rendered',viewConfig);
 		});
-		// $rootScope.$on('$viewContentLoaded',function(event){
-		//   // runs on individual scopes, so putting it in "run" doesn't work.
-		//   console.log('$viewContentLoaded - fired after dom rendered',event);
-		//});
 		$rootScope.$on('$stateNotFound',function(event, unfoundState, fromState, fromParams){
 		  console.log('$stateNotFound '+unfoundState.to+'  - fired when a state cannot be found by its name.');
 		  console.log(unfoundState, fromState, fromParams);

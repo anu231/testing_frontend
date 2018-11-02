@@ -1,0 +1,17 @@
+<div>
+  <div class='panel panel-default'>
+    <div class='panel-heading text-center'><h4>{{paper.name}}</h4></div>
+    <div class='panel-body'>
+      <div><b>Duration: {{paper.time}}</b></div>
+      <h3>Syllabus</h3>
+      <div>{{paper.syllabus}}</div>
+      <hr>
+      <h5>Instructions</h5>
+      <div ng-bind-html="paper.instructions"></div>
+    </div>
+    <div class="panel-footer">
+      <hr>
+      <a href="" class='btn btn-danger' ng-click='closeModal()'>Close</a>
+    </div>
+  </div>
+</div>
